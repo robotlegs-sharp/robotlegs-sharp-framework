@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{0860F3E8-816C-4B61-A774-BFAB44F94896}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>RobotlegsSharpFramework</RootNamespace>
+    <AssemblyName>Robotlegs-Sharp-Framework</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\robotlegs\bender\extensions\directCommandMap\" />
+    <Folder Include="src\robotlegs\bender\extensions\directCommandMap\api\" />
+    <Folder Include="src\robotlegs\bender\extensions\directCommandMap\impl\" />
+    <Folder Include="src\robotlegs\bender\extensions\directCommandMap\dsl\" />
+    <Folder Include="src\robotlegs\bender\extensions\vigilance\" />
+    <Folder Include="src\robotlegs\bender\extensions\eventDispatcher\" />
+    <Folder Include="src\robotlegs\bender\extensions\eventDispatcher\api\" />
+    <Folder Include="src\robotlegs\bender\extensions\eventDispatcher\impl\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\robotlegs\bender\bundles\MVCSBundle.cs" />
+    <Compile Include="src\robotlegs\bender\bundles\MVCSUnityBundle.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\ICommand.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\ICommandExecutor.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\ICommandMapping.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\ICommandMappingList.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\ICommandTrigger.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\dsl\ICommandConfigurator.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\dsl\ICommandMapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\dsl\ICommandUnmapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\CommandMapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\CommandMapping.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\contextview\ContextViewExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\contextview\ContextViewListenerConfig.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\contextview\api\IContextView.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\contextview\impl\ContextView.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\debugLogging\DebugLoggingExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\debugLogging\impl\DebugLogTarget.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\enhancedLogging\ConsoleLoggingExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\enhancedLogging\impl\ConsoleLogTarget.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\InstanceOfMatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\ITypeFilter.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\ITypeMatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\ITypeMatcherFactory.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\TypeFilter.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\TypeMatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\TypeMatcherException.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\MediatorMapExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\api\IMediator.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\api\IMediatorMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\api\IMediatorMapping.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\api\IView.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorConfigurator.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorMapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorUnmapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorFactory.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorManager.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorMapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorMapping.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorViewHandler.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\impl\NullMediatorUnmapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\ViewManagerExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IParentFinder.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IViewHandler.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IViewManager.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\ContainerBinding.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\ContainerRegistry.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\ViewManager.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\IConfig.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\IContext.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\IExtension.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\ILogger.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\ILogTarget.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\IMatcher.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\ConfigManager.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\Context.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\ContextStateCallback.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\ExtensionInstaller.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\Guards.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\Hooks.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\Logger.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\LogLevel.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\LogManager.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\ObjectProcessor.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\Pin.cs" />
+    <Compile Include="src\strange\ReadMe.cs" />
+    <Compile Include="src\strange\extensions\ContextKeys.cs" />
+    <Compile Include="src\strange\extensions\command\CommandBinderDispatchConfig.cs" />
+    <Compile Include="src\strange\extensions\command\EventCommandBinderExtension.cs" />
+    <Compile Include="src\strange\extensions\command\SignalCommandBinderExtension.cs" />
+    <Compile Include="src\strange\extensions\command\api\CommandExceptionType.cs" />
+    <Compile Include="src\strange\extensions\command\api\CommandKeys.cs" />
+    <Compile Include="src\strange\extensions\command\api\ICommand.cs" />
+    <Compile Include="src\strange\extensions\command\api\ICommandBinder.cs" />
+    <Compile Include="src\strange\extensions\command\api\ICommandBinding.cs" />
+    <Compile Include="src\strange\extensions\command\api\IPooledCommandBinder.cs" />
+    <Compile Include="src\strange\extensions\command\impl\Command.cs" />
+    <Compile Include="src\strange\extensions\command\impl\CommandBinder.cs" />
+    <Compile Include="src\strange\extensions\command\impl\CommandBinding.cs" />
+    <Compile Include="src\strange\extensions\command\impl\CommandException.cs" />
+    <Compile Include="src\strange\extensions\command\impl\EventCommand.cs" />
+    <Compile Include="src\strange\extensions\command\impl\EventCommandBinder.cs" />
+    <Compile Include="src\strange\extensions\command\impl\SignalCommandBinder.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\ContextDispatcherConfig.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\DispatcherExtension.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\api\DispatcherExceptionType.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\api\IDispatcher.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\api\ITriggerable.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\api\ITriggerProvider.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\api\EventCallbackType.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\api\EventDispatcherExceptionType.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\api\IEvent.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\api\IEventBinding.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\api\IEventDispatcher.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\impl\EventBinding.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\impl\EventDispatcher.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\impl\EventDispatcherException.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\eventdispatcher\impl\TmEvent.cs" />
+    <Compile Include="src\strange\extensions\dispatcher\impl\DispatcherException.cs" />
+    <Compile Include="src\strange\extensions\injector\InjectAttribute.cs" />
+    <Compile Include="src\strange\extensions\injector\api\ICrossContextInjectionBinder.cs" />
+    <Compile Include="src\strange\extensions\injector\api\IInjectionBinder.cs" />
+    <Compile Include="src\strange\extensions\injector\api\IInjectionBinding.cs" />
+    <Compile Include="src\strange\extensions\injector\api\IInjector.cs" />
+    <Compile Include="src\strange\extensions\injector\api\IInjectorFactory.cs" />
+    <Compile Include="src\strange\extensions\injector\api\InjectionBindingScope.cs" />
+    <Compile Include="src\strange\extensions\injector\api\InjectionBindingType.cs" />
+    <Compile Include="src\strange\extensions\injector\api\InjectionExceptionType.cs" />
+    <Compile Include="src\strange\extensions\injector\impl\CrossContextInjectionBinder.cs" />
+    <Compile Include="src\strange\extensions\injector\impl\InjectionBinder.cs" />
+    <Compile Include="src\strange\extensions\injector\impl\InjectionBinding.cs" />
+    <Compile Include="src\strange\extensions\injector\impl\InjectionException.cs" />
+    <Compile Include="src\strange\extensions\injector\impl\Injector.cs" />
+    <Compile Include="src\strange\extensions\injector\impl\InjectorFactory.cs" />
+    <Compile Include="src\strange\extensions\mediation\impl\EventView.cs" />
+    <Compile Include="src\strange\extensions\mediation\impl\View.cs" />
+    <Compile Include="src\strange\extensions\pool\api\IPool.cs" />
+    <Compile Include="src\strange\extensions\pool\api\IPoolable.cs" />
+    <Compile Include="src\strange\extensions\pool\api\PoolExceptionType.cs" />
+    <Compile Include="src\strange\extensions\pool\api\PoolInflationType.cs" />
+    <Compile Include="src\strange\extensions\pool\api\PoolOverflowBehavior.cs" />
+    <Compile Include="src\strange\extensions\pool\impl\Pool.cs" />
+    <Compile Include="src\strange\extensions\pool\impl\PoolException.cs" />
+    <Compile Include="src\strange\extensions\reflector\api\IReflectedClass.cs" />
+    <Compile Include="src\strange\extensions\reflector\api\IReflectionBinder.cs" />
+    <Compile Include="src\strange\extensions\reflector\api\ReflectionExceptionType.cs" />
+    <Compile Include="src\strange\extensions\reflector\impl\ReflectedClass.cs" />
+    <Compile Include="src\strange\extensions\reflector\impl\ReflectionBinder.cs" />
+    <Compile Include="src\strange\extensions\reflector\impl\ReflectionException.cs" />
+    <Compile Include="src\strange\extensions\sequencer\SequencerDispatchConfig.cs" />
+    <Compile Include="src\strange\extensions\sequencer\SequencerExtension.cs" />
+    <Compile Include="src\strange\extensions\sequencer\api\ISequenceBinding.cs" />
+    <Compile Include="src\strange\extensions\sequencer\api\ISequenceCommand.cs" />
+    <Compile Include="src\strange\extensions\sequencer\api\ISequencer.cs" />
+    <Compile Include="src\strange\extensions\sequencer\api\SequencerExceptionType.cs" />
+    <Compile Include="src\strange\extensions\sequencer\impl\EventSequenceCommand.cs" />
+    <Compile Include="src\strange\extensions\sequencer\impl\EventSequencer.cs" />
+    <Compile Include="src\strange\extensions\sequencer\impl\SequenceBinding.cs" />
+    <Compile Include="src\strange\extensions\sequencer\impl\SequenceCommand.cs" />
+    <Compile Include="src\strange\extensions\sequencer\impl\Sequencer.cs" />
+    <Compile Include="src\strange\extensions\sequencer\impl\SequencerException.cs" />
+    <Compile Include="src\strange\extensions\signal\api\IBaseSignal.cs" />
+    <Compile Include="src\strange\extensions\signal\api\SignalExceptionType.cs" />
+    <Compile Include="src\strange\extensions\signal\impl\BaseSignal.cs" />
+    <Compile Include="src\strange\extensions\signal\impl\Signal.cs" />
+    <Compile Include="src\strange\extensions\signal\impl\SignalException.cs" />
+    <Compile Include="src\strange\framework\api\BinderExceptionType.cs" />
+    <Compile Include="src\strange\framework\api\BindingConst.cs" />
+    <Compile Include="src\strange\framework\api\BindingConstraintType.cs" />
+    <Compile Include="src\strange\framework\api\IBinder.cs" />
+    <Compile Include="src\strange\framework\api\IBinding.cs" />
+    <Compile Include="src\strange\framework\api\IInstanceProvider.cs" />
+    <Compile Include="src\strange\framework\api\IManagedList.cs" />
+    <Compile Include="src\strange\framework\api\ISemiBinding.cs" />
+    <Compile Include="src\strange\framework\impl\Binder.cs" />
+    <Compile Include="src\strange\framework\impl\BinderException.cs" />
+    <Compile Include="src\strange\framework\impl\Binding.cs" />
+    <Compile Include="src\strange\framework\impl\SemiBinding.cs" />
+    <Compile Include="src\strange\unity\UnityParentFinder.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\CommandExecutor.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\CommandMappingList.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\directCommandMap\api\IDirectCommandMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\directCommandMap\api\IDirectCommandMapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\directCommandMap\dsl\IDirectCommandConfigurator.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\directCommandMap\impl\DirectCommandMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\NullCommandTrigger.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\directCommandMap\impl\DirectCommandMapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilanceExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilanceException.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\directCommandMap\DirectCommandMapExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\api\IEvent.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\impl\Event.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\api\IDispatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\api\IEventDispatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\impl\EventDispatcher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
+    <None Include="src\strange\README.md" />
+    <None Include="src\strange\extensions\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+</Project>
