@@ -40,6 +40,9 @@
     <Folder Include="src\robotlegs\bender\extensions\eventDispatcher\" />
     <Folder Include="src\robotlegs\bender\extensions\eventDispatcher\api\" />
     <Folder Include="src\robotlegs\bender\extensions\eventDispatcher\impl\" />
+    <Folder Include="src\robotlegs\bender\extensions\eventCommandMap\" />
+    <Folder Include="src\robotlegs\bender\extensions\eventCommandMap\api\" />
+    <Folder Include="src\robotlegs\bender\extensions\eventCommandMap\impl\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\bundles\MVCSBundle.cs" />
@@ -219,6 +222,10 @@
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\api\IDispatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\api\IEventDispatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\impl\EventDispatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventCommandMap\EventCommandMapExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventCommandMap\api\IEventCommandMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
