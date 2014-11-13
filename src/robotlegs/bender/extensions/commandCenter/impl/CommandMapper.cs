@@ -14,7 +14,7 @@ using robotlegs.bender.extensions.commandCenter.dsl;
 
 namespace robotlegs.bender.extensions.commandCenter.impl
 {
-	public class CommandMapper : ICommandConfigurator
+	public class CommandMapper : ICommandMapper, ICommandUnmapper, ICommandConfigurator
 	{
 		/*============================================================================*/
 		/* Private Properties                                                         */

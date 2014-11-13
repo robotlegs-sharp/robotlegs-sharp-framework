@@ -177,6 +177,7 @@ namespace robotlegs.bender.framework.impl
 		{
 			_injectionBinder = new InjectionBinder ();
 			_injectionBinder.Bind<IInjectionBinder> ().ToValue (_injectionBinder);
+			_injectionBinder.Bind<IContext> ().ToValue (this);
 
 			_logger = _logManager.GetLogger(this);
 			_pin = new Pin();

@@ -68,6 +68,26 @@ namespace robotlegs.bender.extensions.eventCommandMap.impl
 
 		private void EventHandler(IEvent evt)
 		{
+			Console.WriteLine ("Event handler: " + evt.type);
+			// TODO: Understand what code should go here? Or why they are event checking and if it's needed
+			/*
+			const eventConstructor:Class = event["constructor"] as Class;
+			var payloadEventClass:Class;
+			//not pretty, but optimized to avoid duplicate checks and shortest paths
+			if (eventConstructor == _eventClass || (!_eventClass))
+			{
+				payloadEventClass = eventConstructor;
+			}
+			else if (_eventClass == Event)
+			{
+				payloadEventClass = _eventClass;
+			}
+			else
+			{
+				return;
+			}
+			//*/
+
 			_executor.ExecuteCommands(_mappings.GetList(), new CommandPayload (new List<object>{ evt }, new List<Type>{ evt.GetType () }));
 		}
 	}

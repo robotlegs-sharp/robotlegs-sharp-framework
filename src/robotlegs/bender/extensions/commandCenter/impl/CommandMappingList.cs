@@ -79,7 +79,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			else 
 			{
 				StoreMapping (mapping);
-				if (_mappings.Count == 0)
+				if (_mappings.Count == 1)
 					_trigger.Activate ();
 			}
 		}
