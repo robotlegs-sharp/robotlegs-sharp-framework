@@ -46,9 +46,19 @@ namespace robotlegs.bender.extensions.eventCommandMap.impl
 			return GetTrigger (type, eventClass).CreateMapper();
 		}
 
+		public ICommandMapper Map <T>(Enum type)
+		{
+			return Map (type, typeof(T));
+		}
+
 		public ICommandUnmapper Unmap (Enum type, Type eventClass)
 		{
 			return GetTrigger (type, eventClass).CreateMapper ();
+		}
+
+		public ICommandUnmapper Unmap <T>(Enum type)
+		{
+			return Unmap (type, typeof(T));
 		}
 
 		public IEventCommandMap AddMappingProcessor(CommandMappingList.Processor handler)

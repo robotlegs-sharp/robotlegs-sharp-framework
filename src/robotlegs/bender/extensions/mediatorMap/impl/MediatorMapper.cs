@@ -44,12 +44,22 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/*============================================================================*/
 		/* Public Functions                                                           */
 		/*============================================================================*/
+
+		public IMediatorConfigurator ToMediator<T>()
+		{
+			return ToMediator (typeof(T));
+		}
 		
 		public IMediatorConfigurator ToMediator(Type mediatorType)
 		{
 			if (_mappings.ContainsKey (mediatorType))
 				return OverwriteMapping(_mappings[mediatorType]);
 			return CreateMapping(mediatorType);
+		}
+
+		public void FromMediator<T>()
+		{
+			FromMediator (typeof(T));
 		}
 		
 		public void FromMediator(Type mediatorType)

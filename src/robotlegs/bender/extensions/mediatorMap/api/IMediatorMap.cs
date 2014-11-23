@@ -32,6 +32,7 @@ namespace robotlegs.bender.extensions.mediatorMap.api
 		/// </summary>
 		/// <returns>the mapper so that you can continue the mapping.</returns>
 		/// <param name="type">The class or interface to be matched against.</param>
+		IMediatorMapper Map<T>();
 		IMediatorMapper Map(Type type);
 
 		/// <summary>
@@ -46,6 +47,7 @@ namespace robotlegs.bender.extensions.mediatorMap.api
 		/// </summary>
 		/// <returns>the unmapper so that you can continue the unmapping.</returns>
 		/// <param name="type">The class or interface to be matched against.</param>
+		IMediatorUnmapper Unmap<T>();
 		IMediatorUnmapper Unmap(Type type);
 
 		/// <summary>

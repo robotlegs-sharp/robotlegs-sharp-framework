@@ -64,6 +64,7 @@ namespace robotlegs.bender.framework.api
 		 * @param name Optional name
 		 * @return True if the mapping exists
 		 */
+		bool HasMapping <T>(Enum name = null);
 		bool HasMapping (Type type, Enum name = null);
 
 		/**
@@ -72,6 +73,7 @@ namespace robotlegs.bender.framework.api
 		 * @param name Optional name
 		 * @return True if the mapping exists
 		 */
+		bool HasDirectMapping<T>(Enum name = null);
 		bool HasDirectMapping(Type type, Enum name = null);
 
 		/**
@@ -91,6 +93,7 @@ namespace robotlegs.bender.framework.api
 		 * @see #unmap()
 		 * @see org.swiftsuspenders.mapping.InjectionMapping
 		 */
+		InjectionMapping Map<T>(Enum name = null);
 		InjectionMapping Map(Type type, Enum name = null);
 
 		/**
@@ -106,6 +109,7 @@ namespace robotlegs.bender.framework.api
 		 * @see org.swiftsuspenders.mapping.InjectionMapping
 		 * @see org.swiftsuspenders.mapping.InjectionMapping#unseal()
 		 */
+		void Unmap<T>(Enum name = null);
 		void Unmap(Type type, Enum name = null);
 
 		/**
@@ -117,6 +121,7 @@ namespace robotlegs.bender.framework.api
 		 *
 		 * @return <code>true</code> if the dependency can be satisfied, <code>false</code> if not
 		 */
+		bool Satisfies<T>(Enum name = null);
 		bool Satisfies(Type type, Enum name = null);
 
 		/**
@@ -131,6 +136,7 @@ namespace robotlegs.bender.framework.api
 		 *
 		 * @return <code>true</code> if the dependency can be satisfied, <code>false</code> if not
 		 */
+		bool SatisfiesDirectly<T>(Enum name = null);
 		bool SatisfiesDirectly(Type type, Enum name = null);
 
 		/**
@@ -150,6 +156,7 @@ namespace robotlegs.bender.framework.api
 		 * @throws org.swiftsuspenders.errors.InjectorMissingMappingError when no mapping was found
 		 * for the specified dependency
 		 */
+		InjectionMapping GetMapping<T>(Enum name = null);
 		InjectionMapping GetMapping(Type type, Enum name = null);
 
 		/**
@@ -181,6 +188,7 @@ namespace robotlegs.bender.framework.api
 		 * @throws org.swiftsuspenders.errors.InjectorMissingMappingError if no mapping was found
 		 * for the specified dependency and no <code>fallbackProvider</code> is set.
 		 */
+		T GetInstance<T>(Enum name = null, Type targetType = null);
 		object GetInstance(Type type, Enum name = null, Type targetType = null);
 
 		/**
@@ -196,6 +204,7 @@ namespace robotlegs.bender.framework.api
 		 * @throws org.swiftsuspenders.errors.InjectorInterfaceConstructionError if the given type
 		 * is an interface and no mapping was found
 		 */
+		T GetOrCreateNewInstance<T>();
 		object GetOrCreateNewInstance(Type type);
 
 		/**
@@ -207,6 +216,7 @@ namespace robotlegs.bender.framework.api
 		 * @throws org.swiftsuspenders.errors.InjectorMissingMappingError if no mapping is found
 		 * for one of the type's dependencies and no <code>fallbackProvider</code> is set
 		 */
+		T InstantiateUnmapped<T>();
 		object InstantiateUnmapped(Type type);
 
 		/**

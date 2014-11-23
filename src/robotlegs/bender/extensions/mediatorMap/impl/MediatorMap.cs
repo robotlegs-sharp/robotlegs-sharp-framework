@@ -57,6 +57,11 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			return _mappers[descriptor];
 		}
 
+		public IMediatorMapper Map<T>()
+		{
+			return Map (typeof(T));
+		}
+
 		public IMediatorMapper Map(Type type)
 		{
 			return MapMatcher(new TypeMatcher().AllOf(type));
@@ -66,6 +71,11 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			string descriptor = matcher.CreateTypeFilter().Descriptor;
 			return _mappers.ContainsKey(descriptor) ? _mappers[descriptor] : NULL_UNMAPPER;
+		}
+
+		public IMediatorUnmapper Unmap<T>()
+		{
+			return Unmap (typeof(T));
 		}
 
 		public IMediatorUnmapper Unmap(Type type)

@@ -12,6 +12,7 @@ namespace robotlegs.bender.extensions.eventCommandMap.api
 		/// <param name="type">The Event type</param>
 		/// <param name="eventClass">The concrete Event class</param>
 		ICommandMapper Map(Enum type, Type eventClass = null);
+		ICommandMapper Map<T>(Enum type);
 
 		/// <summary>
 		/// Unmaps an Event based trigger from a Command
@@ -19,6 +20,7 @@ namespace robotlegs.bender.extensions.eventCommandMap.api
 		/// <param name="type">The Event type</param>
 		/// <param name="eventClass">The concrete Event class</param>
 		ICommandUnmapper Unmap(Enum type, Type eventClass = null);
+		ICommandUnmapper Unmap<T>(Enum type);
 
 		/// <summary>
 		/// Adds a handler to a process mappings

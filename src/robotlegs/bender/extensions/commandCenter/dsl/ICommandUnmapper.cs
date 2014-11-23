@@ -16,6 +16,7 @@ namespace robotlegs.bender.extensions.commandCenter.dsl
 		/// Unmaps a Command
 		/// </summary>
 		/// <param name="commandType">Command to unmap</param>
+		void FromCommand<T>();
 		void FromCommand(Type commandType);
 
 		/// <summary>

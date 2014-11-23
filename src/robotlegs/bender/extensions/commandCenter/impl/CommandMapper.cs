@@ -43,7 +43,12 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		
 		/**
 		 * @inheritDoc
-		 */
+		*/
+		public ICommandConfigurator ToCommand<T>()
+		{
+			return ToCommand (typeof(T));
+		}
+
 		public ICommandConfigurator ToCommand(Type commandClass)
 		{
 			_mapping = new CommandMapping(commandClass);
@@ -54,6 +59,11 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		/**
 		 * @inheritDoc
 		 */
+		public void FromCommand<T>()
+		{
+			FromCommand (typeof(T));
+		}
+
 		public void FromCommand(Type commandClass)
 		{
 			_mappings.RemoveMappingFor(commandClass);
