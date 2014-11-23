@@ -4,7 +4,6 @@ using robotlegs.bender.extensions.commandCenter.api;
 using System.Collections.Generic;
 using robotlegs.bender.extensions.commandCenter.dsl;
 using robotlegs.bender.extensions.commandCenter.impl;
-using strange.extensions.injector.api;
 using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.eventCommandMap.impl
@@ -29,7 +28,7 @@ namespace robotlegs.bender.extensions.eventCommandMap.impl
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public EventCommandTrigger (IInjectionBinder injector, IEventDispatcher dispatcher, Enum type, Type eventClass = null, List<CommandMappingList.Processor> processors = null, ILogger logger = null)
+		public EventCommandTrigger (IInjector injector, IEventDispatcher dispatcher, Enum type, Type eventClass = null, List<CommandMappingList.Processor> processors = null, ILogger logger = null)
 		{
 			_dispatcher = dispatcher;
 			_type = type;

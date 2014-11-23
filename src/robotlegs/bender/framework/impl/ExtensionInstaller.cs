@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using strange.extensions.injector.api;
 using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl
@@ -12,7 +11,7 @@ namespace robotlegs.bender.framework.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 		
-		public Dictionary <Type, IExtension> _extensions = new Dictionary<Type, IExtension> ();
+		public Dictionary <Type, bool> _types = new Dictionary<Type, bool> ();
 
 		public Context _context;
 
@@ -37,28 +36,30 @@ namespace robotlegs.bender.framework.impl
 			Install (typeof(T));
 		}
 
-		public void Install(IExtension extension)
+		public void Install(Type type)
 		{
-			Type extensionType = extension.GetType();
-			if (!_extensions.ContainsKey(extensionType)) 
-			{
-				_extensions.Add (extensionType, extension);
-				_logger.Debug("Installing extension {0}", extension);
-				extension.Extend (_context);
-			}
+			if (_types.ContainsKey (type))
+				return;
+
+			IExtension extension = _context.injector.InstantiateUnmapped(type) as IExtension;
+			Install(extension);
 		}
 
-		public void Install(object obj)
+		public void Install(IExtension extension)
 		{
-			_context.injectionBinder.Bind<IExtension>().To(obj);
-			IExtension extension = _context.injectionBinder.GetInstance<IExtension> ();
-			_context.injectionBinder.Unbind<IExtension> ();
-			Install(extension);
+			Type type = extension.GetType();
+
+			if (_types.ContainsKey(type))
+				return;
+
+			_logger.Debug("Installing extension {0}", extension);
+			_types[type] = true;
+			extension.Extend (_context);
 		}
 
 		public void Destroy()
 		{
-			_extensions.Clear();
+			_types.Clear();
 		}
 	}
 }

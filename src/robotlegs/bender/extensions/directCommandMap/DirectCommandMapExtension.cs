@@ -12,7 +12,7 @@ namespace robotlegs.bender.extensions.directCommandMap
 
 		public void Extend (IContext context)
 		{
-			context.injectionBinder.Bind (typeof(IDirectCommandMap)).To (typeof(DirectCommandMap));
+			context.injector.Map(typeof(IDirectCommandMap)).ToType(typeof(DirectCommandMap));
 		}
 	}
 }

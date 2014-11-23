@@ -8,8 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-using strange.context.api;
 using System.Collections.Generic;
+using robotlegs.bender.framework.api;
 
 
 namespace robotlegs.bender.framework.impl

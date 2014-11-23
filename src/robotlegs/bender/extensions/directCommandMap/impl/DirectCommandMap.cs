@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.commandCenter.api;
 using robotlegs.bender.extensions.commandCenter.impl;
-using strange.extensions.injector.api;
 
 namespace robotlegs.bender.extensions.directCommandMap.api
 {
@@ -29,10 +28,10 @@ namespace robotlegs.bender.extensions.directCommandMap.api
 		public DirectCommandMap(IContext context)
 		{
 			_context = context;
-			IInjectionBinder sandboxedInjector = context.injectionBinder.CreateChild();
+			IInjector sandboxedInjector = context.injector.CreateChild();
 			// allow access to this specific instance in the commands
 			//sandboxedInjector.map(IDirectCommandMap).toValue(this);
-			sandboxedInjector.Bind (typeof(IDirectCommandMap)).To (this);
+			sandboxedInjector.Map(typeof(IDirectCommandMap)).ToValue(this);
 			_mappings = new CommandMappingList(
 				new NullCommandTrigger(), _mappingProcessors, context.GetLogger(this));
 			_executor = new CommandExecutor(sandboxedInjector, _mappings.RemoveMapping);

@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-using strange.extensions.injector.api;
 using robotlegs.bender.extensions.mediatorMap.api;
 using System.Collections.Generic;
 using robotlegs.bender.extensions.matching;
 using robotlegs.bender.framework.impl;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
 {
@@ -28,7 +28,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/// </summary>
 		private Dictionary<object, Dictionary<IMediatorMapping, object>> _mediators = new Dictionary<object, Dictionary<IMediatorMapping, object>>();
 		
-		private IInjectionBinder _injector;
+		private IInjector _injector;
 		
 		private MediatorManager _manager;
 
@@ -36,7 +36,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public MediatorFactory (IInjectionBinder injector, MediatorManager manager)
+		public MediatorFactory (IInjector injector, MediatorManager manager)
 		{
 			_injector = injector;
 			_manager = manager != null ? manager : new MediatorManager(this);
@@ -117,9 +117,9 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 				mediator = _injector.InstantiateUnmapped(mapping.MediatorType);
 				if (mapping.Hooks.Count > 0)
 				{
-					_injector.Bind(mapping.MediatorType).ToValue(mediator);
+					_injector.Map(mapping.MediatorType).ToValue(mediator);
 					Hooks.Apply(mapping.Hooks.ToArray(), _injector);
-					_injector.Unbind(mapping.MediatorType);
+					_injector.Unmap(mapping.MediatorType);
 				}
 				AddMediator(mediator, item, mapping);
 			}
@@ -138,7 +138,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			foreach (Type requiredType in RequiredTypesFor(filter, type))
 			{
-				_injector.Bind(requiredType).ToValue(item);
+				_injector.Map(requiredType).ToValue(item);
 			}
 		}
 		
@@ -148,7 +148,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			foreach (Type requiredType in RequiredTypesFor(filter, type))
 			{
 //				if (_injector.satisfiesDirectly(requiredType))
-				_injector.Unbind(requiredType);
+				_injector.Unmap(requiredType);
 			}
 		}
 		

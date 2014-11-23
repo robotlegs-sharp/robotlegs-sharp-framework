@@ -9,7 +9,6 @@
 //------------------------------------------------------------------------------
 using System;
 using robotlegs.bender.framework.api;
-using strange.extensions.injector.api;
 using robotlegs.bender.extensions.mediatorMap.impl;
 using robotlegs.bender.extensions.viewManager.api;
 using robotlegs.bender.extensions.mediatorMap.api;
@@ -22,7 +21,7 @@ namespace robotlegs.bender.extensions.mediatorMap
 		/* Private Properties                                                         */
 		/*============================================================================*/
 		
-		private IInjectionBinder _injector;
+		private IInjector _injector;
 		
 		private MediatorMap _mediatorMap;
 		
@@ -34,14 +33,14 @@ namespace robotlegs.bender.extensions.mediatorMap
 
 		public void Extend(IContext context)
 		{
-			_injector = context.injectionBinder;
+			_injector = context.injector;
 
 			// TODO: Make the injection binder work on the next line
 //			_injector.Bind<IMediatorMap>().To<MediatorMap>().ToSingleton();
 //			UnityEngine.Debug.Log(_injector.GetBinding<IMediatorMap>());
 
 			_mediatorMap = new MediatorMap(context);
-			_injector.Bind<IMediatorMap>().ToValue(_mediatorMap);
+			_injector.Map(typeof(IMediatorMap)).ToValue(_mediatorMap);
 			
 			//TODO: Add when destroying to Context
 			context.AddPreInitializedCallback(BeforeInitializing)
@@ -56,7 +55,7 @@ namespace robotlegs.bender.extensions.mediatorMap
 		private void BeforeInitializing()
 		{
 //			_mediatorMap = _injector.GetInstance<IMediatorMap>() as MediatorMap;
-			_viewManager = _injector.GetInstance<IViewManager>();
+			_viewManager = _injector.GetInstance(typeof(IViewManager)) as IViewManager;
 			if (_viewManager != null)
 				_viewManager.AddViewHandler(_mediatorMap);
 		}
@@ -74,7 +73,7 @@ namespace robotlegs.bender.extensions.mediatorMap
 		{
 			//TODO: Satify directly
 			// if (_injector.satisfiesDirectly(IMediatorMap)
-			_injector.Unbind<IMediatorMap>();
+			_injector.Unmap(typeof(IMediatorMap));
 		}
 	}
 }

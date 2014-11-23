@@ -37,7 +37,7 @@ namespace robotlegs.bender.extensions.eventDispatcher
 		public void Extend (IContext context)
 		{
 //			_context = context;
-			context.injectionBinder.Bind(typeof(IEventDispatcher)).To(_eventDispatcher);
+			context.injector.Map(typeof(IEventDispatcher)).ToValue(_eventDispatcher);
 //			_context.injector.map(IEventDispatcher).toValue(_eventDispatcher);
 //			_context.beforeInitializing(configureLifecycleEventRelay);
 //			_context.afterDestroying(destroyLifecycleEventRelay);

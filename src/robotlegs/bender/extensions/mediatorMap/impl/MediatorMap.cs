@@ -40,7 +40,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		public MediatorMap (IContext context)
 		{
 			_logger = context.GetLogger(this);
-			_factory = new MediatorFactory(context.injectionBinder, null);
+			_factory = new MediatorFactory(context.injector, null);
 			_viewHandler = new MediatorViewHandler(_factory);
 		}
 

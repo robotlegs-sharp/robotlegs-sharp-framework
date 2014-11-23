@@ -21,7 +21,7 @@ namespace robotlegs.bender.extensions.viewManager
 
 		public void Extend (IContext context)
 		{
-			context.injectionBinder.Bind<IViewManager>().To<ViewManager>().ToSingleton();
+			context.injector.Map(typeof(IViewManager)).ToSingleton(typeof(ViewManager));
 		}
 	}
 }

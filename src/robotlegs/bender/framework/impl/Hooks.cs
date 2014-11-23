@@ -8,15 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-using strange.extensions.injector.api;
 using System.Reflection;
-
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl
 {
 	public class Hooks
 	{
-		public static void Apply(object[] hooks, IInjectionBinder injector) 
+		public static void Apply(object[] hooks, IInjector injector) 
 		{
 			object hookInstance;
 			

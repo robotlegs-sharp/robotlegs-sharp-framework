@@ -1,6 +1,7 @@
 ﻿using System;
 using robotlegs.bender.extensions.eventDispatcher.api;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace robotlegs.bender.extensions.eventDispatcher.impl
 {
@@ -16,10 +17,10 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 
 		public void AddEventListener<T>(Enum type, Action<T> listener)
 		{
-			AddEventListener<T>(type, listener as Delegate);
+			AddEventListener(type, listener as Delegate);
 		}
 
-		public void AddEventListener<T>(Enum type, Delegate listener)
+		public void AddEventListener(Enum type, Delegate listener)
 		{
 			if (!listeners.ContainsKey (type))
 				listeners.Add (type, new List<Delegate> ());
@@ -28,10 +29,10 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 
 		public void RemoveEventListener<T>(Enum type, Action<T> listener)
 		{
-			RemoveEventListener<T>(type, listener as Delegate);
+			RemoveEventListener(type, listener as Delegate);
 		}
 
-		public void RemoveEventListener<T>(Enum type, Delegate listener)
+		public void RemoveEventListener(Enum type, Delegate listener)
 		{
 			if (listeners.ContainsKey (type)) 
 			{

@@ -1,6 +1,6 @@
 using System;
 
-namespace strange.context.api
+namespace robotlegs.bender.framework.api
 {
 	public interface IMatcher
 	{

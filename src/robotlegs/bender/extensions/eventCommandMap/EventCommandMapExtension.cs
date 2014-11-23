@@ -17,7 +17,7 @@ namespace robotlegs.bender.extensions.eventCommandMap
 
 		public void Extend (IContext context)
 		{
-			context.injectionBinder.Bind (typeof(IEventCommandMap)).To (typeof(EventCommandMap)).ToSingleton ();
+			context.injector.Map(typeof(IEventCommandMap)).ToSingleton(typeof(EventCommandMap));
 		}
 	}
 }

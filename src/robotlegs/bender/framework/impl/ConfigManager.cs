@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using robotlegs.bender.framework.api;
-using strange.context.api;
-using strange.extensions.injector.api;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -18,7 +16,7 @@ namespace robotlegs.bender.framework.impl
 
 		private List<object> _queue = new List<object>();
 
-		private IInjectionBinder _injector;
+		private IInjector _injector;
 
 		private ILogger _logger;
 
@@ -35,7 +33,7 @@ namespace robotlegs.bender.framework.impl
 		public ConfigManager (IContext context)
 		{
 			_context = context;
-			_injector = _context.injectionBinder;
+			_injector = _context.injector;
 			_logger = context.GetLogger(this);
 			AddConfigHandler (new MatchTypeIConfig (), HandleIConfigType);
 			AddConfigHandler (new MatchIConfig (), HandleIConfigObject);
@@ -129,28 +127,16 @@ namespace robotlegs.bender.framework.impl
 			_queue.Clear();
 		}
 
-		private void ProcessIConfigType(object config)
+		private void ProcessIConfigType(object configType)
 		{
-			Type type = config as Type;
-			
-			_context.injectionBinder.Bind<IConfig>().To(type);
-			IConfig typedConfig = _context.injectionBinder.GetInstance<IConfig> ();
-			_context.injectionBinder.Unbind<IConfig> ();
-
-			if (typedConfig != null) typedConfig.Configure ();
+			IConfig config = _injector.GetOrCreateNewInstance (configType as Type) as IConfig;
+			if (config != null) config.Configure ();
 		}
 
 		private void ProcessIConfigObject(object config)
 		{
-			//TODO: This injection binder trick doesn't work.
-			// We will need to re-process the injection so new injection rules will be handled for 
-			// objects that have already been instatiated.
-
 			IConfig typedConfig = config as IConfig;
-			_context.injectionBinder.Bind<IConfig> ().ToValue(typedConfig);
-			typedConfig = _context.injectionBinder.GetInstance<IConfig> ();
-			_context.injectionBinder.Unbind<IConfig> ();
-
+			_injector.InjectInto (typedConfig);
 			if (typedConfig != null) typedConfig.Configure ();
 		}
 	}

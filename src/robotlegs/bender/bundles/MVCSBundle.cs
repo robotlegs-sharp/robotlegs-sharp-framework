@@ -2,8 +2,6 @@ using System;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.extensions.enhancedLogging;
-using strange.framework.context.api;
-using stange.extensions.contextview;
 using robotlegs.bender.extensions.viewManager;
 using robotlegs.bender.extensions.mediatorMap;
 using robotlegs.bender.extensions.contextview;

@@ -45,6 +45,10 @@
     <Folder Include="src\robotlegs\bender\extensions\eventCommandMap\" />
     <Folder Include="src\robotlegs\bender\extensions\eventCommandMap\api\" />
     <Folder Include="src\robotlegs\bender\extensions\eventCommandMap\impl\" />
+    <Folder Include="src\robotlegs\bender\extensions\localEventMap\" />
+    <Folder Include="src\robotlegs\bender\extensions\localEventMap\api\" />
+    <Folder Include="src\robotlegs\bender\extensions\localEventMap\impl\" />
+    <Folder Include="src\robotlegs\bender\unity\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\bundles\MVCSBundle.cs" />
@@ -114,44 +118,6 @@
     <Compile Include="src\robotlegs\bender\framework\impl\LogManager.cs" />
     <Compile Include="src\robotlegs\bender\framework\impl\ObjectProcessor.cs" />
     <Compile Include="src\robotlegs\bender\framework\impl\Pin.cs" />
-    <Compile Include="src\strange\ReadMe.cs" />
-    <Compile Include="src\strange\extensions\ContextKeys.cs" />
-    <Compile Include="src\strange\extensions\injector\InjectAttribute.cs" />
-    <Compile Include="src\strange\extensions\injector\api\ICrossContextInjectionBinder.cs" />
-    <Compile Include="src\strange\extensions\injector\api\IInjectionBinder.cs" />
-    <Compile Include="src\strange\extensions\injector\api\IInjectionBinding.cs" />
-    <Compile Include="src\strange\extensions\injector\api\IInjector.cs" />
-    <Compile Include="src\strange\extensions\injector\api\IInjectorFactory.cs" />
-    <Compile Include="src\strange\extensions\injector\api\InjectionBindingScope.cs" />
-    <Compile Include="src\strange\extensions\injector\api\InjectionBindingType.cs" />
-    <Compile Include="src\strange\extensions\injector\api\InjectionExceptionType.cs" />
-    <Compile Include="src\strange\extensions\injector\impl\CrossContextInjectionBinder.cs" />
-    <Compile Include="src\strange\extensions\injector\impl\InjectionBinder.cs" />
-    <Compile Include="src\strange\extensions\injector\impl\InjectionBinding.cs" />
-    <Compile Include="src\strange\extensions\injector\impl\InjectionException.cs" />
-    <Compile Include="src\strange\extensions\injector\impl\Injector.cs" />
-    <Compile Include="src\strange\extensions\injector\impl\InjectorFactory.cs" />
-    <Compile Include="src\strange\extensions\mediation\impl\EventView.cs" />
-    <Compile Include="src\strange\extensions\mediation\impl\View.cs" />
-    <Compile Include="src\strange\extensions\reflector\api\IReflectedClass.cs" />
-    <Compile Include="src\strange\extensions\reflector\api\IReflectionBinder.cs" />
-    <Compile Include="src\strange\extensions\reflector\api\ReflectionExceptionType.cs" />
-    <Compile Include="src\strange\extensions\reflector\impl\ReflectedClass.cs" />
-    <Compile Include="src\strange\extensions\reflector\impl\ReflectionBinder.cs" />
-    <Compile Include="src\strange\extensions\reflector\impl\ReflectionException.cs" />
-    <Compile Include="src\strange\framework\api\BinderExceptionType.cs" />
-    <Compile Include="src\strange\framework\api\BindingConst.cs" />
-    <Compile Include="src\strange\framework\api\BindingConstraintType.cs" />
-    <Compile Include="src\strange\framework\api\IBinder.cs" />
-    <Compile Include="src\strange\framework\api\IBinding.cs" />
-    <Compile Include="src\strange\framework\api\IInstanceProvider.cs" />
-    <Compile Include="src\strange\framework\api\IManagedList.cs" />
-    <Compile Include="src\strange\framework\api\ISemiBinding.cs" />
-    <Compile Include="src\strange\framework\impl\Binder.cs" />
-    <Compile Include="src\strange\framework\impl\BinderException.cs" />
-    <Compile Include="src\strange\framework\impl\Binding.cs" />
-    <Compile Include="src\strange\framework\impl\SemiBinding.cs" />
-    <Compile Include="src\strange\unity\UnityParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\CommandExecutor.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\CommandMappingList.cs" />
     <Compile Include="src\robotlegs\bender\extensions\directCommandMap\api\IDirectCommandMap.cs" />
@@ -174,16 +140,28 @@
     <Compile Include="src\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandTrigger.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\CommandTriggerMap.cs" />
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\EventDispatcherExtension.cs" />
+    <Compile Include="src\robotlegs\bender\bundles\Mediator.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\localEventMap\LocalEventMapExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\localEventMap\impl\EventMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\localEventMap\api\IEventMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\localEventMap\impl\EventMapConfig.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\IInjector.cs" />
+    <Compile Include="src\robotlegs\bender\framework\impl\RobotlegsInjector.cs" />
+    <Compile Include="src\robotlegs\bender\unity\EventView.cs" />
+    <Compile Include="src\robotlegs\bender\unity\View.cs" />
+    <Compile Include="src\robotlegs\bender\unity\UnityParentFinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
-    <None Include="src\strange\README.md" />
-    <None Include="src\strange\extensions\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="swiftsuspenders-sharp">
+      <HintPath>lib\swiftsuspenders-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
 </Project>

@@ -1,9 +1,6 @@
 using System;
 using robotlegs.bender.framework.impl;
-using strange.extensions.injector.api;
-using strange.extensions.injector.impl;
 using robotlegs.bender.framework.api;
-using strange.context.api;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -13,9 +10,9 @@ namespace robotlegs.bender.framework.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public IInjectionBinder injectionBinder
+		public IInjector injector
 		{
-			get { return _injectionBinder; }
+			get { return _injector; }
 		}
 
 		public LogLevel LogLevel
@@ -39,19 +36,20 @@ namespace robotlegs.bender.framework.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
+		private IInjector _injector = new RobotlegsInjector();
+
+		private LogManager _logManager = new LogManager();
+
 		private bool _initialized = false;
 
 		private ConfigManager _configManager;
+
 		private ExtensionInstaller _extensionInstaller;
-		
-		private IInjectionBinder _injectionBinder;
 		
 		private ContextStateCallback _preInitilizeCallback;
 		private ContextStateCallback _postInitializeCallback;
 		private ContextStateCallback _preDestroyCallback;
 		private ContextStateCallback _postDestroyCallback;
-
-		private LogManager _logManager = new LogManager();
 
 		private Pin _pin;
 
@@ -175,9 +173,8 @@ namespace robotlegs.bender.framework.impl
 		/// </summary>
 		private void Setup()
 		{
-			_injectionBinder = new InjectionBinder ();
-			_injectionBinder.Bind<IInjectionBinder> ().ToValue (_injectionBinder);
-			_injectionBinder.Bind<IContext> ().ToValue (this);
+			_injector.Map (typeof(IInjector)).ToValue (_injector);
+			_injector.Map (typeof(IContext)).ToValue (this);
 
 			_logger = _logManager.GetLogger(this);
 			_pin = new Pin();

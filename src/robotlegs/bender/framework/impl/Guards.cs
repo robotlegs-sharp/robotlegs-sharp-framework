@@ -8,15 +8,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-using strange.extensions.injector.api;
 using System.Reflection;
+using robotlegs.bender.framework.api;
 
 
 namespace robotlegs.bender.framework.impl
 {
 	public class Guards
 	{
-		public static bool Approve(object[] guards, IInjectionBinder injector) 
+		public static bool Approve(object[] guards, IInjector injector) 
 		{
 			object guardInstance;
 

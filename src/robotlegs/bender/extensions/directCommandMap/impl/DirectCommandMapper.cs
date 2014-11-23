@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.commandCenter.api;
 using robotlegs.bender.extensions.commandCenter.impl;
-using strange.extensions.injector.api;
 
 namespace robotlegs.bender.extensions.directCommandMap.api
 {

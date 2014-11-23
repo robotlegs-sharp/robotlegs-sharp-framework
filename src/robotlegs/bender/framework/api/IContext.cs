@@ -1,6 +1,4 @@
 using System;
-using strange.extensions.injector.api;
-using strange.context.api;
 using robotlegs.bender.framework.impl;
 
 namespace robotlegs.bender.framework.api
@@ -11,7 +9,7 @@ namespace robotlegs.bender.framework.api
 		/// The injection binder this context relies on. Use this to bind and unbind anything you require
 		/// </summary>
 		/// <value>The injection binder.</value>
-		IInjectionBinder injectionBinder { get; }
+		IInjector injector { get; }
 		
 		/// <summary>
 		/// Gets or sets the current log level

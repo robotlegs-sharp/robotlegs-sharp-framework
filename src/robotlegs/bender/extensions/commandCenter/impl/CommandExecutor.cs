@@ -1,9 +1,9 @@
 ﻿using System;
 using robotlegs.bender.extensions.commandCenter.api;
-using strange.extensions.injector.api;
 using System.Collections.Generic;
 using robotlegs.bender.framework.impl;
 using System.Reflection;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.commandCenter.impl
 {
@@ -21,7 +21,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
-		private IInjectionBinder _injector;
+		private IInjector _injector;
 
 		private RemoveMappingDelegate _removeMapping;
 
@@ -37,9 +37,9 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		/// <param name="injector">The Injector to use. A child injector will be created from it.</param>
 		/// <param name="removeMapping">removeMapping Remove mapping handler (optional)</param>
 		/// <param name="handleResult">handleResult Result handler (optional)</param>
-		public CommandExecutor (IInjectionBinder injector, RemoveMappingDelegate removeMapping = null, HandleResultDelegate handleResult = null)
+		public CommandExecutor (IInjector injector, RemoveMappingDelegate removeMapping = null, HandleResultDelegate handleResult = null)
 		{
-			_injector = injector;//TODO: Make create child injector.createChild();
+			_injector = injector.CreateChild();
 			_removeMapping = removeMapping;
 			_handleResult = handleResult;
 		}
@@ -80,10 +80,10 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 				command = _injector.GetOrCreateNewInstance(commandClass);
 				if (mapping.Hooks.Count > 0)
 				{
-					_injector.Bind(commandClass).ToValue(command);
+					_injector.Map(commandClass).ToValue(command);
 //					_injector.map(commandClass).toValue(command);
 					Hooks.Apply(mapping.Hooks.ToArray(), _injector);
-					_injector.Unbind(commandClass);
+					_injector.Unmap(commandClass);
 //					_injector.unmap(commandClass);
 				}
 			}
@@ -111,7 +111,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			int i = (int)payload.length;
 			while (i-- > 0)
 			{
-				_injector.Bind (payload.Classes [i]).ToValue (payload.Values [i]);
+				_injector.Map (payload.Classes [i]).ToValue (payload.Values [i]);
 //				_injector.Map(payload.classes[i]).toValue(payload.values[i]);
 			}
 		}
@@ -121,7 +121,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			int i = (int)payload.length;
 			while (i-- > 0)
 			{
-				_injector.Unbind (payload.Classes [i]);
+				_injector.Unmap(payload.Classes [i]);
 //				_injector.Unmap(payload.classes[i]);
 			}
 		}

@@ -1,13 +1,11 @@
 using System;
 using robotlegs.bender.framework.api;
-using stange.extensions.contextview;
 using robotlegs.bender.extensions.contextview;
 using robotlegs.bender.extensions.viewManager;
 using robotlegs.bender.extensions.mediatorMap;
 using robotlegs.bender.extensions.enhancedLogging;
 using robotlegs.bender.extensions.debugLogging;
 using robotlegs.bender.framework.impl;
-using strange.framework.context.api;
 
 namespace robotlegs.bender.bundles
 {
@@ -20,7 +18,7 @@ namespace robotlegs.bender.bundles
 			context.Install<ConsoleLoggingExtension>();
 			context.Install<DebugLoggingExtension>();
 
-			context.injectionBinder.Bind<IContext>().ToValue(context).ToName(ContextKeys.CONTEXT);
+//			context.injector.Map (typeof(IContext)).ToValue (context);//.ToName(ContextKeys.CONTEXT);
 
 			context.Install<ContextViewExtension> ();
 			//injectionBinder.Bind<GameObject>().ToValue(contextView).ToName(ContextKeys.CONTEXT_VIEW);

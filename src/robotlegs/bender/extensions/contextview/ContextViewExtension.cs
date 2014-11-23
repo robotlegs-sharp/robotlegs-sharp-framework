@@ -1,12 +1,10 @@
 using System;
 using robotlegs.bender.framework.api;
-using strange.extensions.injector.api;
 using robotlegs.bender.extensions.contextview.impl;
 using robotlegs.bender.extensions.contextview.api;
-using strange.context.api;
 using robotlegs.bender.extensions.matching;
 
-namespace stange.extensions.contextview
+namespace robotlegs.bender.extensions.contextview
 {
 	/// <summary>
 	/// <p>This Extension waits for a ContextView to be added as a configuration
@@ -20,7 +18,7 @@ namespace stange.extensions.contextview
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
-		private IInjectionBinder _injector;
+		private IInjector _injector;
 		
 		private ILogger _logger;
 		
@@ -30,7 +28,7 @@ namespace stange.extensions.contextview
 
 		public void Extend(IContext context)
 		{
-			_injector = context.injectionBinder;
+			_injector = context.injector;
 			_logger = context.GetLogger(this);
 			context.AddPostInitializedCallback (BeforeInitializing);
 			context.AddConfigHandler(new InstanceOfMatcher (typeof(ContextView)), AddContextView);
@@ -46,8 +44,8 @@ namespace stange.extensions.contextview
 			if (!HasContextBinding ()) 
 			{
 				_logger.Debug("Mapping {0} as contextView", contextView.view);
-				_injector.Bind<ContextView> ().To (contextView);
-				_injector.Bind<IContextView> ().To (contextView);
+				_injector.Map(typeof(ContextView)).ToValue(contextView);
+				_injector.Map(typeof(IContextView)).ToValue(contextView);
 			}
 			else
 				_logger.Warn("A contextView has already been installed, ignoring {0}", contextView.view);
@@ -63,7 +61,7 @@ namespace stange.extensions.contextview
 		
 		private bool HasContextBinding()
 		{
-			return _injector.GetBinding<ContextView> () != null;
+			return _injector.HasDirectMapping(typeof(ContextView));
 		}
 	}
 }
