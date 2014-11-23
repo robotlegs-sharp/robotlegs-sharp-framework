@@ -52,38 +52,38 @@ namespace robotlegs.bender.bundles.mvcs
 		/// </summary>
 		public void PostDestroy()
 		{
-
+			eventMap.UnmapListeners ();
 		}
 
 		/*============================================================================*/
 		/* Protected Functions                                                        */
 		/*============================================================================*/
 
-//		protected AddViewListener(eventString:String, listener:Function, eventClass:Class = null):void
-//		{
-//			eventMap.mapListener(IEventDispatcher(_viewComponent), eventString, listener, eventClass);
-//		}
-//
-//		protected AddContextListener(eventString:String, listener:Function, eventClass:Class = null):void
-//		{
-//			eventMap.mapListener(eventDispatcher, eventString, listener, eventClass);
-//		}
-//
-//		protected RemoveViewListener(eventString:String, listener:Function, eventClass:Class = null):void
-//		{
-//			eventMap.unmapListener(IEventDispatcher(_viewComponent), eventString, listener, eventClass);
-//		}
-//
-//		protected RemoveContextListener(eventString:String, listener:Function, eventClass:Class = null):void
-//		{
-//			eventMap.unmapListener(eventDispatcher, eventString, listener, eventClass);
-//		}
-//
-//		protected Dispatch(IEvent evt):void
-//		{
-//			if (evt.hasEventListener(event.type))
-//				evt.dispatchEvent(event);
-//		}
+		protected void AddViewListener(Enum type, Delegate listener)
+		{
+			eventMap.MapListener(_viewComponent as IEventDispatcher, type, listener);
+		}
+
+		protected void AddContextListener(Enum type, Delegate listener)
+		{
+			eventMap.MapListener(eventDispatcher, type, listener);
+		}
+
+		protected void RemoveViewListener(Enum type, Delegate listener)
+		{
+			eventMap.UnmapListener(_viewComponent as IEventDispatcher, type, listener);
+		}
+
+		protected void RemoveContextListener(Enum type, Delegate listener)
+		{
+			eventMap.UnmapListener(eventDispatcher, type, listener);
+		}
+
+		protected void Dispatch(IEvent evt)
+		{
+			if (eventDispatcher.HasEventListener(evt.type))
+				eventDispatcher.Dispatch(evt);
+		}
 	}
 }
 

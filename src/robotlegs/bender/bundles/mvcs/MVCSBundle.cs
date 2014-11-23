@@ -9,8 +9,9 @@ using robotlegs.bender.extensions.vigilance;
 using robotlegs.bender.extensions.directCommandMap;
 using robotlegs.bender.extensions.eventCommandMap;
 using robotlegs.bender.extensions.eventDispatcher;
+using robotlegs.bender.extensions.localEventMap;
 
-namespace robotlegs.bender.bundles
+namespace robotlegs.bender.bundles.mvcs
 {
 	public class MVCSBundle : IExtension
 	{
@@ -29,7 +30,7 @@ namespace robotlegs.bender.bundles
 //			context.Install<ModularityExtension>();
 			context.Install<DirectCommandMapExtension>();
 			context.Install<EventCommandMapExtension>();
-//			context.Install<LocalEventMapExtension>();
+			context.Install<LocalEventMapExtension>();
 			context.Install<ViewManagerExtension>();
 //			context.Install<StageObserverExtension>();
 			context.Install<MediatorMapExtension>();

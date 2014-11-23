@@ -7,13 +7,16 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 {
 	public class EventDispatcher : IEventDispatcher
 	{
+		/*============================================================================*/
+		/* Private Properties                                                         */
+		/*============================================================================*/
+
 //		private Dictionary<Enum, EventData> listeners = new Dictionary<Enum, EventData> ();
 		private Dictionary<Enum, List<Delegate>> listeners = new Dictionary<Enum, List<Delegate>> ();
 
-		public EventDispatcher ()
-		{
-
-		}
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
 
 		public void AddEventListener<T>(Enum type, Action<T> listener)
 		{
@@ -41,6 +44,11 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 				if (typeListeners.Count == 0)
 					listeners.Remove (type);
 			}
+		}
+
+		public bool HasEventListener(Enum type)
+		{
+			return listeners.ContainsKey (type);
 		}
 
 		public void Dispatch (IEvent evt) 

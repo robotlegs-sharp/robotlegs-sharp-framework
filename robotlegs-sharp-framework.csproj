@@ -49,9 +49,9 @@
     <Folder Include="src\robotlegs\bender\extensions\localEventMap\api\" />
     <Folder Include="src\robotlegs\bender\extensions\localEventMap\impl\" />
     <Folder Include="src\robotlegs\bender\unity\" />
+    <Folder Include="src\robotlegs\bender\bundles\mvcs\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\robotlegs\bender\bundles\MVCSBundle.cs" />
     <Compile Include="src\robotlegs\bender\bundles\MVCSUnityBundle.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\ICommand.cs" />
@@ -140,7 +140,6 @@
     <Compile Include="src\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandTrigger.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\CommandTriggerMap.cs" />
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\EventDispatcherExtension.cs" />
-    <Compile Include="src\robotlegs\bender\bundles\Mediator.cs" />
     <Compile Include="src\robotlegs\bender\extensions\localEventMap\LocalEventMapExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\localEventMap\impl\EventMap.cs" />
     <Compile Include="src\robotlegs\bender\extensions\localEventMap\api\IEventMap.cs" />
@@ -150,6 +149,8 @@
     <Compile Include="src\robotlegs\bender\unity\EventView.cs" />
     <Compile Include="src\robotlegs\bender\unity\View.cs" />
     <Compile Include="src\robotlegs\bender\unity\UnityParentFinder.cs" />
+    <Compile Include="src\robotlegs\bender\bundles\mvcs\Mediator.cs" />
+    <Compile Include="src\robotlegs\bender\bundles\mvcs\MVCSBundle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

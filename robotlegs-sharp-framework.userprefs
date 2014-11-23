@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\framework\api\IInjector.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\bundles\mvcs\MVCSBundle.cs">
     <Files>
-      <File FileName="src\robotlegs\bender\framework\api\IInjector.cs" Line="6" Column="6" />
-      <File FileName="src\robotlegs\bender\framework\impl\RobotlegsInjector.cs" Line="1" Column="1" />
+      <File FileName="src\robotlegs\bender\extensions\viewManager\ViewManagerExtension.cs" Line="80" Column="80" />
+      <File FileName="src\robotlegs\bender\bundles\mvcs\MVCSBundle.cs" Line="4" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

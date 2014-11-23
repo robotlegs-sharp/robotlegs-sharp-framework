@@ -31,7 +31,7 @@ namespace strange.unity
 					{
 						foreach (object container in containers)
 						{
-							if (container == component)
+							if (container as Component == component)
 								return container;
 						}
 					}
