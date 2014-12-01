@@ -1,5 +1,7 @@
 using System;
 using NUnit.Framework;
+using robotlegs.bender.framework.impl.loggingSupport;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -34,54 +36,51 @@ namespace robotlegs.bender.framework.impl
 		{
 			object expected = source;
 			object actual = null;
-//			logger = new Logger(source, new CallbackLogTarget
-//			logger = new Logger(source, new CallbackLogTarget(function(result:Object):void {
-//				actual = result.source;
-//			}));
-//			logger.Debug("hello");
+			logger = new Logger (source, new CallbackLogTarget (delegate (LogParams result) {
+				actual = result.source;
+			}));
+			logger.Debug("hello");
 			Assert.AreEqual (actual, expected);
 		}
 
-		/*
 		[Test]
-		public function level_is_passed():void
+		public void level_is_passed()
 		{
-			const expected:Array = [LogLevel.FATAL, LogLevel.ERROR, LogLevel.WARN, LogLevel.INFO, LogLevel.DEBUG];
-			var actual:Array = [];
-			logger = new Logger(source, new CallbackLogTarget(function(result:Object):void {
-				actual.push(result.level);
+			LogLevel[] expected = new LogLevel[]{LogLevel.FATAL, LogLevel.ERROR, LogLevel.WARN, LogLevel.INFO, LogLevel.DEBUG};
+			List<LogLevel> actual = new List<LogLevel>();
+			logger = new Logger(source, new CallbackLogTarget(delegate (LogParams result) {
+				actual.Add(result.level);
 			}));
-			logger.fatal("fatal");
-			logger.error("error");
-			logger.warn("warn");
-			logger.info("info");
-			logger.debug("debug");
-			assertThat(actual, array(expected));
+			logger.Fatal("fatal");
+			logger.Error("error");
+			logger.Warn("warn");
+			logger.Info("info");
+			logger.Debug("debug");
+			Assert.That (actual.ToArray(), Is.EqualTo (expected).AsCollection );
 		}
 
 		[Test]
-		public function message_is_passed():void
+		public void message_is_passed()
 		{
-			const expected:String = "hello";
-			var actual:String = null;
-			logger = new Logger(source, new CallbackLogTarget(function(result:Object):void {
+			object expected = "hello";
+			object actual = null;
+			logger = new Logger(source, new CallbackLogTarget(delegate (LogParams result) {
 				actual = result.message;
 			}));
-			logger.debug(expected);
-			assertThat(actual, equalTo(expected));
+			logger.Debug(expected);
+			Assert.AreEqual(actual, expected);
 		}
 
 		[Test]
-		public function params_are_passed():void
+		public void params_are_passed()
 		{
-			const expected:Array = [1, 2, 3];
-			var actual:Array = null;
-			logger = new Logger(source, new CallbackLogTarget(function(result:Object):void {
-				actual = result.params;
+			object[] expected = new object[]{1, 2, 3};
+			object[] actual = null;
+			logger = new Logger(source, new CallbackLogTarget(delegate (LogParams result) {
+				actual = result.messageParameters;
 			}));
-			logger.debug("hello", expected);
-			assertThat(actual, equalTo(expected));
+			logger.Debug("hello", expected);
+			Assert.That(actual, Is.EqualTo(expected).AsCollection );
 		}
-		*/
 	}
 }
