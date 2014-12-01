@@ -64,8 +64,8 @@ namespace robotlegs.bender.framework.api
 		 * @param name Optional name
 		 * @return True if the mapping exists
 		 */
-		bool HasMapping <T>(Enum name = null);
-		bool HasMapping (Type type, Enum name = null);
+		bool HasMapping <T>(object name = null);
+		bool HasMapping (Type type, object name = null);
 
 		/**
 		 * Does this injector have a direct mapping for the given type?
@@ -73,8 +73,8 @@ namespace robotlegs.bender.framework.api
 		 * @param name Optional name
 		 * @return True if the mapping exists
 		 */
-		bool HasDirectMapping<T>(Enum name = null);
-		bool HasDirectMapping(Type type, Enum name = null);
+		bool HasDirectMapping<T>(object name = null);
+		bool HasDirectMapping(Type type, object name = null);
 
 		/**
 		 * Maps a request description, consisting of the <code>type</code> and, optionally, the
@@ -93,8 +93,8 @@ namespace robotlegs.bender.framework.api
 		 * @see #unmap()
 		 * @see org.swiftsuspenders.mapping.InjectionMapping
 		 */
-		InjectionMapping Map<T>(Enum name = null);
-		InjectionMapping Map(Type type, Enum name = null);
+		InjectionMapping Map<T>(object name = null);
+		InjectionMapping Map(Type type, object name = null);
 
 		/**
 		 *  Removes the mapping described by the given <code>type</code> and <code>name</code>.
@@ -109,8 +109,8 @@ namespace robotlegs.bender.framework.api
 		 * @see org.swiftsuspenders.mapping.InjectionMapping
 		 * @see org.swiftsuspenders.mapping.InjectionMapping#unseal()
 		 */
-		void Unmap<T>(Enum name = null);
-		void Unmap(Type type, Enum name = null);
+		void Unmap<T>(object name = null);
+		void Unmap(Type type, object name = null);
 
 		/**
 		 * Indicates whether the injector can supply a response for the specified dependency either
@@ -121,8 +121,8 @@ namespace robotlegs.bender.framework.api
 		 *
 		 * @return <code>true</code> if the dependency can be satisfied, <code>false</code> if not
 		 */
-		bool Satisfies<T>(Enum name = null);
-		bool Satisfies(Type type, Enum name = null);
+		bool Satisfies<T>(object name = null);
+		bool Satisfies(Type type, object name = null);
 
 		/**
 		 * Indicates whether the injector can directly supply a response for the specified
@@ -136,8 +136,8 @@ namespace robotlegs.bender.framework.api
 		 *
 		 * @return <code>true</code> if the dependency can be satisfied, <code>false</code> if not
 		 */
-		bool SatisfiesDirectly<T>(Enum name = null);
-		bool SatisfiesDirectly(Type type, Enum name = null);
+		bool SatisfiesDirectly<T>(object name = null);
+		bool SatisfiesDirectly(Type type, object name = null);
 
 		/**
 		 * Returns the mapping for the specified dependency class
@@ -156,8 +156,8 @@ namespace robotlegs.bender.framework.api
 		 * @throws org.swiftsuspenders.errors.InjectorMissingMappingError when no mapping was found
 		 * for the specified dependency
 		 */
-		InjectionMapping GetMapping<T>(Enum name = null);
-		InjectionMapping GetMapping(Type type, Enum name = null);
+		InjectionMapping GetMapping<T>(object name = null);
+		InjectionMapping GetMapping(Type type, object name = null);
 
 		/**
 		 * Inspects the given object and injects into all injection points configured for its class.
@@ -188,8 +188,8 @@ namespace robotlegs.bender.framework.api
 		 * @throws org.swiftsuspenders.errors.InjectorMissingMappingError if no mapping was found
 		 * for the specified dependency and no <code>fallbackProvider</code> is set.
 		 */
-		T GetInstance<T>(Enum name = null, Type targetType = null);
-		object GetInstance(Type type, Enum name = null, Type targetType = null);
+		T GetInstance<T>(object name = null, Type targetType = null);
+		object GetInstance(Type type, object name = null, Type targetType = null);
 
 		/**
 		 * Returns an instance of the given type. If the Injector has a mapping for the type, that

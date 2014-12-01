@@ -156,13 +156,13 @@
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="swiftsuspenders-sharp">
       <HintPath>lib\swiftsuspenders-sharp.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
