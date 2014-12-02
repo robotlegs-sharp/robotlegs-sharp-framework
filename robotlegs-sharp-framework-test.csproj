@@ -48,11 +48,15 @@
   <ItemGroup>
     <Folder Include="test\" />
     <Folder Include="test\robotlegs\bender\framework\impl\loggingSupport\" />
+    <Folder Include="test\robotlegs\bender\framework\impl\hookSupport\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\loggingSupport\CallbackLogTarget.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\loggingSupport\LogParams.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\ApplyHooksTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\hookSupport\CallbackHook.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
