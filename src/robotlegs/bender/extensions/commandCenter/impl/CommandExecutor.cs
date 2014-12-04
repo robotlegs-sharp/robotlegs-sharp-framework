@@ -71,7 +71,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			if (injectionEnabled)
 				MapPayload(payload);
 				
-			if (mapping.Guards.Count == 0 || Guards.Approve(mapping.Guards.ToArray(), _injector))
+			if (mapping.Guards.Count == 0 || Guards.Approve(_injector, mapping.Guards.ToArray()))
 			{
 				Type commandClass = mapping.CommandClass;
 				if (mapping.FireOnce && _removeMapping != null)
@@ -82,7 +82,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 				{
 					_injector.Map(commandClass).ToValue(command);
 //					_injector.map(commandClass).toValue(command);
-					Hooks.Apply(mapping.Hooks.ToArray(), _injector);
+					Hooks.Apply(_injector, mapping.Hooks.ToArray());
 					_injector.Unmap(commandClass);
 //					_injector.unmap(commandClass);
 				}

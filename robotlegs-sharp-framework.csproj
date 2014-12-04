@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{0860F3E8-816C-4B61-A774-BFAB44F94896}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>RobotlegsSharpFramework</RootNamespace>
+    <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>

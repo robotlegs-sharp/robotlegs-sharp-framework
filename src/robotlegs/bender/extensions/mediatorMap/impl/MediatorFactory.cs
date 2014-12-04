@@ -112,13 +112,13 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			if (mediator != null)
 				return mediator;
 			
-			if (mapping.Guards.Count == 0 || Guards.Approve(mapping.Guards.ToArray(), _injector))
+			if (mapping.Guards.Count == 0 || Guards.Approve(_injector, mapping.Guards.ToArray()))
 			{
 				mediator = _injector.InstantiateUnmapped(mapping.MediatorType);
 				if (mapping.Hooks.Count > 0)
 				{
 					_injector.Map(mapping.MediatorType).ToValue(mediator);
-					Hooks.Apply(mapping.Hooks.ToArray(), _injector);
+					Hooks.Apply(_injector, mapping.Hooks.ToArray());
 					_injector.Unmap(mapping.MediatorType);
 				}
 				AddMediator(mediator, item, mapping);

@@ -15,10 +15,10 @@ namespace robotlegs.bender.framework.impl
 {
 	public class Hooks
 	{
-		public static void Apply(object[] hooks, IInjector injector = null) 
+		public static void Apply(IInjector injector, params object[] hooks) 
 		{
 			object hookInstance;
-			
+
 			foreach (object hook in hooks)
 			{
 				if (hook is Action)
@@ -35,13 +35,28 @@ namespace robotlegs.bender.framework.impl
 				}
 				else
 					hookInstance = hook;
-				
+
 				MethodInfo hookMethod = hookInstance.GetType().GetMethod("Hook");
 				if (hookMethod != null)
 					hookMethod.Invoke (hookInstance, null);
 				else
 					throw new Exception ("Invalid hook to apply");
 			}
+		}
+
+		public static void Apply(params object[] hooks)
+		{
+			Apply (null, hooks);
+		}
+
+		public static void Apply(IInjector injector, params Action[] hooks)
+		{
+			Apply (injector, hooks as object[]);
+		}
+
+		public static void Apply(params Action[] hooks)
+		{
+			Apply (null, hooks);
 		}
 	}
 }

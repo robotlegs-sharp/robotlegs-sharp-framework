@@ -16,7 +16,7 @@ namespace robotlegs.bender.framework.impl
 {
 	public class Guards
 	{
-		public static bool Approve(object[] guards, IInjector injector) 
+		public static bool Approve(IInjector injector, params object[] guards)
 		{
 			object guardInstance;
 
@@ -39,14 +39,34 @@ namespace robotlegs.bender.framework.impl
 					guardInstance = guard;
 
 				MethodInfo approveMethod = guardInstance.GetType().GetMethod("Approve");
-				if (approveMethod != null)
-				{
+//				if (approveMethod != null)
+//				{
 					if ((bool)approveMethod.Invoke(guardInstance, null) == false)
 						return false;
-				}
+//				}
 			}
 			return true;
 		}
+
+		public static bool Approve(params object[] guards)
+		{
+			return Approve (null, guards);
+		}
+
+		public static bool Approve(params Func<bool>[] guards)
+		{
+			return Approve (null, guards);
+		}
+
+		public static bool Approve(IInjector injector, params Func<bool>[] guards)
+		{
+			return Approve (null, guards as object[]);
+		}
+
+//		public static bool Approve(object[] guards, IInjector injector = null) 
+//		{
+			
+//		}
 	}
 }
 

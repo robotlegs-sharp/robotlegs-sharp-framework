@@ -1,9 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorFactory.cs">
     <Files>
+      <File FileName="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\GuardsApproveTest.cs" Line="1" Column="1" />
+      <File FileName="src\robotlegs\bender\framework\impl\Guards.cs" Line="1" Column="1" />
       <File FileName="test\robotlegs\bender\framework\impl\ApplyHooksTest.cs" Line="1" Column="1" />
-      <File FileName="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" Line="5" Column="5" />
+      <File FileName="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorFactory.cs" Line="29" Column="29" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
@@ -13,7 +16,9 @@
               <Node name="bender" expanded="True">
                 <Node name="framework" expanded="True">
                   <Node name="impl" expanded="True">
-                    <Node name="ConfigManagerTest" selected="True" />
+                    <Node name="GuardsApproveTest" expanded="True">
+                      <Node name="happy_Class_returns_true" selected="True" />
+                    </Node>
                   </Node>
                 </Node>
               </Node>

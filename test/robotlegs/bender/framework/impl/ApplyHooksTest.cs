@@ -37,10 +37,8 @@ namespace robotlegs.bender.framework.impl
 		public void function_hooks_run()
 		{
 			int callCount = 0;
-			Hooks.Apply (new object[] {
-				(Action)delegate () {
-					callCount++;
-				}
+			Hooks.Apply (delegate () {
+				callCount++;
 			});
 			Assert.AreEqual(callCount, 1);
 		}
@@ -57,7 +55,7 @@ namespace robotlegs.bender.framework.impl
 			injector.Map (typeof(Action), "hookCallback").ToValue ((Action)delegate() {
 				callCount++;
 			});
-			Hooks.Apply(new object[]{typeof(CallbackHook)}, injector);
+			Hooks.Apply(injector, typeof(CallbackHook));
 			Assert.AreEqual(callCount, 1);
 		}
 
@@ -68,7 +66,7 @@ namespace robotlegs.bender.framework.impl
 			CallbackHook hook = new CallbackHook (delegate() {
 				callCount++;
 			});
-			Hooks.Apply(new object[]{hook});
+			Hooks.Apply(hook);
 			Assert.AreEqual(callCount, 1);
 		}
 
@@ -76,7 +74,7 @@ namespace robotlegs.bender.framework.impl
 		public void instance_without_hook_throws_error()
 		{
 			object invalidHook = new object();
-			Hooks.Apply(new object[]{invalidHook});
+			Hooks.Apply(invalidHook);
 			// note: no assertion. we just want to know if an exception is thrown
 		}
 	}
