@@ -50,6 +50,7 @@
     <Folder Include="test\robotlegs\bender\framework\impl\loggingSupport\" />
     <Folder Include="test\robotlegs\bender\framework\impl\hookSupport\" />
     <Folder Include="test\robotlegs\bender\framework\impl\guardSupport\" />
+    <Folder Include="test\robotlegs\bender\framework\impl\configSupport\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="test\robotlegs\bender\framework\impl\guardSupport\HappyGuard.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\guardSupport\BossGuard.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\guardSupport\JustTheMIddleManGuard.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\configSupport\PlainConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

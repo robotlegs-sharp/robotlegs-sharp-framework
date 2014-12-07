@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Runtime.Remoting.Contexts;
 using robotlegs.bender.framework.api;
+using robotlegs.bender.extensions.matching;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -39,52 +40,54 @@ namespace robotlegs.bender.framework.impl
 			configManager.AddConfig(new object());
 		}
 
-		/*
 		[Test]
 		public void addHandler()
 		{
-			configManager.AddConfigHandler(InstanceOfMatcher(String), new Function());
+			configManager.AddConfigHandler(new InstanceOfMatcher(typeof(String)), delegate(object obj) {  });
 		}
 
 		[Test]
 		public void handler_is_called()
 		{
-			const expected:String = "config";
-			var actual:Object = null;
-			configManager.addConfigHandler(instanceOfType(String), function(config:Object) {
+			string expected = "config";
+			object actual = null;
+			configManager.AddConfigHandler(new InstanceOfMatcher(typeof(String)), delegate(object config) {
 				actual = config;
 			});
-			configManager.addConfig(expected);
-			assertThat(actual, equalTo(expected));
+			configManager.AddConfig(expected);
+			Assert.AreEqual (actual, expected);
 		}
 
 		[Test]
 		public void plain_config_class_added_before_initialization_is_not_immediately_instantiated()
 		{
-			var actual:Object = null;
-			injector.map(Function, 'callback').toValue(function(config:PlainConfig) {
+			PlainConfig actual = null;
+			injector.Map(typeof(Action<PlainConfig>), "callback").ToValue((Action<PlainConfig>)delegate(PlainConfig config) {
 				actual = config;
 			});
 
-			configManager.addConfig(PlainConfig);
+			configManager.AddConfig<PlainConfig>();
 
-			assertThat(actual, nullValue());
+//			assertThat(actual, nullValue());
+			Assert.Null(actual);
 		}
 
 		[Test]
 		public void plain_config_class_added_before_initialization_is_instantiated_at_initialization()
 		{
-			var actual:Object = null;
-			injector.map(Function, 'callback').toValue(function(config:PlainConfig) {
+			PlainConfig actual = null;
+			injector.Map(typeof(Action<PlainConfig>), "callback").ToValue((Action<PlainConfig>)delegate(PlainConfig config) {
 				actual = config;
 			});
 
-			configManager.addConfig(PlainConfig);
-			context.initialize();
+			configManager.AddConfig(typeof(PlainConfig));
+			context.Initialize();
 
-			assertThat(actual, instanceOf(PlainConfig));
+//			assertThat(actual, instanceOf(PlainConfig));
+			Assert.IsInstanceOf<PlainConfig>(actual);
 		}
 
+		/*
 		[Test]
 		public void plain_config_class_added_after_initialization_is_immediately_instantiated()
 		{

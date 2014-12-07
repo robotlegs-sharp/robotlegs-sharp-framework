@@ -55,7 +55,9 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 		{
 			if (listeners.ContainsKey (evt.type)) 
 			{
-				foreach (Delegate listener in listeners[evt.type]) 
+				// Clone the list, for removing listeners from this dispatch
+				Delegate[] typeListeners = listeners[evt.type].ToArray();
+				foreach (Delegate listener in typeListeners) 
 				{
 					listener.DynamicInvoke (new object[]{ evt });
 				}

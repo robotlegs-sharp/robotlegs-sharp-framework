@@ -21,6 +21,7 @@ namespace robotlegs.bender.extensions.mediatorMap.dsl
 		/// <returns>Mapping configurator</returns>
 		/// <param name="mediatorType">The concrete mediator type</param>
 		IMediatorConfigurator ToMediator(Type mediatorType);
+		IMediatorConfigurator ToMediator<T>();
 
 	}
 }
