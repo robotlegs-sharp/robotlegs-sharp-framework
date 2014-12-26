@@ -4,11 +4,34 @@ using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl
 {
-	public class Context : IContext
+	public class Context : IContext, IPinEvent
 	{
 		/*============================================================================*/
 		/* Public Properties                                                          */
 		/*============================================================================*/
+
+		public event Action<object> Detained {
+			add 
+			{
+				_pin.Detained += value;
+			}
+			remove 
+			{
+				_pin.Detained -= value;
+			}
+		}
+
+		public event Action<object> Released
+		{
+			add
+			{
+				_pin.Released += value;
+			}
+			remove 
+			{
+				_pin.Released -= value;
+			}
+		}
 
 		public IInjector injector
 		{

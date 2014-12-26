@@ -152,6 +152,7 @@
     <Compile Include="src\robotlegs\bender\bundles\mvcs\Mediator.cs" />
     <Compile Include="src\robotlegs\bender\bundles\mvcs\MVCSBundle.cs" />
     <Compile Include="src\robotlegs\bender\unity\IEventView.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\IPinEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

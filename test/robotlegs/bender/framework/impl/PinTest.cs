@@ -10,16 +10,6 @@ namespace robotlegs.bender.framework.impl
 	public class PinTest
 	{
 		/*============================================================================*/
-		/* Public Properties                                                          */
-		/*============================================================================*/
-
-//		[Rule]
-//		public var mocks:MockolateRule = new MockolateRule();
-
-//		[Mock]
-//		public var dispatcher:IEventDispatcher;
-
-		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
@@ -34,8 +24,8 @@ namespace robotlegs.bender.framework.impl
 		[SetUp]
 		public void before()
 		{
-			instance = new object()
-			pin = new Pin(dispatcher);
+			instance = new object();
+			pin = new Pin();
 		}
 
 		/*============================================================================*/
@@ -46,91 +36,80 @@ namespace robotlegs.bender.framework.impl
 		[Test]
 		public void detain_dispatches_event()
 		{
-//			pin.detain(instance);
-//			assertThat(dispatcher, received()
-//				.method('dispatchEvent')
-//				.arg(pinEventMatcher(PinEvent.DETAIN))
-//				.once());
-		}
-
-		/*
-		[Test]
-		public function detain_dispatches_event_once_per_valid_detainment():void
-		{
-			pin.detain(instance);
-			pin.detain(instance);
-			assertThat(dispatcher, received()
-				.method('dispatchEvent')
-				.arg(pinEventMatcher(PinEvent.DETAIN))
-				.once());
+			int eventCount = 0;
+			pin.Detained += delegate(object obj) {
+				eventCount++;
+			};
+			pin.Detain(instance);
+			Assert.AreEqual(eventCount, 1);
 		}
 
 		[Test]
-		public function release_dispatches_event():void
+		public void detain_dispatches_event_once_per_valid_detainment()
 		{
-			pin.detain(instance);
-			pin.release(instance);
-			assertThat(dispatcher, received()
-				.method('dispatchEvent')
-				.arg(pinEventMatcher(PinEvent.RELEASE))
-				.once());
+			int eventCount = 0;
+			pin.Detained += delegate(object obj) {
+				eventCount++;
+			};
+			pin.Detain(instance);
+			pin.Detain(instance);
+			Assert.AreEqual(eventCount, 1);
 		}
 
 		[Test]
-		public function release_dispatches_event_once_per_valid_release():void
+		public void release_dispatches_event()
 		{
-			pin.detain(instance);
-			pin.release(instance);
-			pin.release(instance);
-			assertThat(dispatcher, received()
-				.method('dispatchEvent')
-				.arg(pinEventMatcher(PinEvent.RELEASE))
-				.once());
+			int eventCount = 0;
+			pin.Released += delegate(object obj) {
+				eventCount++;
+			};
+			pin.Detain(instance);
+			pin.Release(instance);
+			Assert.AreEqual(eventCount, 1);
 		}
 
 		[Test]
-		public function release_does_not_dispatch_event_if_instance_was_not_detained():void
+		public void release_dispatches_event_once_per_valid_release()
 		{
-			pin.release(instance);
-			assertThat(dispatcher, received()
-				.method('dispatchEvent')
-				.arg(pinEventMatcher(PinEvent.RELEASE))
-				.never());
+
+			int eventCount = 0;
+			pin.Released += delegate(object obj) {
+				eventCount++;
+			};
+			pin.Detain(instance);
+			pin.Release(instance);
+			pin.Release(instance);
+			Assert.AreEqual(eventCount, 1);
 		}
 
 		[Test]
-		public function releaseAll_dispatches_events_for_all_instances():void
+		public void release_does_not_dispatch_event_if_instance_was_not_detained()
 		{
-			const instanceA:Object = {};
-			const instanceB:Object = {};
-			const instanceC:Object = {};
-			pin.detain(instanceA);
-			pin.detain(instanceB);
-			pin.detain(instanceC);
-			pin.releaseAll();
-			assertThat(dispatcher, received()
-				.method('dispatchEvent')
-				.arg(allOf(instanceOf(PinEvent), hasProperties({
-					type: PinEvent.RELEASE,
-					instance: anyOf(
-						equalTo(instanceA),
-						equalTo(instanceB),
-						equalTo(instanceC))})))
-				.thrice());
+			int eventCount = 0;
+			pin.Released += delegate(object obj) {
+				eventCount++;
+			};
+			pin.Release(instance);
+			Assert.AreEqual(eventCount, 0);
 		}
-		*/
 
-		/*============================================================================*/
-		/* Private Functions                                                          */
-		/*============================================================================*/
-
-		/*
-		private function pinEventMatcher(type:String):Matcher
+		[Test]
+		public void releaseAll_dispatches_events_for_all_instances()
 		{
-			return allOf(
-				instanceOf(PinEvent),
-				hasProperties({type: type, instance: instance}));
+			List<object> releasedObjects = new List<object> ();
+			pin.Released += delegate(object obj) {
+				releasedObjects.Add(obj);
+			};
+			object instanceA = new object();
+			object instanceB = new object();
+			object instanceC = new object();
+			pin.Detain(instanceA);
+			pin.Detain(instanceB);
+			pin.Detain(instanceC);
+			pin.ReleaseAll();
+			object[] instanceABC = new object[]{ instanceA, instanceB, instanceC };
+
+			Assert.That (releasedObjects.ToArray(), Is.EqualTo (instanceABC).AsCollection);
 		}
-		*/
 	}
 }
