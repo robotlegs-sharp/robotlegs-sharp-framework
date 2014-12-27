@@ -67,6 +67,7 @@
     <Compile Include="test\robotlegs\bender\framework\impl\configSupport\PlainConfig.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\LogManagerTest.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\PinTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\ContextTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

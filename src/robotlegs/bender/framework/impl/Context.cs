@@ -4,7 +4,7 @@ using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl
 {
-	public class Context : IContext, IPinEvent
+	public class Context : IContext
 	{
 		/*============================================================================*/
 		/* Public Properties                                                          */
