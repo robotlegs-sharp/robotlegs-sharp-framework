@@ -3,7 +3,7 @@ using robotlegs.bender.framework.impl;
 
 namespace robotlegs.bender.framework.api
 {
-	public interface IContext
+	public interface IContext : IPinEvent
 	{
 		/// <summary>
 		/// The injection binder this context relies on. Use this to bind and unbind anything you require

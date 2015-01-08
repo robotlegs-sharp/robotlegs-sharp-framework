@@ -10,6 +10,29 @@ namespace robotlegs.bender.framework.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
+		public event Action<object> Detained {
+			add 
+			{
+				_pin.Detained += value;
+			}
+			remove 
+			{
+				_pin.Detained -= value;
+			}
+		}
+
+		public event Action<object> Released
+		{
+			add
+			{
+				_pin.Released += value;
+			}
+			remove 
+			{
+				_pin.Released -= value;
+			}
+		}
+
 		public IInjector injector
 		{
 			get { return _injector; }

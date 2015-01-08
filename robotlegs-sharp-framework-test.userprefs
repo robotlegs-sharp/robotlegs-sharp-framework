@@ -1,31 +1,39 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\src\robotlegs\bender\framework\impl\ConfigManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs">
     <Files>
-      <File FileName="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" Line="4" Column="4" />
       <File FileName="test\robotlegs\bender\framework\impl\GuardsApproveTest.cs" Line="1" Column="1" />
       <File FileName="src\robotlegs\bender\framework\impl\Guards.cs" Line="1" Column="1" />
       <File FileName="test\robotlegs\bender\framework\impl\ApplyHooksTest.cs" Line="1" Column="1" />
       <File FileName="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorFactory.cs" Line="1" Column="1" />
-      <File FileName="test\robotlegs\bender\framework\impl\configSupport\PlainConfig.cs" Line="1" Column="1" />
-      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="5" Column="5" />
-      <File FileName="c:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\src\robotlegs\bender\framework\impl\ConfigManager.cs" Line="27" Column="27" />
-      <File FileName="src\robotlegs\bender\framework\impl\Pin.cs" Line="1" Column="1" />
-      <File FileName="src\robotlegs\bender\framework\impl\ObjectProcessor.cs" Line="1" Column="1" />
-      <File FileName="src\robotlegs\bender\framework\impl\Logger.cs" Line="3" Column="3" />
+      <File FileName="src\robotlegs\bender\framework\impl\ConfigManager.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\PinTest.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\ContextTest.cs" Line="1" Column="1" />
+      <File FileName="src\robotlegs\bender\framework\impl\ConfigManager.md" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True">
+          <Node name="robotlegs-sharp-framework-test" expanded="True">
+            <Node name="robotlegs" expanded="True">
+              <Node name="bender" expanded="True">
+                <Node name="framework" expanded="True">
+                  <Node name="impl" expanded="True">
+                    <Node name="ConfigManagerTest" expanded="True">
+                      <Node name="plain_config_class_added_before_initialization_is_instantiated_at_initialization" selected="True" />
+                    </Node>
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" line="80" column="1" />
-      <Breakpoint file="C:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" line="83" column="1" />
-      <Breakpoint file="C:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" line="84" column="1" />
-      <Breakpoint file="C:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" line="86" column="1" />
-      <Breakpoint file="C:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\test\robotlegs\bender\framework\impl\configSupport\PlainConfig.cs" line="21" column="1" />
-      <Breakpoint file="C:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\src\robotlegs\bender\framework\impl\ConfigManager.cs" line="86" column="1" />
-      <Breakpoint file="C:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\src\robotlegs\bender\framework\impl\ConfigManager.cs" line="100" column="1" />
-      <Breakpoint file="C:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\src\robotlegs\bender\framework\impl\ConfigManager.cs" line="114" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

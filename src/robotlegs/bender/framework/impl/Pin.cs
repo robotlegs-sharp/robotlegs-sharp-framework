@@ -9,31 +9,29 @@
 //------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl
 {
 	/// <summary>
 	/// Pins objects in memory
 	/// </summary>
-	public class Pin
+	public class Pin: IPinEvent
 	{
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		public event Action<object> Detained;
+
+		public event Action<object> Released;
+
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
 		
 		private Dictionary<object, bool>_instances = new Dictionary<object, bool>();
-		
 //		private IEventDispatcher _dispatcher;
-//		private Delegate PinDelegate (object instance);
-
-		/*============================================================================*/
-		/* Constructor                                                                */
-		/*============================================================================*/
-
-		public Pin(/*IEventDispatcher dispatcher*/)
-		{
-//			_dispatcher = dispatcher;
-		}
 
 		/*============================================================================*/
 		/* Public Functions                                                           */
@@ -45,10 +43,11 @@ namespace robotlegs.bender.framework.impl
 		/// <param name="instance">Instance to pin</param>
 		public void Detain(object instance)
 		{
-			if (!_instances[instance])
+			if (!_instances.ContainsKey(instance))
 			{
 				_instances[instance] = true;
-//				_dispatcher.dispatchEvent(new PinEvent(PinEvent.DETAIN, instance));
+				if (Detained != null)
+					Detained (instance);
 			}
 		}
 
@@ -61,7 +60,8 @@ namespace robotlegs.bender.framework.impl
 			if (_instances.ContainsKey(instance))
 			{
 				_instances.Remove(instance);
-//				_dispatcher.dispatchEvent(new PinEvent(PinEvent.RELEASE, instance));
+				if (Released != null)
+					Released (instance);
 			}
 		}
 
@@ -70,7 +70,9 @@ namespace robotlegs.bender.framework.impl
 		/// </summary>
 		public void ReleaseAll()
 		{
-			foreach (object instance in _instances.Keys)
+			object[] instancesKeys = new object[_instances.Keys.Count];
+			_instances.Keys.CopyTo (instancesKeys, 0);
+			foreach (object instance in instancesKeys)
 			{
 				Release(instance);
 			}
