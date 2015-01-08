@@ -31,6 +31,7 @@ namespace robotlegs.bender.framework.impl
 		/*============================================================================*/
 		
 		private Dictionary<object, bool>_instances = new Dictionary<object, bool>();
+//		private IEventDispatcher _dispatcher;
 
 		/*============================================================================*/
 		/* Public Functions                                                           */

@@ -3,7 +3,19 @@
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State selected="True" />
+        <State expanded="True">
+          <Node name="robotlegs-sharp-framework-test" expanded="True">
+            <Node name="robotlegs" expanded="True">
+              <Node name="bender" expanded="True">
+                <Node name="framework" expanded="True">
+                  <Node name="impl" expanded="True">
+                    <Node name="ConfigManagerTest" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

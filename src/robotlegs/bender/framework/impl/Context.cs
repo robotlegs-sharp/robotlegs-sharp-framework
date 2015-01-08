@@ -112,6 +112,18 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
+		public IContext Install(Type type)
+		{
+			_extensionInstaller.Install(type);
+			return this;
+		}
+
+		public IContext Install(IExtension extension)
+		{
+			_extensionInstaller.Install(extension);
+			return this;
+		}
+
 		public IContext Configure<T>() where T : class
 		{
 			_configManager.AddConfig<T>();
