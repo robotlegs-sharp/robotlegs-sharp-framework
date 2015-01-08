@@ -74,9 +74,11 @@ namespace robotlegs.bender.extensions.eventCommandMap.impl
 
 		private object GetKey(params object[] args)
 		{
-			// TODO: Rethink this delegate structure. Don't like these two lines! Also enum should be used so this might be redundant
+			// TODO: Make this event class and type not return string, but object that can be evaluated as unique for both
 			Enum type = args [0] as Enum;
 			Type eventClass = args [1] as Type;
+			if (eventClass == null)
+				return type;
 			return type.ToString () + eventClass.Name.ToString ();
 		}
 

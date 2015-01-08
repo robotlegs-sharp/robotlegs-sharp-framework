@@ -23,6 +23,16 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 			AddEventListener(type, listener as Delegate);
 		}
 
+		public void AddEventListener(Enum type, Action<IEvent> listener)
+		{
+			AddEventListener(type, listener as Delegate);
+		}
+
+		public void AddEventListener(Enum type, Action listener)
+		{
+			AddEventListener(type, listener as Delegate);
+		}
+
 		public void AddEventListener(Enum type, Delegate listener)
 		{
 			if (!listeners.ContainsKey (type))
@@ -31,6 +41,16 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 		}
 
 		public void RemoveEventListener<T>(Enum type, Action<T> listener)
+		{
+			RemoveEventListener(type, listener as Delegate);
+		}
+
+		public void RemoveEventListener(Enum type, Action<IEvent> listener)
+		{
+			RemoveEventListener(type, listener as Delegate);
+		}
+
+		public void RemoveEventListener(Enum type, Action listener)
 		{
 			RemoveEventListener(type, listener as Delegate);
 		}
@@ -59,7 +79,11 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 				Delegate[] typeListeners = listeners[evt.type].ToArray();
 				foreach (Delegate listener in typeListeners) 
 				{
-					listener.DynamicInvoke (new object[]{ evt });
+					//TODO: Make this better, by storing that it's blank, not by checking every time
+					if (listener.Method.GetParameters().Length == 0)
+						listener.DynamicInvoke(null);
+					else
+						listener.DynamicInvoke (new object[]{ evt });
 				}
 			}
 		}
