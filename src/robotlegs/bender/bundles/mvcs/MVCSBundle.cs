@@ -22,23 +22,23 @@ namespace robotlegs.bender.bundles.mvcs
 			 */
 			context.LogLevel = LogLevel.INFO;
 
-			context.Install<ConsoleLoggingExtension>();
-			context.Install<VigilanceExtension>();
+			context.Install(typeof(ConsoleLoggingExtension));
+			context.Install(typeof(VigilanceExtension));
 //			context.Install<InjectableLoggerExtension>();
-			context.Install<ContextViewExtension>();
-			context.Install<EventDispatcherExtension>();
+			context.Install(typeof(ContextViewExtension));
+			context.Install(typeof(EventDispatcherExtension));
 //			context.Install<ModularityExtension>();
-			context.Install<DirectCommandMapExtension>();
-			context.Install<EventCommandMapExtension>();
-			context.Install<LocalEventMapExtension>();
-			context.Install<ViewManagerExtension>();
+			context.Install(typeof(DirectCommandMapExtension));
+			context.Install(typeof(EventCommandMapExtension));
+			context.Install(typeof(LocalEventMapExtension));
+			context.Install(typeof(ViewManagerExtension));
 //			context.Install<StageObserverExtension>();
-			context.Install<MediatorMapExtension>();
+			context.Install(typeof(MediatorMapExtension));
 //			context.Install<ViewProcessorMapExtension>();
 //			context.Install<StageCrawlerExtension>();
 //			context.Install<StageSyncExtension>();
 
-			context.Configure<ContextViewListenerConfig>();
+			context.Configure(typeof(ContextViewListenerConfig));
 		}
 	}
 }

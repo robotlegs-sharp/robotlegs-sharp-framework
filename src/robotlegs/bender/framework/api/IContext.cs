@@ -31,6 +31,8 @@ namespace robotlegs.bender.framework.api
 		IContext Initialize();
 
 		IContext Install<T>() where T : IExtension;
+		IContext Install (Type type);
+		IContext Install (IExtension extension);
 
 		IContext Configure<T>() where T : class;
 		IContext Configure(params object[] objects);

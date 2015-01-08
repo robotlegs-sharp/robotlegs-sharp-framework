@@ -1,34 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\framework\impl\Context.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\src\robotlegs\bender\framework\impl\ConfigManager.cs">
     <Files>
-      <File FileName="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" Line="34" Column="34" />
+      <File FileName="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" Line="1" Column="1" />
       <File FileName="test\robotlegs\bender\framework\impl\GuardsApproveTest.cs" Line="1" Column="1" />
       <File FileName="src\robotlegs\bender\framework\impl\Guards.cs" Line="1" Column="1" />
       <File FileName="test\robotlegs\bender\framework\impl\ApplyHooksTest.cs" Line="1" Column="1" />
-      <File FileName="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorFactory.cs" Line="29" Column="29" />
-      <File FileName="test\robotlegs\bender\framework\impl\configSupport\PlainConfig.cs" Line="2" Column="2" />
-      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="3" Column="3" />
+      <File FileName="src\robotlegs\bender\extensions\mediatorMap\impl\MediatorFactory.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\configSupport\PlainConfig.cs" Line="1" Column="1" />
+      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="5" Column="5" />
+      <File FileName="c:\Users\James\Freelance\Projects\Robotlegs Sharp\robotlegs-sharp-framework\src\robotlegs\bender\framework\impl\ConfigManager.cs" Line="27" Column="27" />
+      <File FileName="src\robotlegs\bender\framework\impl\Pin.cs" Line="1" Column="1" />
+      <File FileName="src\robotlegs\bender\framework\impl\ObjectProcessor.cs" Line="1" Column="1" />
+      <File FileName="src\robotlegs\bender\framework\impl\Logger.cs" Line="3" Column="3" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True">
-          <Node name="robotlegs-sharp-framework-test" expanded="True">
-            <Node name="robotlegs" expanded="True">
-              <Node name="bender" expanded="True">
-                <Node name="framework" expanded="True">
-                  <Node name="impl" expanded="True">
-                    <Node name="ConfigManagerTest" expanded="True">
-                      <Node name="plain_config_class_added_before_initialization_is_instantiated_at_initialization" selected="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
