@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.framework.api;
+using robotlegs.bender.framework.impl.contextSupport;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -28,45 +29,44 @@ namespace robotlegs.bender.framework.impl
 		/* Tests                                                                      */
 		/*============================================================================*/
 
-		/*
 		[Test]
-		public function can_instantiate():void
+		public void can_instantiate()
 		{
-			assertThat(context, isA(IContext));
+			Assert.That(context, Is.Not.Null);
+			Assert.That (context, Is.InstanceOf<IContext> ());
 		}
 
 		[Test]
-		public function extensions_are_installed():void
+		public void extensions_are_installed()
 		{
-			var actual:IContext = null;
-			const extension:IExtension = new CallbackExtension(
-				function(error:Object, context:IContext):void {
-					actual = context;
+			IContext actual = null;
+			IExtension extension = new CallbackExtension(
+				delegate(IContext c) {
+					actual = c;
 				});
-			context.install(extension);
-			assertThat(actual, equalTo(context));
+			context.Install(extension);
+			Assert.That(actual, Is.EqualTo(context));
 		}
 
 		[Test]
-		public function configs_are_installed():void
+		public void configs_are_installed()
 		{
-			var installed:Boolean = false;
-			const config:IConfig = new CallbackConfig(
-				function():void {
+			bool installed = false;
+			IConfig config = new CallbackConfig(
+				delegate() {
 					installed = true;
 				});
-			context.configure(config);
-			context.initialize();
-			assertThat(installed, isTrue());
+			context.Configure(config);
+			context.Initialize();
+			Assert.That(installed, Is.True);
 		}
 
 		[Test]
-		public function injector_is_mapped_into_itself():void
+		public void injector_is_mapped_into_itself()
 		{
-			const injector:IInjector = context.injector.getInstance(IInjector);
-			assertThat(injector, strictlyEqualTo(context.injector));
+			IInjector injector = context.injector.GetInstance<IInjector>();
+			Assert.That(injector, Is.EqualTo(context.injector));
 		}
-		*/
 
 		[Test]
 		public void detain_stores_the_instance()
@@ -96,11 +96,11 @@ namespace robotlegs.bender.framework.impl
 
 		/*
 		[Test]
-		public function addChild_sets_child_parentInjector():void
+		public void addChild_sets_child_parentInjector()
 		{
-			const child:Context = new Context();
-			context.addChild(child);
-			assertThat(child.injector.parent, equalTo(context.injector));
+			Context child = new Context();
+			context.AddChild(child);
+			Assert.That(child.injector.parent, Is.EqualTo(context.injector));
 		}
 
 		[Test]

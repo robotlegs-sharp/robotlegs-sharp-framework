@@ -51,6 +51,8 @@
     <Folder Include="test\robotlegs\bender\framework\impl\hookSupport\" />
     <Folder Include="test\robotlegs\bender\framework\impl\guardSupport\" />
     <Folder Include="test\robotlegs\bender\framework\impl\configSupport\" />
+    <Folder Include="test\robotlegs\bender\framework\impl\safelyCallBackSupport\" />
+    <Folder Include="test\robotlegs\bender\framework\impl\contextSupport\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -69,6 +71,10 @@
     <Compile Include="test\robotlegs\bender\framework\impl\PinTest.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\ContextTest.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\LifecycleTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\MessageDispatcherTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\safelyCallBackSupport\CreateHandler.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackConfig.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

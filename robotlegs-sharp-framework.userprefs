@@ -1,12 +1,13 @@
-﻿<Properties>
+﻿<Properties StartupItem="robotlegs-sharp-framework.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandMap.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\framework\impl\MessageDispatcher.cs">
     <Files>
       <File FileName="src\robotlegs\bender\extensions\viewManager\ViewManagerExtension.cs" Line="1" Column="1" />
       <File FileName="src\robotlegs\bender\bundles\mvcs\MVCSBundle.cs" Line="1" Column="1" />
-      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="5" Column="5" />
+      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="1" Column="1" />
       <File FileName="src\robotlegs\bender\framework\api\IPinEvent.cs" Line="1" Column="1" />
       <File FileName="src\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandMap.cs" Line="3" Column="3" />
+      <File FileName="src\robotlegs\bender\framework\impl\MessageDispatcher.cs" Line="3" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
