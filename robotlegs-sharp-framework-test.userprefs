@@ -1,29 +1,6 @@
 ﻿<Properties StartupItem="robotlegs-sharp-framework-test.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="test\robotlegs\bender\framework\impl\LoggerTest.cs">
-    <Files>
-      <File FileName="src\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandTrigger.cs" Line="26" Column="26" />
-      <File FileName="src\robotlegs\bender\extensions\viewManager\ViewManagerExtension.cs" Line="3" Column="3" />
-      <File FileName="test\robotlegs\bender\framework\impl\LoggerTest.cs" Line="8" Column="8" />
-    </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True">
-          <Node name="robotlegs-sharp-framework-test" expanded="True">
-            <Node name="robotlegs" expanded="True">
-              <Node name="bender" expanded="True">
-                <Node name="framework" expanded="True">
-                  <Node name="impl" expanded="True">
-                    <Node name="MessageDispatcherTest" expanded="True" />
-                  </Node>
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -11,7 +11,7 @@ namespace robotlegs.bender.extensions.eventDispatcher
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
-//		private IContext _context;
+		private IContext _context;
 
 		private IEventDispatcher _eventDispatcher;
 
@@ -20,14 +20,9 @@ namespace robotlegs.bender.extensions.eventDispatcher
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
-		//TODO: Implement the old constructor when the injection binder can return null
-//		public EventDispatcherExtension(IEventDispatcher eventDispatcher = null)
-//		{
-//			_eventDispatcher = eventDispatcher != null ? eventDispatcher : new EventDispatcher();
-//		}
-		public EventDispatcherExtension()
+		public EventDispatcherExtension(IEventDispatcher eventDispatcher = null)
 		{
-			_eventDispatcher = new EventDispatcher();
+			_eventDispatcher = eventDispatcher != null ? eventDispatcher : new EventDispatcher();
 		}
 
 		/*============================================================================*/
@@ -36,9 +31,8 @@ namespace robotlegs.bender.extensions.eventDispatcher
 
 		public void Extend (IContext context)
 		{
-//			_context = context;
-			context.injector.Map(typeof(IEventDispatcher)).ToValue(_eventDispatcher);
-//			_context.injector.map(IEventDispatcher).toValue(_eventDispatcher);
+			_context = context;
+			_context.injector.Map(typeof(IEventDispatcher)).ToValue(_eventDispatcher);
 //			_context.beforeInitializing(configureLifecycleEventRelay);
 //			_context.afterDestroying(destroyLifecycleEventRelay);
 		}

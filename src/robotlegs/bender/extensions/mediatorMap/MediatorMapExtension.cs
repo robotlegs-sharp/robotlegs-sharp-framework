@@ -33,19 +33,11 @@ namespace robotlegs.bender.extensions.mediatorMap
 
 		public void Extend(IContext context)
 		{
-			_injector = context.injector;
-
-			// TODO: Make the injection binder work on the next line
-//			_injector.Bind<IMediatorMap>().To<MediatorMap>().ToSingleton();
-//			UnityEngine.Debug.Log(_injector.GetBinding<IMediatorMap>());
-
-			_mediatorMap = new MediatorMap(context);
-			_injector.Map(typeof(IMediatorMap)).ToValue(_mediatorMap);
-			
-			//TODO: Add when destroying to Context
 			context.BeforeInitializing(BeforeInitializing)
-				.BeforeDestroying(BeforeDestroying);
-			//.AddWhenDestroyingCallback(WhenDestroying);
+				.BeforeDestroying(BeforeDestroying)
+				.WhenDestroying(WhenDestroying);
+			_injector = context.injector;
+			_injector.Map (typeof(IMediatorMap)).ToSingleton (typeof(MediatorMap));
 		}
 		
 		/*============================================================================*/
@@ -54,7 +46,7 @@ namespace robotlegs.bender.extensions.mediatorMap
 
 		private void BeforeInitializing()
 		{
-//			_mediatorMap = _injector.GetInstance<IMediatorMap>() as MediatorMap;
+			_mediatorMap = _injector.GetInstance(typeof(IMediatorMap)) as MediatorMap;
 			_viewManager = _injector.GetInstance(typeof(IViewManager)) as IViewManager;
 			if (_viewManager != null)
 				_viewManager.AddViewHandler(_mediatorMap);
@@ -62,18 +54,18 @@ namespace robotlegs.bender.extensions.mediatorMap
 		
 		private void BeforeDestroying()
 		{
-			//TODO: Satify directly
-			// if (_injector.satisfiesDirectly(IViewManager)
-			_mediatorMap.UnmediateAll();
-			if (_viewManager != null)
-				_viewManager.RemoveViewHandler(_mediatorMap);
+			_mediatorMap.UnmediateAll ();
+			if (_injector.SatisfiesDirectly (typeof(IViewManager))) 
+			{
+				_viewManager = _injector.GetInstance (typeof(IViewManager)) as IViewManager;
+				_viewManager.RemoveViewHandler (_mediatorMap);
+			}
 		}
 		
 		private void WhenDestroying()
 		{
-			//TODO: Satify directly
-			// if (_injector.satisfiesDirectly(IMediatorMap)
-			_injector.Unmap(typeof(IMediatorMap));
+			if (_injector.SatisfiesDirectly(typeof(IMediatorMap)))
+				_injector.Unmap(typeof(IMediatorMap));
 		}
 	}
 }
