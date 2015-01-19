@@ -2,21 +2,20 @@
 
 namespace robotlegs.bender.framework.impl.configSupport
 {
-	public class PlainConfig
+	public class UntypedConfig
 	{
 		/*============================================================================*/
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
 		[Inject("callback")]
-		public Action<PlainConfig> callback;
+		public Action<UntypedConfig> callback;
 
 		/*============================================================================*/
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		[PostConstruct]
-		public void init()
+		public void Configure()
 		{
 			callback(this);
 		}

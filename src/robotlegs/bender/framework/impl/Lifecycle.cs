@@ -10,6 +10,10 @@ namespace robotlegs.bender.framework.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
+		public event Action<Exception> ERROR;
+
+		public event Action STATE_CHANGE;
+
 		public LifecycleState state
 		{
 			get 
@@ -94,10 +98,6 @@ namespace robotlegs.bender.framework.impl
 
 		private LifecycleState _state = LifecycleState.UNINITIALIZED;
 
-		private Dictionary<Action, bool> _reversedEventTypes = new Dictionary<Action, bool> ();
-
-		private int _reversePriority;
-
 		private LifecycleTransition _initialize;
 
 		private LifecycleTransition _suspend;
@@ -147,74 +147,80 @@ namespace robotlegs.bender.framework.impl
 
 		public ILifecycle BeforeInitializing (Action callback)
 		{
-//			if (!uninitialized)
-//				reportError(LifecycleError.LATE_HANDLER_ERROR_MESSAGE);
+			if (!Uninitialized)
+				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
 			_initialize.AddBeforeHandler(callback);
 			return this;
 		}
 
 		public ILifecycle WhenInitializing (Action handler)
 		{
-//			if (initialized)
-//				reportError(LifecycleError.LATE_HANDLER_ERROR_MESSAGE);
-
+			if (Initialized)
+				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
 			_initialize.AddWhenHandler (handler, true);
-//			LifecycleEventInitialize += CreateSyncLifecycleListener (handler, true);
-
-//			addEventListener(LifecycleEvent.INITIALIZE, createSyncLifecycleListener(handler, true));
 			return this;
 		}
 
 		public ILifecycle AfterInitializing (Action handler)
 		{
+			if (Initialized)
+				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
 			_initialize.AddAfterHandler (handler, true);
-//			LifecycleEventPostInitialize += CreateSyncLifecycleListener (handler, true);
 			return this;
 		}
 
 		public ILifecycle BeforeSuspending (Action handler)
 		{
-			throw new NotImplementedException ();
+			_suspend.AddBeforeHandler (handler);
+			return this;
 		}
 
 		public ILifecycle WhenSuspending (Action handler)
 		{
-			throw new NotImplementedException ();
+			_suspend.AddWhenHandler (handler, false);
+			return this;
 		}
 
 		public ILifecycle AfterSuspending (Action handler)
 		{
-			throw new NotImplementedException ();
+			_suspend.AddAfterHandler (handler, false);
+			return this;
 		}
 
 		public ILifecycle BeforeResuming (Action handler)
 		{
-			throw new NotImplementedException ();
+			_resume.AddBeforeHandler(handler);
+			return this;
 		}
 
 		public ILifecycle WhenResuming (Action handler)
 		{
-			throw new NotImplementedException ();
+			_resume.AddWhenHandler(handler, false);
+			return this;
 		}
 
 		public ILifecycle AfterResuming (Action handler)
 		{
-			throw new NotImplementedException ();
+			_resume.AddAfterHandler(handler, false);
+			return this;
 		}
 
 		public ILifecycle BeforeDestroying (Action handler)
 		{
-			throw new NotImplementedException ();
+			_destroy.AddBeforeHandler(handler);
+			return this;
 		}
 
 		public ILifecycle WhenDestroying (Action handler)
 		{
-			throw new NotImplementedException ();
+			_destroy.AddWhenHandler(handler, true);
+			return this;
 		}
 
 		public ILifecycle AfterDestroying (Action handler)
 		{
-			throw new NotImplementedException ();
+			_destroy.AddAfterHandler(handler, true);
+			return this;
 		}
 
 		/*============================================================================*/
@@ -226,15 +232,13 @@ namespace robotlegs.bender.framework.impl
 			if (_state == state)
 				return;
 			_state = state;
-//			dispatchEvent(new LifecycleEvent(LifecycleEvent.STATE_CHANGE));
+			if (STATE_CHANGE != null)
+				STATE_CHANGE ();
 		}
 
-		public void AddReversedEventTypes(params Action[] types)
+		public bool HasErrorSubscriber()
 		{
-			foreach (Action type in types)
-			{
-				_reversedEventTypes[type] = true;
-			}
+			return ERROR != null;
 		}
 
 		/*============================================================================*/
@@ -267,34 +271,20 @@ namespace robotlegs.bender.framework.impl
 				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize)
 //				.WithEvents(LifecycleEvent.PRE_DESTROY, LifecycleEvent.DESTROY, LifecycleEvent.POST_DESTROY)
 				.InReverse();
-
-			/*	*/
 		}
 
-		/*
-		private int flipPriority(type:String, priority:int):int
+		public void ReportError(Exception error)
 		{
-			return (priority == 0 && _reversedEventTypes[type])
-				? _reversePriority++
-					: priority;
-		}
-		*/
-
-		/*
-		private function reportError(message:String):void
-		{
-			const error:LifecycleError = new LifecycleError(message);
-			if (hasEventListener(LifecycleEvent.ERROR))
-			{
-				const event:LifecycleEvent = new LifecycleEvent(LifecycleEvent.ERROR, error);
-				dispatchEvent(event);
-			}
+			if (HasErrorSubscriber ())
+				ERROR (error);
 			else
-			{
 				throw error;
-			}
 		}
-		*/
+
+		public void ReportError(string message)
+		{
+			ReportError (new LifecycleException (message));
+		}
 	}
 }
 

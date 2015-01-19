@@ -19,7 +19,7 @@ namespace robotlegs.bender.framework.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
-		private static Dictionary<object, List<Delegate>> _handlers = new Dictionary<object, List<Delegate>>();
+		private Dictionary<object, List<Delegate>> _handlers = new Dictionary<object, List<Delegate>>();
 
 		/*============================================================================*/
 		/* Public Functions                                                           */

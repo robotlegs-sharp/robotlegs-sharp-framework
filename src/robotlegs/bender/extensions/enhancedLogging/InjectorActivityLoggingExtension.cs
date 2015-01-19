@@ -20,7 +20,7 @@ namespace robotlegs.bender.extensions.enhancedLogging
 			InjectorListener listener = new InjectorListener(
 				context.injector, context.GetLogger(this));
 //			context.afterDestroying(listener.destroy);
-			context.AddPostDestroyCallback (listener.Destroy);
+			context.AfterDestroying (listener.Destroy);
 		}
 	}
 }

@@ -3,6 +3,8 @@ using NUnit.Framework;
 using System.Runtime.Remoting.Contexts;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.matching;
+using robotlegs.bender.framework.impl.configSupport;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -83,122 +85,132 @@ namespace robotlegs.bender.framework.impl
 			configManager.AddConfig(typeof(PlainConfig));
 			context.Initialize();
 
-//			assertThat(actual, instanceOf(PlainConfig));
 			Assert.IsInstanceOf<PlainConfig>(actual);
 		}
 
-		/*
 		[Test]
 		public void plain_config_class_added_after_initialization_is_immediately_instantiated()
 		{
-			var actual:Object = null;
-			injector.map(Function, 'callback').toValue(function(config:PlainConfig) {
+			object actual = null;
+			injector.Map(typeof(Action<PlainConfig>), "callback").ToValue((Action<PlainConfig>)delegate(PlainConfig config) {
 				actual = config;
 			});
 
-			context.initialize();
-			configManager.addConfig(PlainConfig);
+			context.Initialize();
+			configManager.AddConfig(typeof(PlainConfig));
 
-			assertThat(actual, instanceOf(PlainConfig));
+			Assert.That(actual, Is.InstanceOf<PlainConfig>());
 		}
 
 		[Test]
 		public void plain_config_object_added_before_initializiation_is_not_injected_into()
 		{
-			const expected:PlainConfig = new PlainConfig();
-			var actual:Object = null;
-			injector.map(Function, 'callback').toValue(function(config:Object) {
+			PlainConfig expected = new PlainConfig();
+			object actual = null;
+			injector.Map(typeof(Action<PlainConfig>), "callback").ToValue((Action<PlainConfig>)delegate(PlainConfig config) {
 				actual = config;
 			});
 
-			configManager.addConfig(expected);
+			configManager.AddConfig(expected);
 
-			assertThat(actual, nullValue());
+			Assert.That(actual, Is.Null);
 		}
 
 		[Test]
 		public void plain_config_object_added_before_initializiation_is_injected_into_at_initialization()
 		{
-			const expected:PlainConfig = new PlainConfig();
-			var actual:Object = null;
-			injector.map(Function, 'callback').toValue(function(config:Object) {
+			PlainConfig expected = new PlainConfig();
+			object actual = null;
+			injector.Map(typeof(Action<PlainConfig>), "callback").ToValue((Action<PlainConfig>)delegate(PlainConfig config) {
 				actual = config;
 			});
 
-			configManager.addConfig(expected);
-			context.initialize();
+			configManager.AddConfig(expected);
+			context.Initialize();
 
-			assertThat(actual, equalTo(expected));
+			Assert.That(actual, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void plain_config_object_added_after_initializiation_is_injected_into()
 		{
-			const expected:PlainConfig = new PlainConfig();
-			var actual:Object = null;
-			injector.map(Function, 'callback').toValue(function(config:Object) {
+			PlainConfig expected = new PlainConfig();
+			object actual = null;
+			injector.Map(typeof(Action<PlainConfig>), "callback").ToValue((Action<PlainConfig>)delegate(PlainConfig config) {
 				actual = config;
 			});
 
-			context.initialize();
-			configManager.addConfig(expected);
+			context.Initialize();
+			configManager.AddConfig(expected);
 
-			assertThat(actual, equalTo(expected));
+			Assert.That(actual, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void configure_is_invoked_for_IConfig_object()
 		{
-			const expected:TypedConfig = new TypedConfig();
-			var actual:Object = null;
-			injector.map(Function, 'callback').toValue(function(config:Object) {
+			TypedConfig expected = new TypedConfig();
+			object actual = null;
+			injector.Map(typeof(Action<TypedConfig>), "callback").ToValue ((Action<TypedConfig>)delegate(TypedConfig config) {
 				actual = config;
 			});
-			configManager.addConfig(expected);
-			context.initialize();
-			assertThat(actual, equalTo(expected));
+			configManager.AddConfig(expected);
+			context.Initialize();
+			Assert.That(actual, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void configure_is_invoked_for_IConfig_class()
 		{
-			var actual:Object = null;
-			injector.map(Function, 'callback').toValue(function(config:Object) {
+			object actual = null;
+			injector.Map(typeof(Action<TypedConfig>), "callback").ToValue ((Action<TypedConfig>)delegate(TypedConfig config) {
 				actual = config;
 			});
-			configManager.addConfig(TypedConfig);
-			context.initialize();
-			assertThat(actual, instanceOf(TypedConfig));
+			configManager.AddConfig(typeof(TypedConfig));
+			context.Initialize();
+			Assert.That(actual, Is.InstanceOf<TypedConfig>());
 		}
 
 		[Test]
 		public void config_queue_is_processed_after_other_initialize_listeners()
 		{
-			const actual:Array = [];
-			injector.map(Function, 'callback').toValue(function(config:Object) {
-				actual.push('config');
+			List<string> actual = new List<string>();
+			injector.Map(typeof(Action<TypedConfig>), "callback").ToValue((Action<TypedConfig>)delegate(TypedConfig config) {
+				actual.Add("config");
 			});
-			configManager.addConfig(TypedConfig);
-			context.whenInitializing(function() {
-				actual.push('listener1');
+			configManager.AddConfig(typeof(TypedConfig));
+			context.WhenInitializing(delegate() {
+				actual.Add("listener1");
 			});
-			context.whenInitializing(function() {
-				actual.push('listener2');
+			context.WhenInitializing(delegate() {
+				actual.Add("listener2");
 			});
-			context.initialize();
-			assertThat(actual, array(['listener1', 'listener2', 'config']));
+			context.Initialize();
+			List<string> expected = new List<string>{"listener1", "listener2", "config" };
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
 		}
-
+			
 		[Test]
 		public void destroy()
 		{
-			configManager.addConfigHandler(instanceOfType(String), function(config:Object) {
-				fail("Handler should not fire after call to destroy");
+			configManager.AddConfigHandler(new InstanceOfMatcher (typeof(string)), delegate(object config) {
+				Assert.Fail("Handler should not fire after call to destroy");
 			});
-			configManager.destroy();
-			configManager.addConfig("string");
+			configManager.Destroy();
+			configManager.AddConfig("string");
 		}
-		*/
+
+		[Test]
+		public void test_untyped_config_calls_configure()
+		{
+			object actual = null;
+			injector.Map(typeof(Action<UntypedConfig>), "callback").ToValue ((Action<UntypedConfig>)delegate(UntypedConfig config) {
+				actual = config;
+			});
+			configManager.AddConfig(typeof(UntypedConfig));
+			context.Initialize();
+			Assert.That(actual, Is.InstanceOf<UntypedConfig>());
+		}
 	}
 }
 

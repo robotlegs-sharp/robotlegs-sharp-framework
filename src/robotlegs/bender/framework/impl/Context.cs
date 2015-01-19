@@ -1,6 +1,7 @@
 using System;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.framework.api;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -32,7 +33,7 @@ namespace robotlegs.bender.framework.impl
 				_pin.Released -= value;
 			}
 		}
-
+			
 		public IInjector injector
 		{
 			get { return _injector; }
@@ -50,9 +51,34 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public bool initialized
+		public LifecycleState state
 		{
-			get { return _initialized; }
+			get { return _lifecycle.state; }
+		}
+
+		public bool Uninitialized
+		{
+			get { return _lifecycle.Uninitialized; }
+		}
+
+		public bool Initialized
+		{
+			get { return _lifecycle.Initialized; }
+		}
+
+		public bool Active
+		{
+			get { return _lifecycle.Active; }
+		}
+
+		public bool Suspended
+		{
+			get { return _lifecycle.Suspended; }
+		}
+
+		public bool Destroyed
+		{
+			get { return _lifecycle.Destroyed; }
 		}
 
 		/*============================================================================*/
@@ -63,18 +89,15 @@ namespace robotlegs.bender.framework.impl
 
 		private LogManager _logManager = new LogManager();
 
-		private bool _initialized = false;
+		private List<IContext> _children = new List<IContext>();
+
+		private Pin _pin;
+
+		private Lifecycle _lifecycle;
 
 		private ConfigManager _configManager;
 
 		private ExtensionInstaller _extensionInstaller;
-		
-		private ContextStateCallback _preInitilizeCallback;
-		private ContextStateCallback _postInitializeCallback;
-		private ContextStateCallback _preDestroyCallback;
-		private ContextStateCallback _postDestroyCallback;
-
-		private Pin _pin;
 
 		private ILogger _logger;
 
@@ -94,15 +117,95 @@ namespace robotlegs.bender.framework.impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public IContext Initialize()
+		public void Initialize(Action callback = null)
 		{
-			PreInitialized();
+			_lifecycle.Initialize (null);
+		}
 
-			_configManager.Initialize ();
-			_initialized = true;
-//			UnityEngine.Debug.Log ("Initalize");
-			
-			PostInitialized ();
+		public void Suspend(Action callback = null)
+		{
+			_lifecycle.Suspend (null);
+		}
+
+		public void Resume(Action callback = null)
+		{
+			_lifecycle.Resume (null);
+		}
+
+		public void Destroy(Action callback = null)
+		{
+			_lifecycle.Destroy (null);
+		}
+
+		public IContext BeforeInitializing(Action callback)
+		{
+			_lifecycle.BeforeInitializing (callback);
+			return this;
+		}
+
+		public IContext WhenInitializing(Action callback)
+		{
+			_lifecycle.WhenInitializing (callback);
+			return this;
+		}
+
+		public IContext AfterInitializing(Action callback)
+		{
+			_lifecycle.AfterInitializing (callback);
+			return this;
+		}
+
+		public IContext BeforeSuspending(Action callback)
+		{
+			_lifecycle.BeforeSuspending (callback);
+			return this;
+		}
+
+		public IContext WhenSuspending(Action callback)
+		{
+			_lifecycle.WhenSuspending (callback);
+			return this;
+		}
+
+		public IContext AfterSuspending(Action callback)
+		{
+			_lifecycle.AfterSuspending (callback);
+			return this;
+		}
+
+		public IContext BeforeResuming(Action callback)
+		{
+			_lifecycle.BeforeResuming (callback);
+			return this;
+		}
+
+		public IContext WhenResuming(Action callback)
+		{
+			_lifecycle.WhenResuming(callback);
+			return this;
+		}
+
+		public IContext AfterResuming(Action callback)
+		{
+			_lifecycle.AfterResuming (callback);
+			return this;
+		}
+
+		public IContext BeforeDestroying(Action callback)
+		{
+			_lifecycle.BeforeDestroying (callback);
+			return this;
+		}
+
+		public IContext WhenDestroying(Action callback)
+		{
+			_lifecycle.WhenDestroying(callback);
+			return this;
+		}
+
+		public IContext AfterDestroying(Action callback)
+		{
+			_lifecycle.AfterDestroying (callback);
 			return this;
 		}
 
@@ -130,28 +233,19 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
+		public IContext Configure(params IConfig[] configs)
+		{
+			foreach (IConfig config in configs)
+				_configManager.AddConfig(config);
+			return this;
+		}
+
 		public IContext Configure(params object[] objects)
 		{
 			foreach (Object obj in objects)
 				_configManager.AddConfig(obj);
 			return this;
 		}
-
-		// The states the context goes through in order
-
-		// New Context uninitialized
-		// User installs and runs Extensions
-		// User adds configs
-
-		// Context gets initialized either by user or a config
-		// Context fires pre-initilized callbacks
-		// Context processes configs
-		// Initialized flag set
-		// Context fires post-initilized callbacks
-		
-		// Context gets destroyed either by user or a config
-		// Pre Destroyed
-		// Destroyed
 		
 		public IContext AddChild(IContext child)
 		{
@@ -210,60 +304,20 @@ namespace robotlegs.bender.framework.impl
 		{
 			_injector.Map (typeof(IInjector)).ToValue (_injector);
 			_injector.Map (typeof(IContext)).ToValue (this);
-
 			_logger = _logManager.GetLogger(this);
 			_pin = new Pin();
-
-			_extensionInstaller = new ExtensionInstaller (this);
+			_lifecycle = new Lifecycle();
 			_configManager = new ConfigManager (this);
-
-			_preInitilizeCallback = new ContextStateCallback ();
-			_postInitializeCallback = new ContextStateCallback ();
-			_preDestroyCallback = new ContextStateCallback ();
-			_postDestroyCallback = new ContextStateCallback ();
-
-			_preInitilizeCallback.AddCallback(BeforeInitializingCallback);
-			_postInitializeCallback.AddCallback(AfterInitializingCallback);
-			_preDestroyCallback.AddCallback(BeforeDestroyingCallback);
-			_postDestroyCallback.AddCallback(AfterDestroyingCallback);
-		}
-
-		private void PreInitialized()
-		{
-			_preInitilizeCallback.ProcessCallbacks ();
-		}
-
-		private void PostInitialized()
-		{
-			_postInitializeCallback.ProcessCallbacks ();
-		}
-		
-		public IContext AddPreInitializedCallback(ContextStateCallback.CallbackDelegate callback)
-		{
-			_preInitilizeCallback.AddCallback (callback);
-			return this;
-		}
-		
-		public IContext AddPostInitializedCallback(ContextStateCallback.CallbackDelegate callback)
-		{
-			_postInitializeCallback.AddCallback (callback);
-			return this;
-		}
-		
-		public IContext AddPreDestroyCallback(ContextStateCallback.CallbackDelegate callback)
-		{
-			_preDestroyCallback.AddCallback (callback);
-			return this;
-		}
-		
-		public IContext AddPostDestroyCallback(ContextStateCallback.CallbackDelegate callback)
-		{
-			_postDestroyCallback.AddCallback (callback);
-			return this;
+			_extensionInstaller = new ExtensionInstaller (this);
+			BeforeInitializing(BeforeInitializingCallback);
+			AfterInitializing(AfterInitializingCallback);
+			BeforeDestroying(BeforeDestroyingCallback);
+			AfterDestroying(AfterDestroyingCallback);
 		}
 		
 		private void BeforeInitializingCallback()
 		{
+
 			_logger.Info("Initializing...");
 		}
 		
@@ -279,13 +333,27 @@ namespace robotlegs.bender.framework.impl
 		
 		private void AfterDestroyingCallback()
 		{
-//			_extensionInstaller.Destroy();
+			_extensionInstaller.Destroy();
 			_configManager.Destroy();
 			_pin.ReleaseAll();
-//			_injectionBinder.TearDown();
+			_injector.Teardown ();
 //			RemoveChildren();
 			_logger.Info("Destroy Complete");
 			_logManager.RemoveAllTargets();
+		}
+
+		private void OnChildDestroy(IContext context)
+		{
+			RemoveChild (context);
+		}
+
+		private void RemoveChildren()
+		{
+			foreach (IContext child in _children.ToArray()) 
+			{
+				RemoveChild (child);
+			}
+			_children.Clear ();
 		}
 	}
 }

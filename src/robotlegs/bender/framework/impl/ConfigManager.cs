@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using robotlegs.bender.framework.api;
+using System.Reflection;
 
 namespace robotlegs.bender.framework.impl
 {
 	public class ConfigManager
 	{
+		private static readonly Type[] NO_ARGS = new Type [0];
+
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
@@ -35,8 +38,9 @@ namespace robotlegs.bender.framework.impl
 			_context = context;
 			_injector = _context.injector;
 			_logger = context.GetLogger(this);
-			AddConfigHandler (new MatchTypeIConfig (), HandleIConfigType);
-			AddConfigHandler (new MatchIConfig (), HandleIConfigObject);
+			AddConfigHandler (new TypeMatcher (), HandleType);
+			AddConfigHandler (new ObjectMatcher (), HandleObject);
+			context.AfterInitializing (Initialize); //TODO: This should be at the end of when not after
 		}
 		
 		/*============================================================================*/
@@ -68,7 +72,7 @@ namespace robotlegs.bender.framework.impl
 			_configs.Clear();
 		}
 		
-		public void Initialize()
+		private void Initialize()
 		{
 			if (!_initialized)
 			{
@@ -81,31 +85,31 @@ namespace robotlegs.bender.framework.impl
 		/* Private Functions                                                          */
 		/*============================================================================*/
 
-		private void HandleIConfigType(object config)
+		private void HandleType(object obj)
 		{
 			if (_initialized)
 			{
-				_logger.Debug("Already initialized. Instantiating config type {0}", config);
-				ProcessIConfigType(config);
+				_logger.Debug("Already initialized. Instantiating config type {0}", obj);
+				ProcessType(obj as Type);
 			}
 			else
 			{
-				_logger.Debug("Not yet initialized. Queuing config class {0}", config);
-				_queue.Add(config);
+				_logger.Debug("Not yet initialized. Queuing config class {0}", obj);
+				_queue.Add(obj);
 			}
 		}
 
-		private void HandleIConfigObject(object config)
+		private void HandleObject(object obj)
 		{
 			if (_initialized)
 			{
-				_logger.Debug("Already initialized. Injecting into config object {0}", config);
-				ProcessIConfigObject(config);
+				_logger.Debug("Already initialized. Injecting into config object {0}", obj);
+				ProcessObject(obj);
 			}
 			else
 			{
-				_logger.Debug("Not yet initialized. Queuing config object {0}", config);
-				_queue.Add(config);
+				_logger.Debug("Not yet initialized. Queuing config object {0}", obj);
+				_queue.Add(obj);
 			}
 		}
 		
@@ -116,44 +120,57 @@ namespace robotlegs.bender.framework.impl
 				if (config is Type)
 				{
 					_logger.Debug("Now initializing. Instantiating config class {0}", config);
-					ProcessIConfigType(config);
+					ProcessType (config as Type);
 				}
 				else
 				{
 					_logger.Debug("Now initializing. Injecting into config object {0}", config);
-					ProcessIConfigObject(config);
+					ProcessObject (config);
 				}
 			}
 			_queue.Clear();
 		}
 
-		private void ProcessIConfigType(object configType)
+		private void ProcessType(Type type)
 		{
-			IConfig config = _injector.GetOrCreateNewInstance (configType as Type) as IConfig;
-			if (config != null) config.Configure ();
+			object obj = _injector.GetOrCreateNewInstance(type);
+			InvokeConfigure (obj, type);
 		}
 
-		private void ProcessIConfigObject(object config)
+		private void ProcessObject(object obj)
 		{
-			IConfig typedConfig = config as IConfig;
-			_injector.InjectInto (typedConfig);
-			if (typedConfig != null) typedConfig.Configure ();
+			_injector.InjectInto (obj);
+			InvokeConfigure (obj);
+		}
+
+		private void InvokeConfigure(object obj, Type type = null)
+		{
+			if (obj is IConfig)
+				(obj as IConfig).Configure ();
+			else 
+			{
+				if (type == null)
+					type = obj.GetType ();
+				MethodInfo method = type.GetMethod ("Configure", NO_ARGS);
+				if (method != null)
+					method.Invoke (obj, null);
+			}
 		}
 	}
-	
-	public class MatchTypeIConfig : IMatcher
+
+	public class TypeMatcher : IMatcher
 	{
 		public bool Matches(object obj)
 		{
-			return (obj is Type && typeof(IConfig).IsAssignableFrom(obj as Type));
+			return obj is Type;
 		}
 	}
-	
-	public class MatchIConfig : IMatcher
+
+	public class ObjectMatcher : IMatcher
 	{
 		public bool Matches(object obj)
 		{
-			return obj is IConfig;
+			return obj is Type == false;
 		}
 	}
 }

@@ -75,6 +75,9 @@
     <Compile Include="test\robotlegs\bender\framework\impl\safelyCallBackSupport\CreateHandler.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackConfig.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackExtension.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\LifecycleTransitionTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\configSupport\TypedConfig.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\configSupport\UntypedConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

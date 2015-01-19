@@ -30,7 +30,7 @@ namespace robotlegs.bender.extensions.contextview
 		{
 			_injector = context.injector;
 			_logger = context.GetLogger(this);
-			context.AddPostInitializedCallback (BeforeInitializing);
+			context.AfterInitializing (BeforeInitializing);
 			context.AddConfigHandler(new InstanceOfMatcher (typeof(ContextView)), AddContextView);
 		}
 		

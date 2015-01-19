@@ -21,14 +21,17 @@ namespace robotlegs.bender.framework.api
 		/// Returns if the app has been initialized yet
 		/// </summary>
 		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
-		bool initialized { get; }
+		bool Initialized { get; }
 		/// <summary>
 		/// Will initialized the context. Doing so will
 		/// - Fire the pre initilize callbacks
 		/// - Process all the configs that have been added
 		/// - Fire the post initilize callbacks
 		/// </summary>
-		IContext Initialize();
+		void Initialize(Action callback = null);
+		void Suspend (Action callback = null);
+		void Resume (Action callback = null);
+		void Destroy (Action callback = null);
 
 		IContext Install<T>() where T : IExtension;
 		IContext Install (Type type);
@@ -42,28 +45,26 @@ namespace robotlegs.bender.framework.api
 		/// </summary>
 		/// <returns>The pre initialized callback.</returns>
 		/// <param name="callback">Callback.</param>
-		IContext AddPreInitializedCallback (ContextStateCallback.CallbackDelegate callback);
+		IContext BeforeInitializing (Action callback);
+		IContext WhenInitializing (Action callback);
 
 		/// <summary>
 		/// Adds a callback function to be called when the app has been initialized, this is after all the configs have been processed
 		/// </summary>
 		/// <returns>The post initialized callback.</returns>
 		/// <param name="callback">Callback.</param>
-		IContext AddPostInitializedCallback (ContextStateCallback.CallbackDelegate callback);
+		IContext AfterInitializing (Action callback);
 
-		/// <summary>
-		/// TODO
-		/// </summary>
-		/// <returns>The pre destroy callback.</returns>
-		/// <param name="callback">Callback.</param>
-		IContext AddPreDestroyCallback (ContextStateCallback.CallbackDelegate callback);
+		IContext BeforeSuspending (Action callback);
+		IContext WhenSuspending (Action callback);
+		IContext AfterSuspending (Action callback);
+		IContext BeforeResuming (Action callback);
+		IContext WhenResuming (Action callback);
+		IContext AfterResuming (Action callback);
 
-		/// <summary>
-		/// TODO
-		/// </summary>
-		/// <returns>The post destroy callback.</returns>
-		/// <param name="callback">Callback.</param>
-		IContext AddPostDestroyCallback(ContextStateCallback.CallbackDelegate callback);
+		IContext BeforeDestroying (Action callback);
+		IContext WhenDestroying (Action callback);
+		IContext AfterDestroying(Action callback);
 
 		/// <summary>
 		/// Adds a config match and handler for processing configs.

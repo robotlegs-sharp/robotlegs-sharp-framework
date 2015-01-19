@@ -17,15 +17,15 @@ namespace robotlegs.bender.framework.impl
 		private List<Action> _whenCallbacks = new List<Action>();
 		private List<Action> _postCallbacks = new List<Action>();
 
-		private List<Action> _callbacks = new List<Action>();
+		private List<Delegate> _callbacks = new List<Delegate>();
 
 		private object _name;
 
 		private Lifecycle _lifecycle;
 
-		private LifecycleState _transitionState = LifecycleState.UNINITIALIZED;
+		private LifecycleState _transitionState = LifecycleState.DESTROYED;
 
-		private LifecycleState _finalState = LifecycleState.UNINITIALIZED;
+		private LifecycleState _finalState = LifecycleState.DESTROYED;
 
 		private Action _preTransitionEvent;
 
@@ -86,8 +86,6 @@ namespace robotlegs.bender.framework.impl
 			_preTransitionEvent = preTransitionEvent;
 			_transitionEvent = transitionEvent;
 			_postTransitionEvent = postTransitionEvent;
-			if (_reverse)
-				_lifecycle.AddReversedEventTypes(preTransitionEvent, transitionEvent, postTransitionEvent);
 			return this;
 		}
 
@@ -98,7 +96,6 @@ namespace robotlegs.bender.framework.impl
 		public LifecycleTransition InReverse()
 		{
 			_reverse = true;
-			_lifecycle.AddReversedEventTypes(_preTransitionEvent, _transitionEvent, _postTransitionEvent);
 			return this;
 		}
 
@@ -177,47 +174,46 @@ namespace robotlegs.bender.framework.impl
 //				_lifecycle.dispatchEvent(new LifecycleEvent(type));
 		}
 
-		private void ReportError(object message, List<Action> callbacks = null)
+		private void ReportError(object message, List<Delegate> callbacks = null)
 		{
 			// turn message into Error
-
-			Exception error = message is Exception
+			Exception exception = message is Exception
 				? message as Exception
 				: new Exception(message.ToString());
 
-			/*
-			// dispatch error event if a listener exists, or throw
-			if (_lifecycle.hasEventListener(LifecycleEvent.ERROR))
-			{
-				const event:LifecycleEvent = new LifecycleEvent(LifecycleEvent.ERROR, error);
-				_lifecycle.dispatchEvent(event);
-				// process callback queue
-				if (callbacks)
-				{
-					for each (var callback:Function in callbacks)
-						callback && safelyCallBack(callback, error, _name);
-					callbacks.length = 0;
-				}
-			}
-			else
-			{
-				// explode!
-				throw error;
-			}
-			*/
+			// Report error throws an exception if we don't have a ERROR subscriber and if so
+			// the callbacks will not get called
+			_lifecycle.ReportError (exception); 
+
+			if (callbacks != null)
+				CallCallbacks (callbacks, exception);
 		}
 
 		/**
 		 * Attempts to enter the transition
 		 * @param callback Completion callback
 		 */
-		public void Enter(Action callback = null)
+		public void Enter()
+		{
+			Enter (null as Delegate);
+		}
+
+		public void Enter(Action callback)
+		{
+			Enter (callback as Delegate);
+		}
+
+		public void Enter(Action<Exception> callback)
+		{
+			Enter (callback as Delegate);
+		}
+
+		private void Enter(Delegate callback = null)
 		{
 			// immediately call back if we have already transitioned, and exit
 			if (_lifecycle.state == _finalState)
 			{
-				if (callback != null)
-					callback ();
+				CallCallback (callback);
 				return;
 			}
 
@@ -232,7 +228,7 @@ namespace robotlegs.bender.framework.impl
 			// report invalid transition, and exit
 			if (InvalidTransition())
 			{
-				ReportError("Invalid transition", new List<Action>{callback});
+				ReportError("Invalid transition", new List<Delegate>{callback});
 				return;
 			}
 
@@ -268,13 +264,8 @@ namespace robotlegs.bender.framework.impl
 					SetState(_finalState);
 
 					// process callback queue (dup and trash for safety)
-					Action[] callbacks = _callbacks.ToArray();
+					CallCallbacks(_callbacks.ToArray());
 					_callbacks.Clear();
-					foreach (Action callback2 in callbacks)
-					{
-						callback2();
-//						safelyCallBack(callback, null, _name);
-					}
 
 					// dispatch post transition event
 					Dispatch(_postTransitionEvent);
@@ -302,6 +293,25 @@ namespace robotlegs.bender.framework.impl
 				handler();
 			};
 			handlerList.Add (onceHandler);
+		}
+
+		private void CallCallbacks(ICollection<Delegate> delegates, Exception exception = null)
+		{
+			foreach (Delegate del in delegates)
+			{
+				CallCallback (del, exception);
+			}
+		}
+
+		private void CallCallback(Delegate del, Exception exception = null)
+		{
+			if (del == null)
+				return;
+
+			if (del is Action)
+				(del as Action) ();
+			else if (del is Action<Exception>)
+				(del as Action<Exception>)(exception);
 		}
 	}
 }

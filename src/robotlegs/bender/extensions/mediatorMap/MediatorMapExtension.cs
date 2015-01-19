@@ -43,8 +43,8 @@ namespace robotlegs.bender.extensions.mediatorMap
 			_injector.Map(typeof(IMediatorMap)).ToValue(_mediatorMap);
 			
 			//TODO: Add when destroying to Context
-			context.AddPreInitializedCallback(BeforeInitializing)
-				.AddPreDestroyCallback(BeforeDestroying);
+			context.BeforeInitializing(BeforeInitializing)
+				.BeforeDestroying(BeforeDestroying);
 			//.AddWhenDestroyingCallback(WhenDestroying);
 		}
 		

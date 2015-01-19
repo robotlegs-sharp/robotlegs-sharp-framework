@@ -4,6 +4,10 @@ namespace robotlegs.bender.framework.api
 {
 	public interface ILifecycle
 	{
+		event Action<Exception> ERROR;
+
+		event Action STATE_CHANGE;
+
 		/**
 		 * The current lifecycle state of the target object
 		 */
