@@ -25,7 +25,7 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 		{
 			get
 			{
-				return dispatcher;
+				return _dispatcher;
 			}
 		}
 
