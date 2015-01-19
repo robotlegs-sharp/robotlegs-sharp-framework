@@ -43,11 +43,6 @@ namespace robotlegs.bender.framework.impl
 			Assert.AreEqual(callCount, 1);
 		}
 
-		public void TestMethod()
-		{
-			Console.WriteLine ("Test");
-		}
-
 		[Test]
 		public void class_hooks_run()
 		{

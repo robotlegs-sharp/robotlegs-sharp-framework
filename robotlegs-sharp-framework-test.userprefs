@@ -2,12 +2,30 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\framework\impl\Lifecycle.cs">
     <Files>
-      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTest.cs" Line="3" Column="3" />
-      <File FileName="test\robotlegs\bender\framework\impl\ContextTest.cs" Line="1" Column="1" />
-      <File FileName="test\robotlegs\bender\framework\impl\contextSupport\CallbackExtension.cs" Line="16" Column="16" />
+      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTest.cs" Line="24" Column="24" />
+      <File FileName="src\robotlegs\bender\framework\impl\Lifecycle.cs" Line="18" Column="18" />
+      <File FileName="src\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandTrigger.cs" Line="6" Column="6" />
+      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="30" Column="30" />
+      <File FileName="src\robotlegs\bender\framework\impl\ConfigManager.cs" Line="3" Column="3" />
       <File FileName="src\robotlegs\bender\framework\impl\LifecycleTransition.cs" Line="1" Column="1" />
-      <File FileName="src\robotlegs\bender\framework\impl\Lifecycle.cs" Line="47" Column="47" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True">
+          <Node name="robotlegs-sharp-framework-test" expanded="True">
+            <Node name="robotlegs" expanded="True">
+              <Node name="bender" expanded="True">
+                <Node name="framework" expanded="True">
+                  <Node name="impl" expanded="True">
+                    <Node name="MessageDispatcherTest" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

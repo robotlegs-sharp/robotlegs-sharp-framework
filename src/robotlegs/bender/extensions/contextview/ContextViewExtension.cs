@@ -55,7 +55,7 @@ namespace robotlegs.bender.extensions.contextview
 		{
 			if (!HasContextBinding ()) 
 			{
-				Console.WriteLine("Warning, you initilaized the context without a context view when the context view extension was installed");
+				_logger.Warn("Warning, you initilaized the context without a context view when the context view extension was installed");
 			}
 		}
 		

@@ -189,9 +189,8 @@ namespace robotlegs.bender.framework.impl
 			// We do this to avoid increasing the stack depth unnecessarily.
 			while (_handlers.Count > 0)
 			{
-				int index = _handlers.Count - 1;
-				handler = _handlers[index];
-				_handlers.RemoveAt(index);
+				handler = _handlers[0];
+				_handlers.RemoveAt(0);
 
 				if (handler is Action)
 				{

@@ -157,14 +157,19 @@ namespace robotlegs.bender.framework.impl
 		{
 //			if (initialized)
 //				reportError(LifecycleError.LATE_HANDLER_ERROR_MESSAGE);
-			LifecycleEventInitialize += CreateSyncLifecycleListener (handler, true);
+
+			_initialize.AddWhenHandler (handler, true);
+//			LifecycleEventInitialize += CreateSyncLifecycleListener (handler, true);
+
 //			addEventListener(LifecycleEvent.INITIALIZE, createSyncLifecycleListener(handler, true));
 			return this;
 		}
 
 		public ILifecycle AfterInitializing (Action handler)
 		{
-			throw new NotImplementedException ();
+			_initialize.AddAfterHandler (handler, true);
+//			LifecycleEventPostInitialize += CreateSyncLifecycleListener (handler, true);
+			return this;
 		}
 
 		public ILifecycle BeforeSuspending (Action handler)
@@ -243,24 +248,27 @@ namespace robotlegs.bender.framework.impl
 				.ToStates(LifecycleState.INITIALIZING, LifecycleState.ACTIVE)
 				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize);
 
-			/*
-			_suspend = new LifecycleTransition(LifecycleEvent.PRE_SUSPEND, this)
+			_suspend = new LifecycleTransition("LifecycleEvent.PRE_SUSPEND", this)
 				.FromStates(LifecycleState.ACTIVE)
 				.ToStates(LifecycleState.SUSPENDING, LifecycleState.SUSPENDED)
-				.WithEvents(LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND)
+				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize)
+//				.WithEvents(LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND)
 				.InReverse();
 
-			_resume = new LifecycleTransition(LifecycleEvent.PRE_RESUME, this)
+			_resume = new LifecycleTransition("LifecycleEvent.PRE_RESUME", this)
 				.FromStates(LifecycleState.SUSPENDED)
 				.ToStates(LifecycleState.RESUMING, LifecycleState.ACTIVE)
-				.WithEvents(LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME);
+				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize);
+//				.WithEvents(LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME);
 
-			_destroy = new LifecycleTransition(LifecycleEvent.PRE_DESTROY, this)
+			_destroy = new LifecycleTransition("LifecycleEvent.PRE_DESTROY", this)
 				.FromStates(LifecycleState.SUSPENDED, LifecycleState.ACTIVE)
 				.ToStates(LifecycleState.DESTROYING, LifecycleState.DESTROYED)
-				.WithEvents(LifecycleEvent.PRE_DESTROY, LifecycleEvent.DESTROY, LifecycleEvent.POST_DESTROY)
+				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize)
+//				.WithEvents(LifecycleEvent.PRE_DESTROY, LifecycleEvent.DESTROY, LifecycleEvent.POST_DESTROY)
 				.InReverse();
-				*/
+
+			/*	*/
 		}
 
 		/*
@@ -271,17 +279,6 @@ namespace robotlegs.bender.framework.impl
 					: priority;
 		}
 		*/
-
-		private Action CreateSyncLifecycleListener(Action handler, bool once)
-		{
-			return delegate()
-			{
-				
-//				once && IEventDispatcher(event.target)
-//					.removeEventListener(event.type, arguments.callee);
-				handler();
-			};
-		}
 
 		/*
 		private function reportError(message:String):void

@@ -49,88 +49,39 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		[Test]
-		public void TestAsync()
+		public void TestCheck()
 		{
-			Assert.True (true);
-//			Task task = new Task (Function1);
-//			task.ContinueWith (Function2);
-//			task.ContinueWith (Function3);
-
-			Task t = Iterate (RunFunctions ());
+			Console.WriteLine ("Begin");
+			lifecycle.BeforeInitializing (delegate {
+				Console.WriteLine ("Before1");
+			});
+			lifecycle.BeforeInitializing (delegate {
+				Console.WriteLine ("Before2");
+			});
+			lifecycle.BeforeInitializing (delegate {
+				Console.WriteLine ("Before3");
+			});
+			lifecycle.WhenInitializing (delegate {
+				Console.WriteLine ("When1");
+			});
+			lifecycle.WhenInitializing (delegate {
+				Console.WriteLine ("When2");
+			});
+			lifecycle.WhenInitializing (delegate {
+				Console.WriteLine ("When3");
+			});
+			lifecycle.AfterInitializing (delegate {
+				Console.WriteLine ("After1");
+			});
+			lifecycle.AfterInitializing (delegate {
+				Console.WriteLine ("After2");
+			});
+			lifecycle.AfterInitializing (delegate {
+				Console.WriteLine ("After3");
+			});
+			lifecycle.Initialize ();
+			Console.WriteLine ("End");
 		}
-
-		public static Task Iterate(IEnumerable<Task> asyncIterator)
-		{
-			if (asyncIterator == null) throw new ArgumentNullException("asyncIterator");
-
-			var enumerator = asyncIterator.GetEnumerator();
-			if (enumerator == null) throw new InvalidOperationException("Invalid enumerable - GetEnumerator returned null");
-
-			var tcs = new TaskCompletionSource<object>();
-			tcs.Task.ContinueWith(_ => enumerator.Dispose(), TaskContinuationOptions.ExecuteSynchronously);
-
-			Action<Task> recursiveBody = null;
-			recursiveBody = delegate {
-				try {
-					if (enumerator.MoveNext()) enumerator.Current.ContinueWith(recursiveBody, TaskContinuationOptions.ExecuteSynchronously);
-					else tcs.TrySetResult(null);
-				}
-				catch (Exception exc) { tcs.TrySetException(exc); }
-			};
-
-			recursiveBody(null);
-			return tcs.Task;
-		}
-
-		private IEnumerable<Task> RunFunctions()
-		{
-			string input = "Input";
-//			Task<string> resultA = DoAAsync(input);
-//			yield return resultA;
-//			Task<string> resultB = DoBAsync(resultA.Result);
-//			yield return resultB;
-//			Task<string> resultC = DoCAsync(resultB.Result);
-//			yield return resultC;
-			yield return DoAAsync ();
-			yield return DoBAsync ();
-			yield return DoCAsync ();
-		}
-
-		public async Task DoAAsync()
-		{
-			Console.WriteLine ("DoAAsync Enter");
-			await Task.Delay (10);
-			Console.WriteLine ("DoAAsync Exit");
-		}
-
-		public async Task DoBAsync()
-		{
-			Console.WriteLine ("DoBAsync Enter");
-			await Task.Delay (10);
-			Console.WriteLine ("DoBAsync Exit");
-		}
-
-		public async Task DoCAsync()
-		{
-			Console.WriteLine ("DoCAsync Enter");
-			await Task.Delay (10);
-			Console.WriteLine ("DoCAsync Exit");
-		}
-
-//		public async void Function1()
-//		{
-//			Console.WriteLine ("Function1");
-//		}
-//
-//		public async void Function2()
-//		{
-//			Console.WriteLine ("Fucntion2");
-//		}
-//
-//		public async void Function3()
-//		{
-//			Console.WriteLine ("Fucntion3");
-//		}
 	}
 }
 

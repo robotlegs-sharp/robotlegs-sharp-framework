@@ -12,17 +12,20 @@ namespace robotlegs.bender.framework.impl
 
 		private List<LifecycleState> _fromStates = new List<LifecycleState>();
 
-//		private const _dispatcher:MessageDispatcher = new MessageDispatcher();
+		private MessageDispatcher _dispatcher = new MessageDispatcher();
+
+		private List<Action> _whenCallbacks = new List<Action>();
+		private List<Action> _postCallbacks = new List<Action>();
 
 		private List<Action> _callbacks = new List<Action>();
 
-		private string _name;
+		private object _name;
 
 		private Lifecycle _lifecycle;
 
 		private LifecycleState _transitionState = LifecycleState.UNINITIALIZED;
 
-		private LifecycleState _finalState = LifecycleState.DESTROYED;
+		private LifecycleState _finalState = LifecycleState.UNINITIALIZED;
 
 		private Action _preTransitionEvent;
 
@@ -36,7 +39,7 @@ namespace robotlegs.bender.framework.impl
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public LifecycleTransition (string name, Lifecycle lifecycle)
+		public LifecycleTransition (object name, Lifecycle lifecycle)
 		{
 			_name = name;
 			_lifecycle = lifecycle;
@@ -106,8 +109,47 @@ namespace robotlegs.bender.framework.impl
 		 */
 		public LifecycleTransition AddBeforeHandler(Action handler)
 		{
-//			_dispatcher.addMessageHandler(_name, handler);
-			// TODO
+			_dispatcher.AddMessageHandler(_name, handler);
+			return this;
+		}
+		public LifecycleTransition AddBeforeHandler(MessageDispatcher.HandlerMessageDelegate handler)
+		{
+			_dispatcher.AddMessageHandler (_name, handler);
+			return this;
+		}
+		public LifecycleTransition AddBeforeHandler(MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		{
+			_dispatcher.AddMessageHandler (_name, handler);
+			return this;
+		}
+
+		public LifecycleTransition AddWhenHandler(Action handler, bool once)
+		{
+			if (once) 
+				AddOnceHandler (_whenCallbacks, handler);
+			else
+				_whenCallbacks.Add (handler);
+			return this;
+		}
+
+		public LifecycleTransition RemoveWhenHandler(Action handler)
+		{
+			_whenCallbacks.Remove (handler);
+			return this;
+		}
+
+		public LifecycleTransition AddAfterHandler(Action handler, bool once)
+		{
+			if (once) 
+				AddOnceHandler (_postCallbacks, handler);
+			else
+				_postCallbacks.Add (handler);
+			return this;
+		}
+
+		public LifecycleTransition RemoveAfterHandler(Action handler)
+		{
+			_postCallbacks.Remove (handler);
 			return this;
 		}
 
@@ -129,7 +171,8 @@ namespace robotlegs.bender.framework.impl
 
 		private void Dispatch(Action callback)
 		{
-			callback();
+			if (callback != null)
+				callback();
 //			if (type && _lifecycle.hasEventListener(type))
 //				_lifecycle.dispatchEvent(new LifecycleEvent(type));
 		}
@@ -203,53 +246,63 @@ namespace robotlegs.bender.framework.impl
 			// put lifecycle into transition state
 			SetState(_transitionState);
 
-			// dispatch pre transition and transition events
-			_preTransitionEvent();
-			_transitionEvent();
-
-			// put lifecycle into final state
-			SetState(_finalState);
-
-			foreach (Action _callback in _callbacks)
-				_callback();
-
-			// dispatch post transition event
-			_postTransitionEvent();
-
-
 			// run before handlers
-			/*
-			_dispatcher.dispatchMessage(_name, function(error:Object):void
+//			/*
+			_dispatcher.DispatchMessage(_name, delegate(object error)
 				{
 					// revert state, report error, and exit
-					if (error)
+					if (error != null)
 					{
-						setState(initialState);
-						reportError(error, _callbacks);
+						SetState(initialState);
+						ReportError(error, _callbacks);
 						return;
 					}
 
 					// dispatch pre transition and transition events
-					dispatch(_preTransitionEvent);
-					dispatch(_transitionEvent);
+					Dispatch(_preTransitionEvent);
+					Dispatch(_transitionEvent);
+
+					ProcessCallbacks(_whenCallbacks);
 
 					// put lifecycle into final state
-					setState(_finalState);
+					SetState(_finalState);
 
 					// process callback queue (dup and trash for safety)
-					const callbacks:Array = _callbacks.concat();
-					_callbacks.length = 0;
-					for each (var callback:Function in callbacks)
-						safelyCallBack(callback, null, _name);
+					Action[] callbacks = _callbacks.ToArray();
+					_callbacks.Clear();
+					foreach (Action callback2 in callbacks)
+					{
+						callback2();
+//						safelyCallBack(callback, null, _name);
+					}
 
 					// dispatch post transition event
-					dispatch(_postTransitionEvent);
+					Dispatch(_postTransitionEvent);
+
+					ProcessCallbacks(_postCallbacks);
 
 				}, _reverse);
-			*/
+//			*/
 		}
 
+		private void ProcessCallbacks(List<Action> callbacksList)
+		{
+			Action[] callbacksArray = callbacksList.ToArray();
+			if (_reverse)
+				Array.Reverse (callbacksArray);
+			foreach (Action callback in callbacksArray)
+				callback();
+		}
 
+		private void AddOnceHandler(List<Action> handlerList, Action handler)
+		{
+			Action onceHandler = null;
+			onceHandler = delegate() {
+				handlerList.Remove(onceHandler);
+				handler();
+			};
+			handlerList.Add (onceHandler);
+		}
 	}
 }
 
