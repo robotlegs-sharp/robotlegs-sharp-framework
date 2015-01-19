@@ -17,11 +17,33 @@ namespace robotlegs.bender.extensions.viewManager
 {
 	public class ViewManagerExtension : IExtension
 	{
+		private IInjector _injector;
+
 		private IViewManager _viewManager;
 
 		public void Extend (IContext context)
 		{
-			context.injector.Map(typeof(IViewManager)).ToSingleton(typeof(ViewManager));
+			context.WhenInitializing(WhenInitializing);
+			context.WhenDestroying(WhenDestroying);
+
+			_injector = context.injector;
+
+			_injector.Map(typeof(IViewManager)).ToSingleton(typeof(ViewManager));
+		}
+
+		/*============================================================================*/
+		/* Private Functions                                                          */
+		/*============================================================================*/
+
+		private void WhenInitializing()
+		{
+			_viewManager = _injector.GetInstance(typeof(IViewManager)) as IViewManager;
+		}
+
+		private void WhenDestroying()
+		{
+			_viewManager.RemoveAllHandlers();
+			_injector.Unmap(typeof(IViewManager));
 		}
 	}
 }

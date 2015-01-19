@@ -73,6 +73,18 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 			//TODO: new ViewManagerEvent(ViewManagerEvent.HANDLER_REMOVE, null, handler);
 		}
+
+		public void RemoveAllHandlers()
+		{
+			foreach (object container in _containers) 
+			{
+				ContainerBinding binding = ContainerRegistry.GetBinding (container);
+				foreach (IViewHandler handler in _handlers) 
+				{
+					binding.RemoveHandler (handler);
+				}
+			}
+		}
 	}
 }
 

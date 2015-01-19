@@ -15,6 +15,7 @@ namespace robotlegs.bender.extensions.viewManager.api
 		void AddContainer(object container);
 		void AddViewHandler(IViewHandler handler);
 		void RemoveViewHandler(IViewHandler handler);
+		void RemoveAllHandlers();
 	}
 }
 
