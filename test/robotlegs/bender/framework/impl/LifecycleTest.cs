@@ -90,31 +90,47 @@ namespace robotlegs.bender.framework.impl
 
 		// ----- Events
 
-		/*
+//		/*
 		[Test]
 		public void events_are_dispatched()
 		{
-			const actual:Array = [];
-			const expected:Array = [
-				LifecycleEvent.PRE_INITIALIZE, LifecycleEvent.INITIALIZE, LifecycleEvent.POST_INITIALIZE,
-				LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND,
-				LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME,
-				LifecycleEvent.PRE_DESTROY, LifecycleEvent.Destroy, LifecycleEvent.POST_DESTROY];
-			const listener:Function = function(event:LifecycleEvent) {
-				actual.push(event.type);
+			List<object> actual = new List<object> ();
+			List<object> expected = new List<object>{ 
+				"PRE_INITIALIZE",
+				"INITIALIZE",
+				"POST_INITIALIZE",
+				"PRE_SUSPEND",
+				"SUSPEND",
+				"POST_SUSPEND",
+				"PRE_RESUME",
+				"RESUME",
+				"POST_RESUME",
+				"PRE_DESTROY",
+				"DESTROY",
+				"POST_DESTROY"
 			};
-			for each (var type:String in expected)
-			{
-				lifecycle.addEventListener(type, listener);
-			}
+			lifecycle.PRE_INITIALIZE += CreateValuePusher (actual, "PRE_INITIALIZE");
+			lifecycle.INITIALIZE += CreateValuePusher (actual, "INITIALIZE");
+			lifecycle.POST_INITIALIZE += CreateValuePusher (actual, "POST_INITIALIZE");
+			lifecycle.PRE_SUSPEND += CreateValuePusher (actual, "PRE_SUSPEND");
+			lifecycle.SUSPEND += CreateValuePusher (actual, "SUSPEND");
+			lifecycle.POST_SUSPEND += CreateValuePusher (actual, "POST_SUSPEND");
+			lifecycle.PRE_RESUME += CreateValuePusher (actual, "PRE_RESUME");
+			lifecycle.RESUME += CreateValuePusher (actual, "RESUME");
+			lifecycle.POST_RESUME += CreateValuePusher (actual, "POST_RESUME");
+			lifecycle.PRE_DESTROY += CreateValuePusher (actual, "PRE_DESTROY");
+			lifecycle.DESTROY += CreateValuePusher (actual, "DESTROY");
+			lifecycle.POST_DESTROY += CreateValuePusher (actual, "POST_DESTROY");
+
 			lifecycle.Initialize();
 			lifecycle.Suspend();
 			lifecycle.Resume();
 			lifecycle.Destroy();
-			Assert.That(actual, array(expected));
+
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
 		}
 
-		*/
+//		*/
 
 		// ----- Shorthand transition handlers
 

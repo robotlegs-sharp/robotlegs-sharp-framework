@@ -11,6 +11,150 @@ namespace robotlegs.bender.framework.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
+		public event Action PRE_INITIALIZE 
+		{
+			add
+			{
+				_lifecycle.PRE_INITIALIZE += value;
+			}
+			remove 
+			{
+				_lifecycle.PRE_INITIALIZE -= value;
+			}
+		}
+
+		public event Action INITIALIZE
+		{
+			add
+			{
+				_lifecycle.INITIALIZE += value;
+			}
+			remove 
+			{
+				_lifecycle.INITIALIZE += value;
+			}
+		}
+
+		public event Action POST_INITIALIZE
+		{
+			add	
+			{
+				_lifecycle.POST_INITIALIZE += value;
+			}
+			remove 
+			{
+				_lifecycle.POST_INITIALIZE += value;
+			}
+		}
+
+		public event Action PRE_SUSPEND
+		{
+			add	
+			{
+				_lifecycle.PRE_SUSPEND += value;
+			}
+			remove 
+			{
+				_lifecycle.PRE_SUSPEND += value;
+			}
+		}
+
+		public event Action SUSPEND
+		{
+			add	
+			{
+				_lifecycle.SUSPEND += value;
+			}
+			remove 
+			{
+				_lifecycle.SUSPEND += value;
+			}
+		}
+
+		public event Action POST_SUSPEND
+		{
+			add	
+			{
+				_lifecycle.POST_SUSPEND += value;
+			}
+			remove 
+			{
+				_lifecycle.POST_SUSPEND += value;
+			}
+		}
+
+		public event Action PRE_RESUME
+		{
+			add	
+			{
+				_lifecycle.PRE_RESUME += value;
+			}
+			remove 
+			{
+				_lifecycle.PRE_RESUME += value;
+			}
+		}
+
+		public event Action RESUME
+		{
+			add	
+			{
+				_lifecycle.RESUME += value;
+			}
+			remove 
+			{
+				_lifecycle.RESUME += value;
+			}
+		}
+
+		public event Action POST_RESUME
+		{
+			add	
+			{
+				_lifecycle.POST_RESUME += value;
+			}
+			remove 
+			{
+				_lifecycle.POST_RESUME += value;
+			}
+		}
+
+		public event Action PRE_DESTROY
+		{
+			add	
+			{
+				_lifecycle.PRE_DESTROY += value;
+			}
+			remove 
+			{
+				_lifecycle.PRE_DESTROY += value;
+			}
+		}
+
+		public event Action DESTROY
+		{
+			add	
+			{
+				_lifecycle.DESTROY += value;
+			}
+			remove 
+			{
+				_lifecycle.DESTROY += value;
+			}
+		}
+
+		public event Action POST_DESTROY
+		{
+			add	
+			{
+				_lifecycle.POST_DESTROY += value;
+			}
+			remove 
+			{
+				_lifecycle.POST_DESTROY += value;
+			}
+		}
+
 		public event Action<object> Detained {
 			add 
 			{
@@ -249,12 +393,40 @@ namespace robotlegs.bender.framework.impl
 		
 		public IContext AddChild(IContext child)
 		{
-			throw new NotImplementedException();
+			if (!_children.Contains (child)) 
+			{
+				_logger.Info("Adding child context {0}", new object[]{child});
+				if (!child.Uninitialized)
+				{
+					_logger.Warn("Child context {0} must be uninitialized", new object[]{child});
+				}
+				if (child.injector.parent != null)
+				{
+					_logger.Warn("Child context {0} must not have a parent Injector", new object[]{child});
+				}
+				_children.Add(child);
+				child.injector.parent = injector;
+				// TODO: Need to pass back a context... somehow
+//				child.POST_DESTROY += OnChildDestroy; // This does not pass back a context!!!
+			}
+			return this;
 		}
 		
 		public IContext RemoveChild(IContext child)
 		{
-			throw new NotImplementedException();
+			if (_children.Contains(child))
+			{
+				_logger.Info("Removing child context {0}", new object[]{child});
+				_children.Remove(child);
+				child.injector.parent = null;
+				// TODO: Need to pass back a context... somehow
+//				child.POST_DESTROY -= OnChildDestroy;
+			}
+			else
+			{
+				_logger.Warn("Child context {0} must be a child of {1}", new object[]{child, this});
+			}
+			return this;
 		}
 		
 		// Handle this process match from the config
@@ -337,7 +509,7 @@ namespace robotlegs.bender.framework.impl
 			_configManager.Destroy();
 			_pin.ReleaseAll();
 			_injector.Teardown ();
-//			RemoveChildren();
+			RemoveChildren();
 			_logger.Info("Destroy Complete");
 			_logManager.RemoveAllTargets();
 		}

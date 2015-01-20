@@ -1,6 +1,29 @@
 ﻿<Properties StartupItem="robotlegs-sharp-framework-test.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\framework\impl\Context.cs">
+    <Files>
+      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTest.cs" Line="4" Column="4" />
+      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="49" Column="49" />
+      <File FileName="test\robotlegs\bender\framework\impl\ContextTest.cs" Line="9" Column="9" />
+      <File FileName="src\robotlegs\bender\framework\impl\Lifecycle.cs" Line="3" Column="3" />
+      <File FileName="src\robotlegs\bender\framework\api\ILifecycle.cs" Line="48" Column="48" />
+    </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True">
+          <Node name="robotlegs-sharp-framework-test" expanded="True">
+            <Node name="robotlegs" expanded="True">
+              <Node name="bender" expanded="True">
+                <Node name="framework" expanded="True">
+                  <Node name="impl" expanded="True" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

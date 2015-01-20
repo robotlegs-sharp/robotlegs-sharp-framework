@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.framework.api;
@@ -194,29 +195,47 @@ namespace robotlegs.bender.framework.impl
 			child.destroy();
 			assertThat(warning, nullValue());
 		}
+		*/
 
 		[Test]
-		public function lifecycleEvents_are_propagated():void
+		public void lifecycleEvents_are_propagated()
 		{
-			const actual:Array = [];
-			const expected:Array = [LifecycleEvent.PRE_INITIALIZE, LifecycleEvent.INITIALIZE, LifecycleEvent.POST_INITIALIZE,
-				LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND,
-				LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME,
-				LifecycleEvent.PRE_DESTROY, LifecycleEvent.DESTROY, LifecycleEvent.POST_DESTROY];
-			function handler(event:LifecycleEvent):void {
-				actual.push(event.type);
-			}
-			for each (var type:String in expected)
-			{
-				context.addEventListener(type, handler);
-			}
-			context.initialize();
-			context.suspend();
-			context.resume();
-			context.destroy();
-			assertThat(actual, array(expected));
+			List<object> actual = new List<object> ();
+			List<object> expected = new List<object>{ 
+				"PRE_INITIALIZE",
+				"INITIALIZE",
+				"POST_INITIALIZE",
+				"PRE_SUSPEND",
+				"SUSPEND",
+				"POST_SUSPEND",
+				"PRE_RESUME",
+				"RESUME",
+				"POST_RESUME",
+				"PRE_DESTROY",
+				"DESTROY",
+				"POST_DESTROY"
+			};
+			context.PRE_INITIALIZE += CreateValuePusher (actual, "PRE_INITIALIZE");
+			context.INITIALIZE += CreateValuePusher (actual, "INITIALIZE");
+			context.POST_INITIALIZE += CreateValuePusher (actual, "POST_INITIALIZE");
+			context.PRE_SUSPEND += CreateValuePusher (actual, "PRE_SUSPEND");
+			context.SUSPEND += CreateValuePusher (actual, "SUSPEND");
+			context.POST_SUSPEND += CreateValuePusher (actual, "POST_SUSPEND");
+			context.PRE_RESUME += CreateValuePusher (actual, "PRE_RESUME");
+			context.RESUME += CreateValuePusher (actual, "RESUME");
+			context.POST_RESUME += CreateValuePusher (actual, "POST_RESUME");
+			context.PRE_DESTROY += CreateValuePusher (actual, "PRE_DESTROY");
+			context.DESTROY += CreateValuePusher (actual, "DESTROY");
+			context.POST_DESTROY += CreateValuePusher (actual, "POST_DESTROY");
+
+			context.Initialize();
+			context.Suspend();
+			context.Resume();
+			context.Destroy();
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
 		}
 
+		/*
 		[Test]
 		public function lifecycleStateChangeEvent_is_propagated():void
 		{
@@ -228,6 +247,13 @@ namespace robotlegs.bender.framework.impl
 			assertThat(called, isTrue());
 		}
 		*/
+
+		private Action CreateValuePusher(List<object> list, object value)
+		{
+			return delegate() {
+				list.Add(value);
+			};
+		}
 	}
 }
 

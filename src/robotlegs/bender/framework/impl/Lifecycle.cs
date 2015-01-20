@@ -14,17 +14,27 @@ namespace robotlegs.bender.framework.impl
 
 		public event Action STATE_CHANGE;
 
+		public event Action PRE_INITIALIZE;
+		public event Action INITIALIZE;
+		public event Action POST_INITIALIZE;
+
+		public event Action PRE_SUSPEND;
+		public event Action SUSPEND;
+		public event Action POST_SUSPEND;
+
+		public event Action PRE_RESUME;
+		public event Action RESUME;
+		public event Action POST_RESUME;
+
+		public event Action PRE_DESTROY;
+		public event Action DESTROY;
+		public event Action POST_DESTROY;
+
 		public LifecycleState state
 		{
 			get 
 			{
 				return _state;
-			}
-		}
-
-		public object target {
-			get {
-				throw new NotImplementedException ();
 			}
 		}
 
@@ -116,8 +126,6 @@ namespace robotlegs.bender.framework.impl
 			*/
 		public Lifecycle()
 		{
-//			_target = target;
-//			_dispatcher = target as IEventDispatcher || new EventDispatcher(this);
 			ConfigureTransitions();
 		}
 
@@ -247,30 +255,49 @@ namespace robotlegs.bender.framework.impl
 
 		private void ConfigureTransitions()
 		{
-			_initialize = new LifecycleTransition("LifecycleEvent.PRE_INITIALIZE", this)
-				.FromStates(LifecycleState.UNINITIALIZED)
-				.ToStates(LifecycleState.INITIALIZING, LifecycleState.ACTIVE)
-				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize);
+			_initialize = new LifecycleTransition ("LifecycleEvent.PRE_INITIALIZE", this)
+				.FromStates (LifecycleState.UNINITIALIZED)
+				.ToStates (LifecycleState.INITIALIZING, LifecycleState.ACTIVE);
+//				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize);
 
-			_suspend = new LifecycleTransition("LifecycleEvent.PRE_SUSPEND", this)
-				.FromStates(LifecycleState.ACTIVE)
-				.ToStates(LifecycleState.SUSPENDING, LifecycleState.SUSPENDED)
-				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize)
+			_initialize.preTransition += DispatchPreInitialize;
+			_initialize.transition += DispatchInitialize;
+			_initialize.postTransition += DispatchPostInitialize;
+
+			_suspend = new LifecycleTransition ("LifecycleEvent.PRE_SUSPEND", this)
+				.FromStates (LifecycleState.ACTIVE)
+				.ToStates (LifecycleState.SUSPENDING, LifecycleState.SUSPENDED)
+//				.WithEvents (CallPreInitalized, CallInitialize, CallPostInitialize)
 //				.WithEvents(LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND)
 				.InReverse();
 
+			_suspend.preTransition += DispatchPreSuspend;
+			_suspend.transition += DispatchSuspend;
+			_suspend.postTransition += DispatchPostSuspend;
+
+//			_suspend.transition += 
+
 			_resume = new LifecycleTransition("LifecycleEvent.PRE_RESUME", this)
 				.FromStates(LifecycleState.SUSPENDED)
-				.ToStates(LifecycleState.RESUMING, LifecycleState.ACTIVE)
-				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize);
+				.ToStates(LifecycleState.RESUMING, LifecycleState.ACTIVE);
+//				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize);
 //				.WithEvents(LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME);
+
+
+			_resume.preTransition += DispatchPreResume;
+			_resume.transition += DispatchResume;
+			_resume.postTransition += DispatchPostResume;
 
 			_destroy = new LifecycleTransition("LifecycleEvent.PRE_DESTROY", this)
 				.FromStates(LifecycleState.SUSPENDED, LifecycleState.ACTIVE)
 				.ToStates(LifecycleState.DESTROYING, LifecycleState.DESTROYED)
-				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize)
+//				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize)
 //				.WithEvents(LifecycleEvent.PRE_DESTROY, LifecycleEvent.DESTROY, LifecycleEvent.POST_DESTROY)
 				.InReverse();
+
+			_destroy.preTransition += DispatchPreDestroy;
+			_destroy.transition += DispatchDestroy;
+			_destroy.postTransition += DispatchPostDestroy;
 		}
 
 		public void ReportError(Exception error)
@@ -284,6 +311,78 @@ namespace robotlegs.bender.framework.impl
 		public void ReportError(string message)
 		{
 			ReportError (new LifecycleException (message));
+		}
+
+		private void DispatchPreInitialize()
+		{
+			if (PRE_INITIALIZE != null)
+				PRE_INITIALIZE ();
+		}
+
+		private void DispatchInitialize()
+		{
+			if (INITIALIZE != null)
+				INITIALIZE ();
+		}
+
+		private void DispatchPostInitialize()
+		{
+			if (POST_INITIALIZE != null)
+				POST_INITIALIZE ();
+		}
+
+		private void DispatchPreSuspend()
+		{
+			if (PRE_SUSPEND != null)
+				PRE_SUSPEND ();
+		}
+
+		private void DispatchSuspend()
+		{
+			if (SUSPEND != null)
+				SUSPEND ();
+		}
+
+		private void DispatchPostSuspend()
+		{
+			if (POST_SUSPEND != null)
+				POST_SUSPEND ();
+		}
+
+		private void DispatchPreResume()
+		{
+			if (PRE_RESUME != null)
+				PRE_RESUME ();
+		}
+
+		private void DispatchResume()
+		{
+			if (RESUME != null)
+				RESUME ();
+		}
+
+		private void DispatchPostResume()
+		{
+			if (POST_RESUME != null)
+				POST_RESUME ();
+		}
+
+		private void DispatchPreDestroy()
+		{
+			if (PRE_DESTROY != null)
+				PRE_DESTROY();
+		}
+
+		private void DispatchDestroy()
+		{
+			if (DESTROY != null)
+				DESTROY();
+		}
+
+		private void DispatchPostDestroy()
+		{
+			if (POST_DESTROY != null)
+				POST_DESTROY();
 		}
 	}
 }

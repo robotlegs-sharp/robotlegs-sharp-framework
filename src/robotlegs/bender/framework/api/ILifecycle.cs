@@ -2,7 +2,7 @@
 
 namespace robotlegs.bender.framework.api
 {
-	public interface ILifecycle
+	public interface ILifecycle : ILifecycleEvents
 	{
 		event Action<Exception> ERROR;
 
@@ -12,11 +12,6 @@ namespace robotlegs.bender.framework.api
 		 * The current lifecycle state of the target object
 		 */
 		LifecycleState state {get;}
-
-		/**
-		 * The target object associated with this lifecycle
-		 */
-		object target {get;}
 
 		/**
 		 * Is this object uninitialized?
