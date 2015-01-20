@@ -14,21 +14,21 @@ namespace robotlegs.bender.framework.impl
 
 		public event Action STATE_CHANGE;
 
-		public event Action PRE_INITIALIZE;
-		public event Action INITIALIZE;
-		public event Action POST_INITIALIZE;
+		public event Action<object> PRE_INITIALIZE;
+		public event Action<object> INITIALIZE;
+		public event Action<object> POST_INITIALIZE;
 
-		public event Action PRE_SUSPEND;
-		public event Action SUSPEND;
-		public event Action POST_SUSPEND;
+		public event Action<object> PRE_SUSPEND;
+		public event Action<object> SUSPEND;
+		public event Action<object> POST_SUSPEND;
 
-		public event Action PRE_RESUME;
-		public event Action RESUME;
-		public event Action POST_RESUME;
+		public event Action<object> PRE_RESUME;
+		public event Action<object> RESUME;
+		public event Action<object> POST_RESUME;
 
-		public event Action PRE_DESTROY;
-		public event Action DESTROY;
-		public event Action POST_DESTROY;
+		public event Action<object> PRE_DESTROY;
+		public event Action<object> DESTROY;
+		public event Action<object> POST_DESTROY;
 
 		public LifecycleState state
 		{
@@ -79,32 +79,19 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		// James test event
-		public event Action LifecycleEventPreInitialized;
-		public event Action LifecycleEventInitialize;
-		public event Action LifecycleEventPostInitialize;
-
-		private void CallPreInitalized()
+		public object Target
 		{
-			if (LifecycleEventPreInitialized != null)
-				LifecycleEventPreInitialized ();
-		}
-
-		private void CallInitialize()
-		{
-			if (LifecycleEventInitialize != null)
-				LifecycleEventInitialize ();
-		}
-
-		private void CallPostInitialize()
-		{
-			if (LifecycleEventPostInitialize != null)
-				LifecycleEventPostInitialize ();
+			get 
+			{
+				return _target;
+			}
 		}
 
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private object _target;
 
 		private LifecycleState _state = LifecycleState.UNINITIALIZED;
 
@@ -124,8 +111,9 @@ namespace robotlegs.bender.framework.impl
 		* Creates a lifecycle for a given target object
 			* @param target The target object
 			*/
-		public Lifecycle()
+		public Lifecycle(object target)
 		{
+			_target = target;
 			ConfigureTransitions();
 		}
 
@@ -316,73 +304,73 @@ namespace robotlegs.bender.framework.impl
 		private void DispatchPreInitialize()
 		{
 			if (PRE_INITIALIZE != null)
-				PRE_INITIALIZE ();
+				PRE_INITIALIZE (_target);
 		}
 
 		private void DispatchInitialize()
 		{
 			if (INITIALIZE != null)
-				INITIALIZE ();
+				INITIALIZE (_target);
 		}
 
 		private void DispatchPostInitialize()
 		{
 			if (POST_INITIALIZE != null)
-				POST_INITIALIZE ();
+				POST_INITIALIZE (_target);
 		}
 
 		private void DispatchPreSuspend()
 		{
 			if (PRE_SUSPEND != null)
-				PRE_SUSPEND ();
+				PRE_SUSPEND (_target);
 		}
 
 		private void DispatchSuspend()
 		{
 			if (SUSPEND != null)
-				SUSPEND ();
+				SUSPEND (_target);
 		}
 
 		private void DispatchPostSuspend()
 		{
 			if (POST_SUSPEND != null)
-				POST_SUSPEND ();
+				POST_SUSPEND (_target);
 		}
 
 		private void DispatchPreResume()
 		{
 			if (PRE_RESUME != null)
-				PRE_RESUME ();
+				PRE_RESUME (_target);
 		}
 
 		private void DispatchResume()
 		{
 			if (RESUME != null)
-				RESUME ();
+				RESUME (_target);
 		}
 
 		private void DispatchPostResume()
 		{
 			if (POST_RESUME != null)
-				POST_RESUME ();
+				POST_RESUME (_target);
 		}
 
 		private void DispatchPreDestroy()
 		{
 			if (PRE_DESTROY != null)
-				PRE_DESTROY();
+				PRE_DESTROY(_target);
 		}
 
 		private void DispatchDestroy()
 		{
 			if (DESTROY != null)
-				DESTROY();
+				DESTROY(_target);
 		}
 
 		private void DispatchPostDestroy()
 		{
 			if (POST_DESTROY != null)
-				POST_DESTROY();
+				POST_DESTROY(_target);
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace robotlegs.bender.framework.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action PRE_INITIALIZE 
+		public event Action<object> PRE_INITIALIZE 
 		{
 			add
 			{
@@ -23,7 +23,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action INITIALIZE
+		public event Action<object> INITIALIZE
 		{
 			add
 			{
@@ -35,7 +35,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action POST_INITIALIZE
+		public event Action<object> POST_INITIALIZE
 		{
 			add	
 			{
@@ -47,7 +47,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action PRE_SUSPEND
+		public event Action<object> PRE_SUSPEND
 		{
 			add	
 			{
@@ -59,7 +59,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action SUSPEND
+		public event Action<object> SUSPEND
 		{
 			add	
 			{
@@ -71,7 +71,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action POST_SUSPEND
+		public event Action<object> POST_SUSPEND
 		{
 			add	
 			{
@@ -83,7 +83,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action PRE_RESUME
+		public event Action<object> PRE_RESUME
 		{
 			add	
 			{
@@ -95,7 +95,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action RESUME
+		public event Action<object> RESUME
 		{
 			add	
 			{
@@ -107,7 +107,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action POST_RESUME
+		public event Action<object> POST_RESUME
 		{
 			add	
 			{
@@ -119,7 +119,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action PRE_DESTROY
+		public event Action<object> PRE_DESTROY
 		{
 			add	
 			{
@@ -131,7 +131,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action DESTROY
+		public event Action<object> DESTROY
 		{
 			add	
 			{
@@ -143,7 +143,7 @@ namespace robotlegs.bender.framework.impl
 			}
 		}
 
-		public event Action POST_DESTROY
+		public event Action<object> POST_DESTROY
 		{
 			add	
 			{
@@ -406,8 +406,7 @@ namespace robotlegs.bender.framework.impl
 				}
 				_children.Add(child);
 				child.injector.parent = injector;
-				// TODO: Need to pass back a context... somehow
-//				child.POST_DESTROY += OnChildDestroy; // This does not pass back a context!!!
+				child.POST_DESTROY += OnChildDestroy;
 			}
 			return this;
 		}
@@ -419,8 +418,7 @@ namespace robotlegs.bender.framework.impl
 				_logger.Info("Removing child context {0}", new object[]{child});
 				_children.Remove(child);
 				child.injector.parent = null;
-				// TODO: Need to pass back a context... somehow
-//				child.POST_DESTROY -= OnChildDestroy;
+				child.POST_DESTROY -= OnChildDestroy;
 			}
 			else
 			{
@@ -478,7 +476,7 @@ namespace robotlegs.bender.framework.impl
 			_injector.Map (typeof(IContext)).ToValue (this);
 			_logger = _logManager.GetLogger(this);
 			_pin = new Pin();
-			_lifecycle = new Lifecycle();
+			_lifecycle = new Lifecycle(this);
 			_configManager = new ConfigManager (this);
 			_extensionInstaller = new ExtensionInstaller (this);
 			BeforeInitializing(BeforeInitializingCallback);
@@ -514,9 +512,9 @@ namespace robotlegs.bender.framework.impl
 			_logManager.RemoveAllTargets();
 		}
 
-		private void OnChildDestroy(IContext context)
+		private void OnChildDestroy(object context)
 		{
-			RemoveChild (context);
+			RemoveChild (context as IContext);
 		}
 
 		private void RemoveChildren()

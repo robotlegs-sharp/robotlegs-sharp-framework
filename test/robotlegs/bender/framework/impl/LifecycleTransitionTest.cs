@@ -23,7 +23,7 @@ namespace robotlegs.bender.framework.impl
 		[SetUp]
 		public void before()
 		{
-			lifecycle = new Lifecycle();
+			lifecycle = new Lifecycle(new object());
 			transition = new LifecycleTransition("test", lifecycle);
 		}
 

@@ -4,21 +4,21 @@ namespace robotlegs.bender.framework.api
 {
 	public interface ILifecycleEvents
 	{
-		event Action PRE_INITIALIZE;
-		event Action INITIALIZE;
-		event Action POST_INITIALIZE;
+		event Action<object> PRE_INITIALIZE;
+		event Action<object> INITIALIZE;
+		event Action<object> POST_INITIALIZE;
 
-		event Action PRE_SUSPEND;
-		event Action SUSPEND;
-		event Action POST_SUSPEND;
+		event Action<object> PRE_SUSPEND;
+		event Action<object> SUSPEND;
+		event Action<object> POST_SUSPEND;
 
-		event Action PRE_RESUME;
-		event Action RESUME;
-		event Action POST_RESUME;
+		event Action<object> PRE_RESUME;
+		event Action<object> RESUME;
+		event Action<object> POST_RESUME;
 
-		event Action PRE_DESTROY;
-		event Action DESTROY;
-		event Action POST_DESTROY;
+		event Action<object> PRE_DESTROY;
+		event Action<object> DESTROY;
+		event Action<object> POST_DESTROY;
 	}
 }
 

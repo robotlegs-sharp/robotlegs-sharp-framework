@@ -14,6 +14,7 @@ namespace robotlegs.bender.framework.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
+		private object target;
 		private Lifecycle lifecycle;
 
 		/*============================================================================*/
@@ -23,7 +24,8 @@ namespace robotlegs.bender.framework.impl
 		[SetUp]
 		public void before()
 		{
-			lifecycle = new Lifecycle();
+			target = new object();
+			lifecycle = new Lifecycle(target);
 		}
 
 		/*============================================================================*/
@@ -109,18 +111,18 @@ namespace robotlegs.bender.framework.impl
 				"DESTROY",
 				"POST_DESTROY"
 			};
-			lifecycle.PRE_INITIALIZE += CreateValuePusher (actual, "PRE_INITIALIZE");
-			lifecycle.INITIALIZE += CreateValuePusher (actual, "INITIALIZE");
-			lifecycle.POST_INITIALIZE += CreateValuePusher (actual, "POST_INITIALIZE");
-			lifecycle.PRE_SUSPEND += CreateValuePusher (actual, "PRE_SUSPEND");
-			lifecycle.SUSPEND += CreateValuePusher (actual, "SUSPEND");
-			lifecycle.POST_SUSPEND += CreateValuePusher (actual, "POST_SUSPEND");
-			lifecycle.PRE_RESUME += CreateValuePusher (actual, "PRE_RESUME");
-			lifecycle.RESUME += CreateValuePusher (actual, "RESUME");
-			lifecycle.POST_RESUME += CreateValuePusher (actual, "POST_RESUME");
-			lifecycle.PRE_DESTROY += CreateValuePusher (actual, "PRE_DESTROY");
-			lifecycle.DESTROY += CreateValuePusher (actual, "DESTROY");
-			lifecycle.POST_DESTROY += CreateValuePusher (actual, "POST_DESTROY");
+			lifecycle.PRE_INITIALIZE += CreateObjectValuePusher (actual, "PRE_INITIALIZE");
+			lifecycle.INITIALIZE += CreateObjectValuePusher (actual, "INITIALIZE");
+			lifecycle.POST_INITIALIZE += CreateObjectValuePusher (actual, "POST_INITIALIZE");
+			lifecycle.PRE_SUSPEND += CreateObjectValuePusher (actual, "PRE_SUSPEND");
+			lifecycle.SUSPEND += CreateObjectValuePusher (actual, "SUSPEND");
+			lifecycle.POST_SUSPEND += CreateObjectValuePusher (actual, "POST_SUSPEND");
+			lifecycle.PRE_RESUME += CreateObjectValuePusher (actual, "PRE_RESUME");
+			lifecycle.RESUME += CreateObjectValuePusher (actual, "RESUME");
+			lifecycle.POST_RESUME += CreateObjectValuePusher (actual, "POST_RESUME");
+			lifecycle.PRE_DESTROY += CreateObjectValuePusher (actual, "PRE_DESTROY");
+			lifecycle.DESTROY += CreateObjectValuePusher (actual, "DESTROY");
+			lifecycle.POST_DESTROY += CreateObjectValuePusher (actual, "POST_DESTROY");
 
 			lifecycle.Initialize();
 			lifecycle.Suspend();
@@ -425,6 +427,13 @@ namespace robotlegs.bender.framework.impl
 				}
 			}
 			return errorCount;
+		}
+
+		private Action<object> CreateObjectValuePusher(List<object> list, object value)
+		{
+			return delegate(object obj) {
+				list.Add(value);
+			};
 		}
 
 		private Action CreateValuePusher(List<object> list, object value)
