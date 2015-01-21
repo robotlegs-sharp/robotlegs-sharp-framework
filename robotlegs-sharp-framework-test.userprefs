@@ -1,12 +1,15 @@
 ﻿<Properties StartupItem="robotlegs-sharp-framework-test.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\framework\impl\MessageDispatcher.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="test\robotlegs\bender\framework\impl\LifecycleTest.cs">
     <Files>
-      <File FileName="src\robotlegs\bender\framework\api\IContext.cs" Line="71" Column="71" />
-      <File FileName="src\robotlegs\bender\framework\impl\Lifecycle.cs" Line="45" Column="45" />
-      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="5" Column="5" />
-      <File FileName="test\robotlegs\bender\framework\impl\ContextTest.cs" Line="6" Column="6" />
-      <File FileName="src\robotlegs\bender\framework\impl\MessageDispatcher.cs" Line="4" Column="4" />
+      <File FileName="src\robotlegs\bender\framework\api\IContext.cs" Line="1" Column="1" />
+      <File FileName="src\robotlegs\bender\framework\impl\Lifecycle.cs" Line="40" Column="40" />
+      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="46" Column="46" />
+      <File FileName="test\robotlegs\bender\framework\impl\ContextTest.cs" Line="12" Column="12" />
+      <File FileName="src\robotlegs\bender\framework\impl\MessageDispatcher.cs" Line="3" Column="3" />
+      <File FileName="test\robotlegs\bender\framework\impl\ApplyHooksTest.cs" Line="3" Column="3" />
+      <File FileName="test\robotlegs\bender\framework\impl\LoggerTest.cs" Line="25" Column="25" />
+      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTest.cs" Line="3" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

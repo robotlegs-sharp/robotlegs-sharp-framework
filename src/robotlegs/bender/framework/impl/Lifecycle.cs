@@ -143,21 +143,21 @@ namespace robotlegs.bender.framework.impl
 
 		public ILifecycle BeforeInitializing (Action handler)
 		{
-			ReportIfUnitialized();
+			ReportIfNotUnitialized();
 			_initialize.AddBeforeHandler(handler);
 			return this;
 		}
 
 		public ILifecycle BeforeInitializing (MessageDispatcher.HandlerMessageDelegate handler)
 		{
-			ReportIfUnitialized();
+			ReportIfNotUnitialized();
 			_initialize.AddBeforeHandler(handler);
 			return this;
 		}
 
 		public ILifecycle BeforeInitializing (MessageDispatcher.HandlerMessageCallbackDelegate handler)
 		{
-			ReportIfUnitialized();
+			ReportIfNotUnitialized();
 			_initialize.AddBeforeHandler(handler);
 			return this;
 		}
@@ -321,7 +321,7 @@ namespace robotlegs.bender.framework.impl
 			_destroy.postTransition += DispatchPostDestroy;
 		}
 
-		private void ReportIfUnitialized()
+		private void ReportIfNotUnitialized()
 		{
 			if (!Uninitialized)
 				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
@@ -329,7 +329,7 @@ namespace robotlegs.bender.framework.impl
 
 		private void ReportIfInitialized()
 		{
-			if (!Initialized)
+			if (Initialized)
 				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
 		}
 
