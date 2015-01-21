@@ -227,7 +227,7 @@ namespace robotlegs.bender.framework.impl
 		/* Internal Functions                                                         */
 		/*============================================================================*/
 
-		public void SetCurrentState(LifecycleState state)
+		internal void SetCurrentState(LifecycleState state)
 		{
 			if (_state == state)
 				return;
@@ -236,7 +236,7 @@ namespace robotlegs.bender.framework.impl
 				STATE_CHANGE ();
 		}
 
-		public bool HasErrorSubscriber()
+		internal bool HasErrorSubscriber()
 		{
 			return ERROR != null;
 		}
