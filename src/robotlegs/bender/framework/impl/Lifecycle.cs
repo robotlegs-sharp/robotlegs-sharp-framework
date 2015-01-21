@@ -246,8 +246,6 @@ namespace robotlegs.bender.framework.impl
 			_initialize = new LifecycleTransition ("LifecycleEvent.PRE_INITIALIZE", this)
 				.FromStates (LifecycleState.UNINITIALIZED)
 				.ToStates (LifecycleState.INITIALIZING, LifecycleState.ACTIVE);
-//				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize);
-
 			_initialize.preTransition += DispatchPreInitialize;
 			_initialize.transition += DispatchInitialize;
 			_initialize.postTransition += DispatchPostInitialize;
@@ -255,23 +253,14 @@ namespace robotlegs.bender.framework.impl
 			_suspend = new LifecycleTransition ("LifecycleEvent.PRE_SUSPEND", this)
 				.FromStates (LifecycleState.ACTIVE)
 				.ToStates (LifecycleState.SUSPENDING, LifecycleState.SUSPENDED)
-//				.WithEvents (CallPreInitalized, CallInitialize, CallPostInitialize)
-//				.WithEvents(LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND)
 				.InReverse();
-
 			_suspend.preTransition += DispatchPreSuspend;
 			_suspend.transition += DispatchSuspend;
 			_suspend.postTransition += DispatchPostSuspend;
 
-//			_suspend.transition += 
-
 			_resume = new LifecycleTransition("LifecycleEvent.PRE_RESUME", this)
 				.FromStates(LifecycleState.SUSPENDED)
 				.ToStates(LifecycleState.RESUMING, LifecycleState.ACTIVE);
-//				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize);
-//				.WithEvents(LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME);
-
-
 			_resume.preTransition += DispatchPreResume;
 			_resume.transition += DispatchResume;
 			_resume.postTransition += DispatchPostResume;
@@ -279,10 +268,7 @@ namespace robotlegs.bender.framework.impl
 			_destroy = new LifecycleTransition("LifecycleEvent.PRE_DESTROY", this)
 				.FromStates(LifecycleState.SUSPENDED, LifecycleState.ACTIVE)
 				.ToStates(LifecycleState.DESTROYING, LifecycleState.DESTROYED)
-//				.WithEvents(CallPreInitalized, CallInitialize, CallPostInitialize)
-//				.WithEvents(LifecycleEvent.PRE_DESTROY, LifecycleEvent.DESTROY, LifecycleEvent.POST_DESTROY)
 				.InReverse();
-
 			_destroy.preTransition += DispatchPreDestroy;
 			_destroy.transition += DispatchDestroy;
 			_destroy.postTransition += DispatchPostDestroy;

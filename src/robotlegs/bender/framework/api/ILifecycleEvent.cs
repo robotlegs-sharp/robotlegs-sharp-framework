@@ -2,7 +2,7 @@
 
 namespace robotlegs.bender.framework.api
 {
-	public interface ILifecycleEvents
+	public interface ILifecycleEvent
 	{
 		event Action<object> PRE_INITIALIZE;
 		event Action<object> INITIALIZE;

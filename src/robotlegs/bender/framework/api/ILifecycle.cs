@@ -2,7 +2,7 @@
 
 namespace robotlegs.bender.framework.api
 {
-	public interface ILifecycle : ILifecycleEvents
+	public interface ILifecycle : ILifecycleEvent
 	{
 		event Action<Exception> ERROR;
 

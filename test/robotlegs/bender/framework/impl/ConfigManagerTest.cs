@@ -57,7 +57,7 @@ namespace robotlegs.bender.framework.impl
 				actual = config;
 			});
 			configManager.AddConfig(expected);
-			Assert.AreEqual (actual, expected);
+			Assert.That (actual, Is.EqualTo (expected));
 		}
 
 		[Test]
@@ -70,8 +70,7 @@ namespace robotlegs.bender.framework.impl
 
 			configManager.AddConfig<PlainConfig>();
 
-//			assertThat(actual, nullValue());
-			Assert.Null(actual);
+			Assert.That (actual, Is.Null);
 		}
 
 		[Test]
@@ -85,7 +84,7 @@ namespace robotlegs.bender.framework.impl
 			configManager.AddConfig(typeof(PlainConfig));
 			context.Initialize();
 
-			Assert.IsInstanceOf<PlainConfig>(actual);
+			Assert.That(actual, Is.InstanceOf<PlainConfig>());
 		}
 
 		[Test]

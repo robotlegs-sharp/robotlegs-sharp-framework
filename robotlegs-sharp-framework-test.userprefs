@@ -1,14 +1,8 @@
 ﻿<Properties StartupItem="robotlegs-sharp-framework-test.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="test\robotlegs\bender\framework\impl\MessageDispatcherTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\framework\api\IContext.cs">
     <Files>
-      <File FileName="test\robotlegs\bender\framework\impl\ContextTest.cs" Line="23" Column="23" />
-      <File FileName="src\robotlegs\bender\framework\impl\Lifecycle.cs" Line="31" Column="31" />
-      <File FileName="src\robotlegs\bender\framework\api\ILifecycle.cs" Line="1" Column="1" />
-      <File FileName="src\robotlegs\bender\framework\impl\Context.cs" Line="27" Column="27" />
-      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTest.cs" Line="53" Column="53" />
-      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTransitionTest.cs" Line="31" Column="31" />
-      <File FileName="test\robotlegs\bender\framework\impl\MessageDispatcherTest.cs" Line="44" Column="44" />
+      <File FileName="src\robotlegs\bender\framework\api\IContext.cs" Line="32" Column="32" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
@@ -20,15 +14,15 @@
                   <Node name="impl" expanded="True">
                     <Node name="ApplyHooksTest" expanded="True" />
                     <Node name="ConfigManagerTest" expanded="True" />
-                    <Node name="ContextTest" expanded="True">
-                      <Node name="removed_child_is_not_removed_again_when_destroyed" selected="True" />
-                    </Node>
+                    <Node name="ContextTest" expanded="True" />
                     <Node name="GuardsApproveTest" expanded="True" />
                     <Node name="LifecycleTest" expanded="True" />
                     <Node name="LifecycleTransitionTest" expanded="True" />
                     <Node name="LoggerManagerTest" expanded="True" />
                     <Node name="LoggerTest" expanded="True" />
-                    <Node name="MessageDispatcherTest" expanded="True" />
+                    <Node name="MessageDispatcherTest" expanded="True">
+                      <Node name="deaf_handler_handles_message" selected="True" />
+                    </Node>
                     <Node name="PinTest" expanded="True" />
                   </Node>
                 </Node>

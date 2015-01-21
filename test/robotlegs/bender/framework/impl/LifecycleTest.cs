@@ -92,7 +92,6 @@ namespace robotlegs.bender.framework.impl
 
 		// ----- Events
 
-//		/*
 		[Test]
 		public void events_are_dispatched()
 		{
@@ -131,8 +130,6 @@ namespace robotlegs.bender.framework.impl
 
 			Assert.That(actual, Is.EqualTo(expected).AsCollection);
 		}
-
-//		*/
 
 		// ----- Shorthand transition handlers
 
@@ -199,13 +196,15 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		/*
-		[Test(async)]
-		public void async_before_handlers_are_executed()
+		[Test]
+		public async Task async_before_handlers_are_executed()
 		{
-			var callCount:int = 0;
-			const handler:Function = function(message:Object, callback:Function) {
+			int callCount = 0;
+			MessageDispatcher. handler = delegate(object message, MessageDispatcher.HandlerAsyncCallback callback) {
 				callCount++;
-				setTimeout(callback, 1);
+				await Task.Delay(1);
+				callback();
+//				setTimeout(callback, 1);
 			};
 			lifecycle
 				.BeforeInitializing(handler)
@@ -219,11 +218,11 @@ namespace robotlegs.bender.framework.impl
 					})
 				})
 			});
-			Async.delayCall(this, function() {
-				Assert.That(callCount, Is.EqualTo(4));
-			}, 200);
+//			Async.delayCall(this, function() {
+//				Assert.That(callCount, Is.EqualTo(4));
+//			}, 200);
 		}
-		*/
+//		*/
 
 		// ----- Suspend and Destroy run backwards
 
@@ -369,41 +368,6 @@ namespace robotlegs.bender.framework.impl
 			});
 			lifecycle.Initialize();
 			Assert.That(callCount, Is.EqualTo(1));
-		}
-
-		[Test]
-		public void TestCheck()
-		{
-			Console.WriteLine ("Begin");
-			lifecycle.BeforeInitializing (delegate {
-				Console.WriteLine ("Before1");
-			});
-			lifecycle.BeforeInitializing (delegate {
-				Console.WriteLine ("Before2");
-			});
-			lifecycle.BeforeInitializing (delegate {
-				Console.WriteLine ("Before3");
-			});
-			lifecycle.WhenInitializing (delegate {
-				Console.WriteLine ("When1");
-			});
-			lifecycle.WhenInitializing (delegate {
-				Console.WriteLine ("When2");
-			});
-			lifecycle.WhenInitializing (delegate {
-				Console.WriteLine ("When3");
-			});
-			lifecycle.AfterInitializing (delegate {
-				Console.WriteLine ("After1");
-			});
-			lifecycle.AfterInitializing (delegate {
-				Console.WriteLine ("After2");
-			});
-			lifecycle.AfterInitializing (delegate {
-				Console.WriteLine ("After3");
-			});
-			lifecycle.Initialize ();
-			Console.WriteLine ("End");
 		}
 
 		/*============================================================================*/
