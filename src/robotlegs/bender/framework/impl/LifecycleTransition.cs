@@ -99,12 +99,12 @@ namespace robotlegs.bender.framework.impl
 			_dispatcher.AddMessageHandler(_name, handler);
 			return this;
 		}
-		public LifecycleTransition AddBeforeHandler(MessageDispatcher.HandlerMessageDelegate handler)
+		public LifecycleTransition AddBeforeHandler(HandlerMessageDelegate handler)
 		{
 			_dispatcher.AddMessageHandler (_name, handler);
 			return this;
 		}
-		public LifecycleTransition AddBeforeHandler(MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public LifecycleTransition AddBeforeHandler(HandlerMessageCallbackDelegate handler)
 		{
 			_dispatcher.AddMessageHandler (_name, handler);
 			return this;

@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Threading.Tasks;
 using robotlegs.bender.framework.impl.safelyCallBackSupport;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -169,7 +170,7 @@ namespace robotlegs.bender.framework.impl
 		public void handler_with_callback_handles_message()
 		{
 			object actualMessage = null;
-			dispatcher.AddMessageHandler(message, delegate(object msg, MessageDispatcher.HandlerAsyncCallback callback) {
+			dispatcher.AddMessageHandler(message, delegate(object msg, HandlerAsyncCallback callback) {
 				actualMessage = msg;
 				callback();
 			});
@@ -185,7 +186,7 @@ namespace robotlegs.bender.framework.impl
 			Task awaitTask = null;
 
 			List<Task> tasks = new List<Task> ();
-			dispatcher.AddMessageHandler(message, delegate(object msg, MessageDispatcher.HandlerAsyncCallback callback) {
+			dispatcher.AddMessageHandler(message, delegate(object msg, HandlerAsyncCallback callback) {
 				actualMessage = msg;
 //				Task.Run(SetTimeout(5, callback as Delegate));
 //				SetTimeout(5, callback as Delegate).Start();

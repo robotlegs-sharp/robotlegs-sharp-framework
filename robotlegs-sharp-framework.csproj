@@ -163,6 +163,7 @@
     <Compile Include="src\robotlegs\bender\extensions\enhancedLogging\impl\InjectorListener.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\LifecycleException.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\ILifecycleEvent.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\MessageDispatcherDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl
 {
 	public class MessageDispatcher
 	{
-		/*============================================================================*/
-		/* Public Properties                                                          */
-		/*============================================================================*/
-		public delegate void HandlerMessageDelegate(object message);
-		public delegate void HandlerMessageCallbackDelegate(object message, HandlerAsyncCallback callback);
-		public delegate void HandlerAsyncCallback(object error = null);
-
-		public delegate void CallbackErrorDelegate(object error);
-		public delegate void CallbackErrorMessageDelegate(object error, object message);
 
 		/*============================================================================*/
 		/* Private Properties                                                         */
@@ -196,14 +188,14 @@ namespace robotlegs.bender.framework.impl
 				{
 					(handler as Action)();
 				}
-				else if (handler is MessageDispatcher.HandlerMessageDelegate) // sync handler: (message)
+				else if (handler is HandlerMessageDelegate) // sync handler: (message)
 				{
-					(handler as MessageDispatcher.HandlerMessageDelegate)(_message);
+					(handler as HandlerMessageDelegate)(_message);
 				}
-				else if (handler is MessageDispatcher.HandlerMessageCallbackDelegate) // sync or async handler: (message, callback)
+				else if (handler is HandlerMessageCallbackDelegate) // sync or async handler: (message, callback)
 				{
 					bool handled = false;
-					(handler as MessageDispatcher.HandlerMessageCallbackDelegate)(_message, delegate(object error)
+					(handler as HandlerMessageCallbackDelegate)(_message, delegate(object error)
 						{
 							// handler must not invoke the callback more than once
 							if (handled) return;

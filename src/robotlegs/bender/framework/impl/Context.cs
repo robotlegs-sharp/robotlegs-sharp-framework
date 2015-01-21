@@ -287,13 +287,13 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public IContext BeforeInitializing (MessageDispatcher.HandlerMessageDelegate handler)
+		public IContext BeforeInitializing (HandlerMessageDelegate handler)
 		{
 			_lifecycle.BeforeInitializing (handler);
 			return this;
 		}
 
-		public IContext BeforeInitializing (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public IContext BeforeInitializing (HandlerMessageCallbackDelegate handler)
 		{
 			_lifecycle.BeforeInitializing (handler);
 			return this;
@@ -317,13 +317,13 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public IContext BeforeSuspending (MessageDispatcher.HandlerMessageDelegate handler)
+		public IContext BeforeSuspending (HandlerMessageDelegate handler)
 		{
 			_lifecycle.BeforeSuspending (handler);
 			return this;
 		}
 
-		public IContext BeforeSuspending (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public IContext BeforeSuspending (HandlerMessageCallbackDelegate handler)
 		{
 			_lifecycle.BeforeSuspending (handler);
 			return this;
@@ -347,13 +347,13 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public IContext BeforeResuming (MessageDispatcher.HandlerMessageDelegate handler)
+		public IContext BeforeResuming (HandlerMessageDelegate handler)
 		{
 			_lifecycle.BeforeResuming (handler);
 			return this;
 		}
 
-		public IContext BeforeResuming (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public IContext BeforeResuming (HandlerMessageCallbackDelegate handler)
 		{
 			_lifecycle.BeforeResuming (handler);
 			return this;
@@ -377,13 +377,13 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public IContext BeforeDestroying (MessageDispatcher.HandlerMessageDelegate handler)
+		public IContext BeforeDestroying (HandlerMessageDelegate handler)
 		{
 			_lifecycle.BeforeDestroying (handler);
 			return this;
 		}
 
-		public IContext BeforeDestroying (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public IContext BeforeDestroying (HandlerMessageCallbackDelegate handler)
 		{
 			_lifecycle.BeforeDestroying (handler);
 			return this;

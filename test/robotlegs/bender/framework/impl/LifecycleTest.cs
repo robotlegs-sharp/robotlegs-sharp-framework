@@ -200,7 +200,7 @@ namespace robotlegs.bender.framework.impl
 		public async Task async_before_handlers_are_executed()
 		{
 			int callCount = 0;
-			MessageDispatcher. handler = delegate(object message, MessageDispatcher.HandlerAsyncCallback callback) {
+			MessageDispatcher. handler = delegate(object message, HandlerAsyncCallback callback) {
 				callCount++;
 				await Task.Delay(1);
 				callback();

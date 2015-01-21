@@ -148,14 +148,14 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public ILifecycle BeforeInitializing (MessageDispatcher.HandlerMessageDelegate handler)
+		public ILifecycle BeforeInitializing (HandlerMessageDelegate handler)
 		{
 			ReportIfNotUnitialized();
 			_initialize.AddBeforeHandler(handler);
 			return this;
 		}
 
-		public ILifecycle BeforeInitializing (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public ILifecycle BeforeInitializing (HandlerMessageCallbackDelegate handler)
 		{
 			ReportIfNotUnitialized();
 			_initialize.AddBeforeHandler(handler);
@@ -182,13 +182,13 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public ILifecycle BeforeSuspending (MessageDispatcher.HandlerMessageDelegate handler)
+		public ILifecycle BeforeSuspending (HandlerMessageDelegate handler)
 		{
 			_suspend.AddBeforeHandler (handler);
 			return this;
 		}
 
-		public ILifecycle BeforeSuspending (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public ILifecycle BeforeSuspending (HandlerMessageCallbackDelegate handler)
 		{
 			_suspend.AddBeforeHandler (handler);
 			return this;
@@ -212,13 +212,13 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public ILifecycle BeforeResuming (MessageDispatcher.HandlerMessageDelegate handler)
+		public ILifecycle BeforeResuming (HandlerMessageDelegate handler)
 		{
 			_resume.AddBeforeHandler (handler);
 			return this;
 		}
 
-		public ILifecycle BeforeResuming (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public ILifecycle BeforeResuming (HandlerMessageCallbackDelegate handler)
 		{
 			_resume.AddBeforeHandler (handler);
 			return this;
@@ -242,13 +242,13 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public ILifecycle BeforeDestroying (MessageDispatcher.HandlerMessageDelegate handler)
+		public ILifecycle BeforeDestroying (HandlerMessageDelegate handler)
 		{
 			_destroy.AddBeforeHandler (handler);
 			return this;
 		}
 
-		public ILifecycle BeforeDestroying (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		public ILifecycle BeforeDestroying (HandlerMessageCallbackDelegate handler)
 		{
 			_destroy.AddBeforeHandler (handler);
 			return this;

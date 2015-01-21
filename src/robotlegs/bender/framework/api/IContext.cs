@@ -50,26 +50,26 @@ namespace robotlegs.bender.framework.api
 		/// <returns>The pre initialized callback.</returns>
 		/// <param name="callback">Callback.</param>
 		IContext BeforeInitializing (Action callback);
-		IContext BeforeInitializing (MessageDispatcher.HandlerMessageDelegate handler);
-		IContext BeforeInitializing (MessageDispatcher.HandlerMessageCallbackDelegate handler);
+		IContext BeforeInitializing (HandlerMessageDelegate handler);
+		IContext BeforeInitializing (HandlerMessageCallbackDelegate handler);
 		IContext WhenInitializing (Action callback);
 		IContext AfterInitializing (Action callback);
 
 		IContext BeforeSuspending (Action callback);
-		IContext BeforeSuspending (MessageDispatcher.HandlerMessageDelegate handler);
-		IContext BeforeSuspending (MessageDispatcher.HandlerMessageCallbackDelegate handler);
+		IContext BeforeSuspending (HandlerMessageDelegate handler);
+		IContext BeforeSuspending (HandlerMessageCallbackDelegate handler);
 		IContext WhenSuspending (Action callback);
 		IContext AfterSuspending (Action callback);
 
 		IContext BeforeResuming (Action callback);
-		IContext BeforeResuming (MessageDispatcher.HandlerMessageDelegate handler);
-		IContext BeforeResuming (MessageDispatcher.HandlerMessageCallbackDelegate handler);
+		IContext BeforeResuming (HandlerMessageDelegate handler);
+		IContext BeforeResuming (HandlerMessageCallbackDelegate handler);
 		IContext WhenResuming (Action callback);
 		IContext AfterResuming (Action callback);
 
 		IContext BeforeDestroying (Action callback);
-		IContext BeforeDestroying (MessageDispatcher.HandlerMessageDelegate handler);
-		IContext BeforeDestroying (MessageDispatcher.HandlerMessageCallbackDelegate handler);
+		IContext BeforeDestroying (HandlerMessageDelegate handler);
+		IContext BeforeDestroying (HandlerMessageCallbackDelegate handler);
 		IContext WhenDestroying (Action callback);
 		IContext AfterDestroying(Action callback);
 
