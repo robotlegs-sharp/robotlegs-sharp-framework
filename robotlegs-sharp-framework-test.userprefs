@@ -1,35 +1,6 @@
 ﻿<Properties StartupItem="robotlegs-sharp-framework-test.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="test\robotlegs\bender\framework\impl\LifecycleTest.cs">
-    <Files>
-      <File FileName="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" Line="1" Column="1" />
-      <File FileName="test\robotlegs\bender\framework\impl\ContextTest.cs" Line="1" Column="1" />
-      <File FileName="test\robotlegs\bender\framework\impl\GuardsApproveTest.cs" Line="1" Column="1" />
-      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTest.cs" Line="1" Column="1" />
-      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTransitionTest.cs" Line="1" Column="1" />
-      <File FileName="src\robotlegs\bender\framework\api\ILifecycle.cs" Line="3" Column="3" />
-      <File FileName="src\robotlegs\bender\framework\impl\Lifecycle.cs" Line="42" Column="42" />
-    </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True">
-          <Node name="robotlegs-sharp-framework-test" expanded="True">
-            <Node name="robotlegs" expanded="True">
-              <Node name="bender" expanded="True">
-                <Node name="framework" expanded="True">
-                  <Node name="impl" expanded="True">
-                    <Node name="LifecycleTest" expanded="True">
-                      <Node name="adding_WhenInitializing_handler_during_initialization_does_NOT_throw_error" selected="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

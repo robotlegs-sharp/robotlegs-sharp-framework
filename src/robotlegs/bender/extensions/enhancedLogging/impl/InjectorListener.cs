@@ -1,5 +1,6 @@
 ﻿using System;
 using robotlegs.bender.framework.api;
+using swiftsuspenders.mapping;
 
 namespace robotlegs.bender.extensions.enhancedLogging.impl
 {
@@ -38,15 +39,16 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 		 */
 		public void Destroy()
 		{
-//			var type:String;
-//			for each (type in INJECTION_TYPES)
-//			{
-//				_injector.removeEventListener(type, onInjectionEvent);
-//			}
-//			for each (type in MAPPING_TYPES)
-//			{
-//				_injector.removeEventListener(type, onMappingEvent);
-//			}
+			_injector.POST_CONSTRUCT -= OnPostConstruct;
+			_injector.POST_INSTANTIATE -= OnPostInstantiate;
+			_injector.PRE_CONSTRUCT -= OnPreConstruct;
+
+			_injector.MAPPING_OVERRIDE -= OnMappingOverride;
+			_injector.POST_MAPPING_CHANGE -= OnPostMappingChange;
+			_injector.POST_MAPPING_CREATE -= OnPostMappingCreate;
+			_injector.POST_MAPPING_REMOVE -= OnPostMappingRemove;
+			_injector.PRE_MAPPING_CHANGE -= OnPreMappingChange;
+			_injector.PRE_MAPPING_CREATE -= OnPreMappingCreate;
 		}
 
 		/*============================================================================*/
@@ -55,28 +57,68 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 
 		private void AddListeners()
 		{
-//			var type:String;
-//			for each (type in INJECTION_TYPES)
-//			{
-//				_injector.addEventListener(type, onInjectionEvent);
-//			}
-//			for each (type in MAPPING_TYPES)
-//			{
-//				_injector.addEventListener(type, onMappingEvent);
-//			}
+			_injector.POST_CONSTRUCT += OnPostConstruct;
+			_injector.POST_INSTANTIATE += OnPostInstantiate;
+			_injector.PRE_CONSTRUCT += OnPreConstruct;
+
+			_injector.MAPPING_OVERRIDE += OnMappingOverride;
+			_injector.POST_MAPPING_CHANGE += OnPostMappingChange;
+			_injector.POST_MAPPING_CREATE += OnPostMappingCreate;
+			_injector.POST_MAPPING_REMOVE += OnPostMappingRemove;
+			_injector.PRE_MAPPING_CHANGE += OnPreMappingChange;
+			_injector.PRE_MAPPING_CREATE += OnPreMappingCreate;
 		}
 
-//		private function onInjectionEvent(event:InjectionEvent):void
-//		{
-//			_logger.debug("Injection event of type {0}. Instance: {1}. Instance type: {2}",
-//				[event.type, event.instance, event.instanceType]);
-//		}
-//
-//		private function onMappingEvent(event:MappingEvent):void
-//		{
-//			_logger.debug("Mapping event of type {0}. Mapped type: {1}. Mapped name: {2}",
-//				[event.type, event.mappedType, event.mappedName]);
-//		}
+		private void OnPreConstruct (object instance, Type instanceType)
+		{
+			_logger.Debug ("Injection event PRE_CONSTRUCT. Instance: {1}. Instance type: {2}", instance, instanceType);
+		}
+
+		private void OnPostConstruct (object instance, Type instanceType)
+		{
+			_logger.Debug ("Injection event POST_CONSTRUCT. Instance: {1}. Instance type: {2}", instance, instanceType);
+		}
+
+		private void OnPostInstantiate (object instance, Type instanceType)
+		{
+			_logger.Debug ("Injection event POST_INSTANTIATE. Instance: {1}. Instance type: {2}", instance, instanceType);
+		}
+
+		private void OnMappingOverride(MappingId mappingId, InjectionMapping instanceType)
+		{
+			_logger.Debug("Mapping event MAPPING_OVERRIDE. Mapped type: {1}. Mapped name: {2}",
+				mappingId.type, mappingId.key);
+		}
+
+		private void OnPostMappingChange(MappingId mappingId, InjectionMapping instanceType)
+		{
+			_logger.Debug("Mapping event POST_MAPPING_CHANGE. Mapped type: {1}. Mapped name: {2}",
+				mappingId.type, mappingId.key);
+		}
+
+		private void OnPostMappingCreate(MappingId mappingId, InjectionMapping instanceType)
+		{
+			_logger.Debug("Mapping event POST_MAPPING_CREATE. Mapped type: {1}. Mapped name: {2}",
+				mappingId.type, mappingId.key);
+		}
+
+		private void OnPostMappingRemove (MappingId mappingId)
+		{
+			_logger.Debug("Mapping event MAPPING_OVERRIDE. Mapped type: {1}. Mapped name: {2}",
+				mappingId.type, mappingId.key);
+		}
+
+		private void OnPreMappingChange(MappingId mappingId, InjectionMapping instanceType)
+		{
+			_logger.Debug("Mapping event PRE_MAPPING_CHANGE. Mapped type: {1}. Mapped name: {2}",
+				mappingId.type, mappingId.key);
+		}
+
+		private void OnPreMappingCreate (MappingId mappingId)
+		{
+			_logger.Debug("Mapping event MAPPING_OVERRIDE. Mapped type: {1}. Mapped name: {2}",
+				mappingId.type, mappingId.key);
+		}
 	}
 }
 

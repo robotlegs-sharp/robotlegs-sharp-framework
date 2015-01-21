@@ -62,7 +62,6 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		public void HandleView(object view, Type type)
 		{
 			List<IMediatorMapping> interestedMappings = GetInterestedMappingsFor(view, type);
-//			UnityEngine.Debug.Log("Handle view; " + interestedMappings);
 			if (interestedMappings != null)
 				_factory.CreateMediators(view, type, interestedMappings);
 		}

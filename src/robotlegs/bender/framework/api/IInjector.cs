@@ -2,12 +2,30 @@
 using swiftsuspenders.dependencyproviders;
 using swiftsuspenders.typedescriptions;
 using swiftsuspenders.mapping;
+using swiftsuspenders;
 
 namespace robotlegs.bender.framework.api
 {
 	public interface IInjector
 	{
+		event Injector.InjectionMappingDelegate MAPPING_OVERRIDE;
 
+		event Injector.InjectionDelegate POST_CONSTRUCT;
+		
+		event Injector.InjectionDelegate POST_INSTANTIATE;
+		
+		event Injector.InjectionMappingDelegate POST_MAPPING_CHANGE;
+		
+		event Injector.InjectionMappingDelegate POST_MAPPING_CREATE;
+		
+		event Injector.MappingDelegate POST_MAPPING_REMOVE;
+		
+		event Injector.InjectionDelegate PRE_CONSTRUCT;
+		
+		event Injector.InjectionMappingDelegate PRE_MAPPING_CHANGE;
+		
+		event Injector.MappingDelegate PRE_MAPPING_CREATE;
+		
 		/**
 		 * Sets the parent <code>IInjector</code>
 		 * @param parentInjector The parent IInjector used for dependencies the

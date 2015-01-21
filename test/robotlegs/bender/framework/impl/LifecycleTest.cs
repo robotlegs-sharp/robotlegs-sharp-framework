@@ -16,6 +16,7 @@ namespace robotlegs.bender.framework.impl
 		/*============================================================================*/
 
 		private object target;
+
 		private Lifecycle lifecycle;
 
 		/*============================================================================*/

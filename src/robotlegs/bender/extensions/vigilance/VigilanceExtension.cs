@@ -1,6 +1,8 @@
 ﻿using System;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl;
+using swiftsuspenders.mapping;
+using swiftsuspenders.errors;
 
 namespace robotlegs.bender.extensions.vigilance
 {
@@ -13,8 +15,7 @@ namespace robotlegs.bender.extensions.vigilance
 		public void Extend (IContext context)
 		{
 			context.AddLogTarget (this);
-			// TODO: Add mapping override to injector
-			//context.injector.addEventListener (MappingEvent.MAPPING_OVERRIDE, mappingOverrideHandler);
+			context.injector.MAPPING_OVERRIDE += MappingOverrideHandler;
 		}
 
 		public void Log (object source, robotlegs.bender.framework.impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
@@ -29,7 +30,11 @@ namespace robotlegs.bender.extensions.vigilance
 		/* Private Functions                                                          */
 		/*============================================================================*/
 
-
+		void MappingOverrideHandler (MappingId mappingId, InjectionMapping instanceType)
+		{
+			throw new InjectorException("Injector mapping override for type " +
+				mappingId.type + " with name " + mappingId.key);
+		}
 	}
 }
 
