@@ -66,7 +66,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			Type mediatorType = mediator.GetType();
 
 			CallMethod("PreInitialize", mediatorType, mediator);
-			SetField("viewComponent", mediatorType, mediator, mediatedItem);
+			SetFieldOrProperty("viewComponent", mediatorType, mediator, mediatedItem);
 			CallMethod("Initialize", mediatorType, mediator);
 			CallMethod("PostInitialize", mediatorType, mediator);
 		}
@@ -77,7 +77,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 
 			CallMethod("PreDestroy", mediatorType, mediator);
 			CallMethod("Destroy", mediatorType, mediator);
-			SetField("viewComponent", mediatorType, mediator, null);
+			SetFieldOrProperty("viewComponent", mediatorType, mediator, null);
 			CallMethod("PostDestroy", mediatorType, mediator);
 		}
 		
@@ -91,13 +91,19 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			return true;
 		}
 		
-		private object SetField(string fieldName, Type mediatorType, object instance, object fieldValue)
+		private object SetFieldOrProperty(string fieldName, Type mediatorType, object instance, object fieldValue)
 		{
 			FieldInfo fieldInfo = mediatorType.GetField(fieldName);
 			if (fieldInfo == null)
-				return false;
-
-			fieldInfo.SetValue(instance, fieldValue);
+			{
+				PropertyInfo propertyInfo = mediatorType.GetProperty(fieldName);
+				if(propertyInfo == null)
+					return false;
+				else
+					propertyInfo.SetValue(instance, fieldValue, null);
+			}
+			else
+				fieldInfo.SetValue(instance, fieldValue);
 			return true;
 		}
 	}
