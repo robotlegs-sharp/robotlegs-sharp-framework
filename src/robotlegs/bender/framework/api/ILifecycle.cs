@@ -72,6 +72,8 @@ namespace robotlegs.bender.framework.api
 		 * @return Self
 		 */
 		ILifecycle BeforeInitializing(Action callback);
+		ILifecycle BeforeInitializing (HandlerMessageDelegate handler);
+		ILifecycle BeforeInitializing (HandlerMessageCallbackDelegate handler);
 		
 		/**
 		 * A handler to run during initialization
@@ -100,6 +102,8 @@ namespace robotlegs.bender.framework.api
 		 * @return Self
 		 */
 		ILifecycle BeforeSuspending(Action handler);
+		ILifecycle BeforeSuspending (HandlerMessageDelegate handler);
+		ILifecycle BeforeSuspending (HandlerMessageCallbackDelegate handler);
 
 		/**
 		 * A handler to run during suspension
@@ -128,6 +132,8 @@ namespace robotlegs.bender.framework.api
 		 * @return Self
 		 */
 		ILifecycle BeforeResuming(Action handler);
+		ILifecycle BeforeResuming (HandlerMessageDelegate handler);
+		ILifecycle BeforeResuming (HandlerMessageCallbackDelegate handler);
 
 		/**
 		 * A handler to run during resumption
@@ -156,6 +162,8 @@ namespace robotlegs.bender.framework.api
 		 * @return Self
 		 */
 		ILifecycle BeforeDestroying(Action handler);
+		ILifecycle BeforeDestroying (HandlerMessageDelegate handler);
+		ILifecycle BeforeDestroying (HandlerMessageCallbackDelegate handler);
 
 		/**
 		 * A handler to run during destruction

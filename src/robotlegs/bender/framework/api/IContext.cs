@@ -50,23 +50,26 @@ namespace robotlegs.bender.framework.api
 		/// <returns>The pre initialized callback.</returns>
 		/// <param name="callback">Callback.</param>
 		IContext BeforeInitializing (Action callback);
+		IContext BeforeInitializing (HandlerMessageDelegate handler);
+		IContext BeforeInitializing (HandlerMessageCallbackDelegate handler);
 		IContext WhenInitializing (Action callback);
-
-		/// <summary>
-		/// Adds a callback function to be called when the app has been initialized, this is after all the configs have been processed
-		/// </summary>
-		/// <returns>The post initialized callback.</returns>
-		/// <param name="callback">Callback.</param>
 		IContext AfterInitializing (Action callback);
 
 		IContext BeforeSuspending (Action callback);
+		IContext BeforeSuspending (HandlerMessageDelegate handler);
+		IContext BeforeSuspending (HandlerMessageCallbackDelegate handler);
 		IContext WhenSuspending (Action callback);
 		IContext AfterSuspending (Action callback);
+
 		IContext BeforeResuming (Action callback);
+		IContext BeforeResuming (HandlerMessageDelegate handler);
+		IContext BeforeResuming (HandlerMessageCallbackDelegate handler);
 		IContext WhenResuming (Action callback);
 		IContext AfterResuming (Action callback);
 
 		IContext BeforeDestroying (Action callback);
+		IContext BeforeDestroying (HandlerMessageDelegate handler);
+		IContext BeforeDestroying (HandlerMessageCallbackDelegate handler);
 		IContext WhenDestroying (Action callback);
 		IContext AfterDestroying(Action callback);
 

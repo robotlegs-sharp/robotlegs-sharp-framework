@@ -1,8 +1,14 @@
 ﻿<Properties StartupItem="robotlegs-sharp-framework-test.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="src\robotlegs\bender\framework\api\IContext.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="test\robotlegs\bender\framework\impl\LifecycleTest.cs">
     <Files>
-      <File FileName="src\robotlegs\bender\framework\api\IContext.cs" Line="32" Column="32" />
+      <File FileName="test\robotlegs\bender\framework\impl\ConfigManagerTest.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\ContextTest.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\GuardsApproveTest.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTest.cs" Line="1" Column="1" />
+      <File FileName="test\robotlegs\bender\framework\impl\LifecycleTransitionTest.cs" Line="1" Column="1" />
+      <File FileName="src\robotlegs\bender\framework\api\ILifecycle.cs" Line="3" Column="3" />
+      <File FileName="src\robotlegs\bender\framework\impl\Lifecycle.cs" Line="42" Column="42" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
@@ -12,18 +18,9 @@
               <Node name="bender" expanded="True">
                 <Node name="framework" expanded="True">
                   <Node name="impl" expanded="True">
-                    <Node name="ApplyHooksTest" expanded="True" />
-                    <Node name="ConfigManagerTest" expanded="True" />
-                    <Node name="ContextTest" expanded="True" />
-                    <Node name="GuardsApproveTest" expanded="True" />
-                    <Node name="LifecycleTest" expanded="True" />
-                    <Node name="LifecycleTransitionTest" expanded="True" />
-                    <Node name="LoggerManagerTest" expanded="True" />
-                    <Node name="LoggerTest" expanded="True" />
-                    <Node name="MessageDispatcherTest" expanded="True">
-                      <Node name="deaf_handler_handles_message" selected="True" />
+                    <Node name="LifecycleTest" expanded="True">
+                      <Node name="adding_WhenInitializing_handler_during_initialization_does_NOT_throw_error" selected="True" />
                     </Node>
-                    <Node name="PinTest" expanded="True" />
                   </Node>
                 </Node>
               </Node>

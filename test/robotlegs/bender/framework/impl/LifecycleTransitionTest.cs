@@ -64,7 +64,7 @@ namespace robotlegs.bender.framework.impl
 		public void transitionState_is_set()
 		{
 			transition.ToStates(LifecycleState.INITIALIZING, LifecycleState.ACTIVE)
-				.AddBeforeHandler(delegate(object message, MessageDispatcher.HandlerAsyncCallback callback) {
+				.AddBeforeHandler(delegate(object message, HandlerAsyncCallback callback) {
 				})
 				.Enter();
 			Assert.That(lifecycle.state, Is.EqualTo(LifecycleState.INITIALIZING));
@@ -216,7 +216,7 @@ namespace robotlegs.bender.framework.impl
 		[ExpectedException]
 		public void beforeHandler_error_throws()
 		{
-			transition.AddBeforeHandler (delegate(object message, MessageDispatcher.HandlerAsyncCallback callback) {
+			transition.AddBeforeHandler (delegate(object message, HandlerAsyncCallback callback) {
 				callback (new Exception ("some error message"));
 			}).Enter ();
 		}
@@ -228,7 +228,7 @@ namespace robotlegs.bender.framework.impl
 			Exception actual = null;
 			lifecycle.ERROR += delegate(Exception exception) {
 			};
-			transition.AddBeforeHandler(delegate(object message, MessageDispatcher.HandlerAsyncCallback callback){
+			transition.AddBeforeHandler(delegate(object message, HandlerAsyncCallback callback){
 				callback(expected);
 			}).Enter(delegate(Exception error) {
 				actual = error;
@@ -257,7 +257,7 @@ namespace robotlegs.bender.framework.impl
 			};
 			transition.FromStates(LifecycleState.UNINITIALIZED)
 				.ToStates(LifecycleState.INITIALIZING, LifecycleState.ACTIVE)
-				.AddBeforeHandler(delegate(object message, MessageDispatcher.HandlerAsyncCallback callback) {
+				.AddBeforeHandler(delegate(object message, HandlerAsyncCallback callback) {
 					callback("There was a problem");
 				}).Enter();
 			Assert.That(lifecycle.state, Is.EqualTo(expected));

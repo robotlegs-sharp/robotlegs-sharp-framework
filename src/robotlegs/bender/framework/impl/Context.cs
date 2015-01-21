@@ -281,63 +281,111 @@ namespace robotlegs.bender.framework.impl
 			_lifecycle.Destroy (null);
 		}
 
-		public IContext BeforeInitializing(Action callback)
+		public IContext BeforeInitializing(Action handler)
 		{
-			_lifecycle.BeforeInitializing (callback);
+			_lifecycle.BeforeInitializing (handler);
 			return this;
 		}
 
-		public IContext WhenInitializing(Action callback)
+		public IContext BeforeInitializing (HandlerMessageDelegate handler)
 		{
-			_lifecycle.WhenInitializing (callback);
+			_lifecycle.BeforeInitializing (handler);
 			return this;
 		}
 
-		public IContext AfterInitializing(Action callback)
+		public IContext BeforeInitializing (HandlerMessageCallbackDelegate handler)
 		{
-			_lifecycle.AfterInitializing (callback);
+			_lifecycle.BeforeInitializing (handler);
 			return this;
 		}
 
-		public IContext BeforeSuspending(Action callback)
+		public IContext WhenInitializing(Action handler)
 		{
-			_lifecycle.BeforeSuspending (callback);
+			_lifecycle.WhenInitializing (handler);
 			return this;
 		}
 
-		public IContext WhenSuspending(Action callback)
+		public IContext AfterInitializing(Action handler)
 		{
-			_lifecycle.WhenSuspending (callback);
+			_lifecycle.AfterInitializing (handler);
 			return this;
 		}
 
-		public IContext AfterSuspending(Action callback)
+		public IContext BeforeSuspending(Action handler)
 		{
-			_lifecycle.AfterSuspending (callback);
+			_lifecycle.BeforeSuspending (handler);
 			return this;
 		}
 
-		public IContext BeforeResuming(Action callback)
+		public IContext BeforeSuspending (HandlerMessageDelegate handler)
 		{
-			_lifecycle.BeforeResuming (callback);
+			_lifecycle.BeforeSuspending (handler);
 			return this;
 		}
 
-		public IContext WhenResuming(Action callback)
+		public IContext BeforeSuspending (HandlerMessageCallbackDelegate handler)
 		{
-			_lifecycle.WhenResuming(callback);
+			_lifecycle.BeforeSuspending (handler);
 			return this;
 		}
 
-		public IContext AfterResuming(Action callback)
+		public IContext WhenSuspending(Action handler)
 		{
-			_lifecycle.AfterResuming (callback);
+			_lifecycle.WhenSuspending (handler);
 			return this;
 		}
 
-		public IContext BeforeDestroying(Action callback)
+		public IContext AfterSuspending(Action handler)
 		{
-			_lifecycle.BeforeDestroying (callback);
+			_lifecycle.AfterSuspending (handler);
+			return this;
+		}
+
+		public IContext BeforeResuming(Action handler)
+		{
+			_lifecycle.BeforeResuming (handler);
+			return this;
+		}
+
+		public IContext BeforeResuming (HandlerMessageDelegate handler)
+		{
+			_lifecycle.BeforeResuming (handler);
+			return this;
+		}
+
+		public IContext BeforeResuming (HandlerMessageCallbackDelegate handler)
+		{
+			_lifecycle.BeforeResuming (handler);
+			return this;
+		}
+
+		public IContext WhenResuming(Action handler)
+		{
+			_lifecycle.WhenResuming(handler);
+			return this;
+		}
+
+		public IContext AfterResuming(Action handler)
+		{
+			_lifecycle.AfterResuming (handler);
+			return this;
+		}
+
+		public IContext BeforeDestroying(Action handler)
+		{
+			_lifecycle.BeforeDestroying (handler);
+			return this;
+		}
+
+		public IContext BeforeDestroying (HandlerMessageDelegate handler)
+		{
+			_lifecycle.BeforeDestroying (handler);
+			return this;
+		}
+
+		public IContext BeforeDestroying (HandlerMessageCallbackDelegate handler)
+		{
+			_lifecycle.BeforeDestroying (handler);
 			return this;
 		}
 
