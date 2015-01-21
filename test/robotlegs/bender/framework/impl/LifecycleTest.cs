@@ -4,6 +4,7 @@ using robotlegs.bender.framework.api;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -195,34 +196,30 @@ namespace robotlegs.bender.framework.impl
 			Assert.That(callCount, Is.EqualTo(4));
 		}
 
-		/*
 		[Test]
 		public async Task async_before_handlers_are_executed()
 		{
 			int callCount = 0;
-			MessageDispatcher. handler = delegate(object message, HandlerAsyncCallback callback) {
+			HandlerMessageCallbackDelegate handler = delegate(object message, HandlerAsyncCallback callback) {
 				callCount++;
-				await Task.Delay(1);
-				callback();
-//				setTimeout(callback, 1);
+				new Timer (new TimerCallback (callback), null, 1, System.Threading.Timeout.Infinite);
 			};
 			lifecycle
 				.BeforeInitializing(handler)
 				.BeforeSuspending(handler)
 				.BeforeResuming(handler)
 				.BeforeDestroying(handler);
-			lifecycle.Initialize(function() {
-				lifecycle.Suspend(function() {
-					lifecycle.Resume(function() {
+			lifecycle.Initialize(delegate() {
+				lifecycle.Suspend(delegate() {
+					lifecycle.Resume(delegate() {
 						lifecycle.Destroy();
-					})
-				})
+					});
+				});
 			});
-//			Async.delayCall(this, function() {
-//				Assert.That(callCount, Is.EqualTo(4));
-//			}, 200);
+
+			await Task.Delay (200);
+			Assert.That (callCount, Is.EqualTo (4));
 		}
-//		*/
 
 		// ----- Suspend and Destroy run backwards
 
@@ -273,7 +270,7 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		// ----- Before handlers callback message
-
+		
 //		[Test]
 //		public void beforeHandler_callbacks_are_passed_correct_message()
 //		{
@@ -333,21 +330,22 @@ namespace robotlegs.bender.framework.impl
 			lifecycle.WhenInitializing(nop);
 		}
 
-		/*
-		[Test(async, timeout='200')]
-		public void adding_WhenInitializing_handler_during_initialization_does_NOT_throw_error()
+		[Test]
+		public async Task adding_WhenInitializing_handler_during_initialization_does_NOT_throw_error()
 		{
-			var callCount:int = 0;
-			lifecycle.BeforeInitializing(function(message:Object, callback:Function) {
-				setTimeout(callback, 100);
+			int callCount = 0;
+			lifecycle.BeforeInitializing(delegate(object message, HandlerAsyncCallback callback) {
+				Timer t = new Timer(new TimerCallback(callback), null, 100, System.Threading.Timeout.Infinite);
 			});
 			lifecycle.Initialize();
-			lifecycle.WhenInitializing(function() {
+			Assert.That (lifecycle.state, Is.EqualTo (LifecycleState.INITIALIZING));
+			lifecycle.WhenInitializing(delegate() {
 				callCount++;
-				Assert.That(callCount, Is.EqualTo(1));
 			});
+
+			await Task.Delay(200);
+			Assert.That(callCount, Is.EqualTo(1));
 		}
-		*/
 
 		[Test]
 		[ExpectedException("robotlegs.bender.framework.api.LifecycleException")]
