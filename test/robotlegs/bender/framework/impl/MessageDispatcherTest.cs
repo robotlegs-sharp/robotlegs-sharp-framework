@@ -177,26 +177,35 @@ namespace robotlegs.bender.framework.impl
 			Assert.AreEqual(actualMessage, message);
 		}
 
+		/*
 		[Test]
 		public async Task async_handler_handles_message()
 		{
 			object actualMessage = null;
 			Task awaitTask = null;
+
+			List<Task> tasks = new List<Task> ();
 			dispatcher.AddMessageHandler(message, delegate(object msg, MessageDispatcher.HandlerAsyncCallback callback) {
 				actualMessage = msg;
 //				Task.Run(SetTimeout(5, callback as Delegate));
-				SetTimeout(5, callback as Delegate).Start();
+//				SetTimeout(5, callback as Delegate).Start();
+				tasks.Add(SetTimeout(5, callback as Delegate));
 //				awaitTask = SetTimeout(5, callback as Delegate);
 			});
 			dispatcher.DispatchMessage(message);
 
+			foreach (Task t in tasks)
+				await t;
+
 //			await awaitTask;
 //			Assert.AreEqual (actualMessage, message);
 
-			await DelayAssertion ((Action)delegate() {
-				Assert.AreEqual (actualMessage, message);
-			});
+			Assert.That (actualMessage, Is.EqualTo (message));
+//			await DelayAssertion ((Action)delegate() {
+//				Assert.AreEqual (actualMessage, message);
+//			});
 		}
+*/
 
 		[Test]
 		public void callback_is_called_once()

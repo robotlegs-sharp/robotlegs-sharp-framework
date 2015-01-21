@@ -23,7 +23,7 @@ namespace robotlegs.bender.framework.impl
 		[SetUp]
 		public void before()
 		{
-			lifecycle = new Lifecycle();
+			lifecycle = new Lifecycle(new object());
 			transition = new LifecycleTransition("test", lifecycle);
 		}
 
@@ -65,49 +65,105 @@ namespace robotlegs.bender.framework.impl
 		{
 			transition.ToStates(LifecycleState.INITIALIZING, LifecycleState.ACTIVE)
 				.AddBeforeHandler(delegate(object message, MessageDispatcher.HandlerAsyncCallback callback) {
-					//setTimeout(callback, 1);
 				})
 				.Enter();
 			Assert.That(lifecycle.state, Is.EqualTo(LifecycleState.INITIALIZING));
 		}
 
-//		[Test]
-//		public void lifecycle_events_are_dispatched()
-//		{
-//			const actual:Array = [];
-//			const expected:Array = [
-//				LifecycleEvent.PRE_INITIALIZE,
-//				LifecycleEvent.INITIALIZE,
-//				LifecycleEvent.POST_INITIALIZE];
-//			transition.withEvents(expected[0], expected[1], expected[2]);
-//			for each (var type:String in expected)
-//			{
-//				lifecycle.addEventListener(type, function(event:Event):void {
-//					actual.push(event.type);
-//				});
-//			}
-//			transition.enter();
-//			assertThat(actual, array(expected));
-//		}
+		[Test]
+		public void lifecycle_events_are_dispatched()
+		{
+			List<string> actual = new List<string>();
+			List<string> expected = new List<string>{
+				"preTransition",
+				"transition",
+				"postTransition"};
+			transition.transition += delegate () {
+				actual.Add ("transition");
+			};
+			transition.preTransition += delegate () {
+				actual.Add ("preTransition");
+			};
+			transition.postTransition += delegate () {
+				actual.Add ("postTransition");
+			};
+			transition.Enter();
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
+		}
 
-//		[Test]
-//		public void listeners_are_reversed()
-//		{
-//			const actual:Array = [];
-//			const expected:Array = [3, 2, 1];
-//			transition.withEvents("preEvent", "event", "postEvent").inReverse();
-//			lifecycle.addEventListener("event", function(event:Event):void {
-//				actual.push(1);
-//			});
-//			lifecycle.addEventListener("event", function(event:Event):void {
-//				actual.push(2);
-//			});
-//			lifecycle.addEventListener("event", function(event:Event):void {
-//				actual.push(3);
-//			});
-//			transition.enter();
-//			assertThat(actual, array(expected));
-//		}
+		[Test]
+		public void when_are_in_order()
+		{
+			List<int> actual = new List<int>();
+			List<int> expected = new List<int>{1, 2, 3};
+			transition.AddWhenHandler(delegate(){
+				actual.Add(1);
+			});
+			transition.AddWhenHandler(delegate(){
+				actual.Add(2);
+			});
+			transition.AddWhenHandler(delegate(){
+				actual.Add(3);
+			});
+			transition.Enter();
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
+		}
+
+		[Test]
+		public void when_can_be_reversed()
+		{
+			List<int> actual = new List<int>();
+			List<int> expected = new List<int>{3, 2, 1};
+			transition.AddWhenHandler(delegate(){
+				actual.Add(1);
+			});
+			transition.AddWhenHandler(delegate(){
+				actual.Add(2);
+			});
+			transition.AddWhenHandler(delegate(){
+				actual.Add(3);
+			});
+			transition.InReverse ();
+			transition.Enter();
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
+		}
+
+		[Test]
+		public void after_are_in_order()
+		{
+			List<int> actual = new List<int>();
+			List<int> expected = new List<int>{1, 2, 3};
+			transition.AddAfterHandler(delegate(){
+				actual.Add(1);
+			});
+			transition.AddAfterHandler(delegate(){
+				actual.Add(2);
+			});
+			transition.AddAfterHandler(delegate(){
+				actual.Add(3);
+			});
+			transition.Enter();
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
+		}
+
+		[Test]
+		public void after_can_be_reversed()
+		{
+			List<int> actual = new List<int>();
+			List<int> expected = new List<int>{3, 2, 1};
+			transition.AddAfterHandler(delegate(){
+				actual.Add(1);
+			});
+			transition.AddAfterHandler(delegate(){
+				actual.Add(2);
+			});
+			transition.AddAfterHandler(delegate(){
+				actual.Add(3);
+			});
+			transition.InReverse ();
+			transition.Enter();
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
+		}
 
 		[Test]
 		public void callback_is_called()

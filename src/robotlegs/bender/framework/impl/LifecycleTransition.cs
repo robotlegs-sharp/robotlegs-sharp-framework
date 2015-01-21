@@ -6,6 +6,10 @@ namespace robotlegs.bender.framework.impl
 {
 	public class LifecycleTransition
 	{
+		public Action preTransition;
+		public Action transition;
+		public Action postTransition;
+
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
@@ -15,6 +19,7 @@ namespace robotlegs.bender.framework.impl
 		private MessageDispatcher _dispatcher = new MessageDispatcher();
 
 		private List<Action> _whenCallbacks = new List<Action>();
+
 		private List<Action> _postCallbacks = new List<Action>();
 
 		private List<Delegate> _callbacks = new List<Delegate>();
@@ -75,21 +80,6 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		/**
-		 * The events that the lifecycle will dispatch
-		 * @param preTransitionEvent
-		 * @param transitionEvent
-		 * @param postTransitionEvent
-		 * @return Self
-		 */
-		public LifecycleTransition WithEvents(Action preTransitionEvent, Action transitionEvent, Action postTransitionEvent)
-		{
-			_preTransitionEvent = preTransitionEvent;
-			_transitionEvent = transitionEvent;
-			_postTransitionEvent = postTransitionEvent;
-			return this;
-		}
-
-		/**
 		 * Reverse the dispatch order of this transition
 		 * @return Self
 		 */
@@ -120,7 +110,7 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public LifecycleTransition AddWhenHandler(Action handler, bool once)
+		public LifecycleTransition AddWhenHandler(Action handler, bool once = false)
 		{
 			if (once) 
 				AddOnceHandler (_whenCallbacks, handler);
@@ -135,7 +125,7 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
-		public LifecycleTransition AddAfterHandler(Action handler, bool once)
+		public LifecycleTransition AddAfterHandler(Action handler, bool once = false)
 		{
 			if (once) 
 				AddOnceHandler (_postCallbacks, handler);
@@ -164,14 +154,6 @@ namespace robotlegs.bender.framework.impl
 		{
 //			state && _lifecycle.SetCurrentState(state);
 			_lifecycle.SetCurrentState(state);
-		}
-
-		private void Dispatch(Action callback)
-		{
-			if (callback != null)
-				callback();
-//			if (type && _lifecycle.hasEventListener(type))
-//				_lifecycle.dispatchEvent(new LifecycleEvent(type));
 		}
 
 		private void ReportError(object message, List<Delegate> callbacks = null)
@@ -243,7 +225,6 @@ namespace robotlegs.bender.framework.impl
 			SetState(_transitionState);
 
 			// run before handlers
-//			/*
 			_dispatcher.DispatchMessage(_name, delegate(object error)
 				{
 					// revert state, report error, and exit
@@ -255,10 +236,13 @@ namespace robotlegs.bender.framework.impl
 					}
 
 					// dispatch pre transition and transition events
-					Dispatch(_preTransitionEvent);
-					Dispatch(_transitionEvent);
+					if (preTransition != null)
+						preTransition();
 
 					ProcessCallbacks(_whenCallbacks);
+
+					if (transition != null)
+						transition();
 
 					// put lifecycle into final state
 					SetState(_finalState);
@@ -267,13 +251,12 @@ namespace robotlegs.bender.framework.impl
 					CallCallbacks(_callbacks.ToArray());
 					_callbacks.Clear();
 
-					// dispatch post transition event
-					Dispatch(_postTransitionEvent);
-
 					ProcessCallbacks(_postCallbacks);
 
+					if (postTransition != null)
+						postTransition();
+
 				}, _reverse);
-//			*/
 		}
 
 		private void ProcessCallbacks(List<Action> callbacksList)

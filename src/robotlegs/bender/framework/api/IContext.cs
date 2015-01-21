@@ -3,7 +3,7 @@ using robotlegs.bender.framework.impl;
 
 namespace robotlegs.bender.framework.api
 {
-	public interface IContext : IPinEvent
+	public interface IContext : IPinEvent, ILifecycleEvent
 	{
 		/// <summary>
 		/// The injection binder this context relies on. Use this to bind and unbind anything you require
@@ -21,7 +21,11 @@ namespace robotlegs.bender.framework.api
 		/// Returns if the app has been initialized yet
 		/// </summary>
 		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
+		bool Uninitialized { get; }
 		bool Initialized { get; }
+		bool Active { get; }
+		bool Suspended { get; }
+		bool Destroyed { get; }
 		/// <summary>
 		/// Will initialized the context. Doing so will
 		/// - Fire the pre initilize callbacks
@@ -92,6 +96,9 @@ namespace robotlegs.bender.framework.api
 
 		IContext Detain (params object[] instances);
 		IContext Release (params object[] instances);
+
+		IContext AddChild(IContext child);
+		IContext RemoveChild(IContext child);
 	}
 }
 

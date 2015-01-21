@@ -14,6 +14,7 @@ namespace robotlegs.bender.framework.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
+		private object target;
 		private Lifecycle lifecycle;
 
 		/*============================================================================*/
@@ -23,7 +24,8 @@ namespace robotlegs.bender.framework.impl
 		[SetUp]
 		public void before()
 		{
-			lifecycle = new Lifecycle();
+			target = new object();
+			lifecycle = new Lifecycle(target);
 		}
 
 		/*============================================================================*/
@@ -90,31 +92,44 @@ namespace robotlegs.bender.framework.impl
 
 		// ----- Events
 
-		/*
 		[Test]
 		public void events_are_dispatched()
 		{
-			const actual:Array = [];
-			const expected:Array = [
-				LifecycleEvent.PRE_INITIALIZE, LifecycleEvent.INITIALIZE, LifecycleEvent.POST_INITIALIZE,
-				LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND,
-				LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME,
-				LifecycleEvent.PRE_DESTROY, LifecycleEvent.Destroy, LifecycleEvent.POST_DESTROY];
-			const listener:Function = function(event:LifecycleEvent) {
-				actual.push(event.type);
+			List<object> actual = new List<object> ();
+			List<object> expected = new List<object>{ 
+				"PRE_INITIALIZE",
+				"INITIALIZE",
+				"POST_INITIALIZE",
+				"PRE_SUSPEND",
+				"SUSPEND",
+				"POST_SUSPEND",
+				"PRE_RESUME",
+				"RESUME",
+				"POST_RESUME",
+				"PRE_DESTROY",
+				"DESTROY",
+				"POST_DESTROY"
 			};
-			for each (var type:String in expected)
-			{
-				lifecycle.addEventListener(type, listener);
-			}
+			lifecycle.PRE_INITIALIZE += CreateObjectValuePusher (actual, "PRE_INITIALIZE");
+			lifecycle.INITIALIZE += CreateObjectValuePusher (actual, "INITIALIZE");
+			lifecycle.POST_INITIALIZE += CreateObjectValuePusher (actual, "POST_INITIALIZE");
+			lifecycle.PRE_SUSPEND += CreateObjectValuePusher (actual, "PRE_SUSPEND");
+			lifecycle.SUSPEND += CreateObjectValuePusher (actual, "SUSPEND");
+			lifecycle.POST_SUSPEND += CreateObjectValuePusher (actual, "POST_SUSPEND");
+			lifecycle.PRE_RESUME += CreateObjectValuePusher (actual, "PRE_RESUME");
+			lifecycle.RESUME += CreateObjectValuePusher (actual, "RESUME");
+			lifecycle.POST_RESUME += CreateObjectValuePusher (actual, "POST_RESUME");
+			lifecycle.PRE_DESTROY += CreateObjectValuePusher (actual, "PRE_DESTROY");
+			lifecycle.DESTROY += CreateObjectValuePusher (actual, "DESTROY");
+			lifecycle.POST_DESTROY += CreateObjectValuePusher (actual, "POST_DESTROY");
+
 			lifecycle.Initialize();
 			lifecycle.Suspend();
 			lifecycle.Resume();
 			lifecycle.Destroy();
-			Assert.That(actual, array(expected));
-		}
 
-		*/
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
+		}
 
 		// ----- Shorthand transition handlers
 
@@ -181,13 +196,15 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		/*
-		[Test(async)]
-		public void async_before_handlers_are_executed()
+		[Test]
+		public async Task async_before_handlers_are_executed()
 		{
-			var callCount:int = 0;
-			const handler:Function = function(message:Object, callback:Function) {
+			int callCount = 0;
+			MessageDispatcher. handler = delegate(object message, MessageDispatcher.HandlerAsyncCallback callback) {
 				callCount++;
-				setTimeout(callback, 1);
+				await Task.Delay(1);
+				callback();
+//				setTimeout(callback, 1);
 			};
 			lifecycle
 				.BeforeInitializing(handler)
@@ -201,11 +218,11 @@ namespace robotlegs.bender.framework.impl
 					})
 				})
 			});
-			Async.delayCall(this, function() {
-				Assert.That(callCount, Is.EqualTo(4));
-			}, 200);
+//			Async.delayCall(this, function() {
+//				Assert.That(callCount, Is.EqualTo(4));
+//			}, 200);
 		}
-		*/
+//		*/
 
 		// ----- Suspend and Destroy run backwards
 
@@ -353,41 +370,6 @@ namespace robotlegs.bender.framework.impl
 			Assert.That(callCount, Is.EqualTo(1));
 		}
 
-		[Test]
-		public void TestCheck()
-		{
-			Console.WriteLine ("Begin");
-			lifecycle.BeforeInitializing (delegate {
-				Console.WriteLine ("Before1");
-			});
-			lifecycle.BeforeInitializing (delegate {
-				Console.WriteLine ("Before2");
-			});
-			lifecycle.BeforeInitializing (delegate {
-				Console.WriteLine ("Before3");
-			});
-			lifecycle.WhenInitializing (delegate {
-				Console.WriteLine ("When1");
-			});
-			lifecycle.WhenInitializing (delegate {
-				Console.WriteLine ("When2");
-			});
-			lifecycle.WhenInitializing (delegate {
-				Console.WriteLine ("When3");
-			});
-			lifecycle.AfterInitializing (delegate {
-				Console.WriteLine ("After1");
-			});
-			lifecycle.AfterInitializing (delegate {
-				Console.WriteLine ("After2");
-			});
-			lifecycle.AfterInitializing (delegate {
-				Console.WriteLine ("After3");
-			});
-			lifecycle.Initialize ();
-			Console.WriteLine ("End");
-		}
-
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/
@@ -409,6 +391,13 @@ namespace robotlegs.bender.framework.impl
 				}
 			}
 			return errorCount;
+		}
+
+		private Action<object> CreateObjectValuePusher(List<object> list, object value)
+		{
+			return delegate(object obj) {
+				list.Add(value);
+			};
 		}
 
 		private Action CreateValuePusher(List<object> list, object value)

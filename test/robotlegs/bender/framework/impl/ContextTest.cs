@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl.contextSupport;
+using robotlegs.bender.framework.impl.loggingSupport;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -94,7 +96,6 @@ namespace robotlegs.bender.framework.impl
 			Assert.AreEqual (actual, expected);
 		}
 
-		/*
 		[Test]
 		public void addChild_sets_child_parentInjector()
 		{
@@ -104,119 +105,145 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		[Test]
-		public function addChild_logs_warning_unless_child_is_uninitialized():void
+		public void addChild_logs_warning_unless_child_is_uninitialized()
 		{
-			var warning:LogParams = null;
-			context.addLogTarget(new CallbackLogTarget(
-				function(log:LogParams):void {
-					(log.level == LogLevel.WARN) && (warning = log);
+			LogParams? warning = null;
+			context.AddLogTarget(new CallbackLogTarget(
+				delegate(LogParams log) {
+					if (log.level == LogLevel.WARN)
+						warning = log;
 				}));
-			const child:Context = new Context();
-			child.initialize();
-			context.addChild(child);
-			assertThat(warning.message, containsString("must be uninitialized"));
-			assertThat(warning.params, array(child));
+			Context child = new Context();
+			child.Initialize();
+			context.AddChild(child);
+			Assert.That(warning, Is.Not.Null);
+			Assert.That(warning.Value.message, Is.StringContaining("must be uninitialized"));
+			Assert.That (warning.Value.messageParameters, Is.EqualTo (new object[]{ child }).AsCollection);
 		}
 
 		[Test]
-		public function addChild_logs_warning_if_child_parentInjector_is_already_set():void
+		public void addChild_logs_warning_if_child_parentInjector_is_already_set()
 		{
-			var warning:LogParams = null;
-			context.addLogTarget(new CallbackLogTarget(
-				function(log:LogParams):void {
-					(log.level == LogLevel.WARN) && (warning = log);
+			LogParams? warning = null;
+			context.AddLogTarget(new CallbackLogTarget(
+				delegate(LogParams log) {
+					if (log.level == LogLevel.WARN)
+						warning = log;
 				}));
-			const child:Context = new Context();
+			Context child = new Context();
 			child.injector.parent = new RobotlegsInjector();
-			context.addChild(child);
-			assertThat(warning.message, containsString("must not have a parent Injector"));
-			assertThat(warning.params, array(child));
+			context.AddChild(child);
+
+			Assert.That(warning, Is.Not.Null);
+			Assert.That(warning.Value.message, Is.StringContaining("must not have a parent Injector"));
+			Assert.That (warning.Value.messageParameters, Is.EqualTo (new object[]{ child }).AsCollection);
 		}
 
 		[Test]
-		public function removeChild_logs_warning_if_child_is_NOT_a_child():void
+		public void removeChild_logs_warning_if_child_is_NOT_a_child()
 		{
-			var warning:LogParams = null;
-			context.addLogTarget(new CallbackLogTarget(
-				function(log:LogParams):void {
-					(log.level == LogLevel.WARN) && (warning = log);
+			LogParams? warning = null;
+			context.AddLogTarget(new CallbackLogTarget(
+				delegate(LogParams log) {
+					if (log.level == LogLevel.WARN)
+						warning = log;
 				}));
-			const child:Context = new Context();
-			context.removeChild(child);
-			assertThat(warning.message, containsString("must be a child"));
-			assertThat(warning.params, array(child, context));
+			Context child = new Context();
+			context.RemoveChild(child);
+
+			Assert.That(warning, Is.Not.Null);
+			Assert.That(warning.Value.message, Is.StringContaining("must be a child"));
+			Assert.That (warning.Value.messageParameters, Is.EqualTo (new object[]{ child, context }).AsCollection);
 		}
 
 		[Test]
-		public function removesChild_clears_child_parentInjector():void
+		public void removesChild_clears_child_parentInjector()
 		{
-			const child:Context = new Context();
-			context.addChild(child);
-			context.removeChild(child);
-			assertThat(child.injector.parent, nullValue());
+			Context child = new Context();
+			context.AddChild(child);
+			context.RemoveChild(child);
+			Assert.That(child.injector.parent, Is.Null);
 		}
 
 		[Test]
-		public function child_is_removed_when_child_is_destroyed():void
+		public void child_is_removed_when_child_is_destroyed()
 		{
-			const child:Context = new Context();
-			context.addChild(child);
-			child.initialize();
-			child.destroy();
-			assertThat(child.injector.parent, nullValue());
+			Context child = new Context();
+			context.AddChild(child);
+			child.Initialize();
+			child.Destroy();
+			Assert.That(child.injector.parent, Is.Null);
 		}
 
 		[Test]
-		public function children_are_removed_when_parent_is_destroyed():void
+		public void children_are_removed_when_parent_is_destroyed()
 		{
-			const child1:Context = new Context();
-			const child2:Context = new Context();
-			context.addChild(child1);
-			context.addChild(child2);
-			context.initialize();
-			context.destroy();
-			assertThat(child1.injector.parent, nullValue());
-			assertThat(child2.injector.parent, nullValue());
+			Context child1 = new Context();
+			Context child2 = new Context();
+			context.AddChild(child1);
+			context.AddChild(child2);
+			context.Initialize();
+			context.Destroy();
+			Assert.That(child1.injector.parent, Is.Null);
+			Assert.That(child2.injector.parent, Is.Null);
 		}
 
 		[Test]
-		public function removed_child_is_not_removed_again_when_destroyed():void
+		public void removed_child_is_not_removed_again_when_destroyed()
 		{
-			var warning:LogParams = null;
-			context.addLogTarget(new CallbackLogTarget(
-				function(log:LogParams):void {
-					(log.level == LogLevel.WARN) && (warning = log);
+			LogParams? warning = null;
+			context.AddLogTarget(new CallbackLogTarget(
+				delegate(LogParams log) {
+					if (log.level == LogLevel.WARN)
+						warning = log;
 				}));
-			const child:Context = new Context();
-			context.addChild(child);
-			child.initialize();
-			context.removeChild(child);
-			child.destroy();
-			assertThat(warning, nullValue());
+			Context child = new Context();
+			context.AddChild(child);
+			child.Initialize();
+			context.RemoveChild(child);
+			child.Destroy();
+			Assert.That(warning, Is.Null);
 		}
 
 		[Test]
-		public function lifecycleEvents_are_propagated():void
+		public void lifecycleEvents_are_propagated()
 		{
-			const actual:Array = [];
-			const expected:Array = [LifecycleEvent.PRE_INITIALIZE, LifecycleEvent.INITIALIZE, LifecycleEvent.POST_INITIALIZE,
-				LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND,
-				LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME,
-				LifecycleEvent.PRE_DESTROY, LifecycleEvent.DESTROY, LifecycleEvent.POST_DESTROY];
-			function handler(event:LifecycleEvent):void {
-				actual.push(event.type);
-			}
-			for each (var type:String in expected)
-			{
-				context.addEventListener(type, handler);
-			}
-			context.initialize();
-			context.suspend();
-			context.resume();
-			context.destroy();
-			assertThat(actual, array(expected));
+			List<object> actual = new List<object> ();
+			List<object> expected = new List<object>{ 
+				"PRE_INITIALIZE",
+				"INITIALIZE",
+				"POST_INITIALIZE",
+				"PRE_SUSPEND",
+				"SUSPEND",
+				"POST_SUSPEND",
+				"PRE_RESUME",
+				"RESUME",
+				"POST_RESUME",
+				"PRE_DESTROY",
+				"DESTROY",
+				"POST_DESTROY"
+			};
+			context.PRE_INITIALIZE += CreateValuePusher (actual, "PRE_INITIALIZE");
+			context.INITIALIZE += CreateValuePusher (actual, "INITIALIZE");
+			context.POST_INITIALIZE += CreateValuePusher (actual, "POST_INITIALIZE");
+			context.PRE_SUSPEND += CreateValuePusher (actual, "PRE_SUSPEND");
+			context.SUSPEND += CreateValuePusher (actual, "SUSPEND");
+			context.POST_SUSPEND += CreateValuePusher (actual, "POST_SUSPEND");
+			context.PRE_RESUME += CreateValuePusher (actual, "PRE_RESUME");
+			context.RESUME += CreateValuePusher (actual, "RESUME");
+			context.POST_RESUME += CreateValuePusher (actual, "POST_RESUME");
+			context.PRE_DESTROY += CreateValuePusher (actual, "PRE_DESTROY");
+			context.DESTROY += CreateValuePusher (actual, "DESTROY");
+			context.POST_DESTROY += CreateValuePusher (actual, "POST_DESTROY");
+
+			context.Initialize();
+			context.Suspend();
+			context.Resume();
+			context.Destroy();
+			Assert.That(actual, Is.EqualTo(expected).AsCollection);
 		}
 
+		/*
 		[Test]
 		public function lifecycleStateChangeEvent_is_propagated():void
 		{
@@ -228,6 +255,13 @@ namespace robotlegs.bender.framework.impl
 			assertThat(called, isTrue());
 		}
 		*/
+
+		private Action<object> CreateValuePusher(List<object> list, object value)
+		{
+			return delegate(object context) {
+				list.Add(value);
+			};
+		}
 	}
 }
 
