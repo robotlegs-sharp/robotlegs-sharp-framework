@@ -18,7 +18,7 @@ namespace robotlegs.bender.framework.api
 		/*============================================================================*/
 
 		/// <summary>
-		/// Creates a Lifecycle Error
+		/// Creates a Lifecycle Exception
 		/// </summary>
 		/// <param name="message">The error message</param>
 		public LifecycleException (string message) : base(message)

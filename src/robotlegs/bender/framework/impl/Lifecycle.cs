@@ -141,31 +141,54 @@ namespace robotlegs.bender.framework.impl
 			_destroy.Enter (callback);
 		}
 
-		public ILifecycle BeforeInitializing (Action callback)
+		public ILifecycle BeforeInitializing (Action handler)
 		{
-			if (!Uninitialized)
-				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
-			_initialize.AddBeforeHandler(callback);
+			ReportIfUnitialized();
+			_initialize.AddBeforeHandler(handler);
+			return this;
+		}
+
+		public ILifecycle BeforeInitializing (MessageDispatcher.HandlerMessageDelegate handler)
+		{
+			ReportIfUnitialized();
+			_initialize.AddBeforeHandler(handler);
+			return this;
+		}
+
+		public ILifecycle BeforeInitializing (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		{
+			ReportIfUnitialized();
+			_initialize.AddBeforeHandler(handler);
 			return this;
 		}
 
 		public ILifecycle WhenInitializing (Action handler)
 		{
-			if (Initialized)
-				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
+			ReportIfInitialized ();
 			_initialize.AddWhenHandler (handler, true);
 			return this;
 		}
 
 		public ILifecycle AfterInitializing (Action handler)
 		{
-			if (Initialized)
-				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
+			ReportIfInitialized ();
 			_initialize.AddAfterHandler (handler, true);
 			return this;
 		}
 
 		public ILifecycle BeforeSuspending (Action handler)
+		{
+			_suspend.AddBeforeHandler (handler);
+			return this;
+		}
+
+		public ILifecycle BeforeSuspending (MessageDispatcher.HandlerMessageDelegate handler)
+		{
+			_suspend.AddBeforeHandler (handler);
+			return this;
+		}
+
+		public ILifecycle BeforeSuspending (MessageDispatcher.HandlerMessageCallbackDelegate handler)
 		{
 			_suspend.AddBeforeHandler (handler);
 			return this;
@@ -189,6 +212,18 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 
+		public ILifecycle BeforeResuming (MessageDispatcher.HandlerMessageDelegate handler)
+		{
+			_resume.AddBeforeHandler (handler);
+			return this;
+		}
+
+		public ILifecycle BeforeResuming (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		{
+			_resume.AddBeforeHandler (handler);
+			return this;
+		}
+
 		public ILifecycle WhenResuming (Action handler)
 		{
 			_resume.AddWhenHandler(handler, false);
@@ -204,6 +239,18 @@ namespace robotlegs.bender.framework.impl
 		public ILifecycle BeforeDestroying (Action handler)
 		{
 			_destroy.AddBeforeHandler(handler);
+			return this;
+		}
+
+		public ILifecycle BeforeDestroying (MessageDispatcher.HandlerMessageDelegate handler)
+		{
+			_destroy.AddBeforeHandler (handler);
+			return this;
+		}
+
+		public ILifecycle BeforeDestroying (MessageDispatcher.HandlerMessageCallbackDelegate handler)
+		{
+			_destroy.AddBeforeHandler (handler);
 			return this;
 		}
 
@@ -272,6 +319,18 @@ namespace robotlegs.bender.framework.impl
 			_destroy.preTransition += DispatchPreDestroy;
 			_destroy.transition += DispatchDestroy;
 			_destroy.postTransition += DispatchPostDestroy;
+		}
+
+		private void ReportIfUnitialized()
+		{
+			if (!Uninitialized)
+				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
+		}
+
+		private void ReportIfInitialized()
+		{
+			if (!Initialized)
+				ReportError(LifecycleException.LATE_HANDLER_ERROR_MESSAGE);
 		}
 
 		public void ReportError(Exception error)
