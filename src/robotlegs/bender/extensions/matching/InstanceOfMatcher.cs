@@ -24,7 +24,7 @@ namespace robotlegs.bender.extensions.matching
 		
 		public bool Matches(object item)
 		{
-			return item.GetType().IsAssignableFrom(_type);
+			return _type.IsInstanceOfType(item);
 		}
 	}
 }

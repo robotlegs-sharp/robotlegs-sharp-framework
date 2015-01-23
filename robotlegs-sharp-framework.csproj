@@ -164,6 +164,8 @@
     <Compile Include="src\robotlegs\bender\framework\api\LifecycleException.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\ILifecycleEvent.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\MessageDispatcherDelegate.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\contextview\api\IContextViewStateWatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\AssignableFromMatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

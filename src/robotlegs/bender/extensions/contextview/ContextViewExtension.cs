@@ -31,17 +31,17 @@ namespace robotlegs.bender.extensions.contextview
 			_injector = context.injector;
 			_logger = context.GetLogger(this);
 			context.AfterInitializing (BeforeInitializing);
-			context.AddConfigHandler(new InstanceOfMatcher (typeof(ContextView)), AddContextView);
+			context.AddConfigHandler(new AssignableFromMatcher (typeof(IContextView)), AddContextView);
 		}
 		
 		/*============================================================================*/
-		/* Public Functions                                                           */
+		/* Private Functions                                                           */
 		/*============================================================================*/
 
 		private void AddContextView(object contextViewObject)
 		{
-			ContextView contextView = contextViewObject as ContextView;
-			if (!HasContextBinding ()) 
+			IContextView contextView = contextViewObject as IContextView;
+			if (!HasContextBinding ())
 			{
 				_logger.Debug("Mapping {0} as contextView", contextView.view);
 				_injector.Map(typeof(ContextView)).ToValue(contextView);
@@ -61,7 +61,7 @@ namespace robotlegs.bender.extensions.contextview
 		
 		private bool HasContextBinding()
 		{
-			return _injector.HasDirectMapping(typeof(ContextView));
+			return _injector.HasDirectMapping(typeof(IContextView));
 		}
 	}
 }
