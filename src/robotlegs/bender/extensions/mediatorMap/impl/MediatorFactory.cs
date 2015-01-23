@@ -91,7 +91,9 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 
 		public void RemoveAllMediators()
 		{
-			foreach (object item in _mediators.Keys)
+			object[] mediatorKeys = new object[_mediators.Keys.Count];
+			_mediators.Keys.CopyTo(mediatorKeys, 0);
+			foreach (object item in mediatorKeys)
 			{
 				RemoveMediators(item);
 			}
