@@ -31,7 +31,7 @@ namespace robotlegs.bender.extensions.contextview
 			_injector = context.injector;
 			_logger = context.GetLogger(this);
 			context.AfterInitializing (BeforeInitializing);
-			context.AddConfigHandler(new AssignableFromMatcher (typeof(IContextView)), AddContextView);
+			context.AddConfigHandler(new InstanceOfMatcher (typeof(IContextView)), AddContextView);
 		}
 		
 		/*============================================================================*/

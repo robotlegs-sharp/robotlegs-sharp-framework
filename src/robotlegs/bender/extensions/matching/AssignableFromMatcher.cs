@@ -24,19 +24,6 @@ namespace robotlegs.bender.extensions.matching
 		
 		public bool Matches(object item)
 		{
-			Type t1 = _type;
-			Type i1 = item.GetType ();
-			bool b1 = t1.IsAssignableFrom (i1);
-			/*
-			IContextView IsAssignableFrom( Contextview ) == true;
-			ContextView IsAssignableFrom( IContextview ) == false;
-			//*/
-			
-			Type t2 = item.GetType ();
-			bool b2 = t2.IsAssignableFrom (_type);
-			
-			
-			return b1;
 			return item.GetType().IsAssignableFrom(_type);
 		}
 	}

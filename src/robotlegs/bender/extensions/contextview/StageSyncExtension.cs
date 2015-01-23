@@ -1,17 +1,28 @@
 
+
 using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.contextview.api;
+using robotlegs.bender.extensions.viewManager.api;
 using robotlegs.bender.extensions.matching;
-using robotlegs.bender.extensions.contextview.impl;
-using robotlegs.bender.extensions.contextviewstatewatcher;
 
 namespace robotlegs.bender.extensions.contextview
 {
-	/**
-	 * <p>This Extension will automatically Initialize the Context when the ContextView is added to the stage.
-	 * If the ContextView is already added when this extension is installed it will run Initialize straight away.</p>
-	 */
-	public class StageSyncExtension : IExtension
+	/// <summary>
+	/// <p>This Extension class is abstract and should be extended to make a platform specific version.</p>
+	/// <p>Installing this extension as it is will cause an error.</p>
+	/// 
+	/// <p>This Extension will automatically:
+	/// <ul>
+	/// <li>Initialize the Context when the Context View is added to the stage.</li>
+	/// <li>Suspend the Context when the Context View deactiviates</li>
+	/// <li>Resume the Context when the Context View re-activates</li>
+	/// <li>Suspend the Context when the Context View is destroyed</li>
+	/// </ul>
+	/// </p>
+	/// </summary>
+
+
+	public abstract class StageSyncExtension : IExtension
 	{
 		/*============================================================================*/
 		/* Private Properties                                                         */
@@ -19,7 +30,12 @@ namespace robotlegs.bender.extensions.contextview
 
 		private IContext _context;
 		private IContextView _contextView;
-		private ILogger _logger;
+		private IViewStateWatcher _contextViewStateWatcher;
+
+		/*============================================================================*/
+		/* Protected Functions                                                           */
+		/*============================================================================*/
+		protected ILogger _logger;
 		
 		/*============================================================================*/
 		/* Public Functions                                                           */
@@ -29,11 +45,11 @@ namespace robotlegs.bender.extensions.contextview
 		{
 			_context = context;
 			_logger = context.GetLogger(this);
-
-			if(context.injector.HasMapping(typeof(IContextView)))
+			
+			if(context.injector.HasDirectMapping(typeof(IContextView)))
 				HandleContextView(context.injector.GetInstance(typeof(IContextView)));
 			else
-				context.AddConfigHandler(new AssignableFromMatcher(typeof(IContextView)), HandleContextView);
+				context.AddConfigHandler(new InstanceOfMatcher(typeof(IContextView)), HandleContextView);
 		}
 
 		/*============================================================================*/
@@ -43,85 +59,71 @@ namespace robotlegs.bender.extensions.contextview
 		private void HandleContextView(object contextView)
 		{
 			if (_contextView != null)
-			{
-				_logger.Warn("A contextView has already been installed, ignoring {0}", contextView);
 				return;
-			}
 			IContextView castContextView = contextView as IContextView;
-			if(castContextView == null)
-			{
-				_logger.Warn("The object mapped to IContextView is not an IContextView. {0}", contextView);
+			if (castContextView == null)
 				return;
-			}
 
 			_contextView = castContextView;
 
-			// Matt to James? Can we add injection hook and listen for IContextViewStateWatcher to mapped?
-				// If so we dont need the contextViewStateWatcherSet event in the contextview
-			if(_contextView.contextViewStateWatcher == null)
+			if(_contextViewStateWatcher != null)
 			{
-				_contextView.contextViewStateWatcherSet += HandleContextViewStateWatcherSet;
+				_logger.Warn ("A IViewStateWatcher on the context view has already been set");
 				return;
 			}
-			ContextViewStateWatcherSet();
-		}
 
-		private void HandleContextViewStateWatcherSet()
-		{
-			_contextView.contextViewStateWatcherSet -= HandleContextViewStateWatcherSet;
-			ContextViewStateWatcherSet ();
-		}
-
-		private void ContextViewStateWatcherSet()
-		{
-			if(_contextView.contextViewStateWatcher.isAddedToStage)
+			IViewStateWatcher contextViewStateWatcher = GetContextViewStateWatcher(_contextView.view);
+			if (contextViewStateWatcher == null)
 			{
-				InitializeContext();
+				_logger.Warn ("A IViewStateWatcher cannot be created on the context view as GetContextViewStateWatcher returned null");
+				return;
 			}
+			_contextViewStateWatcher = contextViewStateWatcher;
+
+			if (contextViewStateWatcher.isAdded)
+				InitializeContext ();
 			else
-			{
-				_contextView.contextViewStateWatcher.addedToStage += HandleContextViewAddedToStage;
-			}
+				contextViewStateWatcher.added += HandleContextViewAdded;
 
 		}
 
-		private void HandleContextViewAddedToStage(object view)
+		private void HandleContextViewAdded(object view)
 		{
-			_contextView.contextViewStateWatcher.addedToStage -= HandleContextViewAddedToStage;
+			_contextViewStateWatcher.added -= HandleContextViewAdded;
 			InitializeContext();
 		}
 
 		private void InitializeContext()
 		{
-			_contextView.contextViewStateWatcher.removeFromStage += HandleContextViewRemoveFromStage;
-			_contextView.contextViewStateWatcher.suspended += HandleContextViewSuspended;
+			_contextViewStateWatcher.removed += HandleContextViewRemoved;
+			_contextViewStateWatcher.disabled += HandleContextViewDisabled;
 			_context.Initialize();
 		}
-/*
- * START QUESTIONNABLE REGION
- * Should the handling of suspend + resume via the Context view state watcher be managed from another extension?
-*/
-		private void HandleContextViewSuspended(object view)
+
+		private void HandleContextViewDisabled(object view)
 		{
-			_contextView.contextViewStateWatcher.suspended -= HandleContextViewSuspended;
-			_contextView.contextViewStateWatcher.resumed += HandleContextViewResumed;
+			_contextViewStateWatcher.disabled -= HandleContextViewDisabled;
+			_contextViewStateWatcher.enabled += HandleContextViewEnabled;
 			_context.Suspend();
 		}
 
-		private void HandleContextViewResumed(object view)
+		private void HandleContextViewEnabled(object view)
 		{
-			_contextView.contextViewStateWatcher.suspended += HandleContextViewSuspended;
-			_contextView.contextViewStateWatcher.resumed -= HandleContextViewResumed;
+			_contextViewStateWatcher.disabled += HandleContextViewDisabled;
+			_contextViewStateWatcher.enabled -= HandleContextViewEnabled;
 			_context.Resume();
 		}		
-/*
- * END  QUESTIONNABLE REGION
-*/
-		private void HandleContextViewRemoveFromStage(object view)
+
+		private void HandleContextViewRemoved(object view)
 		{
-			_contextView.contextViewStateWatcher.removeFromStage -= HandleContextViewRemoveFromStage;
+			_contextViewStateWatcher.removed -= HandleContextViewRemoved;
 			_context.Destroy();	
 		}
+		
+		/*============================================================================*/
+		/* Protected Abstract Functions                                                           */
+		/*============================================================================*/
+		protected abstract IViewStateWatcher GetContextViewStateWatcher (object contextView);
+
 	}
 }
-
