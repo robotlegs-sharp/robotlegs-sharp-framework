@@ -50,6 +50,8 @@
     <Folder Include="src\robotlegs\bender\extensions\localEventMap\impl\" />
     <Folder Include="src\robotlegs\bender\unity\" />
     <Folder Include="src\robotlegs\bender\bundles\mvcs\" />
+    <Folder Include="src\robotlegs\bender\unity\extensions\" />
+    <Folder Include="src\robotlegs\robotlegs\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\bundles\MVCSUnityBundle.cs" />
@@ -165,6 +167,15 @@
     <Compile Include="src\robotlegs\bender\framework\api\ILifecycleEvent.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\MessageDispatcherDelegate.cs" />
     <Compile Include="src\robotlegs\bender\extensions\matching\AssignableFromMatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\StageCrawlerExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\StageCrawler.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IStageCrawler.cs" />
+    <Compile Include="src\robotlegs\bender\unity\extensions\contentView\UnityStageSyncExtension.cs" />
+    <Compile Include="src\robotlegs\bender\unity\extensions\contentView\UnityStageCrawlerConfig.cs" />
+    <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\impl\UnityViewStateWatcher.cs" />
+    <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\impl\UnityStageCrawler.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\contextview\StageSyncExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IViewStateWatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
