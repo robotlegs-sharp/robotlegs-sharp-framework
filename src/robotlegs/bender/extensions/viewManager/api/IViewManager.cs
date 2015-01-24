@@ -8,6 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using System.Collections.Generic;
+
+
 namespace robotlegs.bender.extensions.viewManager.api
 {
 	public interface IViewManager
@@ -16,6 +19,7 @@ namespace robotlegs.bender.extensions.viewManager.api
 		void AddViewHandler(IViewHandler handler);
 		void RemoveViewHandler(IViewHandler handler);
 		void RemoveAllHandlers();
+		List<object> Containers { get; }
 	}
 }
 

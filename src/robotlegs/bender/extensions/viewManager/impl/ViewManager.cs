@@ -85,6 +85,14 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				}
 			}
 		}
+
+		public List<object> Containers
+		{
+			get
+			{
+				return _containers;
+			}
+		}
 	}
 }
 
