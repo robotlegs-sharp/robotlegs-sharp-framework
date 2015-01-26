@@ -243,24 +243,67 @@ namespace robotlegs.bender.framework.impl
 			Assert.That(actual, Is.EqualTo(expected).AsCollection);
 		}
 
-		/*
 		[Test]
-		public function lifecycleStateChangeEvent_is_propagated():void
+		public void lifecycleStateChangeEvent_is_propagated()
 		{
-			var called:Boolean = false;
-			context.addEventListener(LifecycleEvent.STATE_CHANGE, function(event:LifecycleEvent):void {
+			bool called = false;
+			context.STATE_CHANGE += delegate() {
 				called = true;
-			});
-			context.initialize();
-			assertThat(called, isTrue());
+			};
+			context.Initialize();
+			Assert.That(called, Is.True);
 		}
-		*/
+
+		[Test]
+		[ExpectedException("robotlegs.bender.framework.api.LifecycleException")]
+		public void adding_BeforeInitializing_handler_after_initialization_throws_error()
+		{
+			context.Initialize();
+			context.BeforeInitializing(nop);
+		}
+
+		[Test]
+		[ExpectedException("robotlegs.bender.framework.api.LifecycleException")]
+		public void adding_WhenInitializing_handler_after_initialization_throws_error()
+		{
+			context.Initialize();
+			context.WhenInitializing(nop);
+		}
+
+		[Test]
+		public void adding_BeforeInitializing_handler_after_initialization_catches_error()
+		{
+			bool caught = false;
+			context.ERROR += delegate(Exception obj) {
+				caught = true;
+			};
+			context.Initialize();
+			context.BeforeInitializing(nop);
+			Assert.That (caught, Is.True);
+		}
+
+		[Test]
+		public void adding_WhenInitializing_handler_after_initialization_catches_error()
+		{
+			bool caught = false;
+			context.ERROR += delegate(Exception obj) {
+				caught = true;
+			};
+			context.Initialize();
+			context.WhenInitializing(nop);
+			Assert.That (caught, Is.True);
+		}
 
 		private Action<object> CreateValuePusher(List<object> list, object value)
 		{
 			return delegate(object context) {
 				list.Add(value);
 			};
+		}
+
+		private void nop()
+		{
+
 		}
 	}
 }

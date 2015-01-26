@@ -4,6 +4,10 @@ namespace robotlegs.bender.framework.api
 {
 	public interface ILifecycleEvent
 	{
+		event Action<Exception> ERROR;
+
+		event Action STATE_CHANGE;
+
 		event Action<object> PRE_INITIALIZE;
 		event Action<object> INITIALIZE;
 		event Action<object> POST_INITIALIZE;

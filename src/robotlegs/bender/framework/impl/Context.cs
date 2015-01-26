@@ -11,6 +11,30 @@ namespace robotlegs.bender.framework.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
+		public event Action<Exception> ERROR
+		{
+			add
+			{
+				_lifecycle.ERROR += value;
+			}
+			remove 
+			{
+				_lifecycle.ERROR -= value;
+			}
+		}
+
+		public event Action STATE_CHANGE 
+		{
+			add
+			{
+				_lifecycle.STATE_CHANGE += value;
+			}
+			remove
+			{
+				_lifecycle.STATE_CHANGE -= value;
+			}
+		}
+
 		public event Action<object> PRE_INITIALIZE 
 		{
 			add

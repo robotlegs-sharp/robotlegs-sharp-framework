@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using robotlegs.bender.framework.api;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -275,25 +277,23 @@ namespace robotlegs.bender.framework.impl
 			Assert.That(callCount, Is.EqualTo(1));
 		}
 
-		/*
-		[Test(async)]
-		public function callback_added_during_transition_is_called():void
+		[Test]
+		public async Task callback_added_during_transition_is_called()
 		{
-			var callCount:int = 0;
-			transition.fromStates(LifecycleState.UNINITIALIZED)
-				.toStates("startState", "endState")
-				.addBeforeHandler(function(message:Object, callback:Function):void {
-					setTimeout(callback, 1);
+			int callCount = 0;
+			transition.FromStates(LifecycleState.UNINITIALIZED)
+				.ToStates(LifecycleState.INITIALIZING, LifecycleState.ACTIVE)
+				.AddBeforeHandler(delegate(object message, HandlerAsyncCallback callback) {
+					new Timer (new TimerCallback (callback), null, 1, System.Threading.Timeout.Infinite);
 				});
-			transition.enter();
-			transition.enter(function():void {
+			transition.Enter();
+			transition.Enter(delegate() {
 				callCount++;
 			});
-			Async.delayCall(this, function():void {
-				assertThat(callCount, equalTo(1));
-			}, 50);	
+			Assert.That (callCount, Is.EqualTo (0));
+			await Task.Delay (50);
+			Assert.That(callCount, Is.EqualTo(1));
 		}
-		*/
 	}
 }
 
