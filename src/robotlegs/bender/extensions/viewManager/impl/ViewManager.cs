@@ -22,28 +22,84 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 	public class ViewManager : IViewManager
 	{
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		public event Action<object> ContainerAdd;
+
+		public event Action<object> ContainerRemove;
+
+		public event Action<IViewHandler> HandlerAdd;
+
+		public event Action<IViewHandler> HandlerRemove;
+
+		public List<object> Containers
+		{
+			get
+			{
+				return _containers;
+			}
+		}
+
+		/*============================================================================*/
+		/* Private Properties                                                         */
+		/*============================================================================*/
+
 		private List<IViewHandler> _handlers = new List<IViewHandler>();
+
 		private List<object> _containers = new List<object>();
 
-		public ViewManager()
+		private ContainerRegistry _registry;
+
+		/*============================================================================*/
+		/* Constructor                                                                */
+		/*============================================================================*/
+
+		public ViewManager(ContainerRegistry containerRegistry)
 		{
+			_registry = containerRegistry;
 		}
+
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
 
 		public void AddContainer(object container)
 		{
 			//TODO: Check for nested containers and already existing containers with this ViewManager
-//			if (!ValidContainer(container))
-//				return;
+			//			if (!ValidContainer(container))
+			//				return;
 
 			_containers.Add(container);
 
-			ContainerBinding containerBinding = ContainerRegistry.AddContainer(container);
+			ContainerBinding containerBinding = _registry.AddContainer(container);
 			foreach (IViewHandler handler in _handlers)
 			{
 				containerBinding.AddHandler(handler);
 			}
 
-			//TODO: Dispatch new ViewManagerEvent(ViewManagerEvent.CONTAINER_ADD, container);
+			if (ContainerAdd != null)
+			{
+				ContainerAdd (container);
+			}
+		}
+
+		public void RemoveContainer(object container)
+		{
+			if (!_containers.Remove (container))
+				return;
+
+			ContainerBinding binding = _registry.GetBinding (container);
+			foreach (IViewHandler handler in _handlers)
+			{
+				binding.RemoveHandler (handler);
+			}
+
+			if (ContainerAdd != null)
+			{
+				ContainerAdd (container);
+			}
 		}
 
 		public void AddViewHandler(IViewHandler handler)
@@ -56,10 +112,13 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			// Add new handler to our containers
 			foreach (object container in _containers)
 			{
-				ContainerRegistry.AddContainer(container).AddHandler(handler);
+				_registry.AddContainer(container).AddHandler(handler);
 			}
 
-			//TODO: Dispatch ViewManagerEvent.HANDLER_ADD
+			if (HandlerAdd != null)
+			{
+				HandlerAdd (handler);
+			}
 		}
 
 		public void RemoveViewHandler(IViewHandler handler)
@@ -68,17 +127,20 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 			foreach(object container in _containers)
 			{
-				ContainerRegistry.GetBinding(container).RemoveHandler(handler);
+				_registry.GetBinding(container).RemoveHandler(handler);
 			}
 
-			//TODO: new ViewManagerEvent(ViewManagerEvent.HANDLER_REMOVE, null, handler);
+			if (HandlerRemove != null)
+			{
+				HandlerRemove (handler);
+			}
 		}
 
 		public void RemoveAllHandlers()
 		{
 			foreach (object container in _containers) 
 			{
-				ContainerBinding binding = ContainerRegistry.GetBinding (container);
+				ContainerBinding binding = _registry.GetBinding (container);
 				foreach (IViewHandler handler in _handlers) 
 				{
 					binding.RemoveHandler (handler);
@@ -86,13 +148,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			}
 		}
 
-		public List<object> Containers
-		{
-			get
-			{
-				return _containers;
-			}
-		}
+		/*============================================================================*/
+		/* Private Functions                                                          */
+		/*============================================================================*/
 	}
 }
 

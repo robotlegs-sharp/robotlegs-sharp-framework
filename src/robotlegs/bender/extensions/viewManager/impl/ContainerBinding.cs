@@ -16,6 +16,12 @@ namespace robotlegs.bender.extensions.viewManager.impl
 {
 	public class ContainerBinding
 	{
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		public event Action<ContainerBinding> BINDING_EMPTY;
+
 		/// <summary>
 		/// The parent binding in relation to this container
 		/// </summary>
@@ -23,15 +29,32 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		public ContainerBinding Parent {get;set;}
 
 		/// <summary>
+		/// Gets the container.
+		/// </summary>
+		/// <value>The container.</value>
+		public object Container 
+		{
+			get
+			{
+				return _container;
+			}
+		}
+
+		/*============================================================================*/
+		/* Private Properties                                                         */
+		/*============================================================================*/
+
+		/// <summary>
 		/// The view handlers added to the container
 		/// </summary>
 		private List<IViewHandler> _handlers = new List<IViewHandler>();
 
-		/// <summary>
-		/// Gets the container.
-		/// </summary>
-		/// <value>The container.</value>
-		public object Container {get;private set;}
+		private object _container;
+
+		/*============================================================================*/
+		/* Constructor                                                                */
+		/*============================================================================*/
+
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="robotlegs.bender.extensions.viewManager.impl.ContainerBinding"/> class.
@@ -39,8 +62,12 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/// <param name="container">Container to be associated with the binding</param>
 		public ContainerBinding (object container)
 		{
-			Container = container;
+			_container = container;
 		}
+
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
 
 		/// <summary>
 		/// Adds a view handler to this binding
@@ -48,6 +75,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/// <param name="handler">Handler.</param>
 		public void AddHandler(IViewHandler handler)
 		{
+			if (_handlers.Contains (handler))
+				return;
 			_handlers.Add(handler);
 		}
 		
@@ -58,9 +87,10 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		{
 			_handlers.Remove(handler);
 
-			//TODO: Dispatch empty binding, then listen to it from the container registy
-			//if (_handlers.Count == 0)
-				// dispatchEvent(new ContainerBindingEvent(ContainerBindingEvent.BINDING_EMPTY));
+			if (_handlers.Count == 0 && BINDING_EMPTY != null)
+			{
+				BINDING_EMPTY (this);
+			}
 		}
 
 		/// <summary>
@@ -70,8 +100,10 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/// <param name="type">Type.</param>
 		public void HandleView(object view, Type type)
 		{
-			foreach(IViewHandler handler in _handlers)
-				handler.HandleView(view, type);
+			foreach (IViewHandler handler in _handlers)
+			{
+				handler.HandleView (view, type);
+			}
 		}
 	}
 }

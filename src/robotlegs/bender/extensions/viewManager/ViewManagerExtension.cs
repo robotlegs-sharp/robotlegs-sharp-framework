@@ -17,9 +17,24 @@ namespace robotlegs.bender.extensions.viewManager
 {
 	public class ViewManagerExtension : IExtension
 	{
+		/*============================================================================*/
+		/* Private Static Properties                                                  */
+		/*============================================================================*/
+
+		// Really? Yes, there can be only one.
+		private static ContainerRegistry _containerRegistry;
+
+		/*============================================================================*/
+		/* Private Properties                                                         */
+		/*============================================================================*/
+
 		private IInjector _injector;
 
 		private IViewManager _viewManager;
+
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
 
 		public void Extend (IContext context)
 		{
@@ -28,6 +43,15 @@ namespace robotlegs.bender.extensions.viewManager
 
 			_injector = context.injector;
 
+			// Just one Container Registry
+			if (_containerRegistry == null)
+			{
+				_containerRegistry = new ContainerRegistry ();
+				ViewNotifier.SetRegistry (_containerRegistry);
+			}
+			_injector.Map(typeof(ContainerRegistry)).ToValue(_containerRegistry);
+
+			// But you get your own View Manager
 			_injector.Map(typeof(IViewManager)).ToSingleton(typeof(ViewManager));
 		}
 

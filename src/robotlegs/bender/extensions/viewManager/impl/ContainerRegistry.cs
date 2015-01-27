@@ -21,69 +21,199 @@ namespace robotlegs.bender.extensions.viewManager.impl
 	/// </summary>
 
 
-	public static class ContainerRegistry
+	public class ContainerRegistry
 	{
-		private static List<ContainerBinding> bindings = new List<ContainerBinding>();
-		public static List<ContainerBinding> Bindings 
-		{
-			get { return bindings; }
-		}
-		private static List<ContainerBinding> rootBindings = new List<ContainerBinding>();
-		public static List<ContainerBinding> RootBindings 
-		{
-			get { return rootBindings; }
-		}
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
 
-		private static Dictionary<object, ContainerBinding> BindingsByContainer = new Dictionary<object, ContainerBinding>();
+		public event Action<object> ContainerAdd;
 
-		public static ContainerBinding AddContainer(object container)
+		public event Action<object> ContainerRemove;
+
+		public event Action<object> RootContainerAdd;
+
+		public event Action<object> RootContainerRemove;
+
+		public List<ContainerBinding> Bindings 
 		{
-			if (BindingsByContainer.ContainsKey(container))
-				return BindingsByContainer[container];
-
-			return BindingsByContainer[container] = CreateBinding(container);
-		}
-
-		public static ContainerBinding GetBinding(object container)
-		{
-			return BindingsByContainer[container];
+			get 
+			{ 
+				return _bindings; 
+			}
 		}
 
-		private static ContainerBinding CreateBinding(object container)
+		public List<ContainerBinding> RootBindings 
 		{
-			ContainerBinding binding = new ContainerBinding(container);
-			bindings.Add(binding);
+			get 
+			{ 
+				return _rootBindings; 
+			}
+		}
 
-			//TODO: Add listener for empty binding
+		/*============================================================================*/
+		/* Private Properties                                                         */
+		/*============================================================================*/
 
-			binding.Parent = FindParentBinding(container);
-			if (binding.Parent == null)
-				AddRootBinding(binding);
-//			Bindings.Add(container);
+		private List<ContainerBinding> _bindings = new List<ContainerBinding>();
 
-			//TODO: Re-orgainse bindings, but not by using contains. But by searching parents if possible
+		private List<ContainerBinding> _rootBindings = new List<ContainerBinding>();
 
-			//TODO: Dispatch ContainerAddEvent
+		private Dictionary<object, ContainerBinding> _bindingByContainer = new Dictionary<object, ContainerBinding>();
+
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
+
+		public ContainerBinding AddContainer(object container)
+		{
+			if (_bindingByContainer.ContainsKey(container))
+				return _bindingByContainer[container];
+
+			return _bindingByContainer[container] = CreateBinding(container);
+		}
+
+		public ContainerBinding RemoveContainer(object container)
+		{
+			ContainerBinding binding;
+			_bindingByContainer.TryGetValue (container, out binding);
+			if (binding != null)
+			{
+				RemoveBinding (binding);
+			}
 			return binding;
 		}
 
-		private static ContainerBinding FindParentBinding(object container)
+		public ContainerBinding FindParentBinding(object container)
 		{
+//			DisplayObjectContainer parent = target.parent;
+//			while (parent)
+//			{
+//				ContainerBinding binding = _bindingByContainer[parent];
+//				if (binding)
+//				{
+//					return binding;
+//				}
+//				parent = parent.parent;
+//			}
 			return null;
 		}
 
-		private static void AddRootBinding(ContainerBinding binding)
+		public ContainerBinding GetBinding(object container)
 		{
-			rootBindings.Add(binding);
-			//TODO: Dispatch add root binding
+			return _bindingByContainer[container];
 		}
 
-		public static void HandleView(object view, Type type)
+		public void HandleView(object view, Type type)
 		{
-			foreach (ContainerBinding binding in bindings)
+			foreach (ContainerBinding binding in _bindings)
 			{
 				binding.HandleView(view, type);
 			}
+		}
+
+		/*============================================================================*/
+		/* Private Functions                                                          */
+		/*============================================================================*/
+
+		private ContainerBinding CreateBinding(object container)
+		{
+			ContainerBinding binding = new ContainerBinding(container);
+			_bindings.Add(binding);
+
+			binding.BINDING_EMPTY += OnBindingEmpty;
+
+			binding.Parent = FindParentBinding(container);
+			if (binding.Parent == null)
+			{
+				AddRootBinding (binding);
+			}
+
+			//TODO: Re-orgainse bindings, but not by using contains. But by searching parents if possible
+
+			// Reparent any bindings which are contained within the new binding AND
+			// A. Don't have a parent, OR
+			// B. Have a parent that is not contained within the new binding
+//			foreach (ContainerBinding childBinding in _bindingByContainer)
+//			{
+//				if (container.contains(childBinding.Container))
+//				{
+//					if (!childBinding.Parent)
+//					{
+//						RemoveRootBinding(childBinding);
+//						childBinding.Parent = binding;
+//					}
+//					else if (!container.Contains(childBinding.Parent.Container))
+//					{
+//						childBinding.Parent = binding;
+//					}
+//				}
+//			}
+
+			if (ContainerAdd != null)
+			{
+				ContainerAdd (binding.Container);
+			}
+			return binding;
+		}
+
+		private void RemoveBinding(ContainerBinding binding)
+		{
+			// Remove the binding itself
+			_bindingByContainer.Remove (binding.Container);
+			_bindings.Remove (binding);
+
+			// Drop the empty binding listener
+			binding.BINDING_EMPTY -= OnBindingEmpty;
+
+			if (binding.Parent == null)
+			{
+				// This binding didn't have a parent, so it was a Root
+				RemoveRootBinding (binding);
+			}
+
+			// Re-parent the bindings
+			foreach (ContainerBinding childBinding in _bindingByContainer.Values)
+			{
+				if (childBinding.Parent == binding)
+				{
+					childBinding.Parent = binding.Parent;
+					if (childBinding.Parent == null)
+					{
+						// This binding used to have a parent,
+						// but no longer does, so it is now a Root
+						AddRootBinding(childBinding);
+					}
+				}
+			}
+
+			if (ContainerRemove != null)
+			{
+				ContainerRemove (binding.Container);
+			}
+		}
+
+		private void AddRootBinding(ContainerBinding binding)
+		{
+			_rootBindings.Add(binding);
+			if (RootContainerAdd != null)
+			{
+				RootContainerAdd (binding.Container);
+			}
+		}
+
+		private void RemoveRootBinding(ContainerBinding binding)
+		{
+			_rootBindings.Remove (binding);
+			if (RootContainerRemove != null)
+			{
+				RootContainerRemove (binding.Container);
+			}
+		}
+		
+		private void OnBindingEmpty(ContainerBinding binding)
+		{
+			RemoveBinding (binding);
 		}
 	}
 }

@@ -79,6 +79,7 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 				Delegate[] typeListeners = listeners[evt.type].ToArray();
 				foreach (Delegate listener in typeListeners) 
 				{
+					//TODO: Do not dynamic invoke if it is an Action, as it's much much slower to dynamic invoke
 					//TODO: Make this better, by storing that it's blank, not by checking every time
 					if (listener.Method.GetParameters().Length == 0)
 						listener.DynamicInvoke(null);
