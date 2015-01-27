@@ -15,7 +15,7 @@ namespace robotlegs.bender.extensions.vigilance
 		public void Extend (IContext context)
 		{
 			context.AddLogTarget (this);
-			context.injector.MAPPING_OVERRIDE += MappingOverrideHandler;
+			context.injector.MappingOverride += MappingOverrideHandler;
 		}
 
 		public void Log (object source, robotlegs.bender.framework.impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)

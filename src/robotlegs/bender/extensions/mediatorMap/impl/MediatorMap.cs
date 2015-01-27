@@ -51,8 +51,10 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		public IMediatorMapper MapMatcher(ITypeMatcher matcher)
 		{
 			string descriptor = matcher.CreateTypeFilter().Descriptor;
-			if (!_mappers.ContainsKey(descriptor))
-				_mappers[descriptor] = CreateMapper(matcher);
+			if (!_mappers.ContainsKey (descriptor))
+			{
+				_mappers [descriptor] = CreateMapper (matcher);
+			}
 
 			return _mappers[descriptor];
 		}

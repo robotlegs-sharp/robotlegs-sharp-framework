@@ -13,8 +13,10 @@ namespace robotlegs.bender.extensions.viewManager
 		/*============================================================================*/
 
 		private ILogger _logger;
+
 		private IInjector _injector;
-		//private ContainerRegistry _containerRegistry;
+
+		private ContainerRegistry _containerRegistry;
 
 		/*============================================================================*/
 		/* Public Functions                                                           */
@@ -33,6 +35,7 @@ namespace robotlegs.bender.extensions.viewManager
 
 		private void AfterInitializing()
 		{
+			_containerRegistry = _injector.GetInstance(typeof(ContainerRegistry)) as ContainerRegistry;
 			if (!_injector.HasDirectMapping (typeof(IStageCrawler)))
 			{
 				_logger.Warn ("No CrawlerConfig configured. Make sure to configure a platform specific stage crawler config, or don't install eht StageCrawler extension");
@@ -72,7 +75,7 @@ namespace robotlegs.bender.extensions.viewManager
 
 		private void ScanContainer(object container)
 		{
-			ContainerBinding binding = ContainerRegistry.GetBinding(container);
+			ContainerBinding binding = _containerRegistry.GetBinding(container);
 			_logger.Debug("StageCrawler scanning container {0} ...", container);
 			IStageCrawler stageCrawler = _injector.GetInstance(typeof(IStageCrawler)) as IStageCrawler;
 			stageCrawler.Binding = binding;

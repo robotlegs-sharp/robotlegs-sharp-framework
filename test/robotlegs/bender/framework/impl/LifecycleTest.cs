@@ -275,12 +275,14 @@ namespace robotlegs.bender.framework.impl
 //		[Test]
 //		public void beforeHandler_callbacks_are_passed_correct_message()
 //		{
+//			List<object> expected = new List<object>();
 //			const expected:Array = [
 //				LifecycleEvent.PRE_INITIALIZE, LifecycleEvent.INITIALIZE, LifecycleEvent.POST_INITIALIZE,
 //				LifecycleEvent.PRE_SUSPEND, LifecycleEvent.SUSPEND, LifecycleEvent.POST_SUSPEND,
 //				LifecycleEvent.PRE_RESUME, LifecycleEvent.RESUME, LifecycleEvent.POST_RESUME,
 //				LifecycleEvent.PRE_DESTROY, LifecycleEvent.Destroy, LifecycleEvent.POST_DESTROY];
-//			const actual:Array = [];
+//			List<object> actual = new List<object>();
+
 //			lifecycle.BeforeInitializing(CreateMessagePusher(actual));
 //			lifecycle.WhenInitializing(CreateMessagePusher(actual));
 //			lifecycle.AfterInitializing(CreateMessagePusher(actual));
@@ -297,7 +299,7 @@ namespace robotlegs.bender.framework.impl
 //			lifecycle.Suspend();
 //			lifecycle.Resume();
 //			lifecycle.Destroy();
-//			Assert.That(actual, array(expected));
+//			Assert.That(actual, Is.EqualTo(expected).AsCollection);
 //		}
 
 		// ----- StateChange Event
@@ -406,7 +408,7 @@ namespace robotlegs.bender.framework.impl
 			};
 		}
 
-		private Action<object> CreateMessagePusher(List<object> list)
+		private HandlerMessageDelegate CreateMessagePusher(List<object> list)
 		{
 			return delegate(object message) {
 				list.Add(message);

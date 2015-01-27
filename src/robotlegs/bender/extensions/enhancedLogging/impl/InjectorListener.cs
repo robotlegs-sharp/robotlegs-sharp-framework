@@ -39,16 +39,16 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 		 */
 		public void Destroy()
 		{
-			_injector.POST_CONSTRUCT -= OnPostConstruct;
-			_injector.POST_INSTANTIATE -= OnPostInstantiate;
-			_injector.PRE_CONSTRUCT -= OnPreConstruct;
+			_injector.PostConstruct -= OnPostConstruct;
+			_injector.PostInstantiate -= OnPostInstantiate;
+			_injector.PreConstruct -= OnPreConstruct;
 
-			_injector.MAPPING_OVERRIDE -= OnMappingOverride;
-			_injector.POST_MAPPING_CHANGE -= OnPostMappingChange;
-			_injector.POST_MAPPING_CREATE -= OnPostMappingCreate;
-			_injector.POST_MAPPING_REMOVE -= OnPostMappingRemove;
-			_injector.PRE_MAPPING_CHANGE -= OnPreMappingChange;
-			_injector.PRE_MAPPING_CREATE -= OnPreMappingCreate;
+			_injector.MappingOverride -= OnMappingOverride;
+			_injector.PostMappingChange -= OnPostMappingChange;
+			_injector.PostMappingCreate -= OnPostMappingCreate;
+			_injector.PostMappingRemove -= OnPostMappingRemove;
+			_injector.PreMappingChange -= OnPreMappingChange;
+			_injector.PreMappingCreate -= OnPreMappingCreate;
 		}
 
 		/*============================================================================*/
@@ -57,16 +57,16 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 
 		private void AddListeners()
 		{
-			_injector.POST_CONSTRUCT += OnPostConstruct;
-			_injector.POST_INSTANTIATE += OnPostInstantiate;
-			_injector.PRE_CONSTRUCT += OnPreConstruct;
+			_injector.PostConstruct += OnPostConstruct;
+			_injector.PostInstantiate += OnPostInstantiate;
+			_injector.PreConstruct += OnPreConstruct;
 
-			_injector.MAPPING_OVERRIDE += OnMappingOverride;
-			_injector.POST_MAPPING_CHANGE += OnPostMappingChange;
-			_injector.POST_MAPPING_CREATE += OnPostMappingCreate;
-			_injector.POST_MAPPING_REMOVE += OnPostMappingRemove;
-			_injector.PRE_MAPPING_CHANGE += OnPreMappingChange;
-			_injector.PRE_MAPPING_CREATE += OnPreMappingCreate;
+			_injector.MappingOverride += OnMappingOverride;
+			_injector.PostMappingChange += OnPostMappingChange;
+			_injector.PostMappingCreate += OnPostMappingCreate;
+			_injector.PostMappingRemove += OnPostMappingRemove;
+			_injector.PreMappingChange += OnPreMappingChange;
+			_injector.PreMappingCreate += OnPreMappingCreate;
 		}
 
 		private void OnPreConstruct (object instance, Type instanceType)

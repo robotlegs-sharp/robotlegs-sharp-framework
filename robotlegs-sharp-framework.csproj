@@ -51,7 +51,6 @@
     <Folder Include="src\robotlegs\bender\unity\" />
     <Folder Include="src\robotlegs\bender\bundles\mvcs\" />
     <Folder Include="src\robotlegs\bender\unity\extensions\" />
-    <Folder Include="src\robotlegs\robotlegs\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\api\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\" />
@@ -180,6 +179,7 @@
     <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\impl\UnityStageCrawler.cs" />
     <Compile Include="src\robotlegs\bender\extensions\contextview\StageSyncExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IViewStateWatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\api\ViewNotifier.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\ViewProcessorMapExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\api\IViewProcessorMap.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\IViewProcessorFactory.cs" />

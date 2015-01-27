@@ -3,6 +3,8 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 using robotlegs.bender.framework.impl.safelyCallBackSupport;
 using robotlegs.bender.framework.api;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -175,38 +177,21 @@ namespace robotlegs.bender.framework.impl
 				callback();
 			});
 			dispatcher.DispatchMessage(message);
-			Assert.AreEqual(actualMessage, message);
+			Assert.That(actualMessage, Is.EqualTo(message));
 		}
 
-		/*
 		[Test]
 		public async Task async_handler_handles_message()
 		{
 			object actualMessage = null;
-			Task awaitTask = null;
-
-			List<Task> tasks = new List<Task> ();
 			dispatcher.AddMessageHandler(message, delegate(object msg, HandlerAsyncCallback callback) {
 				actualMessage = msg;
-//				Task.Run(SetTimeout(5, callback as Delegate));
-//				SetTimeout(5, callback as Delegate).Start();
-				tasks.Add(SetTimeout(5, callback as Delegate));
-//				awaitTask = SetTimeout(5, callback as Delegate);
+				SetTimeout(callback, 5, new object[]{null});
 			});
 			dispatcher.DispatchMessage(message);
-
-			foreach (Task t in tasks)
-				await t;
-
-//			await awaitTask;
-//			Assert.AreEqual (actualMessage, message);
-
-			Assert.That (actualMessage, Is.EqualTo (message));
-//			await DelayAssertion ((Action)delegate() {
-//				Assert.AreEqual (actualMessage, message);
-//			});
+			await Delay ();
+			Assert.That(actualMessage, Is.EqualTo(message));
 		}
-*/
 
 		[Test]
 		public void callback_is_called_once()
@@ -226,238 +211,225 @@ namespace robotlegs.bender.framework.impl
 			dispatcher.DispatchMessage(message, delegate() {
 				callbackCount++;
 			});
-			await DelayAssertion ((Action)delegate() {
-				Assert.AreEqual (callbackCount, 1);
-			});
-		}
-
-		/*
-		[Test(async)]
-		public function callback_is_called_once_after_async_handler():void
-		{
-			var callbackCount:int = 0;
-			dispatcher.addMessageHandler(message, createAsyncHandler());
-			dispatcher.dispatchMessage(message, function():void {
-				callbackCount++;
-			});
-			delayAssertion(function():void {
-				assertThat(callbackCount, equalTo(1));
-			});
-		}
-
-		[Test(async)]
-		public function callback_is_called_once_after_sync_and_async_handlers():void
-		{
-			var callbackCount:int = 0;
-			dispatcher.addMessageHandler(message, createAsyncHandler());
-			dispatcher.addMessageHandler(message, createHandler());
-			dispatcher.addMessageHandler(message, createAsyncHandler());
-			dispatcher.addMessageHandler(message, createHandler());
-			dispatcher.dispatchMessage(message, function():void {
-				callbackCount++;
-			});
-			delayAssertion(function():void {
-				assertThat(callbackCount, equalTo(1));
-			}, 100);
+			await Delay();
+			Assert.AreEqual (callbackCount, 1);
 		}
 
 		[Test]
-		public function handler_passes_error_to_callback():void
+		public async Task callback_is_called_once_after_async_handler()
 		{
-			const expectedError:Object = "Error";
-			var actualError:Object = null;
-			dispatcher.addMessageHandler(message, function(msg:Object, callback:Function):void {
+			int callbackCount = 0;
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler());
+			dispatcher.DispatchMessage(message, delegate() {
+				callbackCount++;
+			});
+			await Delay ();
+			Assert.That(callbackCount, Is.EqualTo(1));
+		}
+
+		[Test]
+		public async Task callback_is_called_once_after_sync_and_async_handlers()
+		{
+			int callbackCount = 0;
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler());
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler());
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler());
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler());
+			dispatcher.DispatchMessage(message, delegate() {
+				callbackCount++;
+			});
+			await Delay (100);
+			Assert.That(callbackCount, Is.EqualTo(1));
+		}
+
+		[Test]
+		public void handler_passes_error_to_callback()
+		{
+			object expectedError = "Error";
+			object actualError = null;
+			dispatcher.AddMessageHandler(message, delegate(object msg, HandlerAsyncCallback callback) {
 				callback(expectedError);
 			});
-			dispatcher.dispatchMessage(message, function(error:Object):void {
+			dispatcher.DispatchMessage(message, delegate(object error) {
 				actualError = error;
 			});
-			assertThat(actualError, equalTo(expectedError));
+			Assert.That(actualError, Is.EqualTo(expectedError));
 		}
 
-		[Test(async)]
-		public function async_handler_passes_error_to_callback():void
+		[Test]
+		public async void async_handler_passes_error_to_callback()
 		{
-			const expectedError:Object = "Error";
-			var actualError:Object = null;
-			dispatcher.addMessageHandler(message, function(msg:Object, callback:Function):void {
-				setTimeout(callback, 5, expectedError);
+			object expectedError = "Error";
+			object actualError = null;
+			dispatcher.AddMessageHandler(message, delegate(object msg, HandlerAsyncCallback callback) {
+				SetTimeout(callback, 5, new object[]{expectedError});
 			});
-			dispatcher.dispatchMessage(message, function(error:Object):void {
+			dispatcher.DispatchMessage(message, delegate(object error) {
 				actualError = error;
 			});
-			delayAssertion(function():void {
-				assertThat(actualError, equalTo(expectedError));
-			});
+			await Delay ();
+			Assert.That(actualError, Is.EqualTo(expectedError));
 		}
 
 		[Test]
-		public function handler_that_calls_back_more_than_once_is_ignored():void
+		public void handler_that_calls_back_more_than_once_is_ignored()
 		{
-			var callbackCount:int = 0;
-			dispatcher.addMessageHandler(message, function(msg:Object, callback:Function):void {
+			int callbackCount = 0;
+			dispatcher.AddMessageHandler(message, delegate(object msg, HandlerAsyncCallback callback) {
 				callback();
 				callback();
 			});
-			dispatcher.dispatchMessage(message, function(error:Object):void {
-				callbackCount++
+			dispatcher.DispatchMessage(message, delegate(object error) {
+				callbackCount++;
 			});
-			assertThat(callbackCount, equalTo(1));
+			Assert.That(callbackCount, Is.EqualTo(1));
 		}
 
-		[Test(async)]
-		public function async_handler_that_calls_back_more_than_once_is_ignored():void
+		[Test]
+		public async Task async_handler_that_calls_back_more_than_once_is_ignored()
 		{
-			var callbackCount:int = 0;
-			dispatcher.addMessageHandler(message, function(msg:Object, callback:Function):void {
+			int callbackCount = 0;
+			dispatcher.AddMessageHandler(message, delegate(object msg, HandlerAsyncCallback callback) {
 				callback();
 				callback();
 			});
-			dispatcher.dispatchMessage(message, function(error:Object):void {
-				callbackCount++
+			dispatcher.DispatchMessage(message, delegate(object error) {
+				callbackCount++;
 			});
-			delayAssertion(function():void {
-				assertThat(callbackCount, equalTo(1));
-			});
+			await Delay();
+			Assert.That(callbackCount, Is.EqualTo(1));
 		}
 
 		[Test]
-		public function sync_handlers_should_run_in_order():void
+		public void sync_handlers_should_run_in_order()
 		{
-			const results:Array = [];
-			for each (var id:String in['A', 'B', 'C', 'D'])
-				dispatcher.addMessageHandler(message, createHandler(results.push, id));
-			dispatcher.dispatchMessage(message);
-			assertThat(results, array(['A', 'B', 'C', 'D']));
+			List<object> results = new List<object>();
+			foreach (char id in new object[]{'A', 'B', 'C', 'D'})
+				dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{id}));
+			dispatcher.DispatchMessage(message);
+			Assert.That (results, Is.EqualTo (new object[]{ 'A', 'B', 'C', 'D' }).AsCollection);
 		}
 
 		[Test]
-		public function sync_handlers_should_run_in_reverse_order():void
+		public void sync_handlers_should_run_in_reverse_order()
 		{
-			const results:Array = [];
-			for each (var id:String in['A', 'B', 'C', 'D'])
-				dispatcher.addMessageHandler(message, createHandler(results.push, id));
-			dispatcher.dispatchMessage(message, null, true);
-			assertThat(results, array(['D', 'C', 'B', 'A']));
-		}
-
-		[Test(async)]
-		public function async_handlers_should_run_in_order():void
-		{
-			const results:Array = [];
-			for each (var id:String in['A', 'B', 'C', 'D'])
-				dispatcher.addMessageHandler(message, createAsyncHandler(results.push, id));
-			dispatcher.dispatchMessage(message);
-			delayAssertion(function():void {
-				assertThat(results, array(['A', 'B', 'C', 'D']));
-			}, 200);
-		}
-
-		[Test(async)]
-		public function async_handlers_should_run_in_reverse_order_when_reversed():void
-		{
-			const results:Array = [];
-			for each (var id:String in['A', 'B', 'C', 'D'])
-				dispatcher.addMessageHandler(message, createAsyncHandler(results.push, id));
-			dispatcher.dispatchMessage(message, null, true);
-			delayAssertion(function():void {
-				assertThat(results, array(['D', 'C', 'B', 'A']));
-			}, 200);
-		}
-
-		[Test(async)]
-		public function async_and_sync_handlers_should_run_in_order():void
-		{
-			const results:Array = [];
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'A'));
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'B'));
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'C'));
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'D'));
-			dispatcher.dispatchMessage(message);
-			delayAssertion(function():void {
-				assertThat(results, array(['A', 'B', 'C', 'D']));
-			}, 200);
-		}
-
-		[Test(async)]
-		public function async_and_sync_handlers_should_run_in_order_when_reversed():void
-		{
-			const results:Array = [];
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'A'));
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'B'));
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'C'));
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'D'));
-			dispatcher.dispatchMessage(message, null, true);
-			delayAssertion(function():void {
-				assertThat(results, array(['D', 'C', 'B', 'A']));
-			}, 200);
+			List<object> results = new List<object>();
+			foreach (char id in new object[]{'A', 'B', 'C', 'D'})
+				dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{id}));
+			dispatcher.DispatchMessage(message, true);
+			Assert.That (results, Is.EqualTo (new object[]{ 'D', 'C', 'B', 'A' }).AsCollection);
 		}
 
 		[Test]
-		public function terminated_message_should_not_reach_further_handlers():void
+		public async Task async_handlers_should_run_in_order()
 		{
-			const results:Array = [];
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'A'));
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'B'));
-			dispatcher.addMessageHandler(message, createCallbackHandlerThatErrors(results.push, 'C (with error)'));
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'D'));
-			dispatcher.dispatchMessage(message);
-			assertThat(results, array(['A', 'B', 'C (with error)']));
+			List<object> results = new List<object>();
+			foreach (char id in new object[]{'A', 'B', 'C', 'D'})
+				dispatcher.AddMessageHandler (message, CreateHandler.AsyncHandler ((Action<object>)results.Add, new object[]{ id }));
+			dispatcher.DispatchMessage(message);
+			await Delay(200);
+			Assert.That (results, Is.EqualTo (new object[]{ 'A', 'B', 'C', 'D' }).AsCollection);
 		}
 
 		[Test]
-		public function terminated_message_should_not_reach_further_handlers_when_reversed():void
+		public async Task async_handlers_should_run_in_reverse_order_when_reversed()
 		{
-			const results:Array = [];
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'A'));
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'B'));
-			dispatcher.addMessageHandler(message, createCallbackHandlerThatErrors(results.push, 'C (with error)'));
-			dispatcher.addMessageHandler(message, createHandler(results.push, 'D'));
-			dispatcher.dispatchMessage(message, null, true);
-			assertThat(results, array(['D', 'C (with error)']));
-		}
-
-		[Test(async)]
-		public function terminated_async_message_should_not_reach_further_handlers():void
-		{
-			const results:Array = [];
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'A'));
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'B'));
-			dispatcher.addMessageHandler(message, createCallbackHandlerThatErrors(results.push, 'C (with error)'));
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'D'));
-			dispatcher.dispatchMessage(message);
-			delayAssertion(function():void {
-				assertThat(results, array(['A', 'B', 'C (with error)']));
-			}, 200);
-		}
-
-		[Test(async)]
-		public function terminated_async_message_should_not_reach_further_handlers_when_reversed():void
-		{
-			const results:Array = [];
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'A'));
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'B'));
-			dispatcher.addMessageHandler(message, createCallbackHandlerThatErrors(results.push, 'C (with error)'));
-			dispatcher.addMessageHandler(message, createAsyncHandler(results.push, 'D'));
-			dispatcher.dispatchMessage(message, null, true);
-			delayAssertion(function():void {
-				assertThat(results, array(['D', 'C (with error)']));
-			}, 200);
+			List<object> results = new List<object>();
+			foreach (char id in new object[]{'A', 'B', 'C', 'D'})
+				dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{id}));
+			dispatcher.DispatchMessage(message, true);
+			await Delay(200);
+			Assert.That (results, Is.EqualTo (new object[]{ 'D', 'C', 'B', 'A' }).AsCollection);
 		}
 
 		[Test]
-		public function handler_is_only_added_once():void
+		public async Task async_and_sync_handlers_should_run_in_order()
 		{
-			var callbackCount:int = 0;
-			const handler:Function = function():void {
+			List<object> results = new List<object> ();
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'A'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'B'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'C'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'D'}));
+			dispatcher.DispatchMessage(message);
+			await Delay (200);
+			Assert.That (results, Is.EqualTo (new object[]{ 'A', 'B', 'C', 'D' }).AsCollection);
+		}
+
+		[Test]
+		public async Task async_and_sync_handlers_should_run_in_order_when_reversed()
+		{
+			List<object> results = new List<object> ();
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'A'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'B'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'C'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'D'}));
+			dispatcher.DispatchMessage(message, true);
+			await Delay (200);
+			Assert.That (results, Is.EqualTo (new object[]{ 'D', 'C', 'B', 'A' }).AsCollection);
+		}
+
+		[Test]
+		public void terminated_message_should_not_reach_further_handlers()
+		{
+			List<object> results = new List<object> ();
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'A'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'B'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.HandlerThatErrors((Action<object>)results.Add, new object[]{"C (with error)"}));
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'D'}));
+			dispatcher.DispatchMessage(message);
+			Assert.That (results, Is.EqualTo (new object[]{ 'A', 'B', "C (with error)" }).AsCollection);
+		}
+
+		[Test]
+		public void terminated_message_should_not_reach_further_handlers_when_reversed()
+		{
+			List<object> results = new List<object> ();
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'A'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'B'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.HandlerThatErrors((Action<object>)results.Add, new object[]{"C (with error)"}));
+			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'D'}));
+			dispatcher.DispatchMessage(message, true);
+			Assert.That (results, Is.EqualTo (new object[]{ 'D', "C (with error)" }).AsCollection);
+		}
+
+		[Test]
+		public async Task terminated_async_message_should_not_reach_further_handlers()
+		{
+			List<object> results = new List<object> ();
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'A'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'B'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.HandlerThatErrors((Action<object>)results.Add, new object[]{"C (with error)"}));
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'D'}));
+			dispatcher.DispatchMessage(message);
+			await Delay (200);
+			Assert.That (results, Is.EqualTo (new object[]{ 'A', 'B', "C (with error)" }).AsCollection);
+		}
+
+		[Test]
+		public async Task terminated_async_message_should_not_reach_further_handlers_when_reversed()
+		{
+			List<object> results = new List<object> ();
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'A'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'B'}));
+			dispatcher.AddMessageHandler(message, CreateHandler.HandlerThatErrors((Action<object>)results.Add, new object[]{"C (with error)"}));
+			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'D'}));
+			dispatcher.DispatchMessage(message, true);
+			await Delay (200);
+			Assert.That (results, Is.EqualTo (new object[]{ 'D', "C (with error)" }).AsCollection);
+		}
+
+		[Test]
+		public void handler_is_only_added_once()
+		{
+			int callbackCount = 0;
+			Action handler = delegate() {
 				callbackCount++;
 			};
-			dispatcher.addMessageHandler(message, handler);
-			dispatcher.addMessageHandler(message, handler);
-			dispatcher.dispatchMessage(message);
-			assertThat(callbackCount, equalTo(1));
+			dispatcher.AddMessageHandler(message, handler);
+			dispatcher.AddMessageHandler(message, handler);
+			dispatcher.DispatchMessage(message);
+			Assert.That(callbackCount, Is.EqualTo(1));
 		}
-		*/
 
 		/*============================================================================*/
 		/* Private Functions                                                          */
@@ -469,10 +441,13 @@ namespace robotlegs.bender.framework.impl
 			InvokeDelegate (closure);
 		}
 
-		private async Task SetTimeout(int delay, Delegate callback)
+		private void SetTimeout(Delegate callback, int delay, object[] args = null)
 		{
-			await Task.Delay(delay);
-			InvokeDelegate (callback);
+			Timer t = new Timer(new TimerCallback(delegate(object state)
+				{
+					callback.DynamicInvoke(args);
+				}
+			), null, delay, System.Threading.Timeout.Infinite);
 		}
 
 		private void InvokeDelegate(Delegate del)
@@ -480,6 +455,11 @@ namespace robotlegs.bender.framework.impl
 			int length = del.Method.GetParameters ().Length;
 			object[] parameters = new object[length];
 			del.DynamicInvoke (parameters);
+		}
+
+		private Task Delay(int milliseconds = 50)
+		{
+			return Task.Delay(milliseconds);
 		}
 	}
 }

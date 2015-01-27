@@ -63,7 +63,9 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			List<IMediatorMapping> interestedMappings = GetInterestedMappingsFor(view, type);
 			if (interestedMappings != null)
-				_factory.CreateMediators(view, type, interestedMappings);
+			{
+				_factory.CreateMediators (view, type, interestedMappings);
+			}
 		}
 
 		/*============================================================================*/
@@ -89,8 +91,10 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 					}
 				}
 
-				if (_knownMappings[type].Count == 0)
-					_knownMappings[type] = null;
+				if (_knownMappings [type].Count == 0)
+				{
+					_knownMappings [type] = null;
+				}
 			}
 
 			return _knownMappings[type];

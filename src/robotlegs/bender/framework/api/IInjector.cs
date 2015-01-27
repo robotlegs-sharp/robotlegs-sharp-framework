@@ -8,23 +8,23 @@ namespace robotlegs.bender.framework.api
 {
 	public interface IInjector
 	{
-		event Injector.InjectionMappingDelegate MAPPING_OVERRIDE;
+		event Injector.InjectionMappingDelegate MappingOverride;
 
-		event Injector.InjectionDelegate POST_CONSTRUCT;
+		event Injector.InjectionDelegate PostConstruct;
 		
-		event Injector.InjectionDelegate POST_INSTANTIATE;
+		event Injector.InjectionDelegate PostInstantiate;
 		
-		event Injector.InjectionMappingDelegate POST_MAPPING_CHANGE;
+		event Injector.InjectionMappingDelegate PostMappingChange;
 		
-		event Injector.InjectionMappingDelegate POST_MAPPING_CREATE;
+		event Injector.InjectionMappingDelegate PostMappingCreate;
 		
-		event Injector.MappingDelegate POST_MAPPING_REMOVE;
+		event Injector.MappingDelegate PostMappingRemove;
 		
-		event Injector.InjectionDelegate PRE_CONSTRUCT;
+		event Injector.InjectionDelegate PreConstruct;
 		
-		event Injector.InjectionMappingDelegate PRE_MAPPING_CHANGE;
+		event Injector.InjectionMappingDelegate PreMappingChange;
 		
-		event Injector.MappingDelegate PRE_MAPPING_CREATE;
+		event Injector.MappingDelegate PreMappingCreate;
 		
 		/**
 		 * Sets the parent <code>IInjector</code>

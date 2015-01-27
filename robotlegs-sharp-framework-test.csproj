@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
@@ -53,6 +53,8 @@
     <Folder Include="test\robotlegs\bender\framework\impl\configSupport\" />
     <Folder Include="test\robotlegs\bender\framework\impl\safelyCallBackSupport\" />
     <Folder Include="test\robotlegs\bender\framework\impl\contextSupport\" />
+    <Folder Include="test\robotlegs\bender\extensions\" />
+    <Folder Include="test\robotlegs\bender\extensions\eventDispatcher\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="test\robotlegs\bender\framework\impl\LifecycleTransitionTest.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\configSupport\TypedConfig.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\configSupport\UntypedConfig.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventDispatcher\EventDispatcherTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

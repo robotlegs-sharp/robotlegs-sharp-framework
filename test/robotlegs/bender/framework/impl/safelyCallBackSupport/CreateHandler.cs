@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Threading;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl.safelyCallBackSupport
 {
@@ -17,22 +19,31 @@ namespace robotlegs.bender.framework.impl.safelyCallBackSupport
 			};
 		}
 
-//		public static Func<Task> AsyncHandler(Delegate closure = null, object[] args = null)
-//		{
-//			return Task delegate(object message, Delegate callback) {
-//				if (closure != null)
-//					closure.DynamicInvoke (args);
-//			};
-//		}
-//		public function createAsyncHandler(closure:Function = null, ... params):Function
-//		{
-//			return function(message:Object, callback:Function):void {
-//				setTimeout(function():void {
-//					closure && closure.apply(null, params);
-//					callback();
-//				}, 5);
-//			};
-//		}
+		private static int value = 0;
+
+		public static HandlerMessageCallbackDelegate AsyncHandler(Delegate closure = null, object[] args = null)
+		{
+			return delegate(object message, HandlerAsyncCallback callback) {
+				int test = value;
+				value++;
+				Timer t = new Timer (new TimerCallback (delegate (object state) {
+					if (closure != null)
+					{
+						closure.DynamicInvoke (args);
+					}
+					callback();
+				}), null, 5, System.Threading.Timeout.Infinite);
+			};
+		}
+
+		public static HandlerMessageCallbackDelegate HandlerThatErrors(Delegate closure = null, object[] args = null)
+		{
+			return delegate(object message, HandlerAsyncCallback callback) {
+				if (closure != null)
+					closure.DynamicInvoke (args);
+				callback(new Exception("Boom - createCallbackHandlerThatErrors"));
+			};
+		}
 	}
 }
 

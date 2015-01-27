@@ -64,8 +64,10 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		
 		public void FromMediator(Type mediatorType)
 		{
-			if (_mappings.ContainsKey(mediatorType))
-				DeleteMapping(_mappings[mediatorType]);
+			if (_mappings.ContainsKey (mediatorType))
+			{
+				DeleteMapping (_mappings [mediatorType]);
+			}
 		}
 		 
 		public void FromAll()
@@ -86,7 +88,9 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			_handler.AddMapping (mapping);
 			_mappings [mediatorType] = mapping;
 			if (_logger != null)
-				_logger.Debug("{0} mapped to {1}", _typeFilter, mapping);
+			{
+				_logger.Debug ("{0} mapped to {1}", _typeFilter, mapping);
+			}
 			return mapping;
 		}
 		
@@ -95,16 +99,20 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			_handler.RemoveMapping (mapping);
 			_mappings.Remove (mapping.MediatorType);
 			if (_logger != null)
-				_logger.Debug("0} unmapped from {1}", _typeFilter, mapping);
+			{
+				_logger.Debug ("0} unmapped from {1}", _typeFilter, mapping);
+			}
 		}
 
 		private IMediatorConfigurator OverwriteMapping(IMediatorMapping mapping)
 		{
 			if (_logger != null)
-				_logger.Warn("{0} already mapped to {1}\n" +
-			                        "If you have overridden this mapping intentionally you can use 'unmap()' " +
-			                        "prior to your replacement mapping in order to avoid seeing this message.\n",
-			                        _typeFilter, mapping);
+			{
+				_logger.Warn ("{0} already mapped to {1}\n" +
+				"If you have overridden this mapping intentionally you can use 'unmap()' " +
+				"prior to your replacement mapping in order to avoid seeing this message.\n",
+					_typeFilter, mapping);
+			}
 			DeleteMapping (mapping);
 			return CreateMapping(mapping.MediatorType);
 		}

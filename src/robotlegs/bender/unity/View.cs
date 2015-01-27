@@ -26,7 +26,7 @@
 using UnityEngine;
 using System;
 using robotlegs.bender.extensions.mediatorMap.api;
-using robotlegs.bender.extensions.viewManager.impl;
+using robotlegs.bender.extensions.viewManager.api;
 
 namespace strange.extensions.mediation.impl
 {
@@ -36,7 +36,7 @@ namespace strange.extensions.mediation.impl
 
 		protected virtual void Start ()
 		{
-			ContainerRegistry.HandleView(this, this.GetType());
+			ViewNotifier.RegisterView(this, this.GetType());
 		}
 
 		protected virtual void OnDestroy ()
