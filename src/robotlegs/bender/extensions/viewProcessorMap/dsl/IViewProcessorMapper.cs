@@ -1,0 +1,33 @@
+﻿using System;
+
+namespace robotlegs.bender.extensions.viewProcessorMap.dsl
+{
+	public interface IViewProcessorMapper
+	{
+		/**
+		 * @param processClassOrInstance 
+		 */
+		/// <summary>
+		/// Specifies the process to be mapped against the type or matcher. 
+		/// </summary>
+		/// <returns>The mapping config so that you can specify further details.</returns>
+		/// <param name="processClassOrInstance"><p>An instance of a class, or a class implementing the following methods:</p>
+		/// <p>process(view:ISkinnable, class:Class, injector:Injector):void;</p>
+		/// <p>unprocess(view:ISkinnable, class:Class, injector:Injector):void;</p></param>
+		IViewProcessorMappingConfig ToProcess(object processClassOrInstance);
+		//TODO: Overload with the possible Action signatures
+
+		/// <summary>
+		/// Maps the type of matcher for injection
+		/// </summary>
+		/// <returns>The mapping config so that you can specify further details.</returns>
+		IViewProcessorMappingConfig ToInjection();
+
+		/// <summary>
+		/// Maps the type of matcher to a nothing-happens process, so that you can make use of guards and hooks.
+		/// </summary>
+		/// <returns>The mapping config so that you can specify further details.</returns>
+		IViewProcessorMappingConfig ToNoProcess();
+	}
+}
+
