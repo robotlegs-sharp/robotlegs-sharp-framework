@@ -15,11 +15,13 @@ namespace robotlegs.bender.bundles.mvcs
 	public class Mediator : IMediator
 	{
 		/*============================================================================*/
-		/* Private Properties                                                          */
+		/* Private Properties                                                         */
 		/*============================================================================*/
 		
 		private const string VIEW_DISPATCHER_NAME = "dispatcher";
+
 		private IEventDispatcher viewDispatcher;
+
 		private object _viewComponent;
 
 		/*============================================================================*/
@@ -73,19 +75,31 @@ namespace robotlegs.bender.bundles.mvcs
 
 		protected virtual void AddViewListener(Enum type, Action listener)
 		{
-			if(viewDispatcher != null) eventMap.MapListener(viewDispatcher, type, listener);
+			if (viewDispatcher != null) 
+			{
+				eventMap.MapListener (viewDispatcher, type, listener);
+			}
 		}
 		protected virtual void AddViewListener(Enum type, Action<IEvent> listener)
 		{
-			if(viewDispatcher != null) eventMap.MapListener(viewDispatcher, type, listener);
+			if (viewDispatcher != null) 
+			{
+				eventMap.MapListener (viewDispatcher, type, listener);
+			}
 		}
 		protected virtual void AddViewListener<T>(Enum type, Action<T> listener)
 		{
-			if(viewDispatcher != null) eventMap.MapListener(viewDispatcher, type, listener);
+			if (viewDispatcher != null) 
+			{
+				eventMap.MapListener (viewDispatcher, type, listener);
+			}
 		}
 		protected virtual void AddViewListener(Enum type, Delegate listener)
 		{
-			if(viewDispatcher != null) eventMap.MapListener(viewDispatcher, type, listener);
+			if (viewDispatcher != null) 
+			{
+				eventMap.MapListener (viewDispatcher, type, listener);
+			}
 		}
 
 		protected virtual void AddContextListener(Enum type, Delegate listener)
@@ -95,7 +109,10 @@ namespace robotlegs.bender.bundles.mvcs
 
 		protected virtual void RemoveViewListener(Enum type, Delegate listener)
 		{
-			if(viewDispatcher != null) eventMap.UnmapListener(viewDispatcher, type, listener);
+			if (viewDispatcher != null) 
+			{
+				eventMap.UnmapListener (viewDispatcher, type, listener);
+			}
 		}
 
 		protected virtual void RemoveContextListener(Enum type, Delegate listener)
@@ -105,19 +122,23 @@ namespace robotlegs.bender.bundles.mvcs
 
 		protected virtual void Dispatch(IEvent evt)
 		{
-			if (eventDispatcher.HasEventListener(evt.type))
-				eventDispatcher.Dispatch(evt);
+			if (eventDispatcher.HasEventListener (evt.type)) 
+			{
+				eventDispatcher.Dispatch (evt);
+			}
 		}
 
 		protected virtual IEventDispatcher GetViewDispatcher(object dispatcherObject)
 		{
-			if(dispatcherObject == null) return null;
-			if(dispatcherObject is IEventDispatcher) return dispatcherObject as IEventDispatcher;
+			if(dispatcherObject == null) 
+				return null;
+			
+			if(dispatcherObject is IEventDispatcher) 
+				return dispatcherObject as IEventDispatcher;
 
-				// User reflection to find an IEventDispatcher property called 'dispatcher'
+			// User reflection to find an IEventDispatcher property called 'dispatcher'
 			object viewDispatcherValue;
 			Type dispatcherObjectType = dispatcherObject.GetType();
-			
 			PropertyInfo propertyInfo = dispatcherObjectType.GetProperty(VIEW_DISPATCHER_NAME);
 			if(propertyInfo == null)
 			{
@@ -125,16 +146,21 @@ namespace robotlegs.bender.bundles.mvcs
 				if(fieldInfo != null)
 				{
 					viewDispatcherValue = fieldInfo.GetValue(dispatcherObject);
-					if(viewDispatcherValue is IEventDispatcher) return viewDispatcherValue as IEventDispatcher;
+					if(viewDispatcherValue is IEventDispatcher) 
+						return viewDispatcherValue as IEventDispatcher;
 				}
 			}
 			else
 			{
 				viewDispatcherValue = propertyInfo.GetValue(dispatcherObject, null);
-				if(viewDispatcherValue is IEventDispatcher) return viewDispatcherValue as IEventDispatcher;
+				if(viewDispatcherValue is IEventDispatcher) 
+					return viewDispatcherValue as IEventDispatcher;
 			}
 
-			if (logger != null) logger.Warn("{0}: Can't add or remove view listeners because set {0} is not, and does not contain, an IEventDispatcher", this, dispatcherObject);
+			if (logger != null) 
+			{
+				logger.Warn ("{0}: Can't add or remove view listeners because set {0} is not, and does not contain, an IEventDispatcher", this, dispatcherObject);
+			}
 			return null;
 		}
 	}

@@ -51,7 +51,6 @@
     <Folder Include="src\robotlegs\bender\unity\" />
     <Folder Include="src\robotlegs\bender\bundles\mvcs\" />
     <Folder Include="src\robotlegs\bender\unity\extensions\" />
-    <Folder Include="src\robotlegs\robotlegs\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\bundles\MVCSUnityBundle.cs" />
