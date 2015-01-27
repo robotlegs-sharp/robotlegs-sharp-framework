@@ -69,7 +69,9 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 				}
 
 				if (mediator != null)
-					createdMediators.Add(mediator);
+				{
+					createdMediators.Add (mediator);
+				}
 			}
 
 			return createdMediators;
@@ -145,8 +147,10 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			
 			foreach (Type requiredType in RequiredTypesFor(filter, type))
 			{
-//				if (_injector.satisfiesDirectly(requiredType))
-				_injector.Unmap(requiredType);
+				if (_injector.SatisfiesDirectly (requiredType))
+				{
+					_injector.Unmap (requiredType);
+				}
 			}
 		}
 		
@@ -154,8 +158,10 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			List<Type> requiredTypes = new List<Type>(filter.AllOfTypes);
 
-			if (!requiredTypes.Contains(type))
-				requiredTypes.Add(type);
+			if (!requiredTypes.Contains (type))
+			{
+				requiredTypes.Add (type);
+			}
 			
 			return requiredTypes;
 		}

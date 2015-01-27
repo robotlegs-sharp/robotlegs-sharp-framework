@@ -49,7 +49,9 @@ namespace robotlegs.bender.extensions.mediatorMap
 			_mediatorMap = _injector.GetInstance(typeof(IMediatorMap)) as MediatorMap;
 			_viewManager = _injector.GetInstance(typeof(IViewManager)) as IViewManager;
 			if (_viewManager != null)
-				_viewManager.AddViewHandler(_mediatorMap);
+			{
+				_viewManager.AddViewHandler (_mediatorMap);
+			}
 		}
 		
 		private void BeforeDestroying()
@@ -64,8 +66,10 @@ namespace robotlegs.bender.extensions.mediatorMap
 		
 		private void WhenDestroying()
 		{
-			if (_injector.SatisfiesDirectly(typeof(IMediatorMap)))
-				_injector.Unmap(typeof(IMediatorMap));
+			if (_injector.SatisfiesDirectly (typeof(IMediatorMap)))
+			{
+				_injector.Unmap (typeof(IMediatorMap));
+			}
 		}
 	}
 }
