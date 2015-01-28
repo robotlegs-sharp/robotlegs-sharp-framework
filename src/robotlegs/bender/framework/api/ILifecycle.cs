@@ -38,7 +38,6 @@ namespace robotlegs.bender.framework.api
 		 * Initializes the lifecycle
 		 * @param callback Initialization callback
 		 */
-		// TODO: Figure out if the safety callback on this is really needed. As it's a pain to overload three times on many functions
 		void Initialize (Action callback = null);
 
 		/**

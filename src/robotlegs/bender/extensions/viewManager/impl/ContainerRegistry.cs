@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 
-
 namespace robotlegs.bender.extensions.viewManager.impl
 {
 	/// <summary>
@@ -61,6 +60,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		private Dictionary<object, ContainerBinding> _bindingByContainer = new Dictionary<object, ContainerBinding>();
 
+		private IParentFinder _parentFinder;
+
 		/*============================================================================*/
 		/* Public Functions                                                           */
 		/*============================================================================*/
@@ -70,7 +71,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			if (_bindingByContainer.ContainsKey(container))
 				return _bindingByContainer[container];
 
-			return _bindingByContainer[container] = CreateBinding(container);
+			_bindingByContainer[container] = CreateBinding(container);
+			return _bindingByContainer[container];
 		}
 
 		public ContainerBinding RemoveContainer(object container)
@@ -86,30 +88,28 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		public ContainerBinding FindParentBinding(object container)
 		{
-//			DisplayObjectContainer parent = target.parent;
-//			while (parent)
-//			{
-//				ContainerBinding binding = _bindingByContainer[parent];
-//				if (binding)
-//				{
-//					return binding;
-//				}
-//				parent = parent.parent;
-//			}
-			return null;
+			//TODO: Make this not dependant on a parent finder
+			if (_parentFinder == null)
+				return null;
+
+			object parent = _parentFinder.FindParent(container, _bindingByContainer);
+			if (parent == null)
+				return null;
+			ContainerBinding binding;
+			_bindingByContainer.TryGetValue(parent, out binding);
+			return binding;
 		}
 
 		public ContainerBinding GetBinding(object container)
 		{
-			return _bindingByContainer[container];
+			ContainerBinding binding;
+			_bindingByContainer.TryGetValue(container, out binding);
+			return binding;
 		}
 
-		public void HandleView(object view, Type type)
+		public void SetParentFinder(IParentFinder parentFinder)
 		{
-			foreach (ContainerBinding binding in _bindings)
-			{
-				binding.HandleView(view, type);
-			}
+			_parentFinder = parentFinder;
 		}
 
 		/*============================================================================*/
@@ -129,26 +129,24 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				AddRootBinding (binding);
 			}
 
-			//TODO: Re-orgainse bindings, but not by using contains. But by searching parents if possible
-
 			// Reparent any bindings which are contained within the new binding AND
 			// A. Don't have a parent, OR
 			// B. Have a parent that is not contained within the new binding
-//			foreach (ContainerBinding childBinding in _bindingByContainer)
-//			{
-//				if (container.contains(childBinding.Container))
-//				{
-//					if (!childBinding.Parent)
-//					{
-//						RemoveRootBinding(childBinding);
-//						childBinding.Parent = binding;
-//					}
-//					else if (!container.Contains(childBinding.Parent.Container))
-//					{
-//						childBinding.Parent = binding;
-//					}
-//				}
-//			}
+			foreach (ContainerBinding childBinding in _bindings)
+			{
+				if (_parentFinder.Contains(container, childBinding.Container))
+				{
+					if (childBinding.Parent != null)
+					{
+						RemoveRootBinding(childBinding);
+						childBinding.Parent = binding;
+					}
+					else if (!_parentFinder.Contains(container, childBinding.Parent.Container))
+					{
+						childBinding.Parent = binding;
+					}
+				}
+			}
 
 			if (ContainerAdd != null)
 			{

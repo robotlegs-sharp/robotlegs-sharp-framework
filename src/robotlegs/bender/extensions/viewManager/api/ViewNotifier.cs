@@ -14,7 +14,15 @@ namespace robotlegs.bender.extensions.viewManager.api
 
 		public static void RegisterView(object view, Type type)
 		{
-			_registry.HandleView (view, type);
+			if (_registry == null)
+				return;
+
+			ContainerBinding binding = _registry.FindParentBinding(view);
+			while (binding != null)
+			{
+				binding.HandleView(view, type);
+				binding = binding.Parent;
+			}
 		}
 	}
 }
