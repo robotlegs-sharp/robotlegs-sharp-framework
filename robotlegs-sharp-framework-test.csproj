@@ -55,6 +55,9 @@
     <Folder Include="test\robotlegs\bender\framework\impl\contextSupport\" />
     <Folder Include="test\robotlegs\bender\extensions\" />
     <Folder Include="test\robotlegs\bender\extensions\eventDispatcher\" />
+    <Folder Include="test\robotlegs\bender\extensions\viewManager\" />
+    <Folder Include="test\robotlegs\bender\extensions\viewManager\impl\" />
+    <Folder Include="test\robotlegs\bender\extensions\viewManager\support\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -81,6 +84,11 @@
     <Compile Include="test\robotlegs\bender\framework\impl\configSupport\TypedConfig.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\configSupport\UntypedConfig.cs" />
     <Compile Include="test\robotlegs\bender\extensions\eventDispatcher\EventDispatcherTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ContainerRegistryTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportParentFinder.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportContainer.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\TreeContainerSupport.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\CallbackViewHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

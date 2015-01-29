@@ -60,7 +60,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		private Dictionary<object, ContainerBinding> _bindingByContainer = new Dictionary<object, ContainerBinding>();
 
-		private IParentFinder _parentFinder;
+		private IParentFinder _parentFinder = new BlankParentFinder ();
 
 		/*============================================================================*/
 		/* Public Functions                                                           */
@@ -71,8 +71,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			if (_bindingByContainer.ContainsKey(container))
 				return _bindingByContainer[container];
 
-			_bindingByContainer[container] = CreateBinding(container);
-			return _bindingByContainer[container];
+			return _bindingByContainer[container] = CreateBinding(container);
 		}
 
 		public ContainerBinding RemoveContainer(object container)
@@ -132,11 +131,11 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			// Reparent any bindings which are contained within the new binding AND
 			// A. Don't have a parent, OR
 			// B. Have a parent that is not contained within the new binding
-			foreach (ContainerBinding childBinding in _bindings)
+			foreach (ContainerBinding childBinding in _bindingByContainer.Values)
 			{
 				if (_parentFinder.Contains(container, childBinding.Container))
 				{
-					if (childBinding.Parent != null)
+					if (childBinding.Parent == null)
 					{
 						RemoveRootBinding(childBinding);
 						childBinding.Parent = binding;
