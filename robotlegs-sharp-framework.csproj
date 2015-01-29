@@ -53,7 +53,6 @@
     <Folder Include="src\robotlegs\bender\unity\extensions\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\robotlegs\bender\bundles\MVCSUnityBundle.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\ICommand.cs" />
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\ICommandExecutor.cs" />
@@ -148,7 +147,6 @@
     <Compile Include="src\robotlegs\bender\framework\impl\RobotlegsInjector.cs" />
     <Compile Include="src\robotlegs\bender\unity\EventView.cs" />
     <Compile Include="src\robotlegs\bender\unity\View.cs" />
-    <Compile Include="src\robotlegs\bender\unity\UnityParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\bundles\mvcs\Mediator.cs" />
     <Compile Include="src\robotlegs\bender\bundles\mvcs\MVCSBundle.cs" />
     <Compile Include="src\robotlegs\bender\unity\IEventView.cs" />
@@ -176,6 +174,9 @@
     <Compile Include="src\robotlegs\bender\extensions\contextview\StageSyncExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IViewStateWatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\api\ViewNotifier.cs" />
+    <Compile Include="src\robotlegs\bender\unity\bundles\UnityMVCSBundle.cs" />
+    <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\UnityParentFinderExtension.cs" />
+    <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\impl\UnityParentFinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
