@@ -17,20 +17,24 @@ namespace robotlegs.bender.extensions.contextview
 {
 	public class ContextViewListenerConfig : IConfig
 	{
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
 		[Inject]
 		public IContextView contextView {get;set;}
 		
 		[Inject]
 		public IViewManager viewManager {get;set;}
 
-		#region IConfig implementation
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
 
 		public void Configure ()
 		{
 			viewManager.AddContainer(contextView.view);
 		}
-
-		#endregion
 	}
 }
 

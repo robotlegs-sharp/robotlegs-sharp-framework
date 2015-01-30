@@ -66,7 +66,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/*============================================================================*/
 
 		public void AddContainer(object container)
-		{	
+		{
 			if (!ValidContainer(container))
 				return;
 

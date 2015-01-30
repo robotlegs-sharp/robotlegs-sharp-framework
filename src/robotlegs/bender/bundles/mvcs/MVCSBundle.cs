@@ -36,7 +36,7 @@ namespace robotlegs.bender.bundles.mvcs
 			context.Install(typeof(MediatorMapExtension));
 //			context.Install(typeof(ViewProcessorMapExtension));
 
-			context.Configure(typeof(ContextViewListenerConfig));
+			context.Configure(typeof(FallbackContainerConfig));
 		}
 	}
 }
