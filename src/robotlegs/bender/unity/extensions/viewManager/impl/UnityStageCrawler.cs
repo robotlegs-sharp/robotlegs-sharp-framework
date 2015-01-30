@@ -1,6 +1,7 @@
 ﻿using System;
 using robotlegs.bender.extensions.viewManager.impl;
 using UnityEngine;
+using robotlegs.bender.extensions.mediatorMap.api;
 
 namespace robotlegs.bender.unity.extensions.viewManager.impl
 {
@@ -11,42 +12,30 @@ namespace robotlegs.bender.unity.extensions.viewManager.impl
 			Transform containerTransform = null;
 			if (container is GameObject)
 			{
-				GameObject containerGameObject = container as GameObject;
-				ProcessViewMonobehaviours(containerGameObject);
-				containerTransform = containerGameObject.transform;
+				containerTransform = (container as GameObject).transform;
 			}
 			else if (container is Transform)
 			{
 				containerTransform = container as Transform;
-				ProcessViewMonobehaviours(containerTransform.gameObject);
 			}
-			if (containerTransform == null)
+			else
 				return;
 
-			int numChildren = containerTransform.childCount;
-			for (int i = 0; i < numChildren; i++)
-			{
-				Transform child = containerTransform.GetChild(i);
-				if(child.childCount != 0)
-				{
-					ScanContainer (child.gameObject);
-				}
-				else
-				{
-					ProcessViewMonobehaviours(child.gameObject);
-				}
-			}
+			ProcessViewsFromRoot (containerTransform);
 		}
 
-		private void ProcessViewMonobehaviours(GameObject view)
+		private void ProcessViewsFromRoot(Transform view)
 		{
-			MonoBehaviour[] viewScripts = view.GetComponents<MonoBehaviour>();
+			MonoBehaviour[] viewScripts = view.GetComponentsInChildren<MonoBehaviour>(false);
+
 			foreach (MonoBehaviour viewScript in viewScripts)
 			{
-				ProcessView (viewScript);
+				if (viewScript is IView)
+				{
+					ProcessView (viewScript);
+				}
 			}
 		}
-
 	}
 }
 

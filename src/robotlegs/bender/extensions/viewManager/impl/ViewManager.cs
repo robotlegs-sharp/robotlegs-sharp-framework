@@ -66,10 +66,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/*============================================================================*/
 
 		public void AddContainer(object container)
-		{
-			//TODO: Check for nested containers and already existing containers with this ViewManager
-			//			if (!ValidContainer(container))
-			//				return;
+		{	
+			if (!ValidContainer(container))
+				return;
 
 			_containers.Add(container);
 
@@ -151,6 +150,21 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/
+
+		private bool ValidContainer(object container)
+		{
+			//TODO: Check for nested containers and already existing containers with this ViewManager
+			foreach (object registeredContainer in _containers)
+			{
+				if (container == registeredContainer)
+					return false;
+
+				//TODO:PARENT
+//				if (registeredContainer.contains(container) || container.contains(registeredContainer))
+//					throw new Exception("Containers can not be nested");
+			}
+			return true;
+		}
 	}
 }
 
