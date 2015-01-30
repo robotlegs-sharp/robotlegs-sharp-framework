@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace robotlegs.bender
+namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {
 	public class NullProcessor
 	{

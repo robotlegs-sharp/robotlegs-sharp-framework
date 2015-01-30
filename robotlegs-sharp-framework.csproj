@@ -55,6 +55,7 @@
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\api\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\" />
+    <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\bundles\MVCSUnityBundle.cs" />
@@ -195,6 +196,11 @@
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\NullViewProcessorUnmapper.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\NullProcessor.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorFactory.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorViewHandler.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\PropertyValueInjector.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\MediatorCreator.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\FastPropertyInjector.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\api\ViewProcessorMapException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

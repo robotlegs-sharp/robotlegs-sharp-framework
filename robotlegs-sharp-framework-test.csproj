@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
@@ -55,6 +55,12 @@
     <Folder Include="test\robotlegs\bender\framework\impl\contextSupport\" />
     <Folder Include="test\robotlegs\bender\extensions\" />
     <Folder Include="test\robotlegs\bender\extensions\eventDispatcher\" />
+    <Folder Include="test\robotlegs\bender\extensions\viewProcessorMap\" />
+    <Folder Include="test\robotlegs\bender\extensions\viewProcessorMap\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\viewProcessorMap\impl\" />
+    <Folder Include="test\robotlegs\bender\extensions\mediatorMap\" />
+    <Folder Include="test\robotlegs\bender\extensions\mediatorMap\impl\" />
+    <Folder Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -81,6 +87,21 @@
     <Compile Include="test\robotlegs\bender\framework\impl\configSupport\TypedConfig.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\configSupport\UntypedConfig.cs" />
     <Compile Include="test\robotlegs\bender\extensions\eventDispatcher\EventDispatcherTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\utils\PropertyValueInjectorTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\utils\FastPropertyInjectorTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\support\ITrackingProcessor.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\support\NullProcessor2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\support\Processor.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\support\TrackingProcessor.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\support\TrackingProcessor2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\impl\ViewInjectionProcessorTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorFactoryTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorMapTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorMapperTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorMappingTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorMediatorsTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewProcessorMap\ViewProcessorMapExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\MediatorWatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

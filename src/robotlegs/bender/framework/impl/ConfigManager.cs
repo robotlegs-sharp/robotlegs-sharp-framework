@@ -38,7 +38,7 @@ namespace robotlegs.bender.framework.impl
 			_context = context;
 			_injector = _context.injector;
 			_logger = context.GetLogger(this);
-			AddConfigHandler (new TypeMatcher (), HandleType);
+			AddConfigHandler (new ClassMatcher (), HandleType);
 			AddConfigHandler (new ObjectMatcher (), HandleObject);
 			context.AfterInitializing (Initialize); //TODO: This should be at the end of when not after
 		}
@@ -158,7 +158,7 @@ namespace robotlegs.bender.framework.impl
 		}
 	}
 
-	public class TypeMatcher : IMatcher
+	public class ClassMatcher : IMatcher
 	{
 		public bool Matches(object obj)
 		{

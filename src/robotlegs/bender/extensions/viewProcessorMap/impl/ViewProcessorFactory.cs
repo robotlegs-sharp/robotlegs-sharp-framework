@@ -1,12 +1,19 @@
-﻿using System;
+﻿using robotlegs.bender.framework.api;
 using System.Collections.Generic;
+using System;
+using robotlegs.bender.extensions.mediatorMap.api;
+using robotlegs.bender.extensions.matching;
 using robotlegs.bender.extensions.viewProcessorMap.dsl;
+using System.Reflection;
+using robotlegs.bender.framework.impl;
+using swiftsuspenders.errors;
+using robotlegs.bender.extensions.viewProcessorMap.api;
+
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {
 	public class ViewProcessorFactory : IViewProcessorFactory
 	{
-
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
@@ -14,7 +21,11 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		private IInjector _injector;
 
 		//private Dictionary<> _listenersByView = new Dictionary<>(true);
-		private Dictionary<object, List<Action>> _listenersByView = new Dictionary<object, List<Action>>();
+		private Dictionary<object, List<Action<IView>>> _listenersByView = new Dictionary<object, List<Action<IView>>>();
+
+		private string ProcessMethodName	= "process";
+
+		private string UnProcessMethodName	= "Unprocess";
 
 		/*============================================================================*/
 		/* Constructor                                                                */
@@ -29,9 +40,12 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void RunProcessors(object view, Type type, object[] processorMappings):void
+		public void RunProcessors(object view, Type type, IViewProcessorMapping[] processorMappings)
 		{
-			CreateRemovedListener(view, type, processorMappings);
+			if (view is IView)
+			{
+				CreateRemovedListener(view as IView, type, processorMappings);
+			}
 
 			ITypeFilter filter;
 
@@ -40,34 +54,34 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 				filter = mapping.Matcher;
 				MapTypeForFilterBinding(filter, type, view);
 				RunProcess(view, type, mapping);
-				unmapTypeForFilterBinding(filter, type, view);
+				UnmapTypeForFilterBinding(filter, type, view);
 			}
 		}
 
-		/**
-		 * @inheritDoc
-		 */
-		public function runUnprocessors(view:Object, type:Class, processorMappings:Array):void
+		public void RunUnprocessors(object view, Type type, IViewProcessorMapping[] processorMappings)
 		{
-			for each (var mapping:IViewProcessorMapping in processorMappings)
+			foreach (IViewProcessorMapping mapping in processorMappings)
 			{
-				// ?? Is this correct - will assume that people are implementing something sensible in their processors.
-				mapping.processor ||= createProcessor(mapping.processorClass);
-				mapping.processor.unprocess(view, type, _injector);
-			}
-		}
-
-		/**
-		 * @inheritDoc
-		 */
-		public function runAllUnprocessors():void
-		{
-			for each (var removalHandlers:Array in _listenersByView)
-			{
-				const iLength:uint = removalHandlers.length;
-				for (var i:uint = 0; i < iLength; i++)
+				if (mapping.Processor == null)
 				{
-					removalHandlers[i](null);
+					mapping.Processor = CreateProcessor(mapping.ProcessorClass);
+				}
+				MethodInfo unProcessMethod = mapping.Processor.GetType().GetMethod(UnProcessMethodName);
+				if (unProcessMethod != null && unProcessMethod.GetParameters().Length == 3)
+				{
+					unProcessMethod.Invoke(mapping.Processor, new object[3] {view, type, _injector});
+				}
+			}
+		}
+
+		public void RunAllUnprocessors()
+		{
+			foreach (List<Action<IView>> removalHandlers in _listenersByView.Values)
+			{
+				int iLength = removalHandlers.Count;
+				for (int i = 0; i < iLength; i++)
+				{
+					removalHandlers[i].Invoke(null);
 				}
 			}
 		}
@@ -76,98 +90,108 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		/* Private Functions                                                          */
 		/*============================================================================*/
 
-		private function runProcess(view:Object, type:Class, mapping:IViewProcessorMapping):void
+		private void RunProcess(object view, Type type, IViewProcessorMapping mapping)
 		{
-			if (guardsApprove(mapping.guards, _injector))
+			if (Guards.Approve(mapping.Guards, _injector))
 			{
-				mapping.processor ||= createProcessor(mapping.processorClass);
-				applyHooks(mapping.hooks, _injector);
-				mapping.processor.process(view, type, _injector);
+				if (mapping.Processor == null)
+				{
+					mapping.Processor = CreateProcessor(mapping.ProcessorClass);
+				}
+				Hooks.Apply(mapping.Hooks, _injector);
+
+				MethodInfo processMethod = mapping.Processor.GetType().GetMethod(ProcessMethodName);
+				if (processMethod != null && processMethod.GetParameters().Length == 3)
+				{
+					processMethod.Invoke(mapping.Processor, new object[3] {view, type, _injector});
+				}
 			}
 		}
 
-		private function createProcessor(processorClass:Class):Object
+		private object CreateProcessor(Type processorClass)
 		{
-			if (!_injector.hasMapping(processorClass))
+			if (!_injector.HasMapping(processorClass))
 			{
-				_injector.map(processorClass).asSingleton();
+				_injector.Map(processorClass).AsSingleton();
 			}
 
 			try
 			{
-				return _injector.getInstance(processorClass);
+				return _injector.GetInstance(processorClass);
 			}
-			catch (error:InjectorInterfaceConstructionError)
+			catch (InjectorInterfaceConstructionException exception)
 			{
-				var errorMsg:String = "The view processor "
-					+ processorClass
-					+ " has not been mapped in the injector, "
-					+ "and it is not possible to instantiate an interface. "
-					+ "Please map a concrete type against this interface.";
-				throw(new ViewProcessorMapError(errorMsg));
-			}
-			return null;
-		}
-
-		private function mapTypeForFilterBinding(filter:ITypeFilter, type:Class, view:Object):void
-		{
-			var requiredType:Class;
-			const requiredTypes:Vector.<Class> = requiredTypesFor(filter, type);
-
-			for each (requiredType in requiredTypes)
-			{
-				_injector.map(requiredType).toValue(view);
+				String errorMsg = "The view processor "
+				                  	+ processorClass.ToString ()
+				                  	+ " has not been mapped in the injector, "
+				                  	+ "and it is not possible to instantiate an interface. "
+				                  	+ "Please map a concrete type against this interface."
+									+ "Triggered from InjectorInterfaceConstructionException."
+									+ exception.Message;
+				throw(new ViewProcessorMapException(errorMsg));
 			}
 		}
 
-		private function unmapTypeForFilterBinding(filter:ITypeFilter, type:Class, view:Object):void
+		private void MapTypeForFilterBinding(ITypeFilter filter, Type type, object view)
 		{
-			var requiredType:Class;
-			const requiredTypes:Vector.<Class> = requiredTypesFor(filter, type);
+			List<Type> requiredTypes = RequiredTypesFor(filter, type);
 
-			for each (requiredType in requiredTypes)
+			foreach (Type requiredType in requiredTypes)
 			{
-				if (_injector.hasDirectMapping(requiredType))
-					_injector.unmap(requiredType);
+				_injector.Map(requiredType).ToValue(view);
 			}
 		}
 
-		private function requiredTypesFor(filter:ITypeFilter, type:Class):Vector.<Class>
+		private void UnmapTypeForFilterBinding(ITypeFilter filter, Type type, object view)
 		{
-			const requiredTypes:Vector.<Class> = filter.allOfTypes.concat(filter.anyOfTypes);
+			List<Type> requiredTypes = RequiredTypesFor(filter, type);
 
-			if (requiredTypes.indexOf(type) == -1)
-				requiredTypes.push(type);
+			foreach (Type requiredType in requiredTypes)
+			{
+				if (_injector.HasDirectMapping(requiredType))
+					_injector.Unmap(requiredType);
+			}
+		}
+
+		private List<Type> RequiredTypesFor(ITypeFilter filter, Type type)
+		{
+			List<Type> requiredTypes = new List<Type> ();
+			requiredTypes.AddRange (filter.AllOfTypes);
+			requiredTypes.AddRange (filter.AnyOfTypes);
+
+			if (requiredTypes.IndexOf(type) == -1)
+				requiredTypes.Add(type);
 
 			return requiredTypes;
 		}
 
-		private function createRemovedListener(view:Object, type:Class, processorMappings:Array):void
+		private void CreateRemovedListener(IView view, Type type, IViewProcessorMapping[] processorMappings)
 		{
-			if (view is DisplayObject)
+			if (!_listenersByView.ContainsKey(view) || _listenersByView [view] == null)
 			{
-				_listenersByView[view] ||= [];
-
-				const handler:Function = function(e:Event):void {
-					runUnprocessors(view, type, processorMappings);
-					(view as DisplayObject).removeEventListener(Event.REMOVED_FROM_STAGE, handler);
-					removeHandlerFromView(view, handler);
-				};
-
-				_listenersByView[view].push(handler);
-				(view as DisplayObject).addEventListener(Event.REMOVED_FROM_STAGE, handler, false, 0, true);
+				_listenersByView[view] = new List<Action<IView>>();
 			}
+
+			Action<IView> handler = null;
+			handler = delegate(IView iView)
+			{
+				RunUnprocessors(view, type, processorMappings);
+				view.RemoveView -= handler;
+				RemoveHandlerFromView(iView, handler);
+			};
+
+			_listenersByView[view].Add(handler);
+			view.RemoveView += handler;
 		}
 
-		private void RemoveHandlerFromView(object view, Action handler)
+		private void RemoveHandlerFromView(object view, Action<IView> handler)
 		{
-			if (_listenersByView[view] && (_listenersByView[view].length > 0))
+			if (_listenersByView[view] != null && _listenersByView[view].Count > 0)
 			{
-				const handlerIndex:uint = _listenersByView[view].indexOf(handler);
-				_listenersByView[view].splice(handlerIndex, 1);
-				if (_listenersByView[view].length == 0)
+				_listenersByView[view].Remove(handler);
+				if (_listenersByView[view].Count == 0)
 				{
-					delete _listenersByView[view];
+					_listenersByView.Remove(view);
 				}
 			}
 		}

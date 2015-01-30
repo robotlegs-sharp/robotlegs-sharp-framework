@@ -73,35 +73,128 @@ namespace robotlegs.bender.bundles.mvcs
 
 		protected virtual void AddViewListener(Enum type, Action listener)
 		{
-			if(viewDispatcher == null) TriggerViewDispatcherError();
-			else eventMap.MapListener(viewDispatcher, type, listener);
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.MapListener(viewDispatcher, type, listener);
+			}
 		}
 
 		protected virtual void AddViewListener(Enum type, Action<IEvent> listener)
 		{
-			if(viewDispatcher == null) TriggerViewDispatcherError();
-			else eventMap.MapListener(viewDispatcher, type, listener);
-		}
-		protected virtual void AddViewListener<T>(Enum type, Action<T> listener)
-		{
-			if(viewDispatcher == null) TriggerViewDispatcherError();
-			else eventMap.MapListener(viewDispatcher, type, listener);
-		}
-		protected virtual void AddViewListener(Enum type, Delegate listener)
-		{
-			if(viewDispatcher == null) TriggerViewDispatcherError();
-			else eventMap.MapListener(viewDispatcher, type, listener);
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.MapListener(viewDispatcher, type, listener);
+			}
 		}
 
-		protected virtual void AddContextListener(Enum type, Delegate listener)
+		protected virtual void AddViewListener<T>(Enum type, Action<T> listener)
+		{
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.MapListener(viewDispatcher, type, listener);
+			}
+		}
+
+		protected virtual void AddViewListener(Enum type, Delegate listener)
+		{
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.MapListener (viewDispatcher, type, listener);
+			}
+		}
+
+		protected virtual void AddContextListener(Enum type, Action listener)
 		{
 			eventMap.MapListener(eventDispatcher, type, listener);
 		}
 
+		protected virtual void AddContextListener(Enum type, Action<IEvent> listener)
+		{
+			eventMap.MapListener(eventDispatcher, type, listener);
+		}
+
+		protected virtual void AddContextListener<T>(Enum type, Action<T> listener)
+		{
+			eventMap.MapListener(eventDispatcher, type, listener);
+		}
+
+		protected virtual void RemoveViewListener(Enum type, Action listener)
+		{
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.UnmapListener(viewDispatcher, type, listener);
+			}
+		}
+
+		protected virtual void RemoveViewListener(Enum type, Action<IEvent> listener)
+		{
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.UnmapListener(viewDispatcher, type, listener);
+			}
+		}
+
+		protected virtual void RemoveViewListener<T>(Enum type, Action<T> listener)
+		{
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.UnmapListener(viewDispatcher, type, listener);
+			}
+		}
+
 		protected virtual void RemoveViewListener(Enum type, Delegate listener)
 		{
-			if(viewDispatcher == null) TriggerViewDispatcherError();
-			eventMap.UnmapListener(viewDispatcher, type, listener);
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.UnmapListener(viewDispatcher, type, listener);
+			}
+		}
+			
+		protected virtual void RemoveContextListener(Enum type, Action listener)
+		{
+			eventMap.UnmapListener(eventDispatcher, type, listener);
+		}
+
+		protected virtual void RemoveContextListener(Enum type, Action<IEvent> listener)
+		{
+			eventMap.UnmapListener(eventDispatcher, type, listener);
+		}
+
+		protected virtual void RemoveContextListener<T>(Enum type, Action<T> listener)
+		{
+			eventMap.UnmapListener(eventDispatcher, type, listener);
 		}
 
 		protected virtual void RemoveContextListener(Enum type, Delegate listener)
@@ -112,13 +205,17 @@ namespace robotlegs.bender.bundles.mvcs
 		protected virtual void Dispatch(IEvent evt)
 		{
 			if (eventDispatcher.HasEventListener(evt.type))
+			{
 				eventDispatcher.Dispatch(evt);
+			}
 		}
 
 		protected virtual IEventDispatcher GetViewDispatcher(object dispatcherObject)
 		{
-			if(dispatcherObject == null) return null;
-			if(dispatcherObject is IEventDispatcher) return dispatcherObject as IEventDispatcher;
+			if(dispatcherObject == null)
+				return null;
+			if(dispatcherObject is IEventDispatcher)
+				return dispatcherObject as IEventDispatcher;
 
 				// User reflection to find an IEventDispatcher property called 'dispatcher'
 			object viewDispatcherValue;
@@ -131,13 +228,15 @@ namespace robotlegs.bender.bundles.mvcs
 				if(fieldInfo != null)
 				{
 					viewDispatcherValue = fieldInfo.GetValue(dispatcherObject);
-					if(viewDispatcherValue is IEventDispatcher) return viewDispatcherValue as IEventDispatcher;
+					if(viewDispatcherValue is IEventDispatcher)
+						return viewDispatcherValue as IEventDispatcher;
 				}
 			}
 			else
 			{
 				viewDispatcherValue = propertyInfo.GetValue(dispatcherObject, null);
-				if(viewDispatcherValue is IEventDispatcher) return viewDispatcherValue as IEventDispatcher;
+				if(viewDispatcherValue is IEventDispatcher)
+					return viewDispatcherValue as IEventDispatcher;
 			}
 			// View doesn't have a, and is not, a dispatcher. Lets continue without a view dispatcher for now.
 			return null;
