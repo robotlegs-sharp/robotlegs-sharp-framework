@@ -203,6 +203,7 @@
     <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\UnityParentFinderExtension.cs" />
     <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\impl\UnityParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\BlankParentFinder.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewManager\FallbackContainerConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

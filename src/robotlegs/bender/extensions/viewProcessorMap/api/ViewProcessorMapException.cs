@@ -2,7 +2,6 @@
 
 namespace robotlegs.bender.extensions.viewProcessorMap.api
 {
-	// TODO: Matt to James: Should this be renames ViewProcessorMapException??
 	public class ViewProcessorMapException : Exception
 	{
 		/*============================================================================*/

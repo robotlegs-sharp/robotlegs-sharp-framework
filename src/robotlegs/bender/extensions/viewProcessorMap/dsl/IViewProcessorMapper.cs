@@ -15,7 +15,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.dsl
 		/// <p>process(view:ISkinnable, class:Class, injector:Injector):void;</p>
 		/// <p>unprocess(view:ISkinnable, class:Class, injector:Injector):void;</p></param>
 		IViewProcessorMappingConfig ToProcess(object processClassOrInstance);
-		//TODO: Overload with the possible Action signatures
+		//TODO:Matt Maybe overload with the possible Action signatures? See code hinting docs above.
 
 		/// <summary>
 		/// Maps the type of matcher for injection

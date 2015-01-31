@@ -20,16 +20,16 @@ namespace robotlegs.bender.extensions.viewProcessorMap.utils
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
-		//TODO: Matt Update this code hinting doc so its correct to C# syntax
 		/// <summary>
 		/// <p>Creates a Value Property Injection Processor</p>
 		/// <br/>
 		/// <code>
 		/// 	new PropertyValueInjector(
-		/// 		new Dictionary<string, Type>(
-		/// 			"userService", myUserService, 
-		///	 			"userPM", myUserPM
-		/// 		)
+		///			new Dictionary<string, object> ()
+		/// 		{
+		///				{ "userService", myUserService }, 
+		///				{ "userPM", myUserPM }
+		///			};
 		/// 	);
 		/// </code>
 		/// </summary>

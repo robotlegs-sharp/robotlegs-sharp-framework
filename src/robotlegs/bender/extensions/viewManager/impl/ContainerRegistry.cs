@@ -50,6 +50,14 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			}
 		}
 
+		public ContainerBinding FallbackBinding
+		{
+			get
+			{
+				return _fallbackBinding;
+			}
+		}
+
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
@@ -61,6 +69,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		private Dictionary<object, ContainerBinding> _bindingByContainer = new Dictionary<object, ContainerBinding>();
 
 		private IParentFinder _parentFinder = new BlankParentFinder ();
+
+		private ContainerBinding _fallbackBinding;
 
 		/*============================================================================*/
 		/* Public Functions                                                           */
@@ -85,24 +95,44 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			return binding;
 		}
 
+		public ContainerBinding SetFallbackContainer(object container)
+		{
+			ContainerBinding binding;
+			if (_bindingByContainer.TryGetValue (container, out binding))
+				return _fallbackBinding = binding;
+
+			return _fallbackBinding = _bindingByContainer[container] = CreateBinding(container);
+		}
+
+		public void RemoveFallbackContainer()
+		{
+			_fallbackBinding = null;
+		}
+
 		public ContainerBinding FindParentBinding(object container)
 		{
 			//TODO: Make this not dependant on a parent finder
 			if (_parentFinder == null)
-				return null;
+				return _fallbackBinding;
 
 			object parent = _parentFinder.FindParent(container, _bindingByContainer);
 			if (parent == null)
-				return null;
+				return _fallbackBinding;
 			ContainerBinding binding;
-			_bindingByContainer.TryGetValue(parent, out binding);
+			if (!_bindingByContainer.TryGetValue (parent, out binding))
+			{
+				binding = _fallbackBinding;
+			}
 			return binding;
 		}
 
 		public ContainerBinding GetBinding(object container)
 		{
 			ContainerBinding binding;
-			_bindingByContainer.TryGetValue(container, out binding);
+			if (!_bindingByContainer.TryGetValue (container, out binding))
+			{
+				binding = _fallbackBinding;
+			}
 			return binding;
 		}
 
