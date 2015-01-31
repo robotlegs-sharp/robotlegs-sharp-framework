@@ -37,10 +37,10 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		public IViewProcessorMappingConfig ToProcess(object processClassOrInstance)
 		{
-			IViewProcessorMapping mapping = _mappings[processClassOrInstance];
-			return mapping != null
-				? OverwriteMapping(mapping, processClassOrInstance)
-					: CreateMapping(processClassOrInstance);
+			if (_mappings.ContainsKey (processClassOrInstance))
+				return OverwriteMapping (_mappings [processClassOrInstance], processClassOrInstance);
+			else
+				return CreateMapping(processClassOrInstance);
 		}
 
 		public IViewProcessorMappingConfig ToInjection()
@@ -55,16 +55,17 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		public void FromProcess(object processorClassOrInstance)
 		{
-			IViewProcessorMapping mapping = _mappings[processorClassOrInstance];
-			if(mapping != null)
+			if(_mappings.ContainsKey(processorClassOrInstance))
 			{
-				DeleteMapping(mapping);
+				DeleteMapping(_mappings[processorClassOrInstance]);
 			}
 		}
 
 		public void FromAll()
 		{
-			foreach (Object processor in _mappings)
+			object[] mappingKeys = new object[_mappings.Keys.Count];
+			_mappings.Keys.CopyTo(mappingKeys, 0);
+			foreach (object processor in mappingKeys)
 			{
 				FromProcess(processor);
 			}
@@ -88,7 +89,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		{
 			ViewProcessorMapping mapping = new ViewProcessorMapping(_matcher, processor);
 			_handler.AddMapping(mapping);
-			_mappings[processor] = mapping;
+			_mappings[mapping.Processor == null ? mapping.ProcessorClass : mapping.Processor] = mapping;
 			if(_logger != null)
 			{
 				_logger.Debug("{0} mapped to {1}", _matcher, mapping);
@@ -99,8 +100,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		private void DeleteMapping(IViewProcessorMapping mapping)
 		{
 			_handler.RemoveMapping(mapping);
-			_mappings.Remove (mapping.Processor);
-			//delete _mappings[mapping.Processor];
+			_mappings.Remove(mapping.Processor == null ? mapping.ProcessorClass : mapping.Processor);
 			if(_logger != null)
 			{
 				_logger.Debug("{0} unmapped from {1}", _matcher, mapping);

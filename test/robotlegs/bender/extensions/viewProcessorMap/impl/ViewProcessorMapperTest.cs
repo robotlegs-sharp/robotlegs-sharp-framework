@@ -4,6 +4,11 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file 
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
+using Moq;
+using robotlegs.bender.framework.api;
+using NUnit.Framework;
+using robotlegs.bender.extensions.viewProcessorMap.support;
+using robotlegs.bender.extensions.viewProcessorMap.dsl;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {
@@ -13,88 +18,108 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		/*============================================================================*/
 		/* Public Properties                                                          */
 		/*============================================================================*/
-		/*
-		[Rule]
-		public var mocks:MockolateRule = new MockolateRule();
 
-		[Mock]
-		public var handler:IViewProcessorViewHandler;
+		public Mock<IViewProcessorViewHandler> handler = new Mock<IViewProcessorViewHandler>();
 
-		[Mock]
-		public var logger:ILogger;
-		//*/
+		public Mock<ILogger> logger = new Mock<ILogger>();
+
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
-		/*
-		private var mapper:ViewProcessorMapper;
-		//*/
+
+		private ViewProcessorMapper mapper;
+
 		/*============================================================================*/
 		/* Test Setup and Teardown                                                    */
 		/*============================================================================*/
-		/*
-		[Before]
-		public function before():void
+
+		[SetUp]
+		public void Setup()
 		{
-			mapper = new ViewProcessorMapper(null, handler, logger);
+			mapper = new ViewProcessorMapper(null, handler.Object, logger.Object);
 		}
-		//*/
+
 		/*============================================================================*/
 		/* Tests                                                                      */
 		/*============================================================================*/
-		/*
+
 		[Test]
-		public function toProcess_registers_mappingConfig_with_handler():void
+		public void ToProcess_Registers_MappingConfig_With_Handler()
 		{
-			const mapping:Object = mapper.toProcess(NullProcessor);
-			assertThat(handler, received().method('addMapping').arg(mapping).once());
+			object mapping = mapper.ToProcess(typeof(NullProcessor));
+			handler.Verify(viewProcessorViewHandler => viewProcessorViewHandler.AddMapping(It.Is<IViewProcessorMapping>(arg => arg == mapping)), Times.Once);
 		}
 
 		[Test]
-		public function fromProcess_removes_mappingConfig_from_handler():void
+		public void FromProcess_Removes_MappingConfig_From_Handler()
 		{
-			const mapping:Object = mapper.toProcess(NullProcessor);
-			mapper.fromProcess(NullProcessor);
-			assertThat(handler, received().method('removeMapping').arg(mapping).once());
+			object mapping = mapper.ToProcess(typeof(NullProcessor));
+			mapper.FromProcess(typeof(NullProcessor));
+			handler.Verify(
+				viewProcessorViewHandler => viewProcessorViewHandler.RemoveMapping(
+						It.Is<IViewProcessorMapping>(arg => arg == mapping)
+				),Times.Once);
 		}
 
 		[Test]
-		public function fromProcess_removes_only_specified_mappingConfig_from_handler():void
+		public void FromProcess_Removes_Only_Specified_MappingConfig_From_Handler()
 		{
-			const mapping:Object = mapper.toProcess(NullProcessor);
-			const mapping2:Object = mapper.toProcess(NullProcessor2);
-			mapper.fromProcess(NullProcessor);
-			assertThat(handler, received().method("removeMapping").arg(mapping).once());
-			assertThat(handler, received().method("removeMapping").arg(mapping2).never());
+			object mapping = mapper.ToProcess(typeof(NullProcessor));
+			object mapping2 = mapper.ToProcess(typeof(NullProcessor2));
+			mapper.FromProcess(typeof(NullProcessor));
+			handler.Verify(
+				viewProcessorViewHandler => viewProcessorViewHandler.RemoveMapping(
+					It.Is<IViewProcessorMapping>(arg => arg == mapping)
+				),Times.Once);
+			handler.Verify(
+				viewProcessorViewHandler => viewProcessorViewHandler.RemoveMapping(
+					It.Is<IViewProcessorMapping>(arg => arg == mapping2)
+				),Times.Never);
 		}
 
 		[Test]
-		public function fromAll_removes_all_mappingConfigs_from_handler():void
+		public void FromAll_Removes_All_MappingConfigs_From_Handler()
 		{
-			const mapping:Object = mapper.toProcess(NullProcessor);
-			const mapping2:Object = mapper.toProcess(NullProcessor2);
-			mapper.fromAll();
-			assertThat(handler, received().method("removeMapping").arg(mapping).once());
-			assertThat(handler, received().method("removeMapping").arg(mapping2).once());
+			object mapping = mapper.ToProcess(typeof(NullProcessor));
+			object mapping2 = mapper.ToProcess(typeof(NullProcessor2));
+			mapper.FromAll();
+			handler.Verify(
+				viewProcessorViewHandler => viewProcessorViewHandler.RemoveMapping(
+					It.Is<IViewProcessorMapping>(arg => arg == mapping)
+				),Times.Once);
+			handler.Verify(
+				viewProcessorViewHandler => viewProcessorViewHandler.RemoveMapping(
+					It.Is<IViewProcessorMapping>(arg => arg == mapping2)
+				),Times.Once);
 		}
 
 		[Test]
-		public function toProcess_unregisters_old_mappingConfig_and_registers_new_one_when_overwritten():void
+		public void ToProcess_Unregisters_Old_MappingConfig_And_Registers_New_One_When_Overwritten()
 		{
-			const oldMapping:Object = mapper.toProcess(NullProcessor);
-			const newMapping:Object = mapper.toProcess(NullProcessor);
-			assertThat(handler, received().method("removeMapping").arg(oldMapping).once());
-			assertThat(handler, received().method("addMapping").arg(newMapping).once());
+			object oldMapping = mapper.ToProcess(typeof(NullProcessor));
+			object newMapping = mapper.ToProcess(typeof(NullProcessor));
+
+			handler.Verify(
+				viewProcessorViewHandler => viewProcessorViewHandler.RemoveMapping(
+					It.Is<IViewProcessorMapping>(arg => arg == oldMapping)
+				),Times.Once);
+
+			handler.Verify(
+				viewProcessorViewHandler => viewProcessorViewHandler.AddMapping(
+					It.Is<IViewProcessorMapping>(arg => arg == newMapping)
+				),Times.Once);
 		}
 
 		[Test]
-		public function toProcess_warns_when_overwritten():void
+		public void ToProcess_Warns_When_Overwritten()
 		{
-			const oldMapping:Object = mapper.toProcess(NullProcessor);
-			mapper.toProcess(NullProcessor);
-			assertThat(logger, received().method("warn")
-				.args(instanceOf(String), array(null, oldMapping)).once());
+			object oldMapping = mapper.ToProcess(typeof(NullProcessor));
+			mapper.ToProcess(typeof(NullProcessor));
+			
+			logger.Verify( _logger => _logger.Warn(It.IsAny<string>(),
+				It.Is<object[]>(array => array[0] == null && array[1] == oldMapping)
+			), Times.Once);
 		}
-		//*/
+
 	}
 }

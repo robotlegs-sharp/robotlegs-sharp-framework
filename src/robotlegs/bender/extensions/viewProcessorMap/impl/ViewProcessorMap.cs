@@ -38,11 +38,16 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		public IViewProcessorMapper MapMatcher(ITypeMatcher matcher)
 		{
-			IViewProcessorMapper mapper = _mappers [matcher.CreateTypeFilter ().Descriptor];
-			if(mapper == null)
-			{
-				mapper = _mappers[matcher.CreateTypeFilter().Descriptor] = CreateMapper(matcher);
+			string descriptor = matcher.CreateTypeFilter().Descriptor;
+			IViewProcessorMapper mapper;
+			if (_mappers.ContainsKey (descriptor)) {
+				mapper = _mappers [descriptor];
 			}
+			else
+			{
+				mapper = _mappers[descriptor] = CreateMapper(matcher);
+			}
+
 			return mapper;
 		}
 			
@@ -54,8 +59,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		public IViewProcessorUnmapper UnmapMatcher(ITypeMatcher matcher)
 		{
-			IViewProcessorMapper mapper = _mappers[matcher.CreateTypeFilter().Descriptor];
-			if (mapper == null)
+			IViewProcessorMapper mapper;
+			if(!_mappers.TryGetValue(matcher.CreateTypeFilter().Descriptor, out mapper))
 				return NULL_UNMAPPER;
 			return mapper as IViewProcessorUnmapper;
 		}

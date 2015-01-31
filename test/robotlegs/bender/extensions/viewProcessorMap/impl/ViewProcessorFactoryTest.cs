@@ -142,7 +142,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		{
 			TrackingProcessor trackingProcessor2 = new TrackingProcessor();
 
-			ObjectA viewA = new ObjectA();
+			ObjectA view = new ObjectA();
+			ObjectWhichExtendsA viewA = new ObjectWhichExtendsA();
 
 			ViewProcessorMapping mapping = new ViewProcessorMapping(new TypeMatcher().AllOf(view.GetType()).CreateTypeFilter(), trackingProcessor);
 			ViewProcessorMapping mappingA = new ViewProcessorMapping(new TypeMatcher().AllOf(viewA.GetType()).CreateTypeFilter(), trackingProcessor2);

@@ -21,9 +21,9 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		private IInjector _injector;
 
 		//private Dictionary<> _listenersByView = new Dictionary<>(true);
-		private Dictionary<object, List<Action<IView>>> _listenersByView = new Dictionary<object, List<Action<IView>>>();
+		private Dictionary<IView, List<Action<IView>>> _listenersByView = new Dictionary<IView, List<Action<IView>>>();
 
-		private string ProcessMethodName	= "process";
+		private string ProcessMethodName	= "Process";
 
 		private string UnProcessMethodName	= "Unprocess";
 
@@ -76,12 +76,15 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		public void RunAllUnprocessors()
 		{
-			foreach (List<Action<IView>> removalHandlers in _listenersByView.Values)
+			IView[] viewsInQuestion = new IView[_listenersByView.Keys.Count];
+			_listenersByView.Keys.CopyTo(viewsInQuestion, 0);
+			foreach (IView viewInQuestion in viewsInQuestion)
 			{
+				List<Action<IView>> removalHandlers = _listenersByView [viewInQuestion];
 				int iLength = removalHandlers.Count;
 				for (int i = 0; i < iLength; i++)
 				{
-					removalHandlers[i].Invoke(null);
+					removalHandlers[i].Invoke(viewInQuestion);
 				}
 			}
 		}
@@ -92,13 +95,13 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		private void RunProcess(object view, Type type, IViewProcessorMapping mapping)
 		{
-			if (Guards.Approve(mapping.Guards, _injector))
+			if (Guards.Approve(_injector, mapping.Guards))
 			{
 				if (mapping.Processor == null)
 				{
 					mapping.Processor = CreateProcessor(mapping.ProcessorClass);
 				}
-				Hooks.Apply(mapping.Hooks, _injector);
+				Hooks.Apply(_injector, mapping.Hooks);
 
 				MethodInfo processMethod = mapping.Processor.GetType().GetMethod(ProcessMethodName);
 				if (processMethod != null && processMethod.GetParameters().Length == 3)
@@ -184,9 +187,9 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			view.RemoveView += handler;
 		}
 
-		private void RemoveHandlerFromView(object view, Action<IView> handler)
+		private void RemoveHandlerFromView(IView view, Action<IView> handler)
 		{
-			if (_listenersByView[view] != null && _listenersByView[view].Count > 0)
+			if (_listenersByView.ContainsKey(view) && _listenersByView[view].Count > 0)
 			{
 				_listenersByView[view].Remove(handler);
 				if (_listenersByView[view].Count == 0)

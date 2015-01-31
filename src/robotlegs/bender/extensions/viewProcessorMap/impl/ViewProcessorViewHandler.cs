@@ -74,12 +74,13 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		private IViewProcessorMapping[] GetInterestedMappingsFor(object view, Type type)
 		{
+			// we've seen this type before and nobody was interested
+			if (_knownMappings.ContainsKey(type) && _knownMappings[type] == null)
+				return null;
+
 			// we haven't seen this type before
 			if (!_knownMappings.ContainsKey(type))
 			{
-				// we've seen this type before and nobody was interested
-				if (_knownMappings[type] == null)
-					return null;
 
 				_knownMappings[type] = null;
 				foreach (IViewProcessorMapping mapping in _mappings)

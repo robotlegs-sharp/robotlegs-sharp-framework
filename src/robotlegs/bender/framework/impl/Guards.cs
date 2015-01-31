@@ -39,11 +39,15 @@ namespace robotlegs.bender.framework.impl
 					guardInstance = guard;
 
 				MethodInfo approveMethod = guardInstance.GetType().GetMethod("Approve");
-//				if (approveMethod != null)
-//				{
-					if ((bool)approveMethod.Invoke(guardInstance, null) == false)
+				if (approveMethod != null)
+				{
+					if ((bool)approveMethod.Invoke (guardInstance, null) == false)
 						return false;
-//				}
+				}
+				else
+				{
+					throw(new Exception (String.Format("Guard {0} is not a valid guard. It doesn't have the method 'Approve'", guardInstance)));
+				}
 			}
 			return true;
 		}

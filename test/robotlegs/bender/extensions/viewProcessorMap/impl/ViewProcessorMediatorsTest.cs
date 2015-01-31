@@ -7,6 +7,7 @@ using robotlegs.bender.extensions.matching;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
+using robotlegs.bender.extensions.mediatorMap.api;
 
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
@@ -64,7 +65,9 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		{
 			instance.Map(typeof(ObjectA)).ToProcess(new MediatorCreator(typeof(ExampleMediator)));
 
-			instance.HandleView(new ObjectA(), typeof(ObjectA));
+			ObjectA objA = new ObjectA();
+			instance.HandleView(objA, objA.GetType());
+			objA.AddMockView();
 
 			string[] expectedNotifications = new string[1] { "ExampleMediator" };
 			Assert.That (expectedNotifications, Is.EquivalentTo (mediatorWatcher.Notifications));
@@ -111,10 +114,10 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			instance.Map(typeof(ObjectA)).ToProcess(new MediatorCreator(typeof(ExampleMediator)));
 			matchingView.AddMockView();
 			instance.Process(matchingView);
-			Action<object> removeViewCallback = null;
-			removeViewCallback = delegate(object view) {
+			Action<IView> removeViewCallback = null;
+			removeViewCallback = delegate(IView view) {
 				matchingView.RemoveView -= removeViewCallback;
-				CheckMediatorsDestroyed (view);
+				CheckMediatorsDestroyed(view);
 			};
 			matchingView.RemoveView += removeViewCallback;
 			matchingView.RemoveMockView();

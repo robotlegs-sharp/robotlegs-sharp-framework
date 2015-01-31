@@ -104,6 +104,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			if (processor is Type)
 			{
 				_processorClass = processor as Type;
+				// In original RobotLegs this is _processor is left as null. However it is then used as a key in a dictionary.
+				// C# doesn't like this, so I've used the class as the key when the instance is not set
 			}
 			else
 			{

@@ -6,6 +6,9 @@ using NUnit.Framework;
 using robotlegs.bender.extensions.viewManager.api;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
+using robotlegs.bender.extensions.mediatorMap.api;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {
@@ -33,6 +36,10 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		private ObjectB nonMatchingView;
 
+		private GuardObject guardObject;
+
+		private ObjectAWithWidthAndHeight matchingView2;
+
 		/*============================================================================*/
 		/* Test Setup and Teardown                                                    */
 		/*============================================================================*/
@@ -47,6 +54,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			trackingProcessor2 = new TrackingProcessor();
 			matchingView = new ObjectA();
 			nonMatchingView = new ObjectB();
+			guardObject = new GuardObject();
+			matchingView2 = new ObjectAWithWidthAndHeight();
 		}
 
 		/*============================================================================*/
@@ -155,182 +164,181 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			viewProcessorMap.Unprocess(nonMatchingView);
 			AssertThatProcessorHasUnprocessedThese(trackingProcessor, new object[1] { matchingView });
 		}
-		/*
-		[Test]
-		public function unmapping_matcher_from_single_processor_stops_further_processing():void
-		{
-			viewProcessorMap.mapMatcher(spriteMatcher).toProcess(trackingProcessor);
-			viewProcessorMap.process(matchingView);
-			viewProcessorMap.unmapMatcher(spriteMatcher).fromProcess(trackingProcessor);
-			viewProcessorMap.process(matchingView);
-			assertThatProcessorHasProcessedThese(trackingProcessor, [matchingView]);
-		}
 
 		[Test]
-		public function unmapping_type_from_single_processor_stops_further_processing():void
+		public void Unmapping_Matcher_From_Single_Processor_Stops_Further_Processing()
 		{
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor);
-			viewProcessorMap.process(matchingView);
-			viewProcessorMap.unmap(Sprite).fromProcess(trackingProcessor);
-			viewProcessorMap.process(matchingView);
-			assertThatProcessorHasProcessedThese(trackingProcessor, [matchingView]);
+			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(trackingProcessor);
+			viewProcessorMap.Process(matchingView);
+			viewProcessorMap.UnmapMatcher(objectAMatcher).FromProcess(trackingProcessor);
+			viewProcessorMap.Process(matchingView);
+			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { matchingView });
 		}
 
 		[Test]
-		public function unmapping_from_single_processor_keeps_other_processors_intact():void
+		public void Unmapping_Type_From_Single_Processor_Stops_Further_Processing()
 		{
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor);
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor2);
-			viewProcessorMap.unmap(Sprite).fromProcess(trackingProcessor);
-			viewProcessorMap.process(matchingView);
-			assertThatProcessorHasProcessedThese(trackingProcessor, []);
-			assertThatProcessorHasProcessedThese(trackingProcessor2, [matchingView]);
+			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(trackingProcessor);
+			viewProcessorMap.Process(matchingView);
+			viewProcessorMap.Unmap(typeof(ObjectA)).FromProcess(trackingProcessor);
+			viewProcessorMap.Process(matchingView);
+			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { matchingView });
 		}
 
 		[Test]
-		public function unmapping_from_all_processes_removes_all_processes():void
+		public void Unmapping_From_Single_Processor_Keeps_Other_Processors_Intact()
 		{
-			viewProcessorMap.map(Sprite).toProcess(TrackingProcessor);
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor2);
-			viewProcessorMap.unmap(Sprite).fromAll();
-			viewProcessorMap.process(matchingView);
-			assertThatProcessorHasProcessedThese(fromInjector(TrackingProcessor), []);
-			assertThatProcessorHasProcessedThese(trackingProcessor2, []);
+			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(trackingProcessor);
+			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(trackingProcessor2);
+			viewProcessorMap.Unmap(typeof(ObjectA)).FromProcess(trackingProcessor);
+			viewProcessorMap.Process(matchingView);
+			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[0]);
+			AssertThatProcessorHasProcessedThese(trackingProcessor2, new object [1] { matchingView });
 		}
 
 		[Test]
-		public function handleItem_passes_mapped_views_to_processor_instance_process_with_mapping_by_type():void
+		public void Unmapping_From_All_Processes_Removes_All_Processes()
 		{
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor);
-			viewProcessorMap.handleView(matchingView, Sprite);
-			viewProcessorMap.handleView(nonMatchingView, Shape);
-			assertThatProcessorHasProcessedThese(trackingProcessor, [matchingView]);
+			viewProcessorMap.Map(matchingView.GetType()).ToProcess(typeof(TrackingProcessor));
+			viewProcessorMap.Map(matchingView.GetType()).ToProcess(trackingProcessor2);
+			viewProcessorMap.Unmap(matchingView.GetType()).FromAll();
+			viewProcessorMap.Process(matchingView);
+			AssertThatProcessorHasProcessedThese(FromInjector(typeof(TrackingProcessor)), new object[0]);
+			AssertThatProcessorHasProcessedThese(trackingProcessor2, new object[0]);
 		}
 
 		[Test]
-		public function a_hook_runs_and_receives_injection_of_view():void
+		public void HandleItem_Passes_Mapped_views_To_Processor_Instance_Process_With_Mapping_By_Type()
 		{
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor).withHooks(HookWithViewInjectionDrawsRectangle);
-
-			const expectedViewWidth:Number = 100;
-			const expectedViewHeight:Number = 200;
-
-			injector.map(Number, "rectHeight").toValue(expectedViewHeight);
-			injector.map(Number, "rectWidth").toValue(expectedViewWidth);
-
-			viewProcessorMap.process(matchingView);
-
-			assertThat(matchingView.width, equalTo(expectedViewWidth));
-			assertThat(matchingView.height, equalTo(expectedViewHeight));
+			viewProcessorMap.Map(matchingView.GetType()).ToProcess(trackingProcessor);
+			viewProcessorMap.HandleView(matchingView, matchingView.GetType());
+			viewProcessorMap.HandleView(nonMatchingView, nonMatchingView.GetType());
+			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { matchingView });
 		}
 
 		[Test]
-		public function does_not_leave_view_mapping_lying_around():void
+		public void A_Hook_Runs_And_Receives_Injection_Of_View()
 		{
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor);
-			viewProcessorMap.handleView(matchingView, Sprite);
-			assertThat(injector.hasMapping(Sprite), isFalse());
+			viewProcessorMap.Map(matchingView2.GetType()).ToProcess(trackingProcessor).WithHooks(typeof(HookWithViewInjectionChangesSize));
+
+			int expectedViewWidth = 100;
+			int expectedViewHeight = 200;
+
+			injector.Map(typeof(int), "rectHeight").ToValue(expectedViewHeight);
+			injector.Map(typeof(int), "rectWidth").ToValue(expectedViewWidth);
+
+			viewProcessorMap.Process(matchingView2);
+
+			Assert.That(matchingView2.Width, Is.EqualTo(expectedViewWidth));
+			Assert.That(matchingView2.Height, Is.EqualTo(expectedViewHeight));
 		}
 
 		[Test]
-		public function process_runs_if_guard_allows_it():void
+		public void Does_Not_Leave_View_Mapping_Lying_Around()
 		{
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor).withGuards(OnlyIfViewHasChildrenGuard);
-			matchingView.addChild(new Sprite());
-			viewProcessorMap.process(matchingView);
-			assertThatProcessorHasProcessedThese(trackingProcessor, [matchingView]);
+			viewProcessorMap.Map(matchingView.GetType()).ToProcess(trackingProcessor);
+			viewProcessorMap.HandleView(matchingView, matchingView.GetType());
+			Assert.That(injector.HasMapping(matchingView.GetType()), Is.False);
 		}
 
 		[Test]
-		public function process_does_not_run_if_guard_prevents_it():void
+		public void Process_Runs_If_Guard_Allows_It()
 		{
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor).withGuards(OnlyIfViewHasChildrenGuard);
-			viewProcessorMap.process(matchingView);
-			assertThatProcessorHasProcessedThese(trackingProcessor, []);
+			viewProcessorMap.Map(guardObject.GetType()).ToProcess(trackingProcessor).WithGuards(typeof(OnlyIfViewApprovesGuard));
+			guardObject.ShouldApprove = true;
+			viewProcessorMap.Process(guardObject);
+			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { guardObject });
 		}
 
 		[Test]
-		public function removing_a_mapping_that_does_not_exist_does_not_throw_an_error():void
+		public void Process_Does_Not_Run_If_Guard_Prevents_It()
 		{
-			viewProcessorMap.unmap(Sprite).fromProcess(trackingProcessor);
+			viewProcessorMap.Map(guardObject.GetType()).ToProcess(trackingProcessor).WithGuards(typeof(OnlyIfViewApprovesGuard));
+			viewProcessorMap.Process(guardObject);
+			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[0]);
 		}
 
 		[Test]
-		public function mapping_for_injection_results_in_view_being_injected():void
+		public void Removing_A_Mapping_That_Does_Not_Exist_Does_Not_Throw_An_Error()
 		{
-			const expectedInjectionValue:Sprite = new Sprite();
-
-			injector.map(IEventDispatcher).toValue(expectedInjectionValue);
-
-			viewProcessorMap.map(Sprite).toInjection();
-			const viewNeedingInjection:ViewNeedingInjection = new ViewNeedingInjection();
-			viewProcessorMap.process(viewNeedingInjection);
-			assertThat(viewNeedingInjection.injectedValue, equalTo(expectedInjectionValue));
+			viewProcessorMap.Unmap(matchingView.GetType()).FromProcess(trackingProcessor);
 		}
 
 		[Test]
-		public function unmapping_for_injection_results_in_view_not_being_injected():void
+		public void Mapping_For_Injection_Results_In_View_Being_Injected()
 		{
-			viewProcessorMap.map(Sprite).toInjection();
-			viewProcessorMap.unmap(Sprite).fromInjection();
-			const viewNeedingInjection:ViewNeedingInjection = new ViewNeedingInjection();
-			viewProcessorMap.process(viewNeedingInjection);
-			assertThat(viewNeedingInjection.injectedValue, equalTo(null));
+			string expectedInjectionValue = "Injected string";
+			injector.Map(typeof(string)).ToValue(expectedInjectionValue);
+
+			viewProcessorMap.Map(typeof(ViewNeedingInjection)).ToInjection();
+			ViewNeedingInjection viewNeedingInjection = new ViewNeedingInjection();
+			viewProcessorMap.Process(viewNeedingInjection);
+			Assert.That(viewNeedingInjection.injectedValue, Is.EqualTo(expectedInjectionValue));
 		}
 
 		[Test]
-		public function mapping_to_no_process_still_applies_hooks():void
+		public void Unmapping_For_Injection_Results_In_View_Not_Being_Injected()
 		{
-			viewProcessorMap.map(Sprite).toNoProcess().withHooks(HookWithViewInjectionDrawsRectangle);
-
-			const expectedViewWidth:Number = 100;
-			const expectedViewHeight:Number = 200;
-
-			injector.map(Number, "rectHeight").toValue(expectedViewHeight);
-			injector.map(Number, "rectWidth").toValue(expectedViewWidth);
-
-			viewProcessorMap.process(matchingView);
-
-			assertThat(matchingView.width, equalTo(expectedViewWidth));
-			assertThat(matchingView.height, equalTo(expectedViewHeight));
+			viewProcessorMap.Map(typeof(ViewNeedingInjection)).ToInjection();
+			viewProcessorMap.Unmap(typeof(ViewNeedingInjection)).FromInjection();
+			ViewNeedingInjection viewNeedingInjection = new ViewNeedingInjection();
+			viewProcessorMap.Process(viewNeedingInjection);
+			Assert.That(viewNeedingInjection.injectedValue, Is.EqualTo(null));
 		}
 
 		[Test]
-		public function unmapping_from_no_process_does_not_apply_hooks():void
+		public void Mapping_To_No_Process_Still_Applies_Hooks()
 		{
-			viewProcessorMap.map(Sprite).toNoProcess().withHooks(HookWithViewInjectionDrawsRectangle);
+			viewProcessorMap.Map(matchingView2.GetType()).ToNoProcess().WithHooks(typeof(HookWithViewInjectionChangesSize));
 
-			injector.map(Number, "rectHeight").toValue(100);
-			injector.map(Number, "rectWidth").toValue(200);
+			int expectedViewWidth = 100;
+			int expectedViewHeight = 200;
 
-			viewProcessorMap.unmap(Sprite).fromNoProcess();
-			viewProcessorMap.process(matchingView);
+			injector.Map(typeof(int), "rectHeight").ToValue(expectedViewHeight);
+			injector.Map(typeof(int), "rectWidth").ToValue(expectedViewWidth);
 
-			assertThat(matchingView.width, equalTo(0));
-			assertThat(matchingView.height, equalTo(0));
-		}
+			viewProcessorMap.Process(matchingView2);
 
-		[Test(async)]
-		public function automatically_unprocesses_when_view_leaves_stage():void
-		{
-			viewProcessorMap.map(Sprite).toProcess(trackingProcessor);
-			container.addChild(matchingView);
-			viewProcessorMap.process(matchingView);
-			var asyncHandler:Function = Async.asyncHandler(this, checkUnprocessorsRan, 500);
-			matchingView.addEventListener(Event.REMOVED_FROM_STAGE, asyncHandler);
-			container.removeChild(matchingView);
+			Assert.That(matchingView2.Width, Is.EqualTo(expectedViewWidth));
+			Assert.That(matchingView2.Height, Is.EqualTo(expectedViewHeight));
 		}
 
 		[Test]
-		public function hooks_run_before_process():void
+		public void Unmapping_From_No_Process_Does_Not_Apply_Hooks()
 		{
-			const timingTracker:Array = [];
-			injector.map(Array, "timingTracker").toValue(timingTracker);
-			viewProcessorMap.map(Sprite).toProcess(Processor).withHooks(HookA);
-			viewProcessorMap.process(matchingView);
-			assertThat(timingTracker, array([HookA, Processor]));
+			viewProcessorMap.Map(matchingView2.GetType()).ToNoProcess().WithHooks(typeof(HookWithViewInjectionChangesSize));
+
+			injector.Map(typeof(int), "rectHeight").ToValue(100);
+			injector.Map(typeof(int), "rectWidth").ToValue(200);
+
+			viewProcessorMap.Unmap(matchingView2.GetType()).FromNoProcess();
+			viewProcessorMap.Process(matchingView2);
+
+			Assert.That(matchingView2.Width, Is.EqualTo(0));
+			Assert.That(matchingView2.Height, Is.EqualTo(0));
 		}
-		//*/
+
+		[Test]
+		public async void Automatically_Unprocesses_When_View_Leaves_Stage()
+		{
+			viewProcessorMap.Map(matchingView.GetType()).ToProcess(trackingProcessor);
+			matchingView.AddMockView();
+			viewProcessorMap.Process(matchingView);
+
+			matchingView.RemoveView += CheckUnprocessorsRan;
+			matchingView.RemoveMockView();
+			await Task.Delay(500);
+		}
+
+		[Test]
+		public void Hooks_Run_Before_Process()
+		{
+			List<Type> timingTracker = new List<Type>();
+			injector.Map(typeof(List<Type>), "timingTracker").ToValue(timingTracker);
+			viewProcessorMap.Map(matchingView.GetType()).ToProcess(typeof(Processor)).WithHooks(typeof(HookA));
+			viewProcessorMap.Process(matchingView);
+			Assert.That(timingTracker, Is.EquivalentTo(new Object[2]{ typeof(HookA), typeof(Processor) }));
+		}
 
 		/*============================================================================*/
 		/* Protected Functions                                                        */
@@ -347,12 +355,12 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		protected void AssertThatProcessorHasProcessedThese(object processor, object[] expected)
 		{
-			AssertThatProcessorHasProcessedThese (processor as TrackingProcessor, expected);
-		}
+			PropertyInfo processedViewsProperty = processor.GetType ().GetProperty ("ProcessedViews");
+			Assert.That (processedViewsProperty, Is.Not.Null, String.Format("Object {0} does not contain a property called ProcessedViews", processor));
 
-		protected void AssertThatProcessorHasProcessedThese(TrackingProcessor processor, object[] expected)
-		{
-			Assert.That(processor.ProcessedViews, Is.EqualTo(expected).AsCollection);
+			object processedViews = processedViewsProperty.GetValue (processor);
+	
+			Assert.That(processedViews, Is.EqualTo(expected).AsCollection);
 		}
 
 		protected void AssertThatProcessorHasUnprocessedThese(object processor, object[] expected)
@@ -368,12 +376,12 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/
-/*
-		private function CheckUnprocessorsRan(object view)
+
+		private void CheckUnprocessorsRan(IView view)
 		{
 			AssertThatProcessorHasUnprocessedThese(trackingProcessor, new object[1] { matchingView });
 		}
-		//*/
+
 	}
 }
 
@@ -385,7 +393,7 @@ class ViewNeedingInjection : object
 	/*============================================================================*/
 
 	[Inject]
-	public string injectedValue;
+	public string injectedValue {get;set;}
 }
 
 class OnlyIfViewApprovesGuard
@@ -396,7 +404,7 @@ class OnlyIfViewApprovesGuard
 	/*============================================================================*/
 
 	[Inject]
-	public GuardObject view;
+	public GuardObject view {get;set;}
 
 	/*============================================================================*/
 	/* Public Functions                                                           */
@@ -408,6 +416,13 @@ class OnlyIfViewApprovesGuard
 	}
 }
 
+class ObjectAWithWidthAndHeight : ObjectA
+{
+	public int Width;
+
+	public int Height;
+}
+
 class HookWithViewInjectionChangesSize
 {
 
@@ -416,17 +431,13 @@ class HookWithViewInjectionChangesSize
 	/*============================================================================*/
 
 	[Inject]
-	public ObjectA view;
+	public ObjectAWithWidthAndHeight view {get;set;}
 
 	[Inject("rectWidth")]
-	public int rectWidth;
+	public int rectWidth {get;set;}
 
 	[Inject("rectHeight")]
-	public int rectHeight;
-
-	public int rectWidthAfterHook;
-
-	public int rectHeightAfterHook;
+	public int rectHeight {get;set;}
 
 	/*============================================================================*/
 	/* Public Functions                                                           */
@@ -434,9 +445,8 @@ class HookWithViewInjectionChangesSize
 
 	public void Hook()
 	{
-		rectWidthAfterHook = rectWidth;
-		rectHeightAfterHook = rectHeight;
-//		view.graphics.drawRect(0, 0, rectWidth, rectHeight);
+		view.Width = rectWidth;
+		view.Height = rectHeight;
 	}
 }
 
@@ -448,7 +458,7 @@ class HookA
 	/*============================================================================*/
 
 	[Inject("timingTracker")]
-	public List<Type> timingTracker;
+	public List<Type> timingTracker {get;set;}
 
 	/*============================================================================*/
 	/* Public Functions                                                           */

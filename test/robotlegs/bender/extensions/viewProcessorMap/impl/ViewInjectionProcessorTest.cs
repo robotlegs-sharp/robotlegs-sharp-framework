@@ -40,7 +40,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void ProcessFulfillsInjectionsWhenClassPassed()
 		{
-			viewInjector.Process(view, typeof(ViewWithInjection), injector);
+			viewInjector.Process(view, view.GetType(), injector);
 			Assert.That(view.InjectedSprite, Is.EqualTo(injectionValue));
 		}
 
@@ -85,6 +85,6 @@ class ViewWithInjection
 	/*============================================================================*/
 
 	[Inject]
-	public object InjectedSprite;
+	public object InjectedSprite { get; set; }
 }
 

@@ -4,6 +4,10 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file 
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
+using System.Collections.Generic;
+using System;
+using robotlegs.bender.extensions.matching;
+using NUnit.Framework;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {
@@ -11,56 +15,65 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 	{
 
 		/*============================================================================*/
-		/* Private Static Properties                                                  */
+		/* Private Const Properties                                                   */
 		/*============================================================================*/
-		/*
-		private static const EMPTY_CLASS_VECTOR:Vector.<Class> = new Vector.<Class>();
 
-		private static const MATCHER:ITypeFilter = new TypeFilter(
-			EMPTY_CLASS_VECTOR, EMPTY_CLASS_VECTOR, EMPTY_CLASS_VECTOR);
-		//*/
+		private List<Type> EMPTY_CLASS_LIST;
+
+		private ITypeFilter MATCHER;
+
+		/*============================================================================*/
+		/* Test Setup and Teardown                                                    */
+		/*============================================================================*/
+
+		[SetUp]
+		public void Setup()
+		{
+			EMPTY_CLASS_LIST = new List<Type> ();
+			MATCHER = new TypeFilter(EMPTY_CLASS_LIST, EMPTY_CLASS_LIST, EMPTY_CLASS_LIST);
+		}
+
 		/*============================================================================*/
 		/* Tests                                                                      */
 		/*============================================================================*/
-		/*
+
 		[Test]
-		public function mapping_remembers_matcher():void
+		public void Mapping_Remembers_Matcher()
 		{
-			const mapping:ViewProcessorMapping = new ViewProcessorMapping(MATCHER, ViewInjectionProcessor);
-			assertThat(mapping.matcher, equalTo(MATCHER));
+			ViewProcessorMapping mapping = new ViewProcessorMapping(MATCHER, typeof(ViewInjectionProcessor));
+			Assert.That(mapping.Matcher, Is.EqualTo(MATCHER));
 		}
 
 		[Test]
-		public function mapping_handed_processor_class_sets_processorClass_property():void
+		public void Mapping_Handed_Processor_Class_Sets_ProcessorClass_Property()
 		{
-			const processorClass:Class = ViewInjectionProcessor;
-			const mapping:ViewProcessorMapping = new ViewProcessorMapping(MATCHER, processorClass);
-			assertThat(mapping.processorClass, equalTo(processorClass));
+			Type processorClass = typeof(ViewInjectionProcessor);
+			ViewProcessorMapping mapping = new ViewProcessorMapping(MATCHER, processorClass);
+			Assert.That(mapping.ProcessorClass, Is.EqualTo(processorClass));
+		}
+			
+		[Test]
+		public void Mapping_Handed_Processor_Class_Leaves_Processor_Null()
+		{
+			Type processorClass = typeof(ViewInjectionProcessor);
+			ViewProcessorMapping mapping = new ViewProcessorMapping(MATCHER, processorClass);
+			Assert.That(mapping.Processor, Is.Null);
 		}
 
 		[Test]
-		public function mapping_handed_processor_class_leaves_processor_null():void
+		public void Mapping_Handed_Processor_Object_Sets_ProcessorClass_Property()
 		{
-			const processorClass:Class = ViewInjectionProcessor;
-			const mapping:ViewProcessorMapping = new ViewProcessorMapping(MATCHER, processorClass);
-			assertThat(mapping.processor, equalTo(null));
+			object processor = new ViewInjectionProcessor();
+			ViewProcessorMapping mapping = new ViewProcessorMapping(MATCHER, processor);
+			Assert.That(mapping.ProcessorClass, Is.EqualTo(typeof(ViewInjectionProcessor)));
 		}
 
 		[Test]
-		public function mapping_handed_processor_object_sets_processorClass_property():void
+		public void Mapping_Handed_Processor_Object_Sets_Processor_Property()
 		{
-			const processor:Object = new ViewInjectionProcessor();
-			const mapping:ViewProcessorMapping = new ViewProcessorMapping(MATCHER, processor);
-			assertThat(mapping.processorClass, equalTo(ViewInjectionProcessor));
+			object processor = new ViewInjectionProcessor();
+			ViewProcessorMapping mapping = new ViewProcessorMapping(MATCHER, processor);
+			Assert.That(mapping.Processor, Is.EqualTo(processor));
 		}
-
-		[Test]
-		public function mapping_handed_processor_object_sets_processor_property():void
-		{
-			const processor:Object = new ViewInjectionProcessor();
-			const mapping:ViewProcessorMapping = new ViewProcessorMapping(MATCHER, processor);
-			assertThat(mapping.processor, equalTo(processor));
-		}
-		//*/
 	}
 }

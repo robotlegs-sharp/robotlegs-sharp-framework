@@ -30,7 +30,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		public void Process(object view, Type type, IInjector injector)
 		{
-			if(_injectedObjects.ContainsKey(view))
+			if(!_injectedObjects.ContainsKey(view))
 			{
 				InjectAndRemember(view, injector);
 			}
