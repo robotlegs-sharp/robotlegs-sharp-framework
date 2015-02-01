@@ -51,6 +51,11 @@
     <Folder Include="src\robotlegs\bender\unity\" />
     <Folder Include="src\robotlegs\bender\bundles\mvcs\" />
     <Folder Include="src\robotlegs\bender\unity\extensions\" />
+    <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\" />
+    <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\api\" />
+    <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\" />
+    <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\" />
+    <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
@@ -174,6 +179,26 @@
     <Compile Include="src\robotlegs\bender\extensions\contextview\StageSyncExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IViewStateWatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\api\ViewNotifier.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\ViewProcessorMapExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\api\IViewProcessorMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\IViewProcessorFactory.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\IViewProcessorMapping.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorMap.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\IViewProcessorMapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\IViewProcessorMappingConfig.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorMapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\IViewProcessorUnmapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\IViewProcessorViewHandler.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\ViewInjectionProcessor.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorMapping.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\NullViewProcessorUnmapper.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\NullProcessor.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorFactory.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\ViewProcessorViewHandler.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\PropertyValueInjector.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\MediatorCreator.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\FastPropertyInjector.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\api\ViewProcessorMapException.cs" />
     <Compile Include="src\robotlegs\bender\unity\bundles\UnityMVCSBundle.cs" />
     <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\UnityParentFinderExtension.cs" />
     <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\impl\UnityParentFinder.cs" />

@@ -10,6 +10,7 @@ using robotlegs.bender.extensions.directCommandMap;
 using robotlegs.bender.extensions.eventCommandMap;
 using robotlegs.bender.extensions.eventDispatcher;
 using robotlegs.bender.extensions.localEventMap;
+using robotlegs.bender.extensions.viewProcessorMap;
 
 namespace robotlegs.bender.bundles.mvcs
 {
@@ -34,7 +35,7 @@ namespace robotlegs.bender.bundles.mvcs
 			context.Install(typeof(ViewManagerExtension));
 //			context.Install(typeof(StageObserverExtension));
 			context.Install(typeof(MediatorMapExtension));
-//			context.Install(typeof(ViewProcessorMapExtension));
+			context.Install(typeof(ViewProcessorMapExtension));
 
 			context.Configure(typeof(FallbackContainerConfig));
 		}

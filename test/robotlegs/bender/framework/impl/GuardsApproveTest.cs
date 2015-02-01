@@ -124,7 +124,7 @@ namespace robotlegs.bender.framework.impl
 		}
 		*/
 
-		[Test, ExpectedException(typeof(NullReferenceException))]
+		[Test, ExpectedException(typeof(Exception))]
 		public void guard_instance_without_approve_throws_error()
 		{
 			object invalidGuard = new object ();

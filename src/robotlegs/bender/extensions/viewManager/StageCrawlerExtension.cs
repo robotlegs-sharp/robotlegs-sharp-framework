@@ -38,7 +38,7 @@ namespace robotlegs.bender.extensions.viewManager
 			_containerRegistry = _injector.GetInstance(typeof(ContainerRegistry)) as ContainerRegistry;
 			if (!_injector.HasDirectMapping (typeof(IStageCrawler)))
 			{
-				_logger.Warn ("No CrawlerConfig configured. Make sure to configure a platform specific stage crawler config, or don't install eht StageCrawler extension");
+				_logger.Warn ("No CrawlerConfig configured. Make sure to configure a platform specific stage crawler config, or don't install the StageCrawler extension");
 				return;
 			}
 			if(_injector.HasDirectMapping(typeof(IViewManager)))

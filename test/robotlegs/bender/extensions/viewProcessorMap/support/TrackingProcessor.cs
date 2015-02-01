@@ -1,0 +1,54 @@
+using System.Collections.Generic;
+using robotlegs.bender.framework.api;
+using System;
+
+namespace robotlegs.bender.extensions.viewProcessorMap.support
+{
+	public class TrackingProcessor : ITrackingProcessor
+	{
+		/*============================================================================*/
+		/* Private Properties                                                          */
+		/*============================================================================*/
+
+		private List<object> _processedViews = new List<object>();
+
+		private List<object> _unprocessedViews = new List<object>();
+
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		public List<object> ProcessedViews
+		{
+			get
+			{
+				return _processedViews;
+			}
+		}
+
+
+		public List<object> UnprocessedViews
+		{
+			get
+			{
+				return _unprocessedViews;
+			}
+		}
+
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
+
+		public void Process(object view, Type type, IInjector injector)
+		{
+			_processedViews.Add(view);
+		}
+
+		public void Unprocess(object view, Type type, IInjector injector)
+		{
+			_unprocessedViews.Add(view);
+		}
+	}
+
+}
+
