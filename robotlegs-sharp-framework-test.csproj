@@ -89,6 +89,7 @@
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportContainer.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\TreeContainerSupport.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\CallbackViewHandler.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ParentFinderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

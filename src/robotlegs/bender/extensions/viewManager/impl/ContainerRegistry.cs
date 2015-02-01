@@ -111,7 +111,6 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		public ContainerBinding FindParentBinding(object container)
 		{
-			//TODO: Make this not dependant on a parent finder
 			if (_parentFinder == null)
 				return _fallbackBinding;
 
