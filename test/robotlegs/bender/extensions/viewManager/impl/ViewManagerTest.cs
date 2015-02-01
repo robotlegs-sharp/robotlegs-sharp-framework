@@ -14,6 +14,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		private SupportContainer container;
 
+		private ContainerRegistry registry;
+
 		private ViewManager viewManager;
 
 //		private StageObserver stageObserver;
@@ -26,10 +28,17 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		public void before()
 		{
 			container = new SupportContainer ();
-			ContainerRegistry registry = new ContainerRegistry();
+			registry = new ContainerRegistry();
 			registry.SetParentFinder (new SupportParentFinder ());
 			viewManager = new ViewManager(registry);
 			ViewNotifier.SetRegistry (registry);
+		}
+
+		[TearDown]
+		public void after()
+		{
+			registry.SetParentFinder (null);
+			ViewNotifier.SetRegistry (null);
 		}
 
 		/*============================================================================*/
