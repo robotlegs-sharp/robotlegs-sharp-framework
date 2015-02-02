@@ -15,7 +15,7 @@ namespace robotlegs.bender.extensions.eventDispatcher
 
 		private IEventDispatcher _eventDispatcher;
 
-//		private LifecycleEventRelay _lifecycleRelay;
+		private LifecycleEventRelay _lifecycleRelay;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
@@ -33,8 +33,8 @@ namespace robotlegs.bender.extensions.eventDispatcher
 		{
 			_context = context;
 			_context.injector.Map(typeof(IEventDispatcher)).ToValue(_eventDispatcher);
-//			_context.beforeInitializing(configureLifecycleEventRelay);
-//			_context.afterDestroying(destroyLifecycleEventRelay);
+			_context.BeforeInitializing(ConfigureLifecycleEventRelay);
+			_context.AfterDestroying(DestroyLifecycleEventRelay);
 		}
 
 		/*============================================================================*/
@@ -43,12 +43,12 @@ namespace robotlegs.bender.extensions.eventDispatcher
 
 		private void ConfigureLifecycleEventRelay()
 		{
-//			_lifecycleRelay = new LifecycleEventRelay(_context, _eventDispatcher);
+			_lifecycleRelay = new LifecycleEventRelay(_context, _eventDispatcher);
 		}
 
 		private void DestroyLifecycleEventRelay()
 		{
-//			_lifecycleRelay.Destroy();
+			_lifecycleRelay.Destroy();
 		}
 	}
 }

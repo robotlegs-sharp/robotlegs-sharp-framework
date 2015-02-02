@@ -55,7 +55,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.INITIALIZE += value;
+				_lifecycle.INITIALIZE -= value;
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.POST_INITIALIZE += value;
+				_lifecycle.POST_INITIALIZE -= value;
 			}
 		}
 
@@ -79,7 +79,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.PRE_SUSPEND += value;
+				_lifecycle.PRE_SUSPEND -= value;
 			}
 		}
 
@@ -91,7 +91,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.SUSPEND += value;
+				_lifecycle.SUSPEND -= value;
 			}
 		}
 
@@ -103,7 +103,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.POST_SUSPEND += value;
+				_lifecycle.POST_SUSPEND -= value;
 			}
 		}
 
@@ -115,7 +115,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.PRE_RESUME += value;
+				_lifecycle.PRE_RESUME -= value;
 			}
 		}
 
@@ -127,7 +127,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.RESUME += value;
+				_lifecycle.RESUME -= value;
 			}
 		}
 
@@ -139,7 +139,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.POST_RESUME += value;
+				_lifecycle.POST_RESUME -= value;
 			}
 		}
 
@@ -151,7 +151,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.PRE_DESTROY += value;
+				_lifecycle.PRE_DESTROY -= value;
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.DESTROY += value;
+				_lifecycle.DESTROY -= value;
 			}
 		}
 
@@ -175,7 +175,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			remove 
 			{
-				_lifecycle.POST_DESTROY += value;
+				_lifecycle.POST_DESTROY -= value;
 			}
 		}
 

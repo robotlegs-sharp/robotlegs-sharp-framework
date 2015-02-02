@@ -214,6 +214,8 @@
     <Compile Include="src\robotlegs\bender\extensions\modularity\dsl\ModuleChannels.cs" />
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\impl\EventRelay.cs" />
     <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ModularContextEvent.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\impl\LifecycleEventRelay.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\api\LifecycleEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
