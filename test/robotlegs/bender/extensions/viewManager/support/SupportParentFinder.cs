@@ -25,8 +25,6 @@ namespace robotlegs.bender.extensions.viewManager.support
 
 		public object FindParent (object childView, System.Collections.Generic.Dictionary<object, robotlegs.bender.extensions.viewManager.impl.ContainerBinding> containers)
 		{
-			Console.WriteLine ("Find parent");
-
 			foreach (object obj in containers.Keys)
 			{
 				Console.WriteLine (obj);

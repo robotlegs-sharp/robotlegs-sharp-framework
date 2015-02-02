@@ -20,7 +20,4 @@ Global
 		{FBC7C81F-AD6C-48BB-AF4F-E86BE9BAA65F}.Release|x86.ActiveCfg = Release|x86
 		{FBC7C81F-AD6C-48BB-AF4F-E86BE9BAA65F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = robotlegs-sharp-framework-test.csproj
-	EndGlobalSection
 EndGlobal

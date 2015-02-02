@@ -102,6 +102,7 @@ namespace robotlegs.bender.framework.api
 
 		IContext AddChild(IContext child);
 		IContext RemoveChild(IContext child);
+
 	}
 }
 

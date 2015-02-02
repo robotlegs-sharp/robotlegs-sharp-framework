@@ -67,6 +67,12 @@
     <Folder Include="test\robotlegs\bender\extensions\viewManager\" />
     <Folder Include="test\robotlegs\bender\extensions\viewManager\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\viewManager\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\modularity\" />
+    <Folder Include="test\robotlegs\bender\extensions\eventCommandMap\" />
+    <Folder Include="test\robotlegs\bender\extensions\eventCommandMap\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\eventDispatcher\impl\" />
+    <Folder Include="test\robotlegs\bender\extensions\contextView\" />
+    <Folder Include="test\robotlegs\bender\extensions\contextView\support\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -113,6 +119,15 @@
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportContainer.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\TreeContainerSupport.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\CallbackViewHandler.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\modularity\ModularityExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\modularity\impl\ModuleConnectionConfiguratorTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\modularity\impl\ModuleConnectorTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\SupportEvent.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventDispatcher\impl\EventRelayTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\contextView\support\TestSupportStageSyncExtension.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\contextView\StageSyncExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\TestObjectViewStateWatcher.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportParentFinderExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

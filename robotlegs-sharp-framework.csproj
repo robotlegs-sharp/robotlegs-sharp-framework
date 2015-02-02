@@ -56,6 +56,7 @@
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\" />
+    <Folder Include="src\robotlegs\bender\extensions\modularity\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
@@ -204,9 +205,19 @@
     <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\impl\UnityParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\BlankParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\FallbackContainerConfig.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\modularity\ModularityExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\modularity\api\IModuleConnector.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\modularity\dsl\IModuleConnectionAction.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ContextViewBasedExistenceWatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ModuleConnectionConfigurator.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ModuleConnector.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\modularity\dsl\ModuleChannels.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\impl\EventRelay.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ModularContextEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
+    <None Include="src\robotlegs\bender\extensions\modularity\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="swiftsuspenders-sharp">
