@@ -45,7 +45,7 @@
       <HintPath>lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
-      <HintPath>packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+      <HintPath>lib\Moq.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -140,8 +140,5 @@
       <Project>{0860F3E8-816C-4B61-A774-BFAB44F94896}</Project>
       <Name>robotlegs-sharp-framework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>
