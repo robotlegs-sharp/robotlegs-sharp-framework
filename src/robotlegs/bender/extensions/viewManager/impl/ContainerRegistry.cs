@@ -20,7 +20,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 	/// </summary>
 
 
-	public class ContainerRegistry
+	public class ContainerRegistry : IParentFinder
 	{
 		/*============================================================================*/
 		/* Public Properties                                                          */
@@ -111,7 +111,6 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		public ContainerBinding FindParentBinding(object container)
 		{
-			//TODO: Make this not dependant on a parent finder
 			if (_parentFinder == null)
 				return _fallbackBinding;
 
@@ -139,6 +138,16 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		public void SetParentFinder(IParentFinder parentFinder)
 		{
 			_parentFinder = parentFinder;
+		}
+
+		public bool Contains (object parentContainer, object childContainer)
+		{
+			return _parentFinder.Contains (parentContainer, childContainer);
+		}
+
+		public object FindParent (object childView, Dictionary<object, ContainerBinding> containers)
+		{
+			return _parentFinder.Contains (childView, containers);
 		}
 
 		/*============================================================================*/

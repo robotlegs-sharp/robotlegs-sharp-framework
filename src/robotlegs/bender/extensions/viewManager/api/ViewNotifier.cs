@@ -5,7 +5,27 @@ namespace robotlegs.bender.extensions.viewManager.api
 {
 	public static class ViewNotifier
 	{
+		/*============================================================================*/
+		/* Public Static Properties                                                   */
+		/*============================================================================*/
+
+		public static ContainerRegistry Registry
+		{
+			get
+			{
+				return _registry;
+			}
+		}
+
+		/*============================================================================*/
+		/* Private Static Properties                                                  */
+		/*============================================================================*/
+
 		private static ContainerRegistry _registry;
+
+		/*============================================================================*/
+		/* Public Static Functions                                                    */
+		/*============================================================================*/
 
 		public static void SetRegistry(ContainerRegistry containerRegistry)
 		{

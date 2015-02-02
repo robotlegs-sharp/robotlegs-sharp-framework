@@ -4,19 +4,23 @@ namespace robotlegs.bender.extensions.viewManager.support
 {
 	public class SupportContainer
 	{
-		public SupportContainer Parent
+		public virtual SupportContainer Parent
 		{
 			get
 			{
 				return _parent;
 			}
+			protected set
+			{
+				_parent = value;
+			}
 		}
 
-		private SupportContainer _parent;
+		protected SupportContainer _parent;
 
-		public void AddChild(SupportContainer child)
+		public virtual void AddChild(SupportContainer child)
 		{
-			child._parent = this;
+			child.Parent = this;
 		}
 	}
 }

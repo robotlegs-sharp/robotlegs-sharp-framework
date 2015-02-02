@@ -35,7 +35,31 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/*============================================================================*/
 
 		[Test]
-		public void AddContainer()
+		public void Parent_Finder_Positive()
+		{
+			bool contains = true;
+			object parent = new object();
+			registry.SetParentFinder(new CustomParentFinder(contains, parent));
+			object expectedParent = registry.FindParent (null, null);
+			object expectedContains = registry.Contains (null, null);
+			Assert.That (contains, Is.EqualTo (expectedContains));
+			Assert.That (parent, Is.EqualTo (parent));
+		}
+
+		[Test]
+		public void Parent_Finder_Negative()
+		{
+			bool contains = false;
+			object parent = null;
+			registry.SetParentFinder(new CustomParentFinder(contains, parent));
+			object expectedParent = registry.FindParent (null, null);
+			object expectedContains = registry.Contains (null, null);
+			Assert.That (contains, Is.EqualTo (expectedContains));
+			Assert.That (parent, Is.EqualTo (parent));
+		}
+
+		[Test]
+		public void addContainer()
 		{
 			registry.AddContainer(container);
 		}
