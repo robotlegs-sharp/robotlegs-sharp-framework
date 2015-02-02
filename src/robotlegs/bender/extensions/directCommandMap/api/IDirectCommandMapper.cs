@@ -11,6 +11,7 @@ namespace robotlegs.bender.extensions.directCommandMap.api
 		/// <returns>The command configurator</returns>
 		/// <param name="commandClass">The concrete command class</param>
 		IDirectCommandConfigurator Map(Type commandClass);
+		IDirectCommandConfigurator Map<T>();
 
 		/// <summary>
 		/// Executes the configured command(s)

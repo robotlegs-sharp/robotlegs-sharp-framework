@@ -46,6 +46,11 @@ namespace robotlegs.bender.extensions.directCommandMap.api
 			return new DirectCommandMapper(_executor, _mappings, commandClass);
 		}
 
+		public IDirectCommandConfigurator Map <T>()
+		{
+			return new DirectCommandMapper(_executor, _mappings, typeof(T));
+		}
+
 		public void Detain (object command)
 		{
 			_context.Detain (command);
@@ -56,7 +61,7 @@ namespace robotlegs.bender.extensions.directCommandMap.api
 			_context.Release (command);
 		}
 
-		public void Execute (robotlegs.bender.extensions.commandCenter.api.CommandPayload payload)
+		public void Execute (robotlegs.bender.extensions.commandCenter.api.CommandPayload payload = null)
 		{
 			_executor.ExecuteCommands (_mappings.GetList(), payload);
 		}

@@ -57,14 +57,9 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			}
 		}
 
-		/**
-		 * @inheritDoc
-		 */
 		public void ExecuteCommand(ICommandMapping mapping, CommandPayload payload = null)
 		{
-			//*
 			bool hasPayload = payload !=null && payload.HasPayload();
-			//const hasPayload:Boolean = payload && payload.hasPayload();
 			bool injectionEnabled = hasPayload && mapping.PayloadInjectionEnabled;
 			object command = null;
 
@@ -76,15 +71,12 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 				Type commandClass = mapping.CommandClass;
 				if (mapping.FireOnce && _removeMapping != null)
 					_removeMapping (mapping);
-//				command = _injector.getOrCreateNewInstance(commandClass);
 				command = _injector.GetOrCreateNewInstance(commandClass);
 				if (mapping.Hooks.Count > 0)
 				{
 					_injector.Map(commandClass).ToValue(command);
-//					_injector.map(commandClass).toValue(command);
 					Hooks.Apply(_injector, mapping.Hooks.ToArray());
 					_injector.Unmap(commandClass);
-//					_injector.unmap(commandClass);
 				}
 			}
 
@@ -112,7 +104,6 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			while (i-- > 0)
 			{
 				_injector.Map (payload.Classes [i]).ToValue (payload.Values [i]);
-//				_injector.Map(payload.classes[i]).toValue(payload.values[i]);
 			}
 		}
 
@@ -122,7 +113,6 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			while (i-- > 0)
 			{
 				_injector.Unmap(payload.Classes [i]);
-//				_injector.Unmap(payload.classes[i]);
 			}
 		}
 	}

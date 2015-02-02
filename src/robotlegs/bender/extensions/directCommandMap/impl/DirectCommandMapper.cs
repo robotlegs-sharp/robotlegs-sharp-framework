@@ -68,6 +68,11 @@ namespace robotlegs.bender.extensions.directCommandMap.api
 		{
 			return new DirectCommandMapper (_executor, _mappings, commandClass);
 		}
+
+		public IDirectCommandConfigurator Map<T>()
+		{
+			return new DirectCommandMapper (_executor, _mappings, typeof(T));
+		}
 	}
 }
 
