@@ -116,6 +116,9 @@
     <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ParentFinderTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ViewManagerTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportView.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\CustomParentFinder.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ContainerBindingTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ViewNotifierTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

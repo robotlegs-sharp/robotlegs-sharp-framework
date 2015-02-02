@@ -6,17 +6,19 @@ using robotlegs.bender.extensions.viewManager.api;
 
 namespace robotlegs.bender.extensions.viewManager.impl
 {
-	public class ViewManagerTest
+	[TestFixture]
+	public class ContainerBindingTest
 	{
+
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
 		private SupportContainer container;
 
-		private ContainerRegistry registry;
-
 		private ViewManager viewManager;
+
+		private ContainerRegistry registry;
 
 		/*============================================================================*/
 		/* Test Setup and Teardown                                                    */
@@ -35,7 +37,6 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		[TearDown]
 		public void after()
 		{
-			registry.SetParentFinder (null);
 			ViewNotifier.SetRegistry (null);
 		}
 
@@ -52,8 +53,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		[Test, ExpectedException]
 		public void addContainer_throws_if_containers_are_nested()
 		{
-			SupportContainer container1 = new SupportContainer ();
-			SupportContainer container2 = new SupportContainer ();
+			SupportContainer container1 = new SupportContainer();
+			SupportContainer container2 = new SupportContainer();
 			container1.AddChild(container2);
 			viewManager.AddContainer(container1);
 			viewManager.AddContainer(container2);
@@ -69,15 +70,14 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				actual = view;
 			}));
 			container.AddChild(expected);
-			expected.Register ();
 			Assert.That(actual, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void handlers_are_called()
 		{
-			List<object> expected = new List<object> {"handler1", "handler2", "handler3"};
-			List<object> actual = new List<object>();
+			List<object> expected = new List<object>{"handler1", "handler2", "handler3"};
+			List<object> actual = new List<object> ();
 			viewManager.AddContainer(container);
 			viewManager.AddViewHandler(new CallbackViewHandler(delegate(object view, Type type) {
 				actual.Add("handler1");
@@ -88,8 +88,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			viewManager.AddViewHandler(new CallbackViewHandler(delegate(object view, Type type) {
 				actual.Add("handler3");
 			}));
-			SupportView supportView = new SupportView();
-			container.AddChild(supportView);
+			container.AddChild(new SupportView());
 			Assert.That(actual, Is.EqualTo(expected).AsCollection);
 		}
 
@@ -102,8 +101,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				callCount++;
 			}));
 			viewManager.RemoveContainer(container);
-			SupportView supportView = new SupportView();
-			container.AddChild(supportView);
+			container.AddChild(new SupportView());
 			Assert.That(callCount, Is.EqualTo(0));
 		}
 

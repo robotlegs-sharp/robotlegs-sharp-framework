@@ -8,13 +8,35 @@ namespace robotlegs.bender.extensions.viewManager.support
 	{
 		public event Action<IView> RemoveView;
 
+		private bool registerd = false;
+
 		public SupportView ()
 		{
 
 		}
 
+		public override SupportContainer Parent
+		{
+			get
+			{
+				return base.Parent;
+			}
+			protected set
+			{
+				base.Parent = value;
+				if (value != null)
+				{
+					Register ();
+				}
+			}
+		}
+
 		public void Register()
 		{
+			if (registerd)
+				return;
+
+			registerd = true;
 			ViewNotifier.RegisterView (this, GetType());
 		}
 

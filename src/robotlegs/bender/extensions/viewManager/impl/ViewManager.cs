@@ -159,9 +159,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				if (container == registeredContainer)
 					return false;
 
-				//TODO:PARENT
-//				if (registeredContainer.contains(container) || container.contains(registeredContainer))
-//					throw new Exception("Containers can not be nested");
+				if (_registry.Contains (registeredContainer, container) || _registry.Contains (container, registeredContainer))
+					throw new Exception ("Containers can not be nested");
 			}
 			return true;
 		}

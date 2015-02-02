@@ -10,13 +10,17 @@ namespace robotlegs.bender.extensions.viewManager.support
 			{
 				return _parent;
 			}
+			protected set
+			{
+				_parent = value;
+			}
 		}
 
-		private SupportContainer _parent;
+		protected SupportContainer _parent;
 
 		public virtual void AddChild(SupportContainer child)
 		{
-			child._parent = this;
+			child.Parent = this;
 		}
 	}
 }
