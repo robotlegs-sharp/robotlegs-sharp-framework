@@ -43,7 +43,7 @@ namespace robotlegs.bender.extensions.viewManager
 			}
 			if(_injector.HasDirectMapping(typeof(IViewManager)))
 			{
-				ScanViewManagedContainers ();
+				ScanViewManagedContainers();
 			}
 			else
 			{
@@ -57,7 +57,7 @@ namespace robotlegs.bender.extensions.viewManager
 			IViewManager viewManager = _injector.GetInstance (typeof(IViewManager)) as IViewManager;
 			foreach (object container in viewManager.Containers)
 			{
-				// How to check if the view is on the stage?? Use a View watcher?
+				// TODO: Matt How to check if the view is on the stage?? Use a View watcher?
 				//container.stage && ScanContainer(container);
 				ScanContainer(container);
 			}
@@ -68,7 +68,7 @@ namespace robotlegs.bender.extensions.viewManager
 		{
 			_logger.Debug("ViewManager is not installed. Checking the ContextView...");
 			IContextView contextView = _injector.GetInstance(typeof(IContextView)) as IContextView;
-			// How to check if the contextView is on the stage?? Use a View watcher?
+			// TODO: Matt How to check if the contextView is on the stage?? Use a View watcher?
 			//contextView.view.stage && ScanContainer(contextView.view);
 			ScanContainer(contextView.view);
 		}

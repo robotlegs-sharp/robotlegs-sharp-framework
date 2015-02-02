@@ -161,18 +161,48 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 class ObjectA : object, IView
 {
+	public event Action<IView> AddView;
 	public event Action<IView> RemoveView;
+	public event Action<IView> DisableView;
+	public event Action<IView> EnableView;
+	public bool isAddedToStage;
+	public object parent;
 
-	public void AddMockView()
+	public void AddMockView() { AddMockViewToParent(null); }
+	public void AddMockViewToParent(object parent)
 	{
 		ViewNotifier.RegisterView (this, this.GetType ());
+		isAddedToStage = true;
+		this.parent = parent;
+		if (AddView != null)
+		{
+			AddView (this);
+		}
 	}
 
 	public void RemoveMockView()
 	{
+		isAddedToStage = false;
+		parent = null;
 		if (RemoveView != null)
 		{
 			RemoveView (this);
+		}
+	}
+
+	public void Enable()
+	{
+		if (EnableView != null)
+		{
+			EnableView (this);
+		}
+	}
+
+	public void Disable()
+	{
+		if (DisableView != null)
+		{
+			DisableView (this);
 		}
 	}
 }

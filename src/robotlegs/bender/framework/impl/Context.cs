@@ -479,10 +479,11 @@ namespace robotlegs.bender.framework.impl
 				_children.Add(child);
 				child.injector.parent = injector;
 				child.POST_DESTROY += OnChildDestroy;
+
 			}
 			return this;
 		}
-		
+
 		public IContext RemoveChild(IContext child)
 		{
 			if (_children.Contains(child))
@@ -491,6 +492,7 @@ namespace robotlegs.bender.framework.impl
 				_children.Remove(child);
 				child.injector.parent = null;
 				child.POST_DESTROY -= OnChildDestroy;
+
 			}
 			else
 			{
@@ -498,7 +500,7 @@ namespace robotlegs.bender.framework.impl
 			}
 			return this;
 		}
-		
+
 		// Handle this process match from the config
 		public IContext AddConfigHandler(IMatcher matcher, Action<object> handler)
 		{

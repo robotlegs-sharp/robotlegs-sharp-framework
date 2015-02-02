@@ -121,8 +121,9 @@ namespace robotlegs.bender.extensions.contextview
 		}
 		
 		/*============================================================================*/
-		/* Protected Abstract Functions                                                           */
+		/* Protected Abstract Functions                                               */
 		/*============================================================================*/
+
 		protected abstract IViewStateWatcher GetContextViewStateWatcher (object contextView);
 
 	}
