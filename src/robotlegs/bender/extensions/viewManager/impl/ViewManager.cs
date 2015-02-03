@@ -26,9 +26,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<object> ContainerAdd;
+		public event Action<object> ContainerAdded;
 
-		public event Action<object> ContainerRemove;
+		public event Action<object> ContainerRemoved;
 
 		public event Action<IViewHandler> HandlerAdd;
 
@@ -78,9 +78,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				containerBinding.AddHandler(handler);
 			}
 
-			if (ContainerAdd != null)
+			if (ContainerAdded != null)
 			{
-				ContainerAdd (container);
+				ContainerAdded (container);
 			}
 		}
 
@@ -95,9 +95,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				binding.RemoveHandler (handler);
 			}
 
-			if (ContainerAdd != null)
+			if (ContainerRemoved != null)
 			{
-				ContainerAdd (container);
+				ContainerRemoved (container);
 			}
 		}
 

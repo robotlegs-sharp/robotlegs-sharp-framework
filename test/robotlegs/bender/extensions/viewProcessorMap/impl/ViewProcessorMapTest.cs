@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using robotlegs.bender.extensions.mediatorMap.api;
+using robotlegs.bender.extensions.viewManager.support;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {
@@ -22,7 +23,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		// TODO: extract processing tests into own tests
 		// TODO: add actual ViewProcessorMap tests
 
-		private TypeMatcher objectAMatcher = new TypeMatcher().AllOf(typeof(ObjectA));
+		private TypeMatcher supportViewMatcher = new TypeMatcher().AllOf(typeof(SupportView));
 
 		private ViewProcessorMap viewProcessorMap;
 
@@ -32,13 +33,13 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		private IInjector injector;
 
-		private ObjectA matchingView;
+		private SupportView matchingView;
 
 		private ObjectB nonMatchingView;
 
 		private GuardObject guardObject;
 
-		private ObjectAWithWidthAndHeight matchingView2;
+		private SupportViewWithWidthAndHeight matchingView2;
 
 		/*============================================================================*/
 		/* Test Setup and Teardown                                                    */
@@ -52,10 +53,10 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			viewProcessorMap = new ViewProcessorMap(new ViewProcessorFactory(injector));
 			trackingProcessor = new TrackingProcessor();
 			trackingProcessor2 = new TrackingProcessor();
-			matchingView = new ObjectA();
+			matchingView = new SupportView();
 			nonMatchingView = new ObjectB();
 			guardObject = new GuardObject();
-			matchingView2 = new ObjectAWithWidthAndHeight();
+			matchingView2 = new SupportViewWithWidthAndHeight();
 		}
 
 		/*============================================================================*/
@@ -71,7 +72,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Process_Passes_Mapped_Views_To_Processor_Instance_Process_With_Mapping_By_Type()
 		{
-			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(trackingProcessor);
+			viewProcessorMap.Map(typeof(SupportView)).ToProcess(trackingProcessor);
 			viewProcessorMap.Process(matchingView);
 			viewProcessorMap.Process(nonMatchingView);
 
@@ -81,7 +82,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Process_Passes_Mapped_Views_To_Processor_Instance_Process_With_Mapping_By_Matcher()
 		{
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(trackingProcessor);
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(trackingProcessor);
 			viewProcessorMap.Process(matchingView);
 			viewProcessorMap.Process(nonMatchingView);
 			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { matchingView });
@@ -90,7 +91,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Process_Passes_Mapped_Views_To_Processor_Class_Process_With_Mapping_By_Type()
 		{
-			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(typeof(TrackingProcessor));
+			viewProcessorMap.Map(typeof(SupportView)).ToProcess(typeof(TrackingProcessor));
 			viewProcessorMap.Process(matchingView);
 			viewProcessorMap.Process(nonMatchingView);
 			AssertThatProcessorHasProcessedThese(FromInjector(typeof(TrackingProcessor)), new object [1] { matchingView });
@@ -99,7 +100,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Process_Passes_Mapped_Views_To_Processor_Class_Process_With_Mapping_By_Matcher()
 		{
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(typeof(TrackingProcessor));
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(typeof(TrackingProcessor));
 			viewProcessorMap.Process(matchingView);
 			viewProcessorMap.Process(nonMatchingView);
 			AssertThatProcessorHasProcessedThese(FromInjector(typeof(TrackingProcessor)), new object[1] { matchingView });
@@ -108,8 +109,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Mapping_One_Matcher_To_Multiple_Processes_By_Class_All_Processes_Run()
 		{
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(typeof(TrackingProcessor));
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(typeof(TrackingProcessor2));
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(typeof(TrackingProcessor));
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(typeof(TrackingProcessor2));
 			viewProcessorMap.Process(matchingView);
 			viewProcessorMap.Process(nonMatchingView);
 			AssertThatProcessorHasProcessedThese(FromInjector(typeof(TrackingProcessor)), new object[1] { matchingView});
@@ -119,8 +120,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Mapping_One_Matcher_To_Multiple_Processes_By_Instance_All_Processes_Run()
 		{
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(trackingProcessor);
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(trackingProcessor2);
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(trackingProcessor);
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(trackingProcessor2);
 			viewProcessorMap.Process(matchingView);
 			viewProcessorMap.Process(nonMatchingView);
 			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { matchingView });
@@ -130,8 +131,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Duplicate_Identical_Mappings_By_Class_Do_Not_Repeat_Processes()
 		{
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(typeof(TrackingProcessor));
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(typeof(TrackingProcessor));
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(typeof(TrackingProcessor));
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(typeof(TrackingProcessor));
 			viewProcessorMap.Process(matchingView);
 			viewProcessorMap.Process(nonMatchingView);
 			AssertThatProcessorHasProcessedThese(FromInjector(typeof(TrackingProcessor)), new object[1] { matchingView });
@@ -140,8 +141,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Duplicate_Identical_Mappings_By_Instance_Do_Not_Repeat_Processes()
 		{
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(trackingProcessor);
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(trackingProcessor);
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(trackingProcessor);
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(trackingProcessor);
 			viewProcessorMap.Process(matchingView);
 			viewProcessorMap.Process(nonMatchingView);
 			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { matchingView });
@@ -150,7 +151,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Unprocess_Passes_Mapped_Views_To_Processor_Instance_Unprocess_With_Mapping_By_Type()
 		{
-			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(trackingProcessor);
+			viewProcessorMap.Map(typeof(SupportView)).ToProcess(trackingProcessor);
 			viewProcessorMap.Unprocess(matchingView);
 			viewProcessorMap.Unprocess(nonMatchingView);
 			AssertThatProcessorHasUnprocessedThese(trackingProcessor, new object[1] { matchingView });
@@ -159,7 +160,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Unprocess_Passes_Mapped_Views_To_Processor_Instance_Unprocess_With_Mapping_By_Matcher()
 		{
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(trackingProcessor);
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(trackingProcessor);
 			viewProcessorMap.Unprocess(matchingView);
 			viewProcessorMap.Unprocess(nonMatchingView);
 			AssertThatProcessorHasUnprocessedThese(trackingProcessor, new object[1] { matchingView });
@@ -168,9 +169,9 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Unmapping_Matcher_From_Single_Processor_Stops_Further_Processing()
 		{
-			viewProcessorMap.MapMatcher(objectAMatcher).ToProcess(trackingProcessor);
+			viewProcessorMap.MapMatcher(supportViewMatcher).ToProcess(trackingProcessor);
 			viewProcessorMap.Process(matchingView);
-			viewProcessorMap.UnmapMatcher(objectAMatcher).FromProcess(trackingProcessor);
+			viewProcessorMap.UnmapMatcher(supportViewMatcher).FromProcess(trackingProcessor);
 			viewProcessorMap.Process(matchingView);
 			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { matchingView });
 		}
@@ -178,9 +179,9 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Unmapping_Type_From_Single_Processor_Stops_Further_Processing()
 		{
-			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(trackingProcessor);
+			viewProcessorMap.Map(typeof(SupportView)).ToProcess(trackingProcessor);
 			viewProcessorMap.Process(matchingView);
-			viewProcessorMap.Unmap(typeof(ObjectA)).FromProcess(trackingProcessor);
+			viewProcessorMap.Unmap(typeof(SupportView)).FromProcess(trackingProcessor);
 			viewProcessorMap.Process(matchingView);
 			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[1] { matchingView });
 		}
@@ -188,9 +189,9 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[Test]
 		public void Unmapping_From_Single_Processor_Keeps_Other_Processors_Intact()
 		{
-			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(trackingProcessor);
-			viewProcessorMap.Map(typeof(ObjectA)).ToProcess(trackingProcessor2);
-			viewProcessorMap.Unmap(typeof(ObjectA)).FromProcess(trackingProcessor);
+			viewProcessorMap.Map(typeof(SupportView)).ToProcess(trackingProcessor);
+			viewProcessorMap.Map(typeof(SupportView)).ToProcess(trackingProcessor2);
+			viewProcessorMap.Unmap(typeof(SupportView)).FromProcess(trackingProcessor);
 			viewProcessorMap.Process(matchingView);
 			AssertThatProcessorHasProcessedThese(trackingProcessor, new object[0]);
 			AssertThatProcessorHasProcessedThese(trackingProcessor2, new object [1] { matchingView });
@@ -322,11 +323,11 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		public async void Automatically_Unprocesses_When_View_Leaves_Stage()
 		{
 			viewProcessorMap.Map(matchingView.GetType()).ToProcess(trackingProcessor);
-			matchingView.AddMockView();
+			matchingView.AddThisView();
 			viewProcessorMap.Process(matchingView);
 
 			matchingView.RemoveView += CheckUnprocessorsRan;
-			matchingView.RemoveMockView();
+			matchingView.RemoveThisView();
 			await Task.Delay(500);
 		}
 
@@ -416,7 +417,7 @@ class OnlyIfViewApprovesGuard
 	}
 }
 
-class ObjectAWithWidthAndHeight : ObjectA
+class SupportViewWithWidthAndHeight : SupportView
 {
 	public int Width;
 
@@ -431,7 +432,7 @@ class HookWithViewInjectionChangesSize
 	/*============================================================================*/
 
 	[Inject]
-	public ObjectAWithWidthAndHeight view {get;set;}
+	public SupportViewWithWidthAndHeight view {get;set;}
 
 	[Inject("rectWidth")]
 	public int rectWidth {get;set;}

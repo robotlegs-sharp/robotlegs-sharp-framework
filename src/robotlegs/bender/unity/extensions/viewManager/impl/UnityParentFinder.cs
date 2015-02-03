@@ -71,7 +71,7 @@ namespace robotlegs.bender.framework.unity.extensions.viewManager.impl
 			{
 				foreach (ContainerBinding containerBinding in containers)
 				{
-					if (containerBinding.Container == transform.parent)
+					if (containerBinding.Container is Transform && (Transform)containerBinding.Container == transform.parent)
 						return containerBinding.Container;
 				}
 				transform = transform.parent;

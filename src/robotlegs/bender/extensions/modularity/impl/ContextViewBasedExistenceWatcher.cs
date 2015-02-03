@@ -12,18 +12,18 @@ namespace robotlegs.bender.extensions.modularity.impl
 	{
 
 		/*============================================================================*/
-		/* Private Properties                                                         */
+		/* protected Properties                                                       */
 		/*============================================================================*/
 
-		private ILogger _logger;
+		protected ILogger _logger;
 
-		private IContext _context;
+		protected IContext _context;
 
-		private object _contextView;
+		protected object _contextView;
 
-		private IEventDispatcher _modularityDispatcher;
+		protected IEventDispatcher _modularityDispatcher;
 
-		private IParentFinder _parentFinder;
+		protected IParentFinder _parentFinder;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
@@ -37,30 +37,32 @@ namespace robotlegs.bender.extensions.modularity.impl
 			_parentFinder = parentFinder;
 			_modularityDispatcher = modularityDispatcher;
 			_context.WhenDestroying(Destroy);
-			Init();
 		}
 
+
 		/*============================================================================*/
-		/* Private Functions                                                          */
+		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		private void Init()
+		public virtual void Init()
 		{
 			_logger.Debug("Listening for context existence events on Context {0}", _context);
 			_modularityDispatcher.AddEventListener (ModularContextEvent.Type.CONTEXT_ADD, OnContextAdd);
 		}
 
-		private void Destroy()
+		/*============================================================================*/
+		/* Protected Functions                                                          */
+		/*============================================================================*/
+
+
+		protected virtual void Destroy()
 		{
 			_logger.Debug("Removing modular context existence event listener from context {0}", _context);
 			_modularityDispatcher.RemoveEventListener (ModularContextEvent.Type.CONTEXT_ADD, OnContextAdd);
 		}
 
-		private void OnContextAdd(IEvent evt)
+		protected virtual void OnContextAdd(IEvent evt)
 		{
-			// TODO: Matt: Currently ALL ExistanceWatchers will hear ALL CONTEXT_ADD events.
-			// We need to check if context is a child of _context as well as (context != _context)
-
 			ModularContextEvent castEvent = evt as ModularContextEvent;
 			object contextView = castEvent.ContextView;
 
@@ -68,24 +70,25 @@ namespace robotlegs.bender.extensions.modularity.impl
 			if (contextView == _contextView)
 				return;
 
+			if (ValidateContextView (contextView))
+			{
+				_logger.Debug("Context existence event caught. Configuring child context {0}", castEvent.Context);
+				_context.AddChild(castEvent.Context);
+			}
+		}
+
+		protected virtual bool ValidateContextView(object contextView)
+		{
 			List<ContainerBinding> possibleParents = null;
 			if (_parentFinder is ContainerRegistry)
 			{
 				possibleParents = (_parentFinder as ContainerRegistry).RootBindings;
 			}
 
-			if (possibleParents != null)
-			{
-				object parent = _parentFinder.FindParent (contextView, possibleParents);
-			}
-
-			if(	(possibleParents == null && _parentFinder.Contains(_contextView, contextView))
-				|| (possibleParents != null && _parentFinder.FindParent(contextView, possibleParents) == _contextView)
-				)
-			{
-				_logger.Debug("Context existence event caught. Configuring child context {0}", castEvent.Context);
-				_context.AddChild(castEvent.Context);
-			}
+			return
+				(possibleParents == null && _parentFinder.Contains (_contextView, contextView))
+				|| (possibleParents != null && _parentFinder.FindParent (contextView, possibleParents) == _contextView);
 		}
+
 	}
 }

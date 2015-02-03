@@ -50,6 +50,11 @@ namespace robotlegs.bender.extensions.viewManager
 				ViewNotifier.SetRegistry (_containerRegistry);
 			}
 			_injector.Map(typeof(ContainerRegistry)).ToValue(_containerRegistry);
+			if(_injector.HasDirectMapping(typeof(IParentFinder)))
+			{
+				_injector.Unmap (typeof(IParentFinder));
+			}
+			_injector.Map(typeof(IParentFinder)).ToValue(_containerRegistry);
 
 			// But you get your own View Manager
 			_injector.Map(typeof(IViewManager)).ToSingleton(typeof(ViewManager));

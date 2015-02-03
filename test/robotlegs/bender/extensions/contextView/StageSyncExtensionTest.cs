@@ -8,8 +8,8 @@ using robotlegs.bender.framework.impl;
 using robotlegs.bender.framework.api;
 using NUnit.Framework;
 using robotlegs.bender.extensions.contextview;
-using robotlegs.bender.extensions.contextView.support;
 using robotlegs.bender.extensions.contextview.impl;
+using robotlegs.bender.extensions.viewManager.support;
 
 namespace robotlegs.bender.extensions.contextView
 {
@@ -22,7 +22,7 @@ namespace robotlegs.bender.extensions.contextView
 
 		private IContext context;
 
-		private ObjectA contextView;
+		private SupportView contextView;
 
 		/*============================================================================*/
 		/* Test Setup and Teardown                                                    */
@@ -32,7 +32,7 @@ namespace robotlegs.bender.extensions.contextView
 		public void Setup()
 		{
 			context = new Context();
-			contextView = new ObjectA();
+			contextView = new SupportView();
 		}
 
 		/*============================================================================*/
@@ -42,26 +42,56 @@ namespace robotlegs.bender.extensions.contextView
 		[Test]
 		public void Adding_ContextView_To_Stage_Initializes_Context()
 		{
-			context.Install(typeof(TestSupportStageSyncExtension)).Configure(new ContextView(contextView));
-			contextView.AddMockView ();
+			context
+				.Install(typeof(TestSupportViewStateWatcherExtension))
+				.Install(typeof(StageSyncExtension))
+				.Configure(new ContextView(contextView));
+			contextView.AddThisView ();
 			Assert.That (context.Initialized, Is.True);
 		}
 
 		[Test]
 		public void Adding_ContextView_That_Is_Already_On_Stage_Initializes_Context()
 		{
-			contextView.AddMockView();
-			context.Install(typeof(TestSupportStageSyncExtension)).Configure(new ContextView(contextView));
+			contextView.AddThisView();
+			context
+				.Install(typeof(TestSupportViewStateWatcherExtension))
+				.Install(typeof(StageSyncExtension))
+				.Configure(new ContextView(contextView));
 			Assert.That (context.Initialized, Is.True);
 		}
 
 		[Test]
 		public void Removing_ContextView_From_Stage_Destroys_Context()
 		{
-			context.Install(typeof(TestSupportStageSyncExtension)).Configure(new ContextView(contextView));
-			contextView.AddMockView ();
-			contextView.RemoveMockView ();
+			context
+				.Install(typeof(TestSupportViewStateWatcherExtension))
+				.Install(typeof(StageSyncExtension))
+				.Configure(new ContextView(contextView));
+			contextView.AddThisView ();
+			contextView.RemoveThisView ();
 			Assert.That (context.Destroyed, Is.True);
+		}
+
+		[Test]
+		public void Installing_Stage_Sync_Extension_Before_View_State_Wacher_Waits_For_Watcher_Then_Initializes_Context()
+		{
+			context
+				.Install(typeof(StageSyncExtension))
+				.Install(typeof(TestSupportViewStateWatcherExtension))
+				.Configure(new ContextView(contextView));
+			contextView.AddThisView ();
+			Assert.That (context.Initialized, Is.True);
+		}
+
+		[Test, ExpectedException]
+		public void Installing_Stage_Sync_Extension_Without_View_State_Wacher_Throws_Error()
+		{
+			context
+				.Install(typeof(StageSyncExtension))
+				.Configure(new ContextView(contextView));
+			contextView.AddThisView ();
+			Assert.That (context.Initialized, Is.True);
 		}
 	}
 }

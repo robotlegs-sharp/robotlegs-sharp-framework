@@ -143,8 +143,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		{
 			TrackingProcessor trackingProcessor2 = new TrackingProcessor();
 
-			ObjectA view = new ObjectA();
-			ObjectWhichExtendsA viewA = new ObjectWhichExtendsA();
+			SupportView view = new SupportView();
+			ObjectWhichExtendsSupportView viewA = new ObjectWhichExtendsSupportView();
 
 			ViewProcessorMapping mapping = new ViewProcessorMapping(new TypeMatcher().AllOf(view.GetType()).CreateTypeFilter(), trackingProcessor);
 			ViewProcessorMapping mappingA = new ViewProcessorMapping(new TypeMatcher().AllOf(viewA.GetType()).CreateTypeFilter(), trackingProcessor2);
@@ -160,58 +160,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 	}
 }
 
-class ObjectA : SupportContainer, IView
-{
-	public event Action<IView> AddView;
-	public event Action<IView> RemoveView;
-	public event Action<IView> DisableView;
-	public event Action<IView> EnableView;
-	public bool isAddedToStage;
-
-	public void AddMockView()
-	{
-		ViewNotifier.RegisterView (this, this.GetType ());
-		isAddedToStage = true;
-		if (AddView != null)
-		{
-			AddView (this);
-		}
-	}
-
-	public override void AddChild(SupportContainer child)
-	{
-		base.AddChild (child);
-		if (child is ObjectA) (child as ObjectA).AddMockView ();
-	}
-
-	public void RemoveMockView()
-	{
-		isAddedToStage = false;
-		Parent = null;
-		if (RemoveView != null)
-		{
-			RemoveView (this);
-		}
-	}
-
-	public void Enable()
-	{
-		if (EnableView != null)
-		{
-			EnableView (this);
-		}
-	}
-
-	public void Disable()
-	{
-		if (DisableView != null)
-		{
-			DisableView (this);
-		}
-	}
-}
-
-class ObjectWhichExtendsA : ObjectA
+class ObjectWhichExtendsSupportView : SupportView
 {
 
 }
