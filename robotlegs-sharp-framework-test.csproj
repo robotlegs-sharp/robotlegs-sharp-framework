@@ -73,6 +73,11 @@
     <Folder Include="test\robotlegs\bender\extensions\eventDispatcher\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\contextView\" />
     <Folder Include="test\robotlegs\bender\extensions\contextView\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\directCommandMap\" />
+    <Folder Include="test\robotlegs\bender\extensions\directCommandMap\impl\" />
+    <Folder Include="test\robotlegs\bender\extensions\commandCenter\" />
+    <Folder Include="test\robotlegs\bender\extensions\commandCenter\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\directCommandMap\support\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -135,6 +140,15 @@
     <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ContainerBindingTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ViewNotifierTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\eventDispatcher\impl\LifecycleEventRelayTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\directCommandMap\impl\DirectCommandMapTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\NullCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\CallbackCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\CallbackCommand2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\directCommandMap\support\DirectCommandMapReportingCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\directCommandMap\impl\DirectCommandMapperTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\ClassReportingCallbackHook.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\NullCommand2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\directCommandMap\DirectCommandMapExtensionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
