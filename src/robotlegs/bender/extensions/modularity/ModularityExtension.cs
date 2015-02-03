@@ -8,6 +8,7 @@ using robotlegs.bender.extensions.modularity.impl;
 using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.eventDispatcher.impl;
 using robotlegs.bender.extensions.viewManager;
+using robotlegs.bender.extensions.viewManager.impl;
 
 namespace robotlegs.bender.extensions.modularity
 {
@@ -35,6 +36,8 @@ namespace robotlegs.bender.extensions.modularity
 
 		private object _contextView;
 
+		private IViewStateWatcher _contextViewStateWatcher;
+
 		private IParentFinder _parentFinder;
 
 		private static IEventDispatcher _modularityDispatcher = new EventDispatcher();
@@ -60,19 +63,22 @@ namespace robotlegs.bender.extensions.modularity
 
 		public void Extend(IContext context)
 		{
-			context.BeforeInitializing(BeforeInitializingCheckForContextView);
 			_context = context;
 			_injector = context.injector;
 			_logger = context.GetLogger(this);
-			if (_injector.HasDirectMapping (typeof(IParentFinder)))
+
+
+
+			if (_injector.HasDirectMapping (typeof(IViewStateWatcher)))
 			{
-				_parentFinder = _injector.GetInstance (typeof(IParentFinder)) as IParentFinder;
+				_contextViewStateWatcher = _injector.GetMapping (typeof(IViewStateWatcher)) as IViewStateWatcher;
+				Init ();
 			}
 			else
 			{
-				context.AddConfigHandler(new InstanceOfMatcher(typeof(IParentFinder)), HandleParentFinder);
+				_context.AfterInitializing (BeforeInitializing);
 			}
-			context.AddConfigHandler(new InstanceOfMatcher(typeof(IContextView)), HandleContextView);
+
 			_injector.Map(typeof(IModuleConnector)).ToSingleton(typeof(ModuleConnector));
 		}
 
@@ -80,45 +86,37 @@ namespace robotlegs.bender.extensions.modularity
 		/* Private Functions                                                          */
 		/*============================================================================*/
 
-		private void BeforeInitializingCheckForContextView()
+		private void BeforeInitializing()
 		{
-			if (_contextView == null)
+			if (!_injector.HasDirectMapping (typeof(IContextView)))
 			{
 				_logger.Error("Context has no ContextView, and ModularityExtension doesn't allow this.");
+				return;
 			}
-			if (_parentFinder == null)
+			_contextView = (_injector.GetInstance(typeof(IContextView)) as IContextView).view;
+
+			if (!_injector.HasDirectMapping (typeof(IViewStateWatcher)))
 			{
-				_logger.Error("No IParentFinder installed, ModularityExtension required a skew of this extension.");
+				_logger.Error ("No IViewStateWatcher Installed. The Modulation extension required this");
+				return;
 			}
+			_contextViewStateWatcher = _injector.GetInstance (typeof(IViewStateWatcher)) as IViewStateWatcher;
+
+			if (!_injector.HasDirectMapping (typeof(IParentFinder)))
+			{
+				_logger.Error ("No IParentFinder Installed. The Modulation extension required this");
+				return;
+			}
+			_parentFinder = _injector.GetInstance (typeof(IParentFinder)) as IParentFinder;
+
+			Init ();
 		}
 
-		private void HandleContextView(object contextView)
+		private void WhenDestroying()
 		{
-			if (_contextView != null)
-				return;
-			IContextView castContextView = contextView as IContextView;
-			if (castContextView == null)
-				return;
-
-			_contextView = castContextView.view;
-			if (_parentFinder != null)
+			if (_contextViewStateWatcher != null)
 			{
-				Init ();
-			}
-		}
-
-		private void HandleParentFinder(object parentFinder)
-		{
-			if (_parentFinder != null)
-				return;
-			IParentFinder castParentFinder = _parentFinder as IParentFinder;
-			if (castParentFinder == null)
-				return;
-
-			_parentFinder = castParentFinder;
-			if (_contextView != null)
-			{
-				Init();
+				_contextViewStateWatcher.added -= HandleContextViewAdded;
 			}
 		}
 
@@ -136,27 +134,37 @@ namespace robotlegs.bender.extensions.modularity
 
 		private void ConfigureExistenceWatcher()
 		{
-			_logger.Debug("Context has a ContextView. Configuring context view based context existence watcher...");
-			new ContextViewBasedExistenceWatcher(_context, _contextView, _modularityDispatcher, _parentFinder);
+			if (_injector.HasDirectMapping (typeof(IViewManager)))
+			{
+				_logger.Debug("Context has a ViewManager. Configuring view manager based context existence watcher...");
+				new ViewManagerBasedExistenceWatcher(_context, _contextView, _modularityDispatcher, _parentFinder, _injector.GetInstance(typeof(IViewManager)) as IViewManager).Init();
+			}
+			else
+			{
+				_logger.Debug ("Context has a ContextView. Configuring context view based context existence watcher...");
+				new ContextViewBasedExistenceWatcher (_context, _contextView, _modularityDispatcher, _parentFinder).Init();
+			}
 		}
 
 		private void ConfigureExistenceBroadcaster()
 		{
-			if(_context.Initialized)
+			if (_contextViewStateWatcher.isAdded)
 			{
-				BroadcastContextExistence();
+				BroadcastContextExistence ();
 			}
 			else
 			{
-				_logger.Debug("Context view has not yet been added. Waiting...");
-				_context.BeforeInitializing(BeforeContextInitializing);
+				_contextViewStateWatcher.added += HandleContextViewAdded;
 			}
 		}
 
-		private void BeforeContextInitializing()
+		void HandleContextViewAdded (object contextView)
 		{
-			_logger.Debug("Context view is now added. Continuing...");
-			BroadcastContextExistence();
+			if (contextView == _contextView)
+			{
+				_logger.Debug("Context view is now added. Continuing...");
+				BroadcastContextExistence ();
+			}
 		}
 
 		private void BroadcastContextExistence()

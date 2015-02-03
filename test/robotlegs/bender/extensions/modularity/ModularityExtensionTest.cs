@@ -6,11 +6,11 @@ using robotlegs.bender.extensions.contextview.impl;
 using robotlegs.bender.framework.impl.loggingSupport;
 using robotlegs.bender.extensions.eventDispatcher;
 using robotlegs.bender.extensions.modularity.api;
-using robotlegs.bender.extensions.contextView.support;
 using System;
 using robotlegs.bender.extensions.viewManager.api;
 using robotlegs.bender.extensions.viewManager;
 using robotlegs.bender.extensions.viewManager.support;
+using robotlegs.bender.extensions.viewManager.impl;
 
 namespace robotlegs.bender.extensions.modularity
 {
@@ -25,15 +25,11 @@ namespace robotlegs.bender.extensions.modularity
 
 		private IContext childContext;
 
-		private IContext anotherChildContext;
+		private SupportView root;
 
-		private ObjectA root;
+		private SupportView parentView;
 
-		private ObjectA parentView;
-
-		private ObjectA childView;
-
-		private ObjectA anotherChildView;
+		private SupportView childView;
 
 		/*============================================================================*/
 		/* Test Setup and Teardown                                                    */
@@ -42,19 +38,15 @@ namespace robotlegs.bender.extensions.modularity
 		[SetUp]
 		public void Setup()
 		{
-			root = new ObjectA();
-			parentView = new ObjectA();
-			childView = new ObjectA();
-			anotherChildView = new ObjectA();
+			root = new SupportView();
+			parentView = new SupportView();
+			childView = new SupportView();
 
 			parentContext = new Context()
-				.Install(typeof(TestSupportStageSyncExtension))
+				.Install(typeof(StageSyncExtension))
 				.Install(typeof(ContextViewExtension));
 			childContext = new Context()
-				.Install(typeof(TestSupportStageSyncExtension))
-				.Install(typeof(ContextViewExtension));
-			anotherChildContext = new Context()
-				.Install(typeof(TestSupportStageSyncExtension))
+				.Install(typeof(StageSyncExtension))
 				.Install(typeof(ContextViewExtension));
 		}
 
@@ -73,10 +65,30 @@ namespace robotlegs.bender.extensions.modularity
 		public void Context_Inherits_Parent_Injector()
 		{
 			AddRootToStage();
-			parentContext.Install(typeof(ModularityExtension)).Configure(new ContextView(parentView));
-			childContext.Install(typeof(ModularityExtension)).Configure(new ContextView(childView));
-			parentView.AddMockViewToParent(root);
-			childView.AddMockViewToParent(parentView);
+
+			parentContext
+				.Install (typeof(SupportParentFinderExtension))
+				.Install(typeof(TestSupportViewStateWatcherExtension))
+				.Install (typeof(ModularityExtension))
+				.Configure(new ContextView(parentView));
+
+			childContext
+				.Install (typeof(ModularityExtension))
+				.Install (typeof(SupportParentFinderExtension))
+				.Install (typeof(TestSupportViewStateWatcherExtension))
+				.Configure (new ContextView (childView));
+
+			ContainerRegistry cr = new ContainerRegistry();
+			cr.SetParentFinder (new SupportParentFinder ());
+
+			parentContext.injector.Map(typeof(ContainerRegistry)).ToValue(cr);
+			childContext.injector.Map(typeof(ContainerRegistry)).ToValue(cr);
+
+			cr.AddContainer(parentView);
+			cr.AddContainer(childView);
+
+			root.AddChild(parentView);
+			parentView.AddChild (childView);
 
 			Assert.That (childContext.injector.parent, Is.EqualTo (parentContext.injector));
 		}
@@ -87,8 +99,8 @@ namespace robotlegs.bender.extensions.modularity
 			AddRootToStage();
 			parentContext.Install(typeof(ModularityExtension)).Configure(new ContextView(parentView));
 			childContext.Install(new ModularityExtension(false)).Configure(new ContextView(childView));
-			parentView.AddMockViewToParent(root);
-			childView.AddMockViewToParent(parentView);
+			root.AddChild(parentView);
+			parentView.AddChild(childView);
 
 			Assert.That (childContext.injector.parent, Is.Not.EqualTo (parentContext.injector));
 		}
@@ -99,8 +111,8 @@ namespace robotlegs.bender.extensions.modularity
 			AddRootToStage();
 			parentContext.Install(new ModularityExtension(true, false)).Configure(new ContextView(parentView));
 			childContext.Install(typeof(ModularityExtension)).Configure(new ContextView(childView));
-			parentView.AddMockViewToParent(root);
-			childView.AddMockViewToParent(parentView);
+			root.AddChild (parentView);
+			parentView.AddChild (childView);
 
 			Assert.That(childContext.injector.parent, Is.Not.EqualTo(parentContext.injector));
 		}
@@ -108,23 +120,92 @@ namespace robotlegs.bender.extensions.modularity
 		[Test]
 		public void Multiple_Parallel_Children_Only_Inherit_Parent_Injector()
 		{
-			AddRootToStage ();
-			parentContext.Install(typeof(ModularityExtension)).Configure(new ContextView(parentView));
-			childContext.Install(typeof(ModularityExtension)).Configure(new ContextView(childView));
-			anotherChildContext.Install(typeof(ModularityExtension)).Configure(new ContextView(anotherChildView));
+			AddRootToStage();
 
-			parentView.AddMockViewToParent(root);
-			childView.AddMockViewToParent(parentView);
-			//anotherChildView.AddMockViewToParent(parentView);
+			parentContext
+				.Install (typeof(SupportParentFinderExtension))
+				.Install(typeof(TestSupportViewStateWatcherExtension))
+				.Install (typeof(ModularityExtension))
+				.Configure(new ContextView(parentView));
 
-			bool a = childContext.injector.parent == parentContext.injector;
-			bool b = childContext.injector.parent == parentContext.injector;
-			bool c = childContext.injector.parent == null;
+			childContext
+				.Install (typeof(ModularityExtension))
+				.Install (typeof(SupportParentFinderExtension))
+				.Install (typeof(TestSupportViewStateWatcherExtension))
+				.Configure (new ContextView (childView));
 
-			Assert.That (childContext.injector.parent, Is.EqualTo (parentContext.injector), "childContext doesn't inherit from parentContext");
-//			Assert.That (anotherChildContext.injector.parent, Is.EqualTo (parentContext.injector), "anotherChildContext doesn't inherit from parentContext");
-//			Assert.That (childContext.injector.parent, Is.Not.EqualTo (anotherChildContext.injector), "childContext inherits from anotherChildContext (a Parallel context child)");
-//			Assert.That (anotherChildContext.injector.parent, Is.Not.EqualTo (childContext.injector), "anotherChildContext inherits from childContext (a Parallel context child)");
+
+			SupportView anotherChildView = new SupportView ();
+			IContext anotherChildContext = new Context()
+				.Install (typeof(StageSyncExtension))
+				.Install (typeof(ContextViewExtension))
+				.Install (typeof(ModularityExtension))
+				.Install (typeof(SupportParentFinderExtension))
+				.Install (typeof(TestSupportViewStateWatcherExtension))
+				.Configure (new ContextView (anotherChildView));
+
+
+			ContainerRegistry cr = new ContainerRegistry();
+			parentContext.injector.Map(typeof(ContainerRegistry)).ToValue(cr);
+			childContext.injector.Map(typeof(ContainerRegistry)).ToValue(cr);
+			anotherChildContext.injector.Map(typeof(ContainerRegistry)).ToValue(cr);
+
+			cr.AddContainer(parentView);
+			cr.AddContainer(childView);
+			cr.AddContainer(anotherChildView);
+
+			root.AddChild (parentView);
+			parentView.AddChild (childView);
+			parentView.AddChild (anotherChildView);
+
+			Assert.That (childContext.injector.parent, Is.EqualTo (parentContext.injector));
+			Assert.That (anotherChildContext.injector.parent, Is.EqualTo (parentContext.injector));
+		}
+
+		[Test]
+		public void Multiple_Depths_Of_Children_Only_Inherit_The_First_Parents_Injector()
+		{
+			AddRootToStage();
+
+			parentContext
+				.Install (typeof(SupportParentFinderExtension))
+				.Install(typeof(TestSupportViewStateWatcherExtension))
+				.Install (typeof(ModularityExtension))
+				.Configure(new ContextView(parentView));
+
+			childContext
+				.Install (typeof(ModularityExtension))
+				.Install (typeof(SupportParentFinderExtension))
+				.Install (typeof(TestSupportViewStateWatcherExtension))
+				.Configure (new ContextView (childView));
+
+
+			SupportView anotherChildView = new SupportView ();
+			IContext anotherChildContext = new Context()
+				.Install (typeof(StageSyncExtension))
+				.Install (typeof(ContextViewExtension))
+				.Install (typeof(ModularityExtension))
+				.Install (typeof(SupportParentFinderExtension))
+				.Install (typeof(TestSupportViewStateWatcherExtension))
+				.Configure (new ContextView (anotherChildView));
+
+
+			ContainerRegistry cr = new ContainerRegistry();
+			parentContext.injector.Map(typeof(ContainerRegistry)).ToValue(cr);
+			childContext.injector.Map(typeof(ContainerRegistry)).ToValue(cr);
+			anotherChildContext.injector.Map(typeof(ContainerRegistry)).ToValue(cr);
+
+			cr.AddContainer(parentView);
+			cr.AddContainer(childView);
+			cr.AddContainer(anotherChildView);
+
+			root.AddChild (parentView);
+			parentView.AddChild (childView);
+			childView.AddChild (anotherChildView);
+
+			Assert.That (childContext.injector.parent, Is.EqualTo (parentContext.injector));
+			Assert.That (anotherChildContext.injector.parent, Is.EqualTo (childContext.injector));
+			Assert.That (anotherChildContext.injector.parent, Is.Not.EqualTo (parentContext.injector));
 		}
 
 		[Test]
@@ -155,28 +236,29 @@ namespace robotlegs.bender.extensions.modularity
 			Assert.That (errorLogged, Is.True);
 		}
 
-		// There is now no difference if the view manager if installed or not.
 		[Test]
 		public void Child_Added_To_ViewManager_Inherits_Injector()
 		{
 			AddRootToStage();
-			parentContext = new Context()
-				.Install(typeof(ContextViewExtension))
-				.Install(typeof(ModularityExtension))
+			parentContext 
+				.Install (typeof(ModularityExtension))
 				.Install(typeof(ViewManagerExtension))
-				.Install(typeof(TestSupportStageSyncExtension))
+				.Install (typeof(SupportParentFinderExtension))
+				.Install(typeof(TestSupportViewStateWatcherExtension))
+				.Configure(typeof(ContextViewListenerConfig))
 				.Configure(new ContextView(parentView));
 
-			IViewManager viewManager = parentContext.injector.GetInstance(typeof(IViewManager)) as IViewManager;
-			viewManager.AddContainer(childView);
+			IViewManager viewManager = parentContext.injector.GetInstance (typeof(IViewManager)) as IViewManager;
+			viewManager.AddContainer (childView);
 
-			childContext = new Context()
-				.Install(typeof(ContextViewExtension))
-				.Install(typeof(ModularityExtension))
-				.Install(typeof(TestSupportStageSyncExtension))
+			childContext
+				.Install (typeof(ModularityExtension))
+				.Install (typeof(SupportParentFinderExtension))
+				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Configure(new ContextView(childView));
-			parentView.AddMockViewToParent(root);
-			childView.AddMockViewToParent(root);
+
+			root.AddChild(parentView);
+			root.AddChild(childView);
 
 			Assert.That (childContext.injector.parent, Is.EqualTo (parentContext.injector));
 		}
@@ -202,7 +284,7 @@ namespace robotlegs.bender.extensions.modularity
 
 		private void AddRootToStage()
 		{
-			root.AddMockView();
+			root.RemoveThisView();
 		}
 
 	}

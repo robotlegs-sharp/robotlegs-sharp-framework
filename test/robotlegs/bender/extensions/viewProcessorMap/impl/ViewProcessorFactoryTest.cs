@@ -7,6 +7,7 @@ using robotlegs.bender.extensions.viewProcessorMap.api;
 using robotlegs.bender.extensions.mediatorMap.api;
 using System;
 using robotlegs.bender.extensions.viewManager.api;
+using robotlegs.bender.extensions.viewManager.support;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {
@@ -142,8 +143,8 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		{
 			TrackingProcessor trackingProcessor2 = new TrackingProcessor();
 
-			ObjectA view = new ObjectA();
-			ObjectWhichExtendsA viewA = new ObjectWhichExtendsA();
+			SupportView view = new SupportView();
+			ObjectWhichExtendsSupportView viewA = new ObjectWhichExtendsSupportView();
 
 			ViewProcessorMapping mapping = new ViewProcessorMapping(new TypeMatcher().AllOf(view.GetType()).CreateTypeFilter(), trackingProcessor);
 			ViewProcessorMapping mappingA = new ViewProcessorMapping(new TypeMatcher().AllOf(viewA.GetType()).CreateTypeFilter(), trackingProcessor2);
@@ -159,55 +160,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 	}
 }
 
-class ObjectA : object, IView
-{
-	public event Action<IView> AddView;
-	public event Action<IView> RemoveView;
-	public event Action<IView> DisableView;
-	public event Action<IView> EnableView;
-	public bool isAddedToStage;
-	public object parent;
-
-	public void AddMockView() { AddMockViewToParent(null); }
-	public void AddMockViewToParent(object parent)
-	{
-		ViewNotifier.RegisterView (this, this.GetType ());
-		isAddedToStage = true;
-		this.parent = parent;
-		if (AddView != null)
-		{
-			AddView (this);
-		}
-	}
-
-	public void RemoveMockView()
-	{
-		isAddedToStage = false;
-		parent = null;
-		if (RemoveView != null)
-		{
-			RemoveView (this);
-		}
-	}
-
-	public void Enable()
-	{
-		if (EnableView != null)
-		{
-			EnableView (this);
-		}
-	}
-
-	public void Disable()
-	{
-		if (DisableView != null)
-		{
-			DisableView (this);
-		}
-	}
-}
-
-class ObjectWhichExtendsA : ObjectA
+class ObjectWhichExtendsSupportView : SupportView
 {
 
 }

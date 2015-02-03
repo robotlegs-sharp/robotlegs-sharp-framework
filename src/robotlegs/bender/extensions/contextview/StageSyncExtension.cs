@@ -22,7 +22,7 @@ namespace robotlegs.bender.extensions.contextview
 	/// </summary>
 
 
-	public abstract class StageSyncExtension : IExtension
+	public class StageSyncExtension : IExtension
 	{
 		/*============================================================================*/
 		/* Private Properties                                                         */
@@ -33,8 +33,9 @@ namespace robotlegs.bender.extensions.contextview
 		private IViewStateWatcher _contextViewStateWatcher;
 
 		/*============================================================================*/
-		/* Protected Functions                                                           */
+		/* Protected Functions                                                        */
 		/*============================================================================*/
+
 		protected ILogger _logger;
 		
 		/*============================================================================*/
@@ -66,24 +67,38 @@ namespace robotlegs.bender.extensions.contextview
 
 			_contextView = castContextView;
 
-			if(_contextViewStateWatcher != null)
-			{
+			if (_contextViewStateWatcher != null) {
 				_logger.Warn ("A IViewStateWatcher on the context view has already been set");
 				return;
 			}
 
-			IViewStateWatcher contextViewStateWatcher = GetContextViewStateWatcher(_contextView.view);
-			if (contextViewStateWatcher == null)
+			if (!_context.injector.HasDirectMapping (typeof(IViewStateWatcher)))
 			{
-				_logger.Warn ("A IViewStateWatcher cannot be created on the context view as GetContextViewStateWatcher returned null");
+				_logger.Info ("No ViewStateWatcherExtension has been found yet. We will check again at the end of the contextview Configuration");
+				_context.AddConfigHandler (new InstanceOfMatcher (typeof(IContextView)), HandleViewStateWatcher);
 				return;
 			}
-			_contextViewStateWatcher = contextViewStateWatcher;
+			else
+			{
+				HandleViewStateWatcher(_context.injector.GetInstance (typeof(IViewStateWatcher)));
+			}
+		}
 
-			if (contextViewStateWatcher.isAdded)
+		private void HandleViewStateWatcher(object contextView)
+		{
+			if (_contextViewStateWatcher != null)
+				return;
+			if (!_context.injector.HasDirectMapping (typeof(IViewStateWatcher)))
+			{
+				_logger.Warn ("No ViewStateWatcherExtension has been installed. Please install your platform specific extension.");
+				return;
+			}
+			_contextViewStateWatcher = _context.injector.GetInstance (typeof(IViewStateWatcher)) as IViewStateWatcher;
+
+			if (_contextViewStateWatcher.isAdded)
 				InitializeContext ();
 			else
-				contextViewStateWatcher.added += HandleContextViewAdded;
+				_contextViewStateWatcher.added += HandleContextViewAdded;
 
 		}
 
@@ -119,12 +134,5 @@ namespace robotlegs.bender.extensions.contextview
 			_contextViewStateWatcher.removed -= HandleContextViewRemoved;
 			_context.Destroy();	
 		}
-		
-		/*============================================================================*/
-		/* Protected Abstract Functions                                               */
-		/*============================================================================*/
-
-		protected abstract IViewStateWatcher GetContextViewStateWatcher (object contextView);
-
 	}
 }

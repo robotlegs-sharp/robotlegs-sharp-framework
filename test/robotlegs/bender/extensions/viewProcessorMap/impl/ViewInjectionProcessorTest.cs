@@ -1,6 +1,7 @@
 using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl;
 using NUnit.Framework;
+using robotlegs.bender.extensions.viewManager.support;
 
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
@@ -57,7 +58,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			viewInjector.Process(view, typeof(ViewWithInjection), injector);
 
 			injector.Unmap(typeof(object));
-			injector.Map(typeof(object)).ToValue(new ObjectA());
+			injector.Map(typeof(object)).ToValue(new SupportView());
 
 			viewInjector.Process(view, typeof(ViewWithInjection), injector);
 

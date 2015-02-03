@@ -30,5 +30,6 @@ namespace robotlegs.bender.extensions.viewManager
 		/// <param name="child">The child view</param>
 		/// <param name="containers">A dictionary of ContainerBindings by Container as a key</param>
 		object FindParent (object childView, Dictionary<object, ContainerBinding> containers);
+		object FindParent (object childView, List<ContainerBinding> containers);
 	}
 }

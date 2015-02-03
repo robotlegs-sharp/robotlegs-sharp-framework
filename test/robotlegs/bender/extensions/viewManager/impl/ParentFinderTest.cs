@@ -116,7 +116,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			Dictionary<object, ContainerBinding> dict = new Dictionary<object, ContainerBinding> ();
 			foreach (object obj in objects)
 			{
-				dict.Add (obj, null);
+				dict.Add (obj, new ContainerBinding(obj));
 			}
 			return dict;
 		}

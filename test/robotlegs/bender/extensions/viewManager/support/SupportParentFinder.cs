@@ -1,5 +1,7 @@
 ﻿using System;
 using robotlegs.bender.extensions.viewManager;
+using System.Collections.Generic;
+using robotlegs.bender.extensions.viewManager.impl;
 
 namespace robotlegs.bender.extensions.viewManager.support
 {
@@ -23,21 +25,26 @@ namespace robotlegs.bender.extensions.viewManager.support
 			return false;
 		}
 
-		public object FindParent (object childView, System.Collections.Generic.Dictionary<object, robotlegs.bender.extensions.viewManager.impl.ContainerBinding> containers)
+		public object FindParent (object childView, Dictionary<object, ContainerBinding> containers)
 		{
-			foreach (object obj in containers.Keys)
+			return FindParent(childView, new List<ContainerBinding>(containers.Values));
+		}
+
+		public object FindParent (object childView, List<ContainerBinding> containerBindings)
+		{
+			foreach (ContainerBinding binding in containerBindings)
 			{
-				Console.WriteLine (obj);
+				Console.WriteLine (binding.Container);
 			}
 
 			SupportContainer supportView = childView as SupportContainer;
 			while (supportView.Parent != null)
 			{
-				foreach (object parent in containers.Keys)
+				foreach (ContainerBinding containerBinding in containerBindings)
 				{
-					if (parent == supportView.Parent)
+					if (containerBinding.Container == supportView.Parent)
 					{
-						return parent;
+						return containerBinding.Container;
 					}
 				}
 				supportView = supportView.Parent;

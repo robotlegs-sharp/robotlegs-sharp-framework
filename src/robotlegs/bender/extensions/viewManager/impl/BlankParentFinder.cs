@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.extensions.viewManager.impl
 {
@@ -9,7 +10,12 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			return false;
 		}
 
-		public object FindParent (object childView, System.Collections.Generic.Dictionary<object, ContainerBinding> containers)
+		public object FindParent (object childView, List<ContainerBinding> containers)
+		{
+			return null;
+		}
+
+		public object FindParent (object childView, Dictionary<object, ContainerBinding> containers)
 		{
 			return null;
 		}

@@ -40,8 +40,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			bool contains = true;
 			object parent = new object();
 			registry.SetParentFinder(new CustomParentFinder(contains, parent));
-			object expectedParent = registry.FindParent (null, null);
-			object expectedContains = registry.Contains (null, null);
+			List<ContainerBinding> nullList = null;
+			object expectedParent = registry.FindParent (null, nullList);
+			object expectedContains = registry.Contains (null, nullList);
 			Assert.That (contains, Is.EqualTo (expectedContains));
 			Assert.That (parent, Is.EqualTo (parent));
 		}
@@ -51,9 +52,10 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		{
 			bool contains = false;
 			object parent = null;
+			List<ContainerBinding> nullList = null;
 			registry.SetParentFinder(new CustomParentFinder(contains, parent));
-			object expectedParent = registry.FindParent (null, null);
-			object expectedContains = registry.Contains (null, null);
+			object expectedParent = registry.FindParent (null, nullList);
+			object expectedContains = registry.Contains (null, nullList);
 			Assert.That (contains, Is.EqualTo (expectedContains));
 			Assert.That (parent, Is.EqualTo (parent));
 		}

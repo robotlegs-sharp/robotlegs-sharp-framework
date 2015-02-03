@@ -72,13 +72,13 @@
     <Folder Include="test\robotlegs\bender\extensions\eventCommandMap\support\" />
     <Folder Include="test\robotlegs\bender\extensions\eventDispatcher\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\contextView\" />
-    <Folder Include="test\robotlegs\bender\extensions\contextView\support\" />
     <Folder Include="test\robotlegs\bender\extensions\directCommandMap\" />
     <Folder Include="test\robotlegs\bender\extensions\directCommandMap\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\commandCenter\" />
     <Folder Include="test\robotlegs\bender\extensions\commandCenter\support\" />
     <Folder Include="test\robotlegs\bender\extensions\directCommandMap\support\" />
     <Folder Include="test\robotlegs\bender\extensions\commandCenter\impl\" />
+    <Folder Include="test\robotlegs\bender\extensions\mediatorMap\support\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -130,9 +130,7 @@
     <Compile Include="test\robotlegs\bender\extensions\modularity\impl\ModuleConnectorTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\SupportEvent.cs" />
     <Compile Include="test\robotlegs\bender\extensions\eventDispatcher\impl\EventRelayTest.cs" />
-    <Compile Include="test\robotlegs\bender\extensions\contextView\support\TestSupportStageSyncExtension.cs" />
     <Compile Include="test\robotlegs\bender\extensions\contextView\StageSyncExtensionTest.cs" />
-    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\TestObjectViewStateWatcher.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportParentFinderExtension.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ParentFinderTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ViewManagerTest.cs" />
@@ -169,6 +167,9 @@
     <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\OptionalInjectionPointsCommandInstantiatingCommand.cs" />
     <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\MessageReturningCommand.cs" />
     <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\AbstractInterfaceImplementingCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\support\TestSupportViewStateWatcherExtension.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\SupportMediator.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ViewStateWatcherTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

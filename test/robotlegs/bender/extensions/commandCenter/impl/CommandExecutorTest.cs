@@ -14,18 +14,10 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 	public class CommandExecutorTest
 	{
 		/*============================================================================*/
-		/* Public Properties                                                          */
-		/*============================================================================*/
-
-//		[Rule]
-//		public var mocks:MockolateRule = new MockolateRule();
-
-//		[Mock]
-		Mock<UnmapperStub> unMapper;
-
-		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private Mock<UnmapperStub> unMapper;
 
 		private List<ICommandMapping> mappings;
 

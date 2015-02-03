@@ -25,6 +25,8 @@ namespace robotlegs.bender.extensions.viewManager.support
 			{
 				ContainerRegistry registry = _injector.GetInstance (typeof(ContainerRegistry)) as ContainerRegistry;
 				registry.SetParentFinder(_parentFinder);
+				_injector.Unmap (typeof(IParentFinder));
+				_injector.Map(typeof(IParentFinder)).ToValue(registry);
 			}
 		}
 	}

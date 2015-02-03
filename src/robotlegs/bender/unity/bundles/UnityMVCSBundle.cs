@@ -22,6 +22,7 @@ using robotlegs.bender.extensions.mediatorMap;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.unity.extensions.contextview;
 using robotlegs.bender.unity.extensions.viewManager;
+using robotlegs.bender.unity.extensions.viewManager.impl;
 
 namespace robotlegs.bender.bundles
 {
@@ -45,8 +46,10 @@ namespace robotlegs.bender.bundles
 			context.Install(typeof(MediatorMapExtension));
 //			context.Install(typeof(ViewProcessorMapExtension));
 			context.Install(typeof(StageCrawlerExtension));
-			context.Install(typeof(UnityStageSyncExtension));
+			context.Install(typeof(StageSyncExtension));
 			context.Install(typeof(UnityParentFinderExtension));
+			context.Install(typeof(UnityViewStateWatcherExtension));
+
 
 			context.Configure(typeof(UnityStageCrawlerConfig));
 			context.Configure(typeof(ContextViewListenerConfig));

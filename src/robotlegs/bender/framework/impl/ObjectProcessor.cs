@@ -30,9 +30,11 @@ namespace robotlegs.bender.framework.impl
 
 		public void ProcessObject(object obj)
 		{
-			foreach (ObjectHandler handler in _handlers)
+			// I know we try to avoid counting every loop cycle, but I want to be able to add to the handlers during the loop cycle.
+			//foreach (ObjectHandler handler in _handlers)
+			for(int i = 0; i < _handlers.Count; i++)
 			{
-				handler.Handle(obj);
+				_handlers[i].Handle(obj);
 			}
 		}
 
