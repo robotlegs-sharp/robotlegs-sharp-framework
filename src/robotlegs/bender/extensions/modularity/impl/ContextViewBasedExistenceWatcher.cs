@@ -2,6 +2,8 @@ using robotlegs.bender.framework.api;
 using System;
 using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.viewManager;
+using robotlegs.bender.extensions.viewManager.impl;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.extensions.modularity.impl
 {
@@ -32,8 +34,8 @@ namespace robotlegs.bender.extensions.modularity.impl
 			_logger = context.GetLogger(this);
 			_context = context;
 			_contextView = contextView;
-			_modularityDispatcher = modularityDispatcher;
 			_parentFinder = parentFinder;
+			_modularityDispatcher = modularityDispatcher;
 			_context.WhenDestroying(Destroy);
 			Init();
 		}
@@ -63,8 +65,23 @@ namespace robotlegs.bender.extensions.modularity.impl
 			object contextView = castEvent.ContextView;
 
 			// We might catch out own existence event, so ignore that
-			_parentFinder.Contains(_contextView, contextView);
-			if (contextView != _contextView)
+			if (contextView == _contextView)
+				return;
+
+			List<ContainerBinding> possibleParents = null;
+			if (_parentFinder is ContainerRegistry)
+			{
+				possibleParents = (_parentFinder as ContainerRegistry).RootBindings;
+			}
+
+			if (possibleParents != null)
+			{
+				object parent = _parentFinder.FindParent (contextView, possibleParents);
+			}
+
+			if(	(possibleParents == null && _parentFinder.Contains(_contextView, contextView))
+				|| (possibleParents != null && _parentFinder.FindParent(contextView, possibleParents) == _contextView)
+				)
 			{
 				_logger.Debug("Context existence event caught. Configuring child context {0}", castEvent.Context);
 				_context.AddChild(castEvent.Context);

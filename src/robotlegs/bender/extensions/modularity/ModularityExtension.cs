@@ -8,6 +8,7 @@ using robotlegs.bender.extensions.modularity.impl;
 using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.eventDispatcher.impl;
 using robotlegs.bender.extensions.viewManager;
+using robotlegs.bender.extensions.viewManager.impl;
 
 namespace robotlegs.bender.extensions.modularity
 {
@@ -64,15 +65,8 @@ namespace robotlegs.bender.extensions.modularity
 			_context = context;
 			_injector = context.injector;
 			_logger = context.GetLogger(this);
-			if (_injector.HasDirectMapping (typeof(IParentFinder)))
-			{
-				_parentFinder = _injector.GetInstance (typeof(IParentFinder)) as IParentFinder;
-			}
-			else
-			{
-				context.AddConfigHandler(new InstanceOfMatcher(typeof(IParentFinder)), HandleParentFinder);
-			}
-			context.AddConfigHandler(new InstanceOfMatcher(typeof(IContextView)), HandleContextView);
+
+			CheckForDependencies(true);
 			_injector.Map(typeof(IModuleConnector)).ToSingleton(typeof(ModuleConnector));
 		}
 
@@ -80,8 +74,37 @@ namespace robotlegs.bender.extensions.modularity
 		/* Private Functions                                                          */
 		/*============================================================================*/
 
+		private void CheckForDependencies(bool addConfigHandler)
+		{
+			if(_contextView == null)
+			{
+				if (_injector.HasDirectMapping (typeof(IContextView)))
+				{
+					HandleContextView (_injector.GetInstance(typeof(IContextView)));
+				}
+				else if(addConfigHandler)
+				{
+					_context.AddConfigHandler(new InstanceOfMatcher(typeof(IContextView)), HandleContextView);
+				}
+			}
+
+			if(_parentFinder == null)
+			{
+				if (_injector.HasDirectMapping (typeof(ContainerRegistry)))
+				{
+					HandleParentFinder (_injector.GetInstance (typeof(ContainerRegistry)));
+				}
+				else if (_injector.HasDirectMapping (typeof(IParentFinder)))
+				{
+					HandleParentFinder (_injector.GetInstance (typeof(IParentFinder)));
+				}
+			}
+		}
+
 		private void BeforeInitializingCheckForContextView()
 		{
+			CheckForDependencies (false);
+
 			if (_contextView == null)
 			{
 				_logger.Error("Context has no ContextView, and ModularityExtension doesn't allow this.");

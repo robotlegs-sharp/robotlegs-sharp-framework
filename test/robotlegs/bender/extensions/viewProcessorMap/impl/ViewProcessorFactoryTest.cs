@@ -7,6 +7,7 @@ using robotlegs.bender.extensions.viewProcessorMap.api;
 using robotlegs.bender.extensions.mediatorMap.api;
 using System;
 using robotlegs.bender.extensions.viewManager.api;
+using robotlegs.bender.extensions.viewManager.support;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {
@@ -159,31 +160,34 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 	}
 }
 
-class ObjectA : object, IView
+class ObjectA : SupportContainer, IView
 {
 	public event Action<IView> AddView;
 	public event Action<IView> RemoveView;
 	public event Action<IView> DisableView;
 	public event Action<IView> EnableView;
 	public bool isAddedToStage;
-	public object parent;
 
-	public void AddMockView() { AddMockViewToParent(null); }
-	public void AddMockViewToParent(object parent)
+	public void AddMockView()
 	{
 		ViewNotifier.RegisterView (this, this.GetType ());
 		isAddedToStage = true;
-		this.parent = parent;
 		if (AddView != null)
 		{
 			AddView (this);
 		}
 	}
 
+	public override void AddChild(SupportContainer child)
+	{
+		base.AddChild (child);
+		if (child is ObjectA) (child as ObjectA).AddMockView ();
+	}
+
 	public void RemoveMockView()
 	{
 		isAddedToStage = false;
-		parent = null;
+		Parent = null;
 		if (RemoveView != null)
 		{
 			RemoveView (this);

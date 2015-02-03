@@ -50,6 +50,11 @@ namespace robotlegs.bender.framework.unity.extensions.viewManager.impl
 		// View Find Parent Container
 		public object FindParent(object childView, Dictionary<object, ContainerBinding> containers)
 		{
+			return FindParent (childView, new List<ContainerBinding>(containers.Values));
+		}
+
+		public object FindParent(object childView, List<ContainerBinding> containers)
+		{
 			if (childView is Component)
 			{
 				childView = (childView as Component).transform;
@@ -64,10 +69,10 @@ namespace robotlegs.bender.framework.unity.extensions.viewManager.impl
 			Transform transform = childView as Transform;
 			while (transform != null)
 			{
-				foreach (object container in containers.Keys)
+				foreach (ContainerBinding containerBinding in containers)
 				{
-					if (container == transform.parent)
-						return container;
+					if (containerBinding.Container == transform.parent)
+						return containerBinding.Container;
 				}
 				transform = transform.parent;
 			}

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using robotlegs.bender.extensions.viewManager.impl;
 
 namespace robotlegs.bender.extensions.viewManager.support
 {
@@ -19,7 +21,12 @@ namespace robotlegs.bender.extensions.viewManager.support
 			return _contains;
 		}
 
-		public object FindParent (object childView, System.Collections.Generic.Dictionary<object, robotlegs.bender.extensions.viewManager.impl.ContainerBinding> containers)
+		public object FindParent (object childView, Dictionary<object, ContainerBinding> containers)
+		{
+			return _parent;
+		}
+
+		public object FindParent (object childView, List<ContainerBinding> containers)
 		{
 			return _parent;
 		}

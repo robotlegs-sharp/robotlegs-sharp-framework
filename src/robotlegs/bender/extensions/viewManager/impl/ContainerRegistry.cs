@@ -147,8 +147,14 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		public object FindParent (object childView, Dictionary<object, ContainerBinding> containers)
 		{
-			return _parentFinder.Contains (childView, containers);
+			return _parentFinder.FindParent(childView, containers);
 		}
+
+		public object FindParent (object childView, List<ContainerBinding> containers)
+		{
+			return _parentFinder.FindParent(childView, containers);
+		}
+
 
 		/*============================================================================*/
 		/* Private Functions                                                          */
@@ -164,7 +170,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			binding.Parent = FindParentBinding(container);
 			if (binding.Parent == null)
 			{
-				AddRootBinding (binding);
+				AddRootBinding(binding);
 			}
 
 			// Reparent any bindings which are contained within the new binding AND
