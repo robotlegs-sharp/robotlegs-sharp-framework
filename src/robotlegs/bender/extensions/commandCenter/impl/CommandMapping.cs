@@ -133,14 +133,61 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			_guards.AddRange(guards);
 			return this;
 		}
-		
-		/**
-		 * @inheritDoc
-		 */
+
+		public ICommandMapping AddGuards<T>()
+		{
+			return AddGuards (typeof(T));
+		}
+
+		public ICommandMapping AddGuards<T1, T2>()
+		{
+			return AddGuards (typeof(T1), typeof(T2));
+		}
+
+		public ICommandMapping AddGuards<T1, T2, T3>()
+		{
+			return AddGuards (typeof(T1), typeof(T2), typeof(T3));
+		}
+
+		public ICommandMapping AddGuards<T1, T2, T3, T4>()
+		{
+			return AddGuards (typeof(T1), typeof(T2), typeof(T3), typeof(T4));
+		}
+
+		public ICommandMapping AddGuards<T1, T2, T3, T4, T5>()
+		{
+			return AddGuards (typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5));
+		}
+
 		public ICommandMapping AddHooks(params object[] hooks)
 		{
 			_hooks.AddRange(hooks);
 			return this;
+		}
+
+		public ICommandMapping AddHooks<T>()
+		{
+			return AddHooks (typeof(T));
+		}
+
+		public ICommandMapping AddHooks<T1, T2>()
+		{
+			return AddHooks (typeof(T1), typeof(T2));
+		}
+
+		public ICommandMapping AddHooks<T1, T2, T3>()
+		{
+			return AddHooks (typeof(T1), typeof(T2), typeof(T3));
+		}
+
+		public ICommandMapping AddHooks<T1, T2, T3, T4>()
+		{
+			return AddHooks (typeof(T1), typeof(T2), typeof(T3), typeof(T4));
+		}
+
+		public ICommandMapping AddHooks<T1, T2, T3, T4, T5>()
+		{
+			return AddHooks (typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5));
 		}
 		
 		/**

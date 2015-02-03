@@ -9,7 +9,7 @@ namespace robotlegs.bender.extensions.commandCenter.support
 		/*============================================================================*/
 
 		[Inject("ReportingFunction")]
-		public Action<Type> reportingFunc;
+		public Action<object> reportingFunc;
 
 		/*============================================================================*/
 		/* Public Functions                                                           */

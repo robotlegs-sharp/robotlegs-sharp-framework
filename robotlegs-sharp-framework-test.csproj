@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
@@ -78,6 +78,7 @@
     <Folder Include="test\robotlegs\bender\extensions\commandCenter\" />
     <Folder Include="test\robotlegs\bender\extensions\commandCenter\support\" />
     <Folder Include="test\robotlegs\bender\extensions\directCommandMap\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\commandCenter\impl\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -149,6 +150,25 @@
     <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\ClassReportingCallbackHook.cs" />
     <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\NullCommand2.cs" />
     <Compile Include="test\robotlegs\bender\extensions\directCommandMap\DirectCommandMapExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\impl\CommandExecutorTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\UnmapperStub.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\ClassReportingCallbackCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\ExecutelessCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\SelfReportingCallbackCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\SelfReportingCallbackHook.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\ClassReportingCallbackGuard.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\ClassReportingCallbackGuard2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\ClassReportingCallbackCommand2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\ReportMethodCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\IncorrectExecuteCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\PayloadInjectionPointsCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\PayloadInjectionPointsHook.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\PayloadInjectionPointsGuard.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\MethodParametersCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\OptionalInjectionPointsCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\OptionalInjectionPointsCommandInstantiatingCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\MessageReturningCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\AbstractInterfaceImplementingCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
