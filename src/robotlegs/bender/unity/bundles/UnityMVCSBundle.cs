@@ -23,6 +23,8 @@ using robotlegs.bender.framework.impl;
 using robotlegs.bender.unity.extensions.contextview;
 using robotlegs.bender.unity.extensions.viewManager;
 using robotlegs.bender.unity.extensions.viewManager.impl;
+using robotlegs.bender.extensions.modularity;
+using robotlegs.bender.extensions.viewProcessorMap;
 
 namespace robotlegs.bender.bundles
 {
@@ -35,19 +37,18 @@ namespace robotlegs.bender.bundles
 			context.Install(typeof(DebugLoggingExtension));
 			context.Install(typeof(VigilanceExtension));
 			context.Install(typeof(InjectableLoggerExtension));
+			context.Install(typeof(UnityParentFinderExtension));
 			context.Install(typeof(ContextViewExtension));
 			context.Install(typeof(EventDispatcherExtension));
-//			context.Install(typeof(ModularityExtension));
+			context.Install(typeof(ModularityExtension));
 			context.Install(typeof(DirectCommandMapExtension));
 			context.Install(typeof(EventCommandMapExtension));
 			context.Install(typeof(LocalEventMapExtension));
 			context.Install(typeof(ViewManagerExtension));
-//			context.Install(typeof(StageObserverExtension));
 			context.Install(typeof(MediatorMapExtension));
-//			context.Install(typeof(ViewProcessorMapExtension));
+			context.Install(typeof(ViewProcessorMapExtension));
 			context.Install(typeof(StageCrawlerExtension));
 			context.Install(typeof(StageSyncExtension));
-			context.Install(typeof(UnityParentFinderExtension));
 			context.Install(typeof(UnityViewStateWatcherExtension));
 
 

@@ -46,7 +46,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		public ICommandTrigger GetTrigger (params object[] args)
 		{
 			object key = GetKey(args);
-			return _triggers.ContainsKey (key) ? _triggers [key] : CreateTrigger (args);
+			return _triggers.ContainsKey (key) ? _triggers [key] : _triggers[key] = CreateTrigger (args);
 		}
 
 		public ICommandTrigger RemoveTrigger(params object[] args)

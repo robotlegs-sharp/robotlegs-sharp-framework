@@ -2,7 +2,7 @@
 
 namespace robotlegs.bender.extensions.commandCenter.support
 {
-	public class NullCommand
+	public class NullCommand2
 	{
 		/*============================================================================*/
 		/* Public Functions                                                           */

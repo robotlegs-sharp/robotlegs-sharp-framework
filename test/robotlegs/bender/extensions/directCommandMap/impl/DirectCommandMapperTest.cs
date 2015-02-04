@@ -51,6 +51,7 @@ namespace robotlegs.bender.extensions.directCommandMap.impl
 		public void registers_new_commandMapping_with_CommandMappingList()
 		{
 			CreateMapper<NullCommand>();
+
 			Assert.That(caughtMapping, Is.InstanceOf<ICommandMapping>());
 		}
 
@@ -58,6 +59,7 @@ namespace robotlegs.bender.extensions.directCommandMap.impl
 		public void mapping_is_fireOnce_by_default()
 		{
 			CreateMapper<NullCommand>();
+
 			Assert.That(caughtMapping.FireOnce, Is.True);
 		}
 
@@ -66,6 +68,7 @@ namespace robotlegs.bender.extensions.directCommandMap.impl
 		{
 			string executeMethod = "otherThanExecute";
 			CreateMapper<NullCommand>().WithExecuteMethod(executeMethod);
+
 			Assert.That(caughtMapping.ExecuteMethod, Is.EqualTo(executeMethod));
 		}
 
@@ -74,6 +77,7 @@ namespace robotlegs.bender.extensions.directCommandMap.impl
 		{
 			object[] expected = new object[]{typeof(HappyGuard), typeof(GrumpyGuard)};
 			CreateMapper<NullCommand>().WithGuards(expected);
+
 			Assert.That(caughtMapping.Guards, Is.EqualTo(expected).AsCollection);
 		}
 
@@ -82,6 +86,7 @@ namespace robotlegs.bender.extensions.directCommandMap.impl
 		{
 			object[] expected = new object[]{typeof(ClassReportingCallbackHook), typeof(ClassReportingCallbackHook)};
 			CreateMapper<NullCommand>().WithHooks(expected);
+
 			Assert.That(caughtMapping.Hooks, Is.EqualTo(expected).AsCollection);
 		}
 
@@ -89,40 +94,23 @@ namespace robotlegs.bender.extensions.directCommandMap.impl
 		public void withPayloadInjection_sets_payloadInjection_of_mapping()
 		{
 			CreateMapper<NullCommand>().WithPayloadInjection(false);
+
 			Assert.That(caughtMapping.PayloadInjectionEnabled, Is.False);
 		}
 
-		//TODO: Implement this unit test
-		/*
 		[Test]
 		public void calls_executor_executeCommands_with_arguments()
 		{
-//			var actual:Array;
 			List<ICommandMapping> list = new List<ICommandMapping>();
-
 			mockMappingList.Setup (m => m.GetList ()).Returns (list);
+			CreateMapper<NullCommand>().Execute(null);
 
-			List<ICommandMapping> actualList = null;
-			CommandPayload actualPayload = null;
-			mockExecutor.Setup (e => e.ExecuteCommands (It.IsAny<List<ICommandMapping>> (), It.IsAny<CommandPayload> ())).Callback <List<ICommandMapping>, CommandPayload> ((l, p) => actualPayload = p);
-			
-//			mockMappingList.Setup(
-//			stub(mappings).method('getList').returns(list);
-
-//			mock(executor).method('executeCommands').callsWithArguments(function(... params) {
-//				actual = params;
-//			});
-
-//			CreateMapper<NullCommand>().Execute(null);
-
-//			Assert.That(actual, array(list, nullValue()));
+			mockExecutor.Verify (e => e.ExecuteCommands (It.Is<List<ICommandMapping>> (arg1 => arg1 == list), It.Is<CommandPayload> (arg2 => arg2 == null)), Times.Once);
 		}
-		*/
 
 		[Test]
 		public void map_creates_new_mapper_instance()
 		{
-
 			IDirectCommandConfigurator newMapper = CreateMapper<NullCommand>().Map<NullCommand2>();
 
 			Assert.That(newMapper, Is.Not.Null);

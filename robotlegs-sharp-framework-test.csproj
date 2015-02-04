@@ -170,6 +170,15 @@
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\TestSupportViewStateWatcherExtension.cs" />
     <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\SupportMediator.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\impl\ViewStateWatcherTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\impl\CommandMapperTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\impl\CommandTriggerMapTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\CommandMapStub.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\impl\CommandPayloadTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\impl\CommandMappingTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\impl\CommandMappingListTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\PriorityMapping.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\NullCommand3.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\PriorityMappingComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

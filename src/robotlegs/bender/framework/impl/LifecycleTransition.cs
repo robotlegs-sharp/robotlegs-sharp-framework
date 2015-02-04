@@ -6,8 +6,14 @@ namespace robotlegs.bender.framework.impl
 {
 	public class LifecycleTransition
 	{
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
 		public Action preTransition;
+
 		public Action transition;
+
 		public Action postTransition;
 
 		/*============================================================================*/
@@ -31,12 +37,6 @@ namespace robotlegs.bender.framework.impl
 		private LifecycleState _transitionState = LifecycleState.DESTROYED;
 
 		private LifecycleState _finalState = LifecycleState.DESTROYED;
-
-		private Action _preTransitionEvent;
-
-		private Action _transitionEvent;
-
-		private Action _postTransitionEvent;
 
 		private bool _reverse;
 

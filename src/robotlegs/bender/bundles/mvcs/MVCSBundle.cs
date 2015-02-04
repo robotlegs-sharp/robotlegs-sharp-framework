@@ -11,6 +11,7 @@ using robotlegs.bender.extensions.eventCommandMap;
 using robotlegs.bender.extensions.eventDispatcher;
 using robotlegs.bender.extensions.localEventMap;
 using robotlegs.bender.extensions.viewProcessorMap;
+using robotlegs.bender.extensions.modularity;
 
 namespace robotlegs.bender.bundles.mvcs
 {
@@ -28,12 +29,11 @@ namespace robotlegs.bender.bundles.mvcs
 			context.Install(typeof(InjectableLoggerExtension));
 			context.Install(typeof(ContextViewExtension));
 			context.Install(typeof(EventDispatcherExtension));
-//			context.Install(typeof(ModularityExtension));
+			context.Install(typeof(ModularityExtension));
 			context.Install(typeof(DirectCommandMapExtension));
 			context.Install(typeof(EventCommandMapExtension));
 			context.Install(typeof(LocalEventMapExtension));
 			context.Install(typeof(ViewManagerExtension));
-//			context.Install(typeof(StageObserverExtension));
 			context.Install(typeof(MediatorMapExtension));
 			context.Install(typeof(ViewProcessorMapExtension));
 
