@@ -22,7 +22,7 @@ namespace robotlegs.bender.extensions.vigilance
 		{
 			if (level <= LogLevel.WARN)
 			{
-				throw new VigilanceException(string.Format(message.ToString(), messageParameters));
+				throw new VigilantException(string.Format(message.ToString(), messageParameters));
 			}
 		}
 

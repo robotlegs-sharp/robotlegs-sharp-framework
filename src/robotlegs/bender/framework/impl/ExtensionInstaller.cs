@@ -11,7 +11,7 @@ namespace robotlegs.bender.framework.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 		
-		public Dictionary <Type, bool> _types = new Dictionary<Type, bool> ();
+		private Dictionary <Type, bool> _types = new Dictionary<Type, bool> ();
 
 		public Context _context;
 

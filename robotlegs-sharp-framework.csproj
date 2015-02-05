@@ -133,7 +133,6 @@
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\impl\NullCommandTrigger.cs" />
     <Compile Include="src\robotlegs\bender\extensions\directCommandMap\impl\DirectCommandMapper.cs" />
     <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilanceExtension.cs" />
-    <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilanceException.cs" />
     <Compile Include="src\robotlegs\bender\extensions\directCommandMap\DirectCommandMapExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\api\IEvent.cs" />
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\impl\Event.cs" />
@@ -220,6 +219,7 @@
     <Compile Include="src\robotlegs\bender\unity\extensions\viewManager\impl\UnityViewStateWatcherExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\BlankViewStateWatcherExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ViewManagerBasedExistenceWatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilantException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

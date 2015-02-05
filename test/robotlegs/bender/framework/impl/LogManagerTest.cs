@@ -7,7 +7,7 @@ using robotlegs.bender.framework.api;
 namespace robotlegs.bender.framework.impl
 {
 	[TestFixture]
-	public class LoggerManagerTest
+	public class LogManagerTest
 	{
 		/*============================================================================*/
 		/* Private Properties                                                         */

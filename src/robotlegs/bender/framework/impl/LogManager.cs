@@ -23,7 +23,7 @@ namespace robotlegs.bender.framework.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 		
-		private static readonly List<ILogTarget> _targets = new List<ILogTarget>();
+		private List<ILogTarget> _targets = new List<ILogTarget>();
 
 		/*============================================================================*/
 		/* Public Properties                                                        */

@@ -80,6 +80,7 @@
     <Folder Include="test\robotlegs\bender\extensions\commandCenter\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\mediatorMap\support\" />
     <Folder Include="test\robotlegs\bender\extensions\eventCommandMap\impl\" />
+    <Folder Include="test\robotlegs\bender\extensions\vigilance\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\CommandUnmappingCommand.cs" />
     <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\EventInjectedCallbackGuard.cs" />
     <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\CascadingCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\vigilance\VigilanceExtensionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
