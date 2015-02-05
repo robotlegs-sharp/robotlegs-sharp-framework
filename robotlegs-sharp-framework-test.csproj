@@ -199,6 +199,7 @@
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackBundle.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackUntypedExtension.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\ExtensionWithMultipleConstructors.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\contextView\ContextViewExtensionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
