@@ -3,7 +3,7 @@ using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl.contextSupport
 {
-	public class CallbackExtension : IExtension
+	public class CallbackUntypedExtension
 	{
 		/*============================================================================*/
 		/* Public Static Properties                                                   */
@@ -21,7 +21,7 @@ namespace robotlegs.bender.framework.impl.contextSupport
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public CallbackExtension(Action<IContext> callback = null)
+		public CallbackUntypedExtension(Action<IContext> callback = null)
 		{
 			_callback = callback == null ? staticCallback : callback;
 			staticCallback = null;
@@ -31,7 +31,7 @@ namespace robotlegs.bender.framework.impl.contextSupport
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public virtual void Extend(IContext context)
+		public void Extend(IContext context)
 		{
 			_callback (context);
 		}

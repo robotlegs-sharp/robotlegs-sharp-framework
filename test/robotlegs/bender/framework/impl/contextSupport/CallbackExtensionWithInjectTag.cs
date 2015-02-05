@@ -3,25 +3,32 @@ using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl.contextSupport
 {
-	public class CallbackExtension : IExtension
+	public class CallbackExtensionInjectable : IExtension
 	{
 		/*============================================================================*/
 		/* Public Static Properties                                                   */
 		/*============================================================================*/
 
-		public static Action<IContext> staticCallback;
+		public static Action<CallbackExtensionInjectable> staticCallback;
+
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		[Inject]
+		public IInjector injector;
 
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
-		private Action<IContext> _callback;
+		private Action<CallbackExtensionInjectable> _callback;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public CallbackExtension(Action<IContext> callback = null)
+		public CallbackExtensionInjectable(Action<CallbackExtensionInjectable> callback = null)
 		{
 			_callback = callback == null ? staticCallback : callback;
 			staticCallback = null;
@@ -33,7 +40,8 @@ namespace robotlegs.bender.framework.impl.contextSupport
 
 		public virtual void Extend(IContext context)
 		{
-			_callback (context);
+			if (_callback != null)
+				_callback (this);
 		}
 	}
 }

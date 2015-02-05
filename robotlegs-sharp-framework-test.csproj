@@ -192,6 +192,13 @@
     <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\EventInjectedCallbackGuard.cs" />
     <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\CascadingCommand.cs" />
     <Compile Include="test\robotlegs\bender\extensions\vigilance\VigilanceExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\ObjectProcessorTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\RobotlegsInjectorTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\ExtensionInstallerTest.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackExtensionWithInjectTag.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackBundle.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackUntypedExtension.cs" />
+    <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\ExtensionWithMultipleConstructors.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

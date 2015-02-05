@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using robotlegs.bender.framework.api;
+using System.Reflection;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -41,11 +42,11 @@ namespace robotlegs.bender.framework.impl
 			if (_types.ContainsKey (type))
 				return;
 
-			IExtension extension = _context.injector.InstantiateUnmapped(type) as IExtension;
-			Install(extension);
+			object extension = CreateInstance (type);
+			Install (extension);
 		}
 
-		public void Install(IExtension extension)
+		public void Install(object extension)
 		{
 			Type type = extension.GetType();
 
@@ -54,12 +55,53 @@ namespace robotlegs.bender.framework.impl
 
 			_logger.Debug("Installing extension {0}", extension);
 			_types[type] = true;
-			extension.Extend (_context);
+
+			if (extension is IExtension)
+			{
+				// This check is to prevent TargetInvokationExecptions when an extension extend method errors
+				(extension as IExtension).Extend (_context);
+			}
+			else
+			{
+				MethodInfo method = type.GetMethod ("Extend");
+				method.Invoke (extension, new object[]{ (_context) });
+			}
 		}
 
 		public void Destroy()
 		{
 			_types.Clear();
+		}
+
+		/*============================================================================*/
+		/* Private Functions                                                          */
+		/*============================================================================*/
+
+		private object CreateInstance(Type type)
+		{
+			// Get the constructor with the least amount of parameters
+			int maxParameters = int.MaxValue;
+			ConstructorInfo[] constructors = type.GetConstructors ();
+			ConstructorInfo constructorToInject = null;
+			foreach (ConstructorInfo constructor in constructors)
+			{
+				int paramsLength = constructor.GetParameters ().Length;
+				if (paramsLength < maxParameters)
+				{
+					constructorToInject = constructor;
+					maxParameters = paramsLength;
+				}
+			}
+
+			ParameterInfo[] parameters = constructorToInject.GetParameters ();
+			int parametersLength = parameters.Length;
+			object[] args = new object[parametersLength];
+			for (int i = 0; i < parametersLength; i++)
+			{
+				args [i] = parameters [i].DefaultValue;
+			}
+
+			return constructorToInject.Invoke (args);
 		}
 	}
 }

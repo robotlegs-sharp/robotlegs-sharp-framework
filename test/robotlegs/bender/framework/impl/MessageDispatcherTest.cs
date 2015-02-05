@@ -346,6 +346,7 @@ namespace robotlegs.bender.framework.impl
 		[Test]
 		public async Task async_and_sync_handlers_should_run_in_order()
 		{
+			//TODO: This fails but not everytime... sometimes it's empty
 			List<object> results = new List<object> ();
 			dispatcher.AddMessageHandler(message, CreateHandler.AsyncHandler((Action<object>)results.Add, new object[]{'A'}));
 			dispatcher.AddMessageHandler(message, CreateHandler.Handler((Action<object>)results.Add, new object[]{'B'}));

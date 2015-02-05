@@ -19,6 +19,14 @@ namespace robotlegs.bender.framework.impl.safelyCallBackSupport
 			};
 		}
 
+		public static Action<T> Handler<T>(Delegate closure = null, object[] args = null)
+		{
+			return delegate(T arg) {
+				if (closure != null)
+					closure.DynamicInvoke (args);
+			};
+		}
+
 		private static int value = 0;
 
 		public static HandlerMessageCallbackDelegate AsyncHandler(Delegate closure = null, object[] args = null)
