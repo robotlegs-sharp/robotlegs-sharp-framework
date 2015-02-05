@@ -79,6 +79,7 @@
     <Folder Include="test\robotlegs\bender\extensions\directCommandMap\support\" />
     <Folder Include="test\robotlegs\bender\extensions\commandCenter\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\mediatorMap\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\eventCommandMap\impl\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -179,6 +180,16 @@
     <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\PriorityMapping.cs" />
     <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\NullCommand3.cs" />
     <Compile Include="test\robotlegs\bender\extensions\commandCenter\support\PriorityMappingComparer.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\EventCommandMapExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandMapTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\impl\EventCommandTriggerTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\EventInjectedCallbackCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\EventParametersCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\SupportEventTriggeredSelfReportingCallbackCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\CommandMappingCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\CommandUnmappingCommand.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\EventInjectedCallbackGuard.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventCommandMap\support\CascadingCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

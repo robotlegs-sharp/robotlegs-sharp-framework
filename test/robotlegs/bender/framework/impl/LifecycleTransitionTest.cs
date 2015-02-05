@@ -235,7 +235,6 @@ namespace robotlegs.bender.framework.impl
 			}).Enter(delegate(Exception error) {
 				actual = error;
 			});
-			Console.WriteLine ("Actual: " + actual);
 			Assert.That(actual, Is.EqualTo(expected));
 		}
 

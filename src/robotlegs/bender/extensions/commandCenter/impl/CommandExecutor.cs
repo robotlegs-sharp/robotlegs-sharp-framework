@@ -85,8 +85,6 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 
 			if (command != null && mapping.ExecuteMethod != null) 
 			{
-				if (command is Type)
-					Console.WriteLine ("Whoops");
 				MethodInfo executeMethod = command.GetType().GetMethod (mapping.ExecuteMethod);
 				object result = (hasPayload && executeMethod.GetParameters ().Length > 0)
 					? executeMethod.Invoke (command, payload.Values.ToArray ())
@@ -94,7 +92,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 				if (_handleResult != null)
 					_handleResult.Invoke (result, command, mapping);
 			}
-		}
+		}	
 
 		/*============================================================================*/
 		/* Private Functions                                                          */

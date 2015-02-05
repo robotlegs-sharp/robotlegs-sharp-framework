@@ -385,9 +385,8 @@ namespace robotlegs.bender.framework.impl
 					object[] args = new object[method.Method.GetParameters().Length];
 					method.DynamicInvoke(args);
 				}
-				catch (Exception error)
+				catch (Exception)
 				{
-					Console.WriteLine (error.Message);
 					errorCount++;
 				}
 			}

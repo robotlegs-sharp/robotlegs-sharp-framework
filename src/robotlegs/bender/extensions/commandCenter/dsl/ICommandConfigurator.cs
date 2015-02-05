@@ -25,6 +25,11 @@ namespace robotlegs.bender.extensions.commandCenter.dsl
 		 * @return Self
 		 */
 		ICommandConfigurator WithGuards(params object[] guards);
+		ICommandConfigurator WithGuards<T>();
+		ICommandConfigurator WithGuards<T1, T2>();
+		ICommandConfigurator WithGuards<T1, T2, T3>();
+		ICommandConfigurator WithGuards<T1, T2, T3, T4>();
+		ICommandConfigurator WithGuards<T1, T2, T3, T4, T5>();
 		
 		/**
 		 * Hooks to run before command execution
@@ -32,13 +37,18 @@ namespace robotlegs.bender.extensions.commandCenter.dsl
 		 * @return Self
 		 */
 		ICommandConfigurator WithHooks(params object[] hooks);
+		ICommandConfigurator WithHooks<T>();
+		ICommandConfigurator WithHooks<T1, T2>();
+		ICommandConfigurator WithHooks<T1, T2, T3>();
+		ICommandConfigurator WithHooks<T1, T2, T3, T4>();
+		ICommandConfigurator WithHooks<T1, T2, T3, T4, T5>();
 		
 		/**
 		 * Should this command only run once?
 		 * @param value Toggle
 		 * @return Self
 		 */
-		ICommandConfigurator Once(bool value);
+		ICommandConfigurator Once(bool value = true);
 		
 		/**
 		 * Should the payload values be injected into the command instance?

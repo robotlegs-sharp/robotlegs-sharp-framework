@@ -107,11 +107,61 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			return this;
 		}
 
+		public IMediatorConfigurator WithGuards<T>()
+		{
+			return WithGuards (typeof(T));
+		}
+
+		public IMediatorConfigurator WithGuards<T1, T2>()
+		{
+			return WithGuards (typeof(T1), typeof(T2));
+		}
+
+		public IMediatorConfigurator WithGuards<T1, T2, T3>()
+		{
+			return WithGuards (typeof(T1), typeof(T2), typeof(T3));
+		}
+
+		public IMediatorConfigurator WithGuards<T1, T2, T3, T4>()
+		{
+			return WithGuards (typeof(T1), typeof(T2), typeof(T3), typeof(T4));
+		}
+
+		public IMediatorConfigurator WithGuards<T1, T2, T3, T4, T5>()
+		{
+			return WithGuards (typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5));
+		}
+
 
 		public IMediatorConfigurator WithHooks(params object[] hooks)
 		{
 			_hooks.AddRange (hooks);
 			return this;
+		}
+
+		public IMediatorConfigurator WithHooks<T>()
+		{
+			return WithHooks (typeof(T));
+		}
+
+		public IMediatorConfigurator WithHooks<T1, T2>()
+		{
+			return WithHooks (typeof(T1), typeof(T2));
+		}
+
+		public IMediatorConfigurator WithHooks<T1, T2, T3>()
+		{
+			return WithHooks (typeof(T1), typeof(T2), typeof(T3));
+		}
+
+		public IMediatorConfigurator WithHooks<T1, T2, T3, T4>()
+		{
+			return WithHooks (typeof(T1), typeof(T2), typeof(T3), typeof(T4));
+		}
+
+		public IMediatorConfigurator WithHooks<T1, T2, T3, T4, T5>()
+		{
+			return WithHooks (typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5));
 		}
 
 

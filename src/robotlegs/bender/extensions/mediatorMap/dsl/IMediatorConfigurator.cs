@@ -18,6 +18,12 @@ namespace robotlegs.bender.extensions.mediatorMap.dsl
 		/// <returns>Self</returns>
 		/// <param name="guards">Guards</param>
 		IMediatorConfigurator WithGuards(params object[] guards);
+		IMediatorConfigurator WithGuards<T>();
+		IMediatorConfigurator WithGuards<T1, T2>();
+		IMediatorConfigurator WithGuards<T1, T2, T3>();
+		IMediatorConfigurator WithGuards<T1, T2, T3, T4>();
+		IMediatorConfigurator WithGuards<T1, T2, T3, T4, T5>();
+
 
 		/// <summary>
 		/// Hooks to run before a mediator is created
@@ -25,6 +31,11 @@ namespace robotlegs.bender.extensions.mediatorMap.dsl
 		/// <returns>Self</returns>
 		/// <param name="hooks">Hooks</param>
 		IMediatorConfigurator WithHooks(params object[] hooks);
+		IMediatorConfigurator WithHooks<T>();
+		IMediatorConfigurator WithHooks<T1, T2>();
+		IMediatorConfigurator WithHooks<T1, T2, T3>();
+		IMediatorConfigurator WithHooks<T1, T2, T3, T4>();
+		IMediatorConfigurator WithHooks<T1, T2, T3, T4, T5>();
 		
 		/// <summary>
 		/// Should the mediator be removed when the mediated item looses scope?
