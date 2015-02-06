@@ -7,9 +7,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +81,7 @@
     <Folder Include="test\robotlegs\bender\extensions\mediatorMap\support\" />
     <Folder Include="test\robotlegs\bender\extensions\eventCommandMap\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\vigilance\" />
+    <Folder Include="test\robotlegs\bender\extensions\matching\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -200,6 +201,22 @@
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackUntypedExtension.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\ExtensionWithMultipleConstructors.cs" />
     <Compile Include="test\robotlegs\bender\extensions\contextView\ContextViewExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\IType1.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\IType2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\ITypeX.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\ITypeY.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeA.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeA1.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeA12.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeB.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeB12.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\a\PackagedTypeA.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\b\PackagedTypeB.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\c\PackagedTypeC.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\TypeFilterTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\TypeFilterUsageTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\TypeMatcherTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\InstanceOfMatcherTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

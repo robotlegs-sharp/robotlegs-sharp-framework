@@ -10,13 +10,13 @@
 using System;
 namespace robotlegs.bender.extensions.matching
 {
-	public class TypeMatchException : Exception
+	public class TypeMatcherException : Exception
 	{
 		public const string EMPTY_MATCHER = "An empty matcher will create a filter which matches nothing. You should specify at least one condition for the filter.";
 
 		public const string SEALED_MATCHER = "This matcher has been sealed and can no longer be configured.";
 
-		public TypeMatchException (string message) : base(message)
+		public TypeMatcherException (string message) : base(message)
 		{
 
 		}
