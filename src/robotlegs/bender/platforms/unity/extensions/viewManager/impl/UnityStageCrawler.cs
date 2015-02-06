@@ -3,7 +3,7 @@ using robotlegs.bender.extensions.viewManager.impl;
 using UnityEngine;
 using robotlegs.bender.extensions.mediatorMap.api;
 
-namespace robotlegs.bender.unity.extensions.viewManager.impl
+namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 {
 	public class UnityStageCrawler : StageCrawler
 	{

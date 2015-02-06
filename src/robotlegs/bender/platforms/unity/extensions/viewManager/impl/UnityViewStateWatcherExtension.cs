@@ -1,9 +1,9 @@
 using robotlegs.bender.extensions.viewManager;
 using robotlegs.bender.extensions.viewManager.api;
 using UnityEngine;
-using robotlegs.bender.unity.extensions.viewManager.impl;
+using robotlegs.bender.platforms.unity.extensions.viewManager.impl;
 
-namespace robotlegs.bender.unity.extensions.viewManager.impl
+namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 {
 	public class UnityViewStateWatcherExtension : ViewStateWatcherExtension
 	{

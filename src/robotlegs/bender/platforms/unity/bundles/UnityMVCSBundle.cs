@@ -20,9 +20,9 @@ using robotlegs.bender.extensions.localEventMap;
 using robotlegs.bender.extensions.viewManager;
 using robotlegs.bender.extensions.mediatorMap;
 using robotlegs.bender.framework.impl;
-using robotlegs.bender.unity.extensions.contextview;
-using robotlegs.bender.unity.extensions.viewManager;
-using robotlegs.bender.unity.extensions.viewManager.impl;
+using robotlegs.bender.platforms.unity.extensions.contextview;
+using robotlegs.bender.platforms.unity.extensions.viewManager;
+using robotlegs.bender.platforms.unity.extensions.viewManager.impl;
 using robotlegs.bender.extensions.modularity;
 using robotlegs.bender.extensions.viewProcessorMap;
 

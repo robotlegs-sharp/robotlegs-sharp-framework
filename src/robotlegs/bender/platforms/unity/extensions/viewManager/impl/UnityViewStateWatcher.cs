@@ -3,7 +3,7 @@ using System;
 using robotlegs.bender.extensions.viewManager.api;
 
 
-namespace robotlegs.bender.unity.extensions.viewManager.impl
+namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 {
 	public class UnityViewStateWatcher : MonoBehaviour, IViewStateWatcher
 	{

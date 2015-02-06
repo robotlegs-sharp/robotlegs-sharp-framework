@@ -14,7 +14,7 @@ using robotlegs.bender.framework.unity.extensions.viewManager.impl;
 using robotlegs.bender.extensions.viewManager;
 
 
-namespace robotlegs.bender.unity.extensions.viewManager
+namespace robotlegs.bender.platforms.unity.extensions.viewManager
 {
 	public class UnityParentFinderExtension : IExtension
 	{
