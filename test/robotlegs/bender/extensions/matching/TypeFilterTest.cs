@@ -12,7 +12,7 @@ using robotlegs.bender.extensions.eventDispatcher.api;
 
 namespace robotlegs.bender.extensions.matching
 {
-
+	[TestFixture]
 	public class TypeFilterTest
 	{
 

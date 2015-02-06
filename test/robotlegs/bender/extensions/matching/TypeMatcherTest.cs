@@ -14,13 +14,12 @@ using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.matching
 {
+	[TestFixture]
 	public class TypeMatcherTest
 	{
-
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
-
 
 		private static readonly List<Type> ALL_OF = new List<Type>{typeof(uint), typeof(float)};
 
@@ -35,21 +34,6 @@ namespace robotlegs.bender.extensions.matching
 		private static readonly List<Type> NONE_OF_2 = new List<Type>{typeof(ITypeFilter), typeof(ITypeMatcher)};
 
 		private static readonly List<Type> EMPTY_CLASS_VECTOR = new List<Type>{};
-		/*
-		private const ALL_OF:Vector.<Class> = new <Class>[uint, Number];
-
-		private const ALL_OF_2:Vector.<Class> = new <Class>[Object, IDataInput];
-
-		private const ANY_OF:Vector.<Class> = new <Class>[Sprite, IEventDispatcher];
-
-		private const ANY_OF_2:Vector.<Class> = new <Class>[DisplayObject, MovieClip];
-
-		private const EMPTY_CLASS_VECTOR:Vector.<Class> = new List<Type>{};
-
-		private const NONE_OF:Vector.<Class> = new <Class>[ByteArray, String];
-
-		private const NONE_OF_2:Vector.<Class> = new <Class>[ITypeFilter, ITypeMatcher];
-		*/
 
 		private TypeMatcher instance;
 
