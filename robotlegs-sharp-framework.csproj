@@ -59,6 +59,8 @@
     <Folder Include="src\robotlegs\bender\extensions\modularity\" />
     <Folder Include="src\robotlegs\bender\extensions\viewStateWatcher\" />
     <Folder Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\api\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
@@ -152,11 +154,8 @@
     <Compile Include="src\robotlegs\bender\extensions\localEventMap\impl\EventMapConfig.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IInjector.cs" />
     <Compile Include="src\robotlegs\bender\framework\impl\RobotlegsInjector.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\EventView.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\View.cs" />
     <Compile Include="src\robotlegs\bender\bundles\mvcs\Mediator.cs" />
     <Compile Include="src\robotlegs\bender\bundles\mvcs\MVCSBundle.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\IEventView.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IPinEvent.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\LifecycleState.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\ILifecycle.cs" />
@@ -222,6 +221,9 @@
     <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ViewManagerBasedExistenceWatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilantException.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IBundle.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\View.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\EventView.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\api\IEventView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

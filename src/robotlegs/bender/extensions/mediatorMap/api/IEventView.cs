@@ -12,7 +12,7 @@ using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.mediatorMap.api;
 
 
-namespace strange.extensions.mediation.impl
+namespace robotlegs.bender.extensions.mediatorMap.api
 {
 	public interface IEventView : IView
 	{
