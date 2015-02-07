@@ -74,20 +74,14 @@ namespace robotlegs.bender.extensions.matching
 		protected void PushAddedTypesTo(Type[] types, List<Type> targetSet)
 		{
 			if (typeFilter != null)
-				ThrowSealedMatcherError();
+				ThrowSealedMatcherError ();
 
-			PushValuesToTypeList(types, targetSet);
+			targetSet.AddRange (types);
 		}
 
 		protected void ThrowSealedMatcherError()
 		{
 			throw new TypeMatcherException(TypeMatcherException.SEALED_MATCHER);
-		}
-
-		protected void PushValuesToTypeList(Type[] types, List<Type> targetSet)
-		{
-			foreach (Type type in types)
-				targetSet.Add(type);
 		}
 	}
 }

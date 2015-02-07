@@ -222,6 +222,8 @@
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\api\IEventView.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\DebugLoggingExtension.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\impl\DebugLogTarget.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\NamespaceMatcher.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\matching\NamespaceFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
