@@ -71,7 +71,7 @@ namespace robotlegs.bender.bundles.mvcs
 		/* Protected Functions                                                        */
 		/*============================================================================*/
 
-		protected virtual void AddViewListener(Enum type, Action listener)
+		protected virtual void AddViewListener(Enum type, Action listener, Type eventClass = null)
 		{
 			if (viewDispatcher == null)
 			{
@@ -79,11 +79,11 @@ namespace robotlegs.bender.bundles.mvcs
 			}
 			else
 			{
-				eventMap.MapListener(viewDispatcher, type, listener);
+				eventMap.MapListener(viewDispatcher, type, listener, eventClass);
 			}
 		}
 
-		protected virtual void AddViewListener(Enum type, Action<IEvent> listener)
+		protected virtual void AddViewListener(Enum type, Action<IEvent> listener, Type eventClass = null)
 		{
 			if (viewDispatcher == null)
 			{
@@ -91,11 +91,11 @@ namespace robotlegs.bender.bundles.mvcs
 			}
 			else
 			{
-				eventMap.MapListener(viewDispatcher, type, listener);
+				eventMap.MapListener(viewDispatcher, type, listener, eventClass);
 			}
 		}
 
-		protected virtual void AddViewListener<T>(Enum type, Action<T> listener)
+		protected virtual void AddViewListener<T>(Enum type, Action<T> listener, Type eventClass = null)
 		{
 			if (viewDispatcher == null)
 			{
@@ -103,11 +103,11 @@ namespace robotlegs.bender.bundles.mvcs
 			}
 			else
 			{
-				eventMap.MapListener(viewDispatcher, type, listener);
+				eventMap.MapListener(viewDispatcher, type, listener, eventClass);
 			}
 		}
 
-		protected virtual void AddViewListener(Enum type, Delegate listener)
+		protected virtual void AddViewListener(Enum type, Delegate listener, Type eventClass = null)
 		{
 			if (viewDispatcher == null)
 			{
@@ -115,38 +115,26 @@ namespace robotlegs.bender.bundles.mvcs
 			}
 			else
 			{
-				eventMap.MapListener (viewDispatcher, type, listener);
+				eventMap.MapListener (viewDispatcher, type, listener, eventClass);
 			}
 		}
 
-		protected virtual void AddContextListener(Enum type, Action listener)
+		protected virtual void AddContextListener(Enum type, Action listener, Type eventClass = null)
 		{
-			eventMap.MapListener(eventDispatcher, type, listener);
+			eventMap.MapListener(eventDispatcher, type, listener, eventClass);
 		}
 
-		protected virtual void AddContextListener(Enum type, Action<IEvent> listener)
+		protected virtual void AddContextListener(Enum type, Action<IEvent> listener, Type eventClass = null)
 		{
-			eventMap.MapListener(eventDispatcher, type, listener);
+			eventMap.MapListener(eventDispatcher, type, listener, eventClass);
 		}
 
-		protected virtual void AddContextListener<T>(Enum type, Action<T> listener)
+		protected virtual void AddContextListener<T>(Enum type, Action<T> listener, Type eventClass = null)
 		{
-			eventMap.MapListener(eventDispatcher, type, listener);
+			eventMap.MapListener(eventDispatcher, type, listener, eventClass);
 		}
 
-		protected virtual void RemoveViewListener(Enum type, Action listener)
-		{
-			if (viewDispatcher == null)
-			{
-				TriggerViewDispatcherError ();
-			}
-			else
-			{
-				eventMap.UnmapListener(viewDispatcher, type, listener);
-			}
-		}
-
-		protected virtual void RemoveViewListener(Enum type, Action<IEvent> listener)
+		protected virtual void RemoveViewListener(Enum type, Action listener, Type eventClass = null)
 		{
 			if (viewDispatcher == null)
 			{
@@ -154,11 +142,11 @@ namespace robotlegs.bender.bundles.mvcs
 			}
 			else
 			{
-				eventMap.UnmapListener(viewDispatcher, type, listener);
+				eventMap.UnmapListener(viewDispatcher, type, listener, eventClass);
 			}
 		}
 
-		protected virtual void RemoveViewListener<T>(Enum type, Action<T> listener)
+		protected virtual void RemoveViewListener(Enum type, Action<IEvent> listener, Type eventClass = null)
 		{
 			if (viewDispatcher == null)
 			{
@@ -166,11 +154,11 @@ namespace robotlegs.bender.bundles.mvcs
 			}
 			else
 			{
-				eventMap.UnmapListener(viewDispatcher, type, listener);
+				eventMap.UnmapListener(viewDispatcher, type, listener, eventClass);
 			}
 		}
 
-		protected virtual void RemoveViewListener(Enum type, Delegate listener)
+		protected virtual void RemoveViewListener<T>(Enum type, Action<T> listener, Type eventClass = null)
 		{
 			if (viewDispatcher == null)
 			{
@@ -178,28 +166,40 @@ namespace robotlegs.bender.bundles.mvcs
 			}
 			else
 			{
-				eventMap.UnmapListener(viewDispatcher, type, listener);
+				eventMap.UnmapListener(viewDispatcher, type, listener, eventClass);
+			}
+		}
+
+		protected virtual void RemoveViewListener(Enum type, Delegate listener, Type eventClass = null)
+		{
+			if (viewDispatcher == null)
+			{
+				TriggerViewDispatcherError ();
+			}
+			else
+			{
+				eventMap.UnmapListener(viewDispatcher, type, listener, eventClass);
 			}
 		}
 			
-		protected virtual void RemoveContextListener(Enum type, Action listener)
+		protected virtual void RemoveContextListener(Enum type, Action listener, Type eventClass = null)
 		{
-			eventMap.UnmapListener(eventDispatcher, type, listener);
+			eventMap.UnmapListener(eventDispatcher, type, listener, eventClass);
 		}
 
-		protected virtual void RemoveContextListener(Enum type, Action<IEvent> listener)
+		protected virtual void RemoveContextListener(Enum type, Action<IEvent> listener, Type eventClass = null)
 		{
-			eventMap.UnmapListener(eventDispatcher, type, listener);
+			eventMap.UnmapListener(eventDispatcher, type, listener, eventClass);
 		}
 
-		protected virtual void RemoveContextListener<T>(Enum type, Action<T> listener)
+		protected virtual void RemoveContextListener<T>(Enum type, Action<T> listener, Type eventClass = null)
 		{
-			eventMap.UnmapListener(eventDispatcher, type, listener);
+			eventMap.UnmapListener(eventDispatcher, type, listener, eventClass);
 		}
 
-		protected virtual void RemoveContextListener(Enum type, Delegate listener)
+		protected virtual void RemoveContextListener(Enum type, Delegate listener, Type eventClass = null)
 		{
-			eventMap.UnmapListener(eventDispatcher, type, listener);
+			eventMap.UnmapListener(eventDispatcher, type, listener, eventClass);
 		}
 
 		protected virtual void Dispatch(IEvent evt)

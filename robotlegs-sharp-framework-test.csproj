@@ -84,6 +84,7 @@
     <Folder Include="test\robotlegs\bender\extensions\matching\" />
     <Folder Include="test\robotlegs\bender\extensions\eventDispatcher\support\" />
     <Folder Include="test\robotlegs\bender\extensions\enhancedLogging\" />
+    <Folder Include="test\robotlegs\bender\extensions\localEventMap\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -227,6 +228,10 @@
     <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\InjectorActivityLoggingExtensionTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\ConsoleLoggingExtensionTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\impl\ConsoleLogTargetTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\support\CustomEvent.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\EventMapConfigTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\LocalEventMapExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\EventMapTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
