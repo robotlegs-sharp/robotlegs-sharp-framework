@@ -27,7 +27,6 @@ namespace robotlegs.bender.bundles.mvcs
 			context.Install(typeof(ConsoleLoggingExtension));
 			context.Install(typeof(VigilanceExtension));
 			context.Install(typeof(InjectableLoggerExtension));
-			context.Install(typeof(ContextViewExtension));
 			context.Install(typeof(EventDispatcherExtension));
 			context.Install(typeof(ModularityExtension));
 			context.Install(typeof(DirectCommandMapExtension));

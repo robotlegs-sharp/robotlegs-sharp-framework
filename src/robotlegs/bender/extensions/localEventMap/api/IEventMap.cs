@@ -5,9 +5,9 @@ namespace robotlegs.bender.extensions.localEventMap.api
 {
 	public interface IEventMap
 	{
-		void MapListener(IEventDispatcher dispatcher, Enum type, Delegate listener);
+		void MapListener(IEventDispatcher dispatcher, Enum type, Delegate listener, Type eventClass = null);
 
-		void UnmapListener(IEventDispatcher dispatcher, Enum type, Delegate listener);
+		void UnmapListener(IEventDispatcher dispatcher, Enum type, Delegate listener, Type eventClass = null);
 
 		void UnmapListeners();
 

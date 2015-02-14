@@ -1,29 +1,23 @@
-﻿using robotlegs.bender.extensions.eventDispatcher.api;
-using System;
+//------------------------------------------------------------------------------
+//  Copyright (c) 2011 the original author or authors. All Rights Reserved.
+//
+//  NOTICE: You are permitted to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//------------------------------------------------------------------------------
+using robotlegs.bender.extensions.eventDispatcher.impl;
 
 namespace robotlegs.bender.extensions.localEventMap.impl.support
 {
-	public class CustomEvent : IEvent
+	public class CustomEvent : Event
 	{
 		public enum Type
 		{
 			STARTED
 		}
 
-		private Enum _type;
-
-		public Enum type 
+		public CustomEvent(Type type) : base(type)
 		{
-			get 
-			{
-				return _type;
-			}
+			
 		}
-
-		public CustomEvent (CustomEvent.Type type)
-		{
-			_type = type;
-		}
-
 	}
 }

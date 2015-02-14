@@ -2,6 +2,7 @@
 using robotlegs.bender.extensions.localEventMap.api;
 using robotlegs.bender.extensions.eventDispatcher.api;
 using System.Collections.Generic;
+using robotlegs.bender.extensions.eventDispatcher.impl;
 
 namespace robotlegs.bender.extensions.localEventMap.impl
 {
@@ -21,8 +22,13 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void MapListener(IEventDispatcher dispatcher, Enum type, Delegate listener)
+		public void MapListener(IEventDispatcher dispatcher, Enum type, Delegate listener, Type eventClass = null)
 		{
+			if (eventClass == null)
+			{	
+				eventClass = typeof(Event);
+			}
+
 			List<EventMapConfig> currentListeners = _suspended ? _suspendedListeners : _listeners;
 
 			EventMapConfig config;
@@ -32,26 +38,31 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 			while (i-- > 0) 
 			{
 				config = currentListeners [i];
-				if (config.Equals (dispatcher, type, listener))
+				if (config.Equals (dispatcher, type, listener, eventClass))
 					return;
 			}
 
-			// Callback
-			Delegate callback = null;
+			Delegate callback = eventClass == typeof(Event) ? listener : (Action<IEvent>)delegate(IEvent evt){
+				RouteEventToListener(evt, listener, eventClass);
+			};
 
-			callback = listener;
-			config = new EventMapConfig (dispatcher, type, listener, callback);
+			config = new EventMapConfig (dispatcher, type, listener, eventClass, callback);
 
 			currentListeners.Add (config);
 
 			if (!_suspended) 
 			{
-				dispatcher.AddEventListener (type, listener);
+				dispatcher.AddEventListener (type, callback);
 			}
 		}
 
-		public void UnmapListener(IEventDispatcher dispatcher, Enum type, Delegate listener)
+		public void UnmapListener(IEventDispatcher dispatcher, Enum type, Delegate listener, Type eventClass = null)
 		{
+			if (eventClass == null)
+			{	
+				eventClass = typeof(Event);
+			}
+
 			List<EventMapConfig> currentListeners = _suspended ? _suspendedListeners : _listeners;
 
 			EventMapConfig config;
@@ -61,11 +72,11 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 			while (i-- > 0) 
 			{
 				config = currentListeners [i];
-				if (config.Equals (dispatcher, type, listener)) 
+				if (config.Equals (dispatcher, type, listener, eventClass)) 
 				{
 					if (!_suspended) 
 					{
-						dispatcher.RemoveEventListener (type, listener);
+						dispatcher.RemoveEventListener (type, config.callback);
 					}
 					currentListeners.RemoveAt (i);
 					return;
@@ -81,7 +92,7 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 			{
 				if (!_suspended)
 				{
-					config.dispatcher.RemoveEventListener (config.type, config.listener);
+					config.dispatcher.RemoveEventListener (config.type, config.callback);
 				}
 			}
 
@@ -114,12 +125,32 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 
 			EventMapConfig config;
 
-			while (_suspendedListeners.Count == 0)
+			while (_suspendedListeners.Count > 0)
 			{
 				config = _suspendedListeners[0];
 				_suspendedListeners.RemoveAt (0);
-				config.dispatcher.AddEventListener(config.type, config.listener);
+				config.dispatcher.AddEventListener(config.type, config.callback);
 				_listeners.Add(config);
+			}
+		}
+
+		/*============================================================================*/
+		/* Protected Functions                                                        */
+		/*============================================================================*/
+
+		/**
+		* Event Handler
+		*
+		* @param event The <code>Event</code>
+		* @param listener
+		* @param originalEventClass
+		*/
+		protected void RouteEventToListener(IEvent evt, Delegate listener, Type originalEventClass)
+		{
+//			if (evt is originalEventClass)
+			if (originalEventClass.IsInstanceOfType(evt))
+			{
+				listener.DynamicInvoke(new object[]{evt});
 			}
 		}
 	}

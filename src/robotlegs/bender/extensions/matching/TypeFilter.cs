@@ -98,20 +98,8 @@ namespace robotlegs.bender.extensions.matching
 
 		public string GetClassName(Type type)
 		{
-			return type.AssemblyQualifiedName;
-			//TODO: The code below doesn't handle generic properly (code above does, but appears to be slower/bulkier)
-			/*
-			string className = type.Namespace;
-			if (className != "") 
-				className += ".";
-			className += type.Name;
-			if (type.IsGenericType)
-			{
-				Type genericType = type.GetGenericTypeDefinition();
-				className += "-" + genericType.Namespace + genericType.Name;
-			}
-			return className;
-			*/
+			return type.FullName;
+//			return type.AssemblyQualifiedName; // Removed this, as it's more readable above
 		}
 
 		public List<string> AlphabetiseCaseInsensitiveClassNames(List<Type> types)

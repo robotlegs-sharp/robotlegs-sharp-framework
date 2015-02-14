@@ -7,9 +7,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -84,6 +84,9 @@
     <Folder Include="test\robotlegs\bender\extensions\localEventMap\" />
     <Folder Include="test\robotlegs\bender\extensions\localEventMap\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\localEventMap\impl\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\matching\" />
+    <Folder Include="test\robotlegs\bender\extensions\eventDispatcher\support\" />
+    <Folder Include="test\robotlegs\bender\extensions\enhancedLogging\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -219,6 +222,36 @@
     <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\MediatorWeakMapTracker.cs" />
     <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\SugaryMediator.cs" />
     <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\support\CustomEvent.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\IType1.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\IType2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\ITypeX.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\ITypeY.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeA.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeA1.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeA12.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeB.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\TypeB12.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\a\PackagedTypeA.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\b\PackagedTypeB.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\support\c\PackagedTypeC.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\TypeFilterTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\TypeFilterUsageTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\TypeMatcherTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\InstanceOfMatcherTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\viewManager\ViewManagerExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventDispatcher\support\BlankEvent.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\eventDispatcher\support\CustomEvent.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\support\SupportLogTarget.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\InjectableLoggerExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\InjectorActivityLoggingExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\ConsoleLoggingExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\impl\ConsoleLogTargetTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\support\CustomEvent.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\EventMapConfigTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\LocalEventMapExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\EventMapTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\NamespaceFilter_descriptorTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\matching\NamespaceMatchingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

@@ -15,6 +15,8 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 
 		private Delegate _listener;
 
+		private Type _eventClass;
+
 		private Delegate _callback;
 
 		/*============================================================================*/
@@ -45,6 +47,14 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 			}
 		}
 
+		public Type eventClass
+		{
+			get 
+			{
+				return _eventClass;
+			}
+		}
+
 		public Delegate callback
 		{
 			get 
@@ -57,10 +67,11 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public EventMapConfig (IEventDispatcher dispatcher, Enum type, Delegate listener, Delegate callback)
+		public EventMapConfig (IEventDispatcher dispatcher, Enum type, Delegate listener, Type eventClass, Delegate callback)
 		{
 			_dispatcher = dispatcher;
 			_type = type;
+			_eventClass = eventClass;
 			_listener = listener;
 			_callback = callback;
 		}
@@ -69,9 +80,13 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public bool Equals (IEventDispatcher dispatcher, Enum type, Delegate listener)
+		public bool Equals (IEventDispatcher dispatcher, Enum type, Delegate listener, Type eventClass)
 		{
-			return this.dispatcher == dispatcher && this.type == type && this.listener == listener;
+			Console.WriteLine (_dispatcher == dispatcher);
+			Console.WriteLine (_type == type);
+			Console.WriteLine (_listener == listener);
+			Console.WriteLine (_eventClass == eventClass);
+			return _dispatcher == dispatcher && _type.Equals(type) && _listener == listener && _eventClass == eventClass;
 		}
 	}
 }

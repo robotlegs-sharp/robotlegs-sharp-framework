@@ -12,6 +12,7 @@ namespace robotlegs.bender.extensions.eventDispatcher.api
 		void RemoveEventListener(Enum type, Action<IEvent> listener);
 		void RemoveEventListener(Enum type, Action listener);
 		void RemoveEventListener(Enum type, Delegate listener);
+		void RemoveAllEventListeners();
 		bool HasEventListener (Enum type);
 	}
 }

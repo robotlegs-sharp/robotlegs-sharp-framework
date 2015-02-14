@@ -33,13 +33,13 @@ namespace robotlegs.bender.extensions.matching
 		
 		public TypeMatcher AnyOf(params Type[] anyOf)
 		{
-			PushAddedTypesTo(anyOf, allOfTypes);
+			PushAddedTypesTo(anyOf, anyOfTypes);
 			return this;
 		}
 		
 		public TypeMatcher NoneOf(params Type[] noneOf)
 		{
-			PushAddedTypesTo(noneOf, allOfTypes);
+			PushAddedTypesTo(noneOf, noneOfTypes);
 			return this;
 		}
 
@@ -66,7 +66,7 @@ namespace robotlegs.bender.extensions.matching
 		protected ITypeFilter BuildTypeFilter()
 		{
 			if (allOfTypes.Count == 0 && anyOfTypes.Count == 0 && noneOfTypes.Count == 0)
-				throw new TypeMatchException(TypeMatchException.EMPTY_MATCHER);
+				throw new TypeMatcherException(TypeMatcherException.EMPTY_MATCHER);
 
 			return new TypeFilter(allOfTypes, anyOfTypes, noneOfTypes);
 		}
@@ -74,20 +74,14 @@ namespace robotlegs.bender.extensions.matching
 		protected void PushAddedTypesTo(Type[] types, List<Type> targetSet)
 		{
 			if (typeFilter != null)
-				ThrowSealedMatcherError();
+				ThrowSealedMatcherError ();
 
-			PushValuesToTypeList(types, targetSet);
+			targetSet.AddRange (types);
 		}
 
 		protected void ThrowSealedMatcherError()
 		{
-			throw new TypeMatchException(TypeMatchException.SEALED_MATCHER);
-		}
-
-		protected void PushValuesToTypeList(Type[] types, List<Type> targetSet)
-		{
-			foreach (Type type in types)
-				targetSet.Add(type);
+			throw new TypeMatcherException(TypeMatcherException.SEALED_MATCHER);
 		}
 	}
 }

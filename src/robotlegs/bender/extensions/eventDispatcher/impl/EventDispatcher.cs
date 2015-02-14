@@ -12,7 +12,7 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 		/*============================================================================*/
 
 //		private Dictionary<Enum, EventData> listeners = new Dictionary<Enum, EventData> ();
-		private Dictionary<Enum, List<Delegate>> listeners = new Dictionary<Enum, List<Delegate>> ();
+		private Dictionary<Enum, List<Delegate>> _listeners = new Dictionary<Enum, List<Delegate>> ();
 
 		/*============================================================================*/
 		/* Public Functions                                                           */
@@ -35,9 +35,9 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 
 		public void AddEventListener(Enum type, Delegate listener)
 		{
-			if (!listeners.ContainsKey (type))
-				listeners.Add (type, new List<Delegate> ());
-			listeners[type].Add (listener);
+			if (!_listeners.ContainsKey (type))
+				_listeners.Add (type, new List<Delegate> ());
+			_listeners[type].Add (listener);
 		}
 
 		public void RemoveEventListener<T>(Enum type, Action<T> listener)
@@ -57,26 +57,31 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 
 		public void RemoveEventListener(Enum type, Delegate listener)
 		{
-			if (listeners.ContainsKey (type)) 
+			if (_listeners.ContainsKey (type)) 
 			{
-				List<Delegate> typeListeners = listeners[type];
+				List<Delegate> typeListeners = _listeners[type];
 				typeListeners.Remove(listener);
 				if (typeListeners.Count == 0)
-					listeners.Remove (type);
+					_listeners.Remove (type);
 			}
 		}
 
 		public bool HasEventListener(Enum type)
 		{
-			return listeners.ContainsKey (type);
+			return _listeners.ContainsKey (type);
+		}
+
+		public void RemoveAllEventListeners()
+		{
+			_listeners.Clear ();
 		}
 
 		public void Dispatch (IEvent evt) 
 		{
-			if (listeners.ContainsKey (evt.type)) 
+			if (_listeners.ContainsKey (evt.type)) 
 			{
 				// Clone the list, for removing listeners from this dispatch
-				Delegate[] typeListeners = listeners[evt.type].ToArray();
+				Delegate[] typeListeners = _listeners[evt.type].ToArray();
 				foreach (Delegate listener in typeListeners) 
 				{
 					//TODO: Do not dynamic invoke if it is an Action, as it's much much slower to dynamic invoke

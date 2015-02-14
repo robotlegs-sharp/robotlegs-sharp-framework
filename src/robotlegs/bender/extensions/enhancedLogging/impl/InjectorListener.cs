@@ -104,7 +104,7 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 
 		private void OnPostMappingRemove (MappingId mappingId)
 		{
-			_logger.Debug("Mapping event MAPPING_OVERRIDE. Mapped type: {1}. Mapped name: {2}",
+			_logger.Debug("Mapping event POST_MAPPING_REMOVE. Mapped type: {1}. Mapped name: {2}",
 				mappingId.type, mappingId.key);
 		}
 
@@ -116,7 +116,7 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 
 		private void OnPreMappingCreate (MappingId mappingId)
 		{
-			_logger.Debug("Mapping event MAPPING_OVERRIDE. Mapped type: {1}. Mapped name: {2}",
+			_logger.Debug("Mapping event PRE_MAPPING_CREATE. Mapped type: {1}. Mapped name: {2}",
 				mappingId.type, mappingId.key);
 		}
 	}
