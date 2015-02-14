@@ -36,6 +36,8 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/* Constructor                                                                */
 		/*============================================================================*/
 
+		public MediatorFactory (IInjector injector) : this(injector, null) {}
+
 		public MediatorFactory (IInjector injector, MediatorManager manager)
 		{
 			_injector = injector;

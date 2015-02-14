@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 using System;
 using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.debugLogging;
+using robotlegs.bender.unity.extensions.debugLogging;
 using robotlegs.bender.extensions.vigilance;
 using robotlegs.bender.extensions.enhancedLogging;
 using robotlegs.bender.extensions.contextview;

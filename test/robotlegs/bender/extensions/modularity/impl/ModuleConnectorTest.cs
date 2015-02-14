@@ -44,8 +44,6 @@ namespace robotlegs.bender.extensions.modularity.impl
 
 //			parentContext.addChild(childAContext);
 //			parentContext.addChild(childBContext);
-			childAContext.injector.parent = parentContext.injector;
-			childBContext.injector.parent = parentContext.injector;
 
 			parentConnector = new ModuleConnector(parentContext);
 			childAConnector = new ModuleConnector(childAContext);

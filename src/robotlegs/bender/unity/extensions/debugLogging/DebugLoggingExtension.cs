@@ -9,10 +9,10 @@
 //------------------------------------------------------------------------------
 using System;
 using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.debugLogging.impl;
+using robotlegs.bender.unity.extensions.debugLogging.impl;
 
 
-namespace robotlegs.bender.extensions.debugLogging
+namespace robotlegs.bender.unity.extensions.debugLogging
 {
 	public class DebugLoggingExtension : IExtension
 	{

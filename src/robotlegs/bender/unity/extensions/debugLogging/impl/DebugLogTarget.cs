@@ -10,7 +10,7 @@
 using System;
 using robotlegs.bender.framework.api;
 
-namespace robotlegs.bender.extensions.debugLogging.impl
+namespace robotlegs.bender.unity.extensions.debugLogging.impl
 {
 	public class DebugLogTarget : ILogTarget
 	{

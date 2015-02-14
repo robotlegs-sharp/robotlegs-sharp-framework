@@ -27,6 +27,14 @@ namespace robotlegs.bender.extensions.viewManager.support
 			}
 		}
 
+		public void RemoveChild (SupportView child)
+		{
+			if (child.Parent == this)
+			{
+				child.RemoveThisView();
+			}
+		}
+
 		public void RemoveThisView()
 		{
 			isAddedToStage = false;

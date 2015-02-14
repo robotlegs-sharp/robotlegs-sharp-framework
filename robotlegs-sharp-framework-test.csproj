@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
@@ -81,6 +81,9 @@
     <Folder Include="test\robotlegs\bender\extensions\mediatorMap\support\" />
     <Folder Include="test\robotlegs\bender\extensions\eventCommandMap\impl\" />
     <Folder Include="test\robotlegs\bender\extensions\vigilance\" />
+    <Folder Include="test\robotlegs\bender\extensions\localEventMap\" />
+    <Folder Include="test\robotlegs\bender\extensions\localEventMap\impl\" />
+    <Folder Include="test\robotlegs\bender\extensions\localEventMap\impl\support\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\robotlegs\bender\framework\impl\LoggerTest.cs" />
@@ -200,6 +203,22 @@
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\CallbackUntypedExtension.cs" />
     <Compile Include="test\robotlegs\bender\framework\impl\contextSupport\ExtensionWithMultipleConstructors.cs" />
     <Compile Include="test\robotlegs\bender\extensions\contextView\ContextViewExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\MediatorMapExtensionTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\support\CallbackMediator.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\support\NullMediator2.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\support\NullMediator.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\MediatorMapTestPreloaded.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\MediatorFactoryTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\MediatorManagerTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\MediatorMapMemoryLeakTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\MediatorMapperTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\MediatorSugarTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\MediatorViewHandlerTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\MediatorMapTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\LifecycleReportingMediator.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\MediatorWeakMapTracker.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\SugaryMediator.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\support\CustomEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

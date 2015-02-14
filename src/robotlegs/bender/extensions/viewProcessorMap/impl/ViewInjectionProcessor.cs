@@ -18,7 +18,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			AS Docs on weak keys:
 				Instructs the Dictionary object to use "weak" references on object keys. If the only reference to an object is in the specified Dictionary object, the key is eligible for garbage collection and is removed from the table when the object is collected. Note that the Dictionary never removes weak String keys from the table. Specifically in the case of String keys, the weak reference will never get removed from the key table, and the Dictionary will keep holding a strong reference to the respective values.
 
-			TODO: Look into a C# weak dictionary
+			TODO: Matt: Look into a C# weak dictionary
 			C# equivilent = ConditionalWeakTable<TKey, TValue> ?
 		*/
 		//private _Dictionary<object, bool> _injectedObjects = new Dictionary<object, bool>(true);

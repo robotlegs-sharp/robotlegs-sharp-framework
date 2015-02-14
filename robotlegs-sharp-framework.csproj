@@ -57,7 +57,6 @@
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\" />
     <Folder Include="src\robotlegs\bender\extensions\modularity\" />
-    <Folder Include="src\robotlegs\bender\extensions\viewStateWatcher\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
@@ -75,8 +74,6 @@
     <Compile Include="src\robotlegs\bender\extensions\contextview\ContextViewListenerConfig.cs" />
     <Compile Include="src\robotlegs\bender\extensions\contextview\api\IContextView.cs" />
     <Compile Include="src\robotlegs\bender\extensions\contextview\impl\ContextView.cs" />
-    <Compile Include="src\robotlegs\bender\extensions\debugLogging\DebugLoggingExtension.cs" />
-    <Compile Include="src\robotlegs\bender\extensions\debugLogging\impl\DebugLogTarget.cs" />
     <Compile Include="src\robotlegs\bender\extensions\enhancedLogging\ConsoleLoggingExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\enhancedLogging\impl\ConsoleLogTarget.cs" />
     <Compile Include="src\robotlegs\bender\extensions\matching\InstanceOfMatcher.cs" />
@@ -221,6 +218,8 @@
     <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ViewManagerBasedExistenceWatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilantException.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IBundle.cs" />
+    <Compile Include="src\robotlegs\bender\unity\extensions\debugLogging\DebugLoggingExtension.cs" />
+    <Compile Include="src\robotlegs\bender\unity\extensions\debugLogging\impl\DebugLogTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />
