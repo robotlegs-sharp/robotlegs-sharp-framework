@@ -73,7 +73,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 
 			Assert.That(mediator.mediatedItem, Is.EqualTo(expected));
 		}
-
+		/*
 		[Test]
 		public void mediatedItem_is_injected_as_requested_type_into_mediator()
 		{
@@ -239,6 +239,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			assertThat(manager, received().method("removeMediator")
 				.args(instanceOf(ViewInjectedAsRequestedMediator), mediatedItem2, mapping2).once());
 		}
+		//*/
 
 		/*============================================================================*/
 		/* Private Functions                                                          */

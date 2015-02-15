@@ -39,7 +39,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/*============================================================================*/
 		/* Tests                                                                      */
 		/*============================================================================*/
-
+		/*
 		[Test]
 		public void a_hook_runs_and_receives_injections_of_view_and_mediator()
 		{
@@ -261,6 +261,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			mediatorMap.unmap(Sprite).fromMediator(ExampleMediator);
 		}
+		//*/
 	}
 }
 

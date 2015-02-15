@@ -59,6 +59,7 @@
     <Folder Include="src\robotlegs\bender\extensions\modularity\" />
     <Folder Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\" />
     <Folder Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
@@ -217,15 +218,13 @@
     <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ViewManagerBasedExistenceWatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilantException.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IBundle.cs" />
-    <Compile Include="src\robotlegs\bender\unity\extensions\debugLogging\DebugLoggingExtension.cs" />
-    <Compile Include="src\robotlegs\bender\unity\extensions\debugLogging\impl\DebugLogTarget.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\View.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\EventView.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\api\IEventView.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\DebugLoggingExtension.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\impl\DebugLogTarget.cs" />
     <Compile Include="src\robotlegs\bender\extensions\matching\NamespaceMatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\matching\NamespaceFilter.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\DebugLoggingExtension.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\impl\DebugLogTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

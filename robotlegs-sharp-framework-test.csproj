@@ -9,7 +9,7 @@
     <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -246,7 +246,6 @@
     <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\InjectorActivityLoggingExtensionTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\ConsoleLoggingExtensionTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\enhancedLogging\impl\ConsoleLogTargetTest.cs" />
-    <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\support\CustomEvent.cs" />
     <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\EventMapConfigTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\localEventMap\LocalEventMapExtensionTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\EventMapTest.cs" />

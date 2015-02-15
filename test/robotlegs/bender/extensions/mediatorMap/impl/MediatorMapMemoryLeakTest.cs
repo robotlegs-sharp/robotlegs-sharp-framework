@@ -46,7 +46,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/*============================================================================*/
 		/* Tests                                                                      */
 		/*============================================================================*/
-
+		/*
 		[Test]
 		public void Mediators_Are_Released_And_Not_Held_In_Memory()
 		{
@@ -99,6 +99,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 				assertEquals(expectedNumberOfKeys, dictionaryLength(trackedViews));
 			}, 50);
 		}
+		//*/
 	}
 
 	class ExampleMediator : IMediator
