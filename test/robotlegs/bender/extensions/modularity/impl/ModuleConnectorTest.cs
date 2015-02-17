@@ -6,6 +6,7 @@ using NUnit.Framework;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.extensions.eventCommandMap.support;
 using System;
+using robotlegs.bender.extensions.eventDispatcher.impl;
 
 namespace robotlegs.bender.extensions.modularity.impl
 {
@@ -40,10 +41,8 @@ namespace robotlegs.bender.extensions.modularity.impl
 			IContext childAContext = new Context().Install(typeof(EventDispatcherExtension));
 			IContext childBContext = new Context().Install(typeof(EventDispatcherExtension));
 
-			// TODO: Matt, Create
-
-//			parentContext.addChild(childAContext);
-//			parentContext.addChild(childBContext);
+			parentContext.AddChild(childAContext);
+			parentContext.AddChild(childBContext);
 
 			parentConnector = new ModuleConnector(parentContext);
 			childAConnector = new ModuleConnector(childAContext);
