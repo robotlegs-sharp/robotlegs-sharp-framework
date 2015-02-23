@@ -23,9 +23,9 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		//private Dictionary<> _listenersByView = new Dictionary<>(true);
 		private Dictionary<IView, List<Action<IView>>> _listenersByView = new Dictionary<IView, List<Action<IView>>>();
 
-		private string ProcessMethodName	= "Process";
+		private const string ProcessMethodName	= "Process";
 
-		private string UnProcessMethodName	= "Unprocess";
+		private const string UnProcessMethodName = "Unprocess";
 
 		/*============================================================================*/
 		/* Constructor                                                                */
