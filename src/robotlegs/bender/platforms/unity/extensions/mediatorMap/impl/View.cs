@@ -11,7 +11,7 @@ namespace robotlegs.bender.platforms.unity.extensions.mediatorMap.impl
 
 		protected virtual void Start ()
 		{
-			ViewNotifier.RegisterView(this, this.GetType());
+			ViewNotifier.RegisterView(this);
 		}
 
 		protected virtual void OnDestroy ()

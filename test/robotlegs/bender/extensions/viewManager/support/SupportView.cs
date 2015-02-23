@@ -77,7 +77,7 @@ namespace robotlegs.bender.extensions.viewManager.support
 				return;
 
 			registered = true;
-			ViewNotifier.RegisterView (this, GetType());
+			ViewNotifier.RegisterView (this);
 		}
 			
 		public override SupportContainer Parent

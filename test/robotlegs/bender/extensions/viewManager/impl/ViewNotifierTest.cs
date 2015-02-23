@@ -41,7 +41,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		public void Test_Register_When_Null_No_Exception()
 		{
 			ViewNotifier.SetRegistry (null);
-			ViewNotifier.RegisterView (new object (), typeof(object));
+			ViewNotifier.RegisterView (new object ());
 		}
 
 		[Test]
@@ -61,7 +61,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				expectedType = type;
 				expectedView = view;
 			}));
-			ViewNotifier.RegisterView (actualView, actualType);
+			ViewNotifier.RegisterView (actualView);
 
 			Assert.That (actualView, Is.EqualTo (expectedView));
 			Assert.That (actualType, Is.EqualTo (expectedType));

@@ -32,7 +32,7 @@ namespace robotlegs.bender.extensions.viewManager.api
 			_registry = containerRegistry;
 		}
 
-		public static void RegisterView(object view, Type type)
+		public static void RegisterView(object view)
 		{
 			if (_registry == null)
 				return;
@@ -40,7 +40,7 @@ namespace robotlegs.bender.extensions.viewManager.api
 			ContainerBinding binding = _registry.FindParentBinding(view);
 			while (binding != null)
 			{
-				binding.HandleView(view, type);
+				binding.HandleView(view, view.GetType());
 				binding = binding.Parent;
 			}
 		}
