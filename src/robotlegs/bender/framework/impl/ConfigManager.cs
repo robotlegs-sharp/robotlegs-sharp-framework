@@ -40,7 +40,7 @@ namespace robotlegs.bender.framework.impl
 			_logger = context.GetLogger(this);
 			AddConfigHandler (new ClassMatcher (), HandleType);
 			AddConfigHandler (new ObjectMatcher (), HandleObject);
-			context.AfterInitializing (Initialize); //TODO: This should be at the end of when not after
+			context.INITIALIZE += Initialize;
 		}
 		
 		/*============================================================================*/
@@ -70,9 +70,13 @@ namespace robotlegs.bender.framework.impl
 		{
 			_objectProcessor.RemoveAllHandlers();
 			_configs.Clear();
+			if (_context != null) 
+			{
+				_context.INITIALIZE -= Initialize;
+			}
 		}
 		
-		private void Initialize()
+		private void Initialize(object target)
 		{
 			if (!_initialized)
 			{

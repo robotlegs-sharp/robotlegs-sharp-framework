@@ -91,7 +91,7 @@ namespace robotlegs.bender.framework.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
-		private object _target;
+		private readonly object _target;
 
 		private LifecycleState _state = LifecycleState.UNINITIALIZED;
 

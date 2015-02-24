@@ -294,6 +294,23 @@ namespace robotlegs.bender.framework.impl
 			Assert.That (caught, Is.True);
 		}
 
+		[Test]
+		public void adding_after_initializing_hander_during_configure_is_allowed()
+		{
+			bool hasDoneCallback = false;
+			context.Configure(new CallbackConfig(delegate {
+				context.AfterInitializing(delegate {
+					hasDoneCallback = true;
+				});
+			}));
+			context.Initialize ();
+			Assert.That(hasDoneCallback, Is.True);
+		}
+
+		/*============================================================================*/
+		/* Private Functions                                                          */
+		/*============================================================================*/
+
 		private Action<object> CreateValuePusher(List<object> list, object value)
 		{
 			return delegate(object context) {

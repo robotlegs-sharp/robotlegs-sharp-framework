@@ -33,7 +33,7 @@ namespace robotlegs.bender.framework.impl
 		/*============================================================================*/
 		/* Tests                                                                      */
 		/*============================================================================*/
-		/*
+
 		[Test]
 		public void lifecycle_starts_uninitialized()
 		{
@@ -370,8 +370,6 @@ namespace robotlegs.bender.framework.impl
 			lifecycle.Initialize();
 			Assert.That(callCount, Is.EqualTo(1));
 		}
-
-		//*/
 
 		/*============================================================================*/
 		/* Private Functions                                                          */
