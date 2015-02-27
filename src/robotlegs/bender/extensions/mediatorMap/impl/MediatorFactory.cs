@@ -42,7 +42,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			_injector = injector;
 			_manager = injector.HasMapping (typeof(IMediatorManager)) 
 				? injector.GetInstance (typeof(IMediatorManager)) as IMediatorManager
-				: new MediatorManager (this);
+				: new MediatorManager ();
 			_manager.ViewRemoved += RemoveMediators;
 		}
 		

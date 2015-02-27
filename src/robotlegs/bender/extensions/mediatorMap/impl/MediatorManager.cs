@@ -21,21 +21,6 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/*============================================================================*/
 
 		public event Action<object> ViewRemoved;
-
-		/*============================================================================*/
-		/* Private Properties                                                         */
-		/*============================================================================*/
-		
-		private IMediatorFactory _factory;
-
-		/*============================================================================*/
-		/* Constructor                                                                */
-		/*============================================================================*/
-		
-		public MediatorManager (IMediatorFactory factory)
-		{
-			_factory = factory;
-		}
 		
 		/*============================================================================*/
 		/* Public Functions                                                           */
@@ -73,7 +58,6 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			{
 				ViewRemoved(view);
 			}
-//			_factory.RemoveMediators(view);
 		}
 
 		private void InitializeMediator(object mediator, object mediatedItem)

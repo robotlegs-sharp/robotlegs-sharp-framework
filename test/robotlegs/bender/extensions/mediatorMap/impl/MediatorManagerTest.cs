@@ -41,7 +41,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		public void Setup()
 		{
 			injector = new RobotlegsInjector();
-			manager = new MediatorManager(factory.Object);
+			manager = new MediatorManager();
 			container = new SupportView ();
 			container.AddThisView();
 		}
