@@ -11,6 +11,7 @@ using System;
 using robotlegs.bender.extensions.viewManager.api;
 using robotlegs.bender.extensions.mediatorMap.api;
 using System.Collections.Generic;
+using robotlegs.bender.extensions.mediatorMap.dsl;
 
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
@@ -25,13 +26,13 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		
 		private Dictionary<Type, List<IMediatorMapping>> _knownMappings = new Dictionary<Type, List<IMediatorMapping>>();
 		
-		private MediatorFactory _factory;
+		private IMediatorFactory _factory;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public MediatorViewHandler (MediatorFactory factory)
+		public MediatorViewHandler (IMediatorFactory factory)
 		{
 			_factory = factory;
 		}

@@ -13,10 +13,11 @@ using System.Collections.Generic;
 using robotlegs.bender.extensions.matching;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.framework.api;
+using robotlegs.bender.extensions.mediatorMap.dsl;
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
 {
-	public class MediatorFactory
+	public class MediatorFactory : IMediatorFactory
 	{
 		/*============================================================================*/
 		/* Private Properties                                                         */
@@ -30,18 +31,19 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		
 		private IInjector _injector;
 		
-		private MediatorManager _manager;
+		private IMediatorManager _manager;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public MediatorFactory (IInjector injector) : this(injector, null) {}
-
-		public MediatorFactory (IInjector injector, MediatorManager manager)
+		public MediatorFactory (IInjector injector)
 		{
 			_injector = injector;
-			_manager = manager != null ? manager : new MediatorManager(this);
+			_manager = injector.HasMapping (typeof(IMediatorManager)) 
+				? injector.GetInstance (typeof(IMediatorManager)) as IMediatorManager
+				: new MediatorManager (this);
+			_manager.ViewRemoved += RemoveMediators;
 		}
 		
 		/*============================================================================*/
@@ -101,6 +103,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			{
 				RemoveMediators(item);
 			}
+			_manager.ViewRemoved -= RemoveMediators;
 		}
 
 		/*============================================================================*/

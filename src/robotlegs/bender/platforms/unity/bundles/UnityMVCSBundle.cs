@@ -34,6 +34,7 @@ namespace robotlegs.bender.bundles
 		{
 			context.LogLevel = LogLevel.INFO;
 			
+			context.Install(typeof(UnitySingletonsExtension));
 			context.Install(typeof(DebugLoggingExtension));
 			context.Install(typeof(VigilanceExtension));
 			context.Install(typeof(InjectableLoggerExtension));
@@ -50,6 +51,7 @@ namespace robotlegs.bender.bundles
 			context.Install(typeof(StageCrawlerExtension));
 			context.Install(typeof(StageSyncExtension));
 			context.Install(typeof(UnityViewStateWatcherExtension));
+			context.Install(typeof(UnityMediatorManagerExtension));
 
 
 			context.Configure(typeof(UnityStageCrawlerConfig));

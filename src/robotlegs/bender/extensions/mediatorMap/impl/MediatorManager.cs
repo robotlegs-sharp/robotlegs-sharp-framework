@@ -10,22 +10,29 @@
 using System;
 using System.Reflection;
 using robotlegs.bender.extensions.mediatorMap.api;
+using robotlegs.bender.extensions.mediatorMap.dsl;
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
 {
-	public class MediatorManager
+	public class MediatorManager : IMediatorManager
 	{
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		public event Action<object> ViewRemoved;
+
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
 		
-		private MediatorFactory _factory;
+		private IMediatorFactory _factory;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
 		
-		public MediatorManager (MediatorFactory factory)
+		public MediatorManager (IMediatorFactory factory)
 		{
 			_factory = factory;
 		}
@@ -62,7 +69,11 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		
 		private void HandleRemoveView (IView view)
 		{
-			_factory.RemoveMediators(view);
+			if (ViewRemoved != null)
+			{
+				ViewRemoved(view);
+			}
+//			_factory.RemoveMediators(view);
 		}
 
 		private void InitializeMediator(object mediator, object mediatedItem)

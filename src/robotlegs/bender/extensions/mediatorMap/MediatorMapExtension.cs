@@ -12,6 +12,7 @@ using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.mediatorMap.impl;
 using robotlegs.bender.extensions.viewManager.api;
 using robotlegs.bender.extensions.mediatorMap.api;
+using robotlegs.bender.extensions.mediatorMap.dsl;
 
 namespace robotlegs.bender.extensions.mediatorMap
 {
