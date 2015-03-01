@@ -23,7 +23,7 @@ public class SingletonFactory
 	{
 		get
 		{
-			return singletonInstances;
+			return _singletonInstances;
 		}
 	}
 
@@ -32,10 +32,10 @@ public class SingletonFactory
 	/*============================================================================*/
 
 	private IInjector _injector;
-	
-	private Dictionary<DependencyProvider, MappingId> dependencyMappingIds = new Dictionary<DependencyProvider, MappingId>();
-	
-	private Dictionary<MappingId, object> singletonInstances = new Dictionary<MappingId, object>();
+
+	private Dictionary<DependencyProvider, MappingId> _dependencyMappingIds = new Dictionary<DependencyProvider, MappingId>();
+
+	private Dictionary<MappingId, object> _singletonInstances = new Dictionary<MappingId, object>();
 
 	/*============================================================================*/
 	/* Constructor                                                                */
@@ -45,8 +45,9 @@ public class SingletonFactory
 	{
 		_injector = injector;
 		_injector.PostMappingChange += PostMappingChange;
+		_injector.PostMappingRemove += PostMappingRemove;
 	}
-	
+
 	/*============================================================================*/
 	/* Public Functions                                                           */
 	/*============================================================================*/
@@ -54,8 +55,9 @@ public class SingletonFactory
 	public void Destroy()
 	{
 		_injector.PostMappingChange -= PostMappingChange;
+		_injector.PostMappingRemove -= PostMappingRemove;
 		_injector = null;
-		foreach (DependencyProvider dp in dependencyMappingIds.Keys) 
+		foreach (DependencyProvider dp in _dependencyMappingIds.Keys) 
 		{
 			if (dp is SingletonProvider)
 			{
@@ -63,21 +65,21 @@ public class SingletonFactory
 				dp.PreDestroy -= HandlePreDestroy;
 			}
 		}
-		dependencyMappingIds.Clear ();
-		singletonInstances.Clear ();
+		_dependencyMappingIds.Clear ();
+		_singletonInstances.Clear ();
 	}
-	
+
 	/*============================================================================*/
 	/* Private Functions                                                          */
 	/*============================================================================*/
-	
+
 	private void PostMappingChange (MappingId mappingId, InjectionMapping mapping)
 	{
 		DependencyProvider dp = mapping.GetProvider ();
 		if (dp is SingletonProvider) 
 		{
 			dp.PostApply += HandlePostApply;
-			dependencyMappingIds [dp] = mappingId;
+			_dependencyMappingIds [dp] = mappingId;
 		} 
 		else if (dp is ValueProvider) 
 		{
@@ -85,27 +87,35 @@ public class SingletonFactory
 		}
 	}
 
+	private void PostMappingRemove (MappingId mappingId)
+	{
+		if (_singletonInstances.ContainsKey (mappingId)) 
+		{
+			RemoveSingleton(mappingId);
+		}
+	}
+
 	private void HandlePostApply (DependencyProvider dp, object obj)
 	{
-		AddSingleton (dependencyMappingIds [dp], obj);
+		AddSingleton (_dependencyMappingIds [dp], obj);
 		dp.PostApply -= HandlePostApply;
 		dp.PreDestroy += HandlePreDestroy;
 	}
-	
+
 	private void HandlePreDestroy(DependencyProvider dp, object obj)
 	{
 		dp.PostApply -= HandlePreDestroy;
-		RemoveSingleton (dependencyMappingIds [dp]);
-		dependencyMappingIds.Remove (dp);
+		RemoveSingleton (_dependencyMappingIds [dp]);
+		_dependencyMappingIds.Remove (dp);
 	}
-	
+
 	private void AddSingleton(MappingId mappingId, object singleton)
 	{
-		singletonInstances [mappingId] = singleton;
+		_singletonInstances [mappingId] = singleton;
 	}
-	
+
 	private void RemoveSingleton(MappingId mappingId)
 	{
-		singletonInstances.Remove (mappingId);
+		_singletonInstances.Remove (mappingId);
 	}
 }
