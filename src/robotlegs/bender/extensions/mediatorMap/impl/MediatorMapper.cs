@@ -26,7 +26,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		
 		private ITypeFilter _typeFilter;
 		
-		private MediatorViewHandler _handler;
+		private IMediatorViewHandler _handler;
 		
 		private ILogger _logger;
 
@@ -34,7 +34,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public MediatorMapper (ITypeFilter typeFilter, MediatorViewHandler handler, ILogger logger)
+		public MediatorMapper (ITypeFilter typeFilter, IMediatorViewHandler handler, ILogger logger)
 		{
 			_typeFilter = typeFilter;
 			_handler = handler;
@@ -72,7 +72,10 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		 
 		public void FromAll()
 		{
-			foreach (IMediatorMapping mapping in _mappings.Values)
+			Dictionary<Type, IMediatorMapping>.ValueCollection values = _mappings.Values;
+			IMediatorMapping[] mediatorMappings = new IMediatorMapping[values.Count];
+			values.CopyTo(mediatorMappings, 0);
+			foreach (IMediatorMapping mapping in mediatorMappings)
 			{
 				DeleteMapping(mapping);
 			}

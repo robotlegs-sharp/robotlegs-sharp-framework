@@ -6,6 +6,8 @@ using robotlegs.bender.extensions.viewManager.support;
 using robotlegs.bender.extensions.mediatorMap.support;
 using robotlegs.bender.extensions.mediatorMap.api;
 using robotlegs.bender.framework.impl;
+using robotlegs.bender.extensions.mediatorMap.impl.support;
+using robotlegs.bender.extensions.mediatorMap.dsl;
 
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
@@ -17,7 +19,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public Mock<MediatorViewHandler> handler;
+		public Mock<IMediatorViewHandler> handler;
 
 		public Mock<ILogger> logger;
 
@@ -37,8 +39,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		public void SetUp()
 		{
 			logger = new Mock<ILogger>();
-			//TODO: MAtt: Work out how to allow instantiation of this mock (It has constructor params)
-			handler = new Mock<MediatorViewHandler>();
+			handler = new Mock<IMediatorViewHandler>();
 
 			TypeMatcher matcher = new TypeMatcher().AllOf(typeof(SupportView));
 			filter = matcher.CreateTypeFilter();
@@ -63,8 +64,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			object oldConfig = mapper.ToMediator(typeof(NullMediator));
 			mapper.FromMediator(typeof(NullMediator));
 
-			Assert.That (true, Is.False);
-			//assertThat(handler, received().method('removeMapping').arg(oldConfig).once());
+			handler.Verify (_handler => _handler.RemoveMapping(It.Is<IMediatorMapping> (_arg1 => _arg1 == oldConfig)), Times.Once);
 		}
 
 		[Test]
@@ -74,9 +74,8 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			object config2 = mapper.ToMediator(typeof(NullMediator2));
 			mapper.FromMediator(typeof(NullMediator));
 
-			Assert.That (true, Is.False);
-			//assertThat(handler, received().method('removeMapping').arg(config1).once());
-			//assertThat(handler, received().method('removeMapping').arg(config2).never());
+			handler.Verify (_handler => _handler.RemoveMapping(It.Is<IMediatorMapping> (_arg1 => _arg1 == config1)), Times.Once);
+			handler.Verify (_handler => _handler.RemoveMapping(It.Is<IMediatorMapping> (_arg1 => _arg1 == config2)), Times.Never);
 		}
 
 		[Test]
@@ -84,6 +83,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			object config1 = mapper.ToMediator(typeof(NullMediator));
 			object config2 = mapper.ToMediator(typeof(NullMediator2));
+
 			mapper.FromAll();
 
 			handler.Verify (_handler => _handler.RemoveMapping (It.Is<IMediatorMapping> (_arg1 => _arg1 == config1)), Times.Once);
@@ -96,9 +96,8 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			object oldConfig = mapper.ToMediator(typeof(NullMediator));
 			object newConfig = mapper.ToMediator(typeof(NullMediator));
 
-			Assert.That (true, Is.False);
-			//assertThat(handler, received().method('removeMapping').arg(oldConfig).once());
-			//assertThat(handler, received().method('addMapping').arg(newConfig).once());
+			handler.Verify (_handler => _handler.RemoveMapping(It.Is<IMediatorMapping> (_arg1 => _arg1 == oldConfig)), Times.Once);
+			handler.Verify (_handler => _handler.AddMapping(It.Is<IMediatorMapping> (_arg1 => _arg1 == newConfig)), Times.Once);
 		}
 
 		[Test]
@@ -107,9 +106,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			object oldConfig = mapper.ToMediator(typeof(NullMediator));
 			mapper.ToMediator(typeof(NullMediator));
 
-			Assert.That (true, Is.False);
-			//assertThat(logger, received().method('warn')
-			//	.args(instanceOf(String), array(filter, oldConfig)).once());
+			logger.Verify (_logger => _logger.Warn(It.Is<object>(_arg1 => _arg1 is string), It.Is<object>(_arg2 => _arg2 == filter), It.Is<object>(_arg3 => _arg3 == oldConfig)), Times.Once);
 		}
 	}
 }

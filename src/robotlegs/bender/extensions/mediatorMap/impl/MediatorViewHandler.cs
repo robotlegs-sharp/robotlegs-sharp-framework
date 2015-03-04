@@ -16,7 +16,7 @@ using robotlegs.bender.extensions.mediatorMap.dsl;
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
 {
-	public class MediatorViewHandler : IViewHandler
+	public class MediatorViewHandler : IMediatorViewHandler
 	{
 		/*============================================================================*/
 		/* Private Properties                                                         */

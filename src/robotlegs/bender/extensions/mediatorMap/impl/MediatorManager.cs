@@ -28,8 +28,6 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		
 		public void AddMediator(object mediator, object item, IMediatorMapping mapping)
 		{
-			//TODO: DO I want ot handle lifecycle items to be initialiazed first?
-
 			if (item is IView && mapping.AutoRemoveEnabled)
 			{
 				(item as IView).RemoveView += HandleRemoveView;

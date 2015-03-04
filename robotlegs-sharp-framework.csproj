@@ -237,6 +237,7 @@
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\UnitySingletons.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\UnitySingletonsEditor.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\UnitySingletonsExtension.cs" />
+    <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorViewHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

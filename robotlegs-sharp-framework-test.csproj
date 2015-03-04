@@ -251,6 +251,7 @@
     <Compile Include="test\robotlegs\bender\extensions\localEventMap\impl\EventMapTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\matching\NamespaceFilter_descriptorTest.cs" />
     <Compile Include="test\robotlegs\bender\extensions\matching\NamespaceMatchingTest.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\MediatorViewHandlerStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
