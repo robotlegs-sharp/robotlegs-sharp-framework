@@ -8,6 +8,9 @@ using robotlegs.bender.extensions.matching;
 using System;
 using System.Collections.Generic;
 using robotlegs.bender.extensions.mediatorMap.support;
+using robotlegs.bender.framework.impl.hookSupport;
+using robotlegs.bender.framework.impl.guardSupport;
+using robotlegs.bender.extensions.mediatorMap.dsl;
 
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
@@ -19,7 +22,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public Mock<MediatorManager> manager;
+		public Mock<IMediatorManager> manager;
 
 		/*============================================================================*/
 		/* Private Properties                                                         */
@@ -38,6 +41,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			injector = new RobotlegsInjector();
 			factory = new MediatorFactory(injector);
+			manager = new Mock<IMediatorManager> ();
 		}
 
 		/*============================================================================*/
@@ -73,173 +77,199 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 
 			Assert.That(mediator.mediatedItem, Is.EqualTo(expected));
 		}
-		/*
+
 		[Test]
 		public void mediatedItem_is_injected_as_requested_type_into_mediator()
 		{
-			const expected:Sprite = new Sprite();
 
-			const mapping:MediatorMapping =
-				new MediatorMapping(createTypeFilter([DisplayObject]), ViewInjectedAsRequestedMediator);
+			SupportView expected = new SupportView();
+			IMediatorMapping mapping = new MediatorMapping(CreateTypeFilter(
+					new Type[1]{ typeof(SupportContainer) }), 
+					typeof(ViewInjectedMediator));
 
-			const mediator:ViewInjectedAsRequestedMediator =
-				factory.createMediators(expected, Sprite, [mapping])[0];
+			ViewInjectedMediator mediator = factory.CreateMediators(
+				expected, 
+				typeof(SupportView), 
+				new List<IMediatorMapping> {mapping})[0] as ViewInjectedMediator;
 
-			assertThat(mediator.mediatedItem, equalTo(expected));
+			Assert.That(mediator.mediatedItem, Is.EqualTo(expected));
 		}
 
 		[Test]
 		public void hooks_are_called()
 		{
-			assertThat(hookCallCount(CallbackHook, CallbackHook), equalTo(2));
+			Assert.That (HookCallCount (typeof(CallbackHook), typeof(CallbackHook)), Is.EqualTo (2));
 		}
 
 		[Test]
 		public void hook_receives_mediator_and_mediatedItem()
 		{
-			const mediatedItem:Sprite = new Sprite();
-			var injectedMediator:Object = null;
-			var injectedView:Object = null;
-			injector.map(Action<MediatorHook>, "callback".toValue(function(hook:MediatorHook) {
+			SupportView mediatedItem = new SupportView();
+			object injectedMediator = null;
+			object injectedView = null;
+			injector.Map(typeof(Action<MediatorHook>), "callback").ToValue((Action<MediatorHook>)delegate(MediatorHook hook) {
 				injectedMediator = hook.mediator;
 				injectedView = hook.mediatedItem;
 			});
-			const mapping:MediatorMapping =
-				new MediatorMapping(createTypeFilter([Sprite]), ViewInjectedMediator);
 
-			mapping.withHooks(MediatorHook);
+			MediatorMapping mapping = new MediatorMapping(CreateTypeFilter(
+				new Type[1]{ typeof(SupportView) }), 
+				typeof(ViewInjectedMediator));
 
-			factory.createMediators(mediatedItem, Sprite, [mapping]);
+			mapping.WithHooks(typeof(MediatorHook));
 
-			assertThat(injectedMediator, instanceOf(ViewInjectedMediator));
-			assertThat(injectedView, equalTo(mediatedItem));
+			factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping> {mapping});
+
+			Assert.That(injectedMediator, Is.InstanceOf<ViewInjectedMediator>());
+			Assert.That(injectedView, Is.EqualTo(mediatedItem));
 		}
 
 		[Test]
 		public void mediator_is_created_when_the_guard_allows()
 		{
-			assertThat(mediatorsCreatedWithGuards(HappyGuard), equalTo(1));
+			Assert.That(MediatorsCreatedWithGuards(typeof(HappyGuard)), Is.EqualTo(1));
 		}
 
 		[Test]
 		public void mediator_is_created_when_all_guards_allow()
 		{
-			assertThat(mediatorsCreatedWithGuards(HappyGuard, HappyGuard), equalTo(1));
+			Assert.That(MediatorsCreatedWithGuards(typeof(HappyGuard), typeof(HappyGuard)), Is.EqualTo(1));
 		}
 
 		[Test]
 		public void mediator_is_not_created_when_the_guard_denies()
 		{
-			assertThat(mediatorsCreatedWithGuards(GrumpyGuard), equalTo(0));
+			Assert.That(MediatorsCreatedWithGuards(typeof(GrumpyGuard)), Is.EqualTo(0));
 		}
 
 		[Test]
 		public void mediator_is_not_created_when_any_guards_denies()
 		{
-			assertThat(mediatorsCreatedWithGuards(HappyGuard, GrumpyGuard), equalTo(0));
+			Assert.That(MediatorsCreatedWithGuards(typeof(HappyGuard), typeof(GrumpyGuard)), Is.EqualTo(0));
 		}
 
 		[Test]
 		public void mediator_is_not_created_when_all_guards_deny()
 		{
-			assertThat(mediatorsCreatedWithGuards(GrumpyGuard, GrumpyGuard), equalTo(0));
+			Assert.That(MediatorsCreatedWithGuards(typeof(GrumpyGuard), typeof(GrumpyGuard)), Is.EqualTo(0));
 		}
 
 		[Test]
 		public void same_mediators_are_returned_for_mappings_and_mediatedItem()
 		{
-			const mediatedItem:Sprite = new Sprite();
-			const mapping1:MediatorMapping =
-				new MediatorMapping(createTypeFilter([Sprite]), ViewInjectedMediator);
-			const mapping2:MediatorMapping =
-				new MediatorMapping(createTypeFilter([DisplayObject]), ViewInjectedAsRequestedMediator);
-			const mediators1:Array = factory.createMediators(mediatedItem, Sprite, [mapping1, mapping2]);
-			const mediators2:Array = factory.createMediators(mediatedItem, Sprite, [mapping1, mapping2]);
-			assertEqualsVectorsIgnoringOrder(mediators1, mediators2);
+			SupportView mediatedItem = new SupportView();
+			MediatorMapping mapping1 =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportView)}), typeof(ViewInjectedMediator));
+			MediatorMapping mapping2 =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportContainer)}), typeof(ViewInjectedAsRequestedMediator));
+			List<object> mediators1 = factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping>{mapping1, mapping2});
+			List<object> mediators2 = factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping>{mapping1, mapping2});
+			Assert.That (mediators1, Is.EqualTo (mediators2).AsCollection);
 		}
 
 		[Test]
 		public void expected_number_of_mediators_are_returned_for_mappings_and_mediatedItem()
 		{
-			const mediatedItem:Sprite = new Sprite();
-			const mapping1:MediatorMapping =
-				new MediatorMapping(createTypeFilter([Sprite]), ViewInjectedMediator);
-			const mapping2:MediatorMapping =
-				new MediatorMapping(createTypeFilter([DisplayObject]), ViewInjectedAsRequestedMediator);
-			const mediators:Array = factory.createMediators(mediatedItem, Sprite, [mapping1, mapping2]);
-			assertThat(mediators.length, equalTo(2));
+			SupportView mediatedItem = new SupportView();
+			MediatorMapping mapping1 =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportView)}), typeof(ViewInjectedMediator));
+			MediatorMapping mapping2 =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportContainer)}), typeof(ViewInjectedAsRequestedMediator));
+			List<object> mediators = factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping> {mapping1, mapping2});
+			Assert.That(mediators.Count, Is.EqualTo(2));
 		}
 
 		[Test]
 		public void getMediator()
 		{
-			const mediatedItem:Sprite = new Sprite();
-			const mapping:IMediatorMapping = new MediatorMapping(createTypeFilter([Sprite]), CallbackMediator);
-			factory.createMediators(mediatedItem, Sprite, [mapping]);
-			assertThat(factory.getMediator(mediatedItem, mapping), notNullValue());
+			SupportView mediatedItem = new SupportView();
+			IMediatorMapping mapping =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportView)}), typeof(CallbackMediator));
+
+			factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping> {mapping});
+			Assert.That (factory.GetMediator (mediatedItem, mapping), Is.Not.Null);
 		}
 
 		[Test]
-		public void removeMediator()
+		public void removeMediator() 
 		{
-			const mediatedItem:Sprite = new Sprite();
-			const mapping:IMediatorMapping = new MediatorMapping(createTypeFilter([Sprite]), CallbackMediator);
-			factory.createMediators(mediatedItem, Sprite, [mapping]);
-			factory.removeMediators(mediatedItem);
-			assertThat(factory.getMediator(mediatedItem, mapping), nullValue());
+			SupportView mediatedItem = new SupportView();
+			IMediatorMapping mapping =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportView)}), typeof(CallbackMediator));
+
+			factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping> {mapping});
+			factory.RemoveMediators(mediatedItem);
+
+			Assert.That (factory.GetMediator (mediatedItem, mapping), Is.Null);
 		}
 
 		[Test]
 		public void creating_mediator_gives_mediator_to_mediator_manager()
 		{
-			const mediatedItem:Sprite = new Sprite();
-			const mapping:IMediatorMapping = new MediatorMapping(createTypeFilter([Sprite]), CallbackMediator);
-			factory = new MediatorFactory(injector, manager);
-			factory.createMediators(mediatedItem, Sprite, [mapping]);
-			factory.createMediators(mediatedItem, Sprite, [mapping]);
-			assertThat(manager, received().method("addMediator")
-				.args(instanceOf(CallbackMediator), mediatedItem, mapping).once());
+			SupportView mediatedItem = new SupportView();
+			IMediatorMapping mapping =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportView)}), typeof(CallbackMediator));
+
+			injector.Map<IMediatorManager> ().ToValue (manager.Object);
+			factory = new MediatorFactory (injector);
+			factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping> {mapping});
+			factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping> {mapping});
+
+			manager.Verify(_manager=>_manager.AddMediator(It.IsAny<CallbackMediator>(), It.Is<SupportView>(arg2=>arg2 == mediatedItem), It.Is<IMediatorMapping>(arg3=>arg3 == mapping)), Times.Once);
 		}
 
 		[Test]
 		public void removeMediator_removes_mediator_from_manager()
 		{
-			const mediatedItem:Sprite = new Sprite();
-			const mapping:IMediatorMapping = new MediatorMapping(createTypeFilter([Sprite]), CallbackMediator);
-			factory = new MediatorFactory(injector, manager);
-			factory.createMediators(mediatedItem, Sprite, [mapping]);
-			factory.removeMediators(mediatedItem);
-			factory.removeMediators(mediatedItem);
-			assertThat(manager, received().method("removeMediator")
-				.args(instanceOf(CallbackMediator), mediatedItem, mapping).once());
+			SupportView mediatedItem = new SupportView();
+			IMediatorMapping mapping =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportView)}), typeof(CallbackMediator));
+
+			injector.Map<IMediatorManager> ().ToValue (manager.Object);
+			factory = new MediatorFactory(injector);
+			factory.CreateMediators(mediatedItem, typeof(SupportView), new List<IMediatorMapping> {mapping});
+			factory.RemoveMediators(mediatedItem);
+			factory.RemoveMediators(mediatedItem);
+
+			manager.Verify (_manager => _manager.RemoveMediator (It.IsAny<CallbackMediator> (), It.Is<object> (arg2 => arg2 == mediatedItem), It.Is<IMediatorMapping> (arg3 => arg3 == mapping)), Times.Once);
 		}
 
 		[Test]
 		public void removeAllMediators_removes_all_mediators_from_manager()
 		{
-			const mediatedItem1:Sprite = new Sprite();
-			const mediatedItem2:Sprite = new Sprite();
-			const mapping1:IMediatorMapping = new MediatorMapping(createTypeFilter([Sprite]), CallbackMediator);
-			const mapping2:IMediatorMapping = new MediatorMapping(createTypeFilter([DisplayObject]), ViewInjectedAsRequestedMediator);
+			SupportView mediatedItem1 = new SupportView();
+			SupportView mediatedItem2 = new SupportView();
+			IMediatorMapping mapping1 =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportView)}), typeof(CallbackMediator));
+			IMediatorMapping mapping2 =
+				new MediatorMapping(CreateTypeFilter(new Type[1]{typeof(SupportContainer)}), typeof(ViewInjectedAsRequestedMediator));
 
-			factory = new MediatorFactory(injector, manager);
-			factory.createMediators(mediatedItem1, Sprite, [mapping1, mapping2]);
-			factory.createMediators(mediatedItem2, Sprite, [mapping1, mapping2]);
-			factory.removeAllMediators();
+			injector.Map<IMediatorManager> ().ToValue (manager.Object);
+			factory = new MediatorFactory (injector);
+			factory.CreateMediators (mediatedItem1, typeof(SupportView), new List<IMediatorMapping>{ mapping1, mapping2 });
+			factory.CreateMediators (mediatedItem2, typeof(SupportView), new List<IMediatorMapping>{ mapping1, mapping2 });
+			factory.RemoveAllMediators();
 
-			assertThat(manager, received().method("removeMediator")
-				.args(instanceOf(CallbackMediator), mediatedItem1, mapping1).once());
+			manager.Verify(_manager=>_manager.RemoveMediator(
+				It.IsAny<CallbackMediator>(),
+				It.Is<object>(arg2=>arg2==mediatedItem1),
+				It.Is<IMediatorMapping>(arg3=>arg3==mapping1)), Times.Once);
 
-			assertThat(manager, received().method("removeMediator")
-				.args(instanceOf(ViewInjectedAsRequestedMediator), mediatedItem1, mapping2).once());
+			manager.Verify(_manager=>_manager.RemoveMediator(
+				It.IsAny<ViewInjectedAsRequestedMediator>(),
+				It.Is<object>(arg2=>arg2==mediatedItem1),
+				It.Is<IMediatorMapping>(arg3=>arg3==mapping2)), Times.Once);
 
-			assertThat(manager, received().method("removeMediator")
-				.args(instanceOf(CallbackMediator), mediatedItem2, mapping1).once());
+			manager.Verify(_manager=>_manager.RemoveMediator(
+				It.IsAny<CallbackMediator>(),
+				It.Is<object>(arg2=>arg2==mediatedItem2),
+				It.Is<IMediatorMapping>(arg3=>arg3==mapping1)), Times.Once);
 
-			assertThat(manager, received().method("removeMediator")
-				.args(instanceOf(ViewInjectedAsRequestedMediator), mediatedItem2, mapping2).once());
+			manager.Verify(_manager=>_manager.RemoveMediator(
+				It.IsAny<ViewInjectedAsRequestedMediator>(),
+				It.Is<object>(arg2=>arg2==mediatedItem2),
+				It.Is<IMediatorMapping>(arg3=>arg3==mapping2)), Times.Once);
 		}
-		//*/
 
 		/*============================================================================*/
 		/* Private Functions                                                          */
@@ -311,7 +341,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/*============================================================================*/
 
 		[Inject]
-		public SupportView mediatedItem;
+		public SupportContainer mediatedItem;
 	}
 
 	class MediatorHook
@@ -328,7 +358,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		public ViewInjectedMediator mediator;
 
 		[Inject(true, "callback")]
-		public Action<object> callback;
+		public Action<MediatorHook> callback;
 
 		/*============================================================================*/
 		/* Public Functions                                                           */
