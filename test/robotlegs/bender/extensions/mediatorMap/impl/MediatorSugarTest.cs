@@ -14,28 +14,26 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 
 	public class MediatorSugarTest
 	{
-		public Mock<IEventMap> eventMap;
+		private Mock<IEventMap> eventMap;
 
 		private SugaryMediator instance;
 
-		private MediatorWatcher mediatorWatcher;
-
 		private IEventDispatcher eventDispatcher = new EventDispatcher();
 
-		private SupportView VIEW = new SupportView();
 		private Enum EVENT_TYPE = CustomEvent.Type.STARTED;
+
 		private Action CALLBACK = delegate (){};
 
-		private SupportView view;
+		private SupportEventView view;
 
 		[SetUp]
 		public void SetUp()
 		{
 			instance = new SugaryMediator();
+			eventMap = new Mock<IEventMap> ();
 			instance.eventMap = eventMap.Object;
 			instance.eventDispatcher = eventDispatcher;
-			mediatorWatcher = new MediatorWatcher();
-			view = new SupportView();
+			view = new SupportEventView();
 			instance.viewComponent = view;
 		}
 
@@ -43,7 +41,6 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		public void Teardown()
 		{
 			instance = null;
-			mediatorWatcher = null;
 		}
 
 		[Test]
@@ -51,14 +48,11 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			instance.Try_addViewListener(EVENT_TYPE, CALLBACK);
 
-			Assert.That (true, Is.False);
-			/*
-			assertThat(eventMap, received().method('mapListener')
-											.args(	strictlyEqualTo(view),
-													strictlyEqualTo(EVENT_STRING),
-													strictlyEqualTo(CALLBACK),
-													strictlyEqualTo(EVENT_CLASS)));
-			//*/
+			eventMap.Verify(_eventMap =>_eventMap.MapListener(
+				It.Is<IEventDispatcher>(arg1 => arg1 == view.dispatcher), 
+				It.Is<Enum>(arg2 => arg2 == EVENT_TYPE), 
+				It.Is<Action>(arg3 => arg3 == CALLBACK),
+				It.Is<Type>(arg4 => arg4 == null)), Times.Once);
 		}
 
 		[Test]
@@ -66,14 +60,11 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			instance.Try_addContextListener(EVENT_TYPE, CALLBACK);
 
-			Assert.That (true, Is.False);
-			/*
-			assertThat(eventMap, received().method('mapListener')
-											.args(	strictlyEqualTo(eventDispatcher),
-													strictlyEqualTo(EVENT_STRING),
-													strictlyEqualTo(CALLBACK),
-													strictlyEqualTo(EVENT_CLASS)));
-			//*/
+			eventMap.Verify(_eventMap =>_eventMap.MapListener(
+				It.Is<IEventDispatcher>(arg1 => arg1 == eventDispatcher), 
+				It.Is<Enum>(arg2 => arg2 == EVENT_TYPE), 
+				It.Is<Action>(arg3 => arg3 == CALLBACK),
+				It.Is<Type>(arg4 => arg4 == null)), Times.Once);
 		}
 
 		[Test]
@@ -81,14 +72,11 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			instance.Try_removeViewListener(EVENT_TYPE, CALLBACK);
 
-			Assert.That (true, Is.False);
-			/*
-			assertThat(eventMap, received().method('unmapListener')
-											.args(	strictlyEqualTo(view),
-													strictlyEqualTo(EVENT_STRING),
-													strictlyEqualTo(CALLBACK),
-													strictlyEqualTo(EVENT_CLASS)));
-		//*/
+			eventMap.Verify(_eventMap =>_eventMap.UnmapListener(
+				It.Is<IEventDispatcher>(arg1 => arg1 == view.dispatcher), 
+				It.Is<Enum>(arg2 => arg2 == EVENT_TYPE), 
+				It.Is<Action>(arg3 => arg3 == CALLBACK),
+				It.Is<Type>(arg4 => arg4 == null)), Times.Once);
 		}
 
 		[Test]
@@ -96,28 +84,22 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			instance.Try_removeContextListener(EVENT_TYPE, CALLBACK);
 
-			Assert.That (true, Is.False);
-			/*
-			assertThat(eventMap, received().method('unmapListener')
-											.args(	strictlyEqualTo(eventDispatcher),
-													strictlyEqualTo(EVENT_STRING),
-													strictlyEqualTo(CALLBACK),
-													strictlyEqualTo(EVENT_CLASS)));
-			//*/
+			eventMap.Verify(_eventMap =>_eventMap.UnmapListener(
+				It.Is<IEventDispatcher>(arg1 => arg1 == eventDispatcher), 
+				It.Is<Enum>(arg2 => arg2 == EVENT_TYPE), 
+				It.Is<Action>(arg3 => arg3 == CALLBACK),
+				It.Is<Type>(arg4 => arg4 == null)), Times.Once);
 		}
 
 		[Test]
 		public void Dispatch_DispatchesEvent_On_The_EventDisaptcher()
 		{
-			//Async.handleEvent(this, eventDispatcher, Event.COMPLETE, benignHandler);
+			bool called = false;
+			eventDispatcher.AddEventListener (SupportEvent.Type.TYPE1, (Action)delegate {
+				called = true;
+			});
 			instance.Try_dispatch(new SupportEvent(SupportEvent.Type.TYPE1));
-			Assert.That (true, Is.False);
+			Assert.That (called, Is.True);
 		}
-		/*
-		protected function benignHandler(e:Event, o:Object):void
-		{
-
-		}
-		//*/
 	}
 }
