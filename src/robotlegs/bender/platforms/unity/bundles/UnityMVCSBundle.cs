@@ -25,6 +25,8 @@ using robotlegs.bender.platforms.unity.extensions.contextview;
 using robotlegs.bender.platforms.unity.extensions.debugLogging;
 using robotlegs.bender.platforms.unity.extensions.viewManager;
 using robotlegs.bender.platforms.unity.extensions.viewManager.impl;
+using robotlegs.bender.platforms.unity.extensions.unitySingletons;
+using robotlegs.bender.platforms.unity.extensions.unityMediatorManager;
 
 namespace robotlegs.bender.bundles
 {
@@ -33,8 +35,11 @@ namespace robotlegs.bender.bundles
 		public void Extend (IContext context)
 		{
 			context.LogLevel = LogLevel.INFO;
-			
+
+#if UNITY_EDITOR
 			context.Install(typeof(UnitySingletonsExtension));
+			context.Install(typeof(UnityMediatorManagerExtension));
+#endif
 			context.Install(typeof(DebugLoggingExtension));
 			context.Install(typeof(VigilanceExtension));
 			context.Install(typeof(InjectableLoggerExtension));
@@ -51,8 +56,6 @@ namespace robotlegs.bender.bundles
 			context.Install(typeof(StageCrawlerExtension));
 			context.Install(typeof(StageSyncExtension));
 			context.Install(typeof(UnityViewStateWatcherExtension));
-			context.Install(typeof(UnityMediatorManagerExtension));
-
 
 			context.Configure(typeof(UnityStageCrawlerConfig));
 			context.Configure(typeof(ContextViewListenerConfig));

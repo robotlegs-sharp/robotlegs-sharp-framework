@@ -7,53 +7,57 @@ using System;
 using swiftsuspenders.dependencyproviders;
 using System.Collections.Generic;
 using robotlegs.bender.extensions.contextview.impl;
+using robotlegs.bender.platforms.unity.extensions.unitySingletons.impl;
 
-public class UnitySingletonsExtension : IExtension
+namespace robotlegs.bender.platforms.unity.extensions.unitySingletons
 {
-	/*============================================================================*/
-	/* Private Properties                                                         */
-	/*============================================================================*/
-
-	private IInjector _injector;
-	
-	private SingletonFactory _singletonFactory;
-
-	private UnitySingletons unitySingletons;
-	
-	/*============================================================================*/
-	/* Public Functions                                                           */
-	/*============================================================================*/
-
-	public void Extend (IContext context)
+	public class UnitySingletonsExtension : IExtension
 	{
-		_injector = context.injector;
+		/*============================================================================*/
+		/* Private Properties                                                         */
+		/*============================================================================*/
 
-		_singletonFactory = new SingletonFactory (_injector);
+		private IInjector _injector;
+		
+		private SingletonFactory _singletonFactory;
 
-		context.BeforeInitializing (BeforeInitializing);
-		context.BeforeDestroying(BeforeDestroying);
-	}
-	
-	/*============================================================================*/
-	/* Private Functions                                                          */
-	/*============================================================================*/
+		private UnitySingletons unitySingletons;
+		
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
 
-	private void BeforeInitializing()
-	{
-		if (_injector.HasDirectMapping(typeof(ContextView)))
+		public void Extend (IContext context)
 		{
-			ContextView contextView = _injector.GetInstance(typeof(ContextView)) as ContextView;
-			unitySingletons = (contextView.view as Transform).gameObject.AddComponent<UnitySingletons>();
-			unitySingletons.SetFactory(_singletonFactory);
-		}
-	}
+			_injector = context.injector;
 
-	private void BeforeDestroying()
-	{
-		if (unitySingletons != null) 
-		{
-			GameObject.Destroy(unitySingletons);
+			_singletonFactory = new SingletonFactory (_injector);
+
+			context.BeforeInitializing (BeforeInitializing);
+			context.BeforeDestroying(BeforeDestroying);
 		}
-		_singletonFactory.Destroy();
+		
+		/*============================================================================*/
+		/* Private Functions                                                          */
+		/*============================================================================*/
+
+		private void BeforeInitializing()
+		{
+			if (_injector.HasDirectMapping(typeof(ContextView)))
+			{
+				ContextView contextView = _injector.GetInstance(typeof(ContextView)) as ContextView;
+				unitySingletons = (contextView.view as Transform).gameObject.AddComponent<UnitySingletons>();
+				unitySingletons.SetFactory(_singletonFactory);
+			}
+		}
+
+		private void BeforeDestroying()
+		{
+			if (unitySingletons != null) 
+			{
+				GameObject.Destroy(unitySingletons);
+			}
+			_singletonFactory.Destroy();
+		}
 	}
 }

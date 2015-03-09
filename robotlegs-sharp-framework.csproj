@@ -61,7 +61,10 @@
     <Folder Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\" />
     <Folder Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\" />
     <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\" />
     <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\monoscriptCache\api\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
@@ -229,14 +232,15 @@
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\impl\DebugLogTarget.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorFactory.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorManager.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\MediatorAttach.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\MediatorAttachEditor.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\UnityMediatorManager.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\MediatorAttach.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\MediatorAttachEditor.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\UnityMediatorManager.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\UnityMediatorManagerExtension.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\SingletonFactory.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\UnitySingletons.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\UnitySingletonsEditor.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\SingletonFactory.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\UnitySingletons.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\UnitySingletonsEditor.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\UnitySingletonsExtension.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\monoscriptCache\api\MonoScriptCache.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorViewHandler.cs" />
   </ItemGroup>
   <ItemGroup>

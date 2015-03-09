@@ -1,10 +1,14 @@
 ﻿using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.mediatorMap.dsl;
+using robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl;
 
-public class UnityMediatorManagerExtension : IExtension
+namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager
 {
-	public void Extend (IContext context)
+	public class UnityMediatorManagerExtension : IExtension
 	{
-		context.injector.Map (typeof(IMediatorManager)).ToSingleton (typeof(UnityMediatorManager));
+		public void Extend (IContext context)
+		{
+			context.injector.Map (typeof(IMediatorManager)).ToSingleton (typeof(UnityMediatorManager));
+		}
 	}
 }
