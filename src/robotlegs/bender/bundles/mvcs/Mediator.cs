@@ -71,7 +71,7 @@ namespace robotlegs.bender.bundles.mvcs
 		/* Protected Functions                                                        */
 		/*============================================================================*/
 
-			protected virtual void AddViewListener(Enum type, Action listener, Type eventClass = null)
+		protected virtual void AddViewListener(Enum type, Action listener, Type eventClass = null)
 		{
 			if (viewDispatcher == null)
 			{

@@ -21,11 +21,11 @@ namespace robotlegs.bender.framework.unity.extensions.viewManager.impl
 		// Container contains container
 		public bool Contains(object parentContainer, object childContainer)
 		{
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 			// Check only in the editor the user is using transforms
-			if ((parentContainer != null && !(parentContainer is Transform)) || (childContainer != null && !(childContainer is Transform)))
-				throw new Exception("Container must always be a transform");
-#endif
+//			if ((parentContainer != null && !(parentContainer is Transform)) || (childContainer != null && !(childContainer is Transform)))
+//				throw new Exception("Container must always be a transform");
+//#endif
 
 			Transform parentTransform = parentContainer as Transform;
 			Transform childTransform = childContainer as Transform;

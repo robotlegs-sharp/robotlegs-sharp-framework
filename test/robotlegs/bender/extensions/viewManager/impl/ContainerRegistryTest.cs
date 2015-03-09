@@ -269,6 +269,91 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			Assert.That(registry.GetBinding(container), Is.Null);
 		}
 
+		[Test]
+		public void adding_fallback_handles_regardless()
+		{
+
+			int callCount = 0;
+			registry.ContainerRemove += delegate(object obj) {
+				callCount++;
+			};
+			registry.AddContainer(container);
+			registry.RemoveContainer(container);
+			registry.RemoveContainer(container);
+			Assert.That(callCount, Is.EqualTo(1));
+		}
+
+		[Test]
+		public void adding_fallback_should_be_found_as_parent()
+		{
+			object fallback = new object ();
+			registry.SetFallbackContainer (fallback);
+			object newView = new SupportView ();
+			ContainerBinding parentBinding = registry.FindParentBinding (newView);
+			Assert.That (parentBinding.Container, Is.EqualTo (fallback));
+		}
+
+		[Test]
+		public void adding_fallback_should_retain_heirchy()
+		{
+			List<TreeContainerSupport> searchTrees = CreateTrees(6, 4);
+
+			ContainerBinding firstExpectedBinding = registry.AddContainer(searchTrees[0]);
+
+			registry.AddContainer(searchTrees[1].children[3].children[2].children[3]);
+			registry.AddContainer(searchTrees[1].children[3].children[2]);	
+			registry.AddContainer(searchTrees[1]);
+
+			object fallbackContainer = new object ();
+			registry.SetFallbackContainer (fallbackContainer);
+
+			registry.AddContainer(searchTrees[1].children[3]);
+
+			ContainerBinding topBinding = registry.FindParentBinding(searchTrees [1].children [3].children [2].children [3].children [3]);
+
+			Assert.That(topBinding.Container, Is.EqualTo(searchTrees[1].children[3].children[2].children[3]));
+			Assert.That(topBinding.Parent.Container, Is.EqualTo(searchTrees[1].children[3].children[2]));
+			Assert.That(topBinding.Parent.Parent.Container, Is.EqualTo(searchTrees[1].children[3]));
+			Assert.That(topBinding.Parent.Parent.Parent.Container, Is.EqualTo(searchTrees[1]));
+			Assert.That(topBinding.Parent.Parent.Parent.Parent, Is.Not.Null);
+
+			Assert.That(topBinding.Parent.Parent.Parent.Parent.Container, Is.EqualTo(fallbackContainer));
+			Assert.That(topBinding.Parent.Parent.Parent.Parent.Parent, Is.Null);
+		}
+
+		[Test]
+		public void removing_fallback_handles()
+		{
+			object fallbackContainer = new object ();
+			registry.SetFallbackContainer (fallbackContainer);
+			registry.RemoveFallbackContainer ();
+
+			Assert.That(registry.FindParentBinding (new object ()), Is.Null);
+			Assert.That (registry.FallbackBinding, Is.Null);
+		}
+
+		[Test]
+		public void adding_two_fallbacks_should_remove_previous()
+		{
+			SupportContainer fallback1 = new SupportContainer ();
+			SupportContainer fallback2 = new SupportContainer ();
+			registry.SetFallbackContainer (fallback1);
+			registry.SetFallbackContainer (fallback2);
+			Assert.That (registry.FallbackBinding.Container, Is.EqualTo (fallback2));
+		}
+
+		[Test]
+		public void adding_fallback_removes_roots()
+		{
+			registry.AddContainer (new SupportContainer ());
+			registry.AddContainer (new SupportContainer ());
+
+			Assert.That (registry.RootBindings.Count, Is.EqualTo (2));
+
+			ContainerBinding binding = registry.SetFallbackContainer (new object ());
+			Assert.That (registry.RootBindings, Is.EqualTo (new List<ContainerBinding> (){ binding }).AsCollection);
+		}
+
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/

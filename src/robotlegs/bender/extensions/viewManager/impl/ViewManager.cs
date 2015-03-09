@@ -50,6 +50,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		private List<object> _containers = new List<object>();
 
+		private object _fallbackContainer;
+
 		private ContainerRegistry _registry;
 
 		/*============================================================================*/
@@ -73,10 +75,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			_containers.Add(container);
 
 			ContainerBinding containerBinding = _registry.AddContainer(container);
-			foreach (IViewHandler handler in _handlers)
-			{
-				containerBinding.AddHandler(handler);
-			}
+			AddHandlers (containerBinding);
 
 			if (ContainerAdded != null)
 			{
@@ -87,18 +86,38 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		public void RemoveContainer(object container)
 		{
 			if (!_containers.Remove (container))
-				return;
+				return;	
 
 			ContainerBinding binding = _registry.GetBinding (container);
-			foreach (IViewHandler handler in _handlers)
+			if (binding != null) 
 			{
-				binding.RemoveHandler (handler);
+				RemoveHandlers (binding);
 			}
 
 			if (ContainerRemoved != null)
 			{
 				ContainerRemoved (container);
 			}
+		}
+
+		public void SetFallbackContainer(object container)
+		{
+			_fallbackContainer = container;
+
+			ContainerBinding containerBinding = _registry.SetFallbackContainer (container);
+			RemoveAllHandlers (false);
+			AddHandlers (containerBinding);
+
+			_registry.FallbackContainerRemove += FallbackContainerBindingRemoved;
+		}
+
+		public void RemoveFallbackContainer()
+		{
+			if (_fallbackContainer == null)
+				return;
+
+			_registry.RemoveFallbackContainer ();
+
 		}
 
 		public void AddViewHandler(IViewHandler handler)
@@ -109,9 +128,16 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			_handlers.Add(handler);
 
 			// Add new handler to our containers
-			foreach (object container in _containers)
+			if (_fallbackContainer != null) 
 			{
-				_registry.AddContainer(container).AddHandler(handler);
+				_registry.GetBinding (_fallbackContainer).AddHandler (handler);
+			} 
+			else 
+			{
+				foreach (object container in _containers) 
+				{
+					_registry.AddContainer (container).AddHandler (handler);
+				}
 			}
 
 			if (HandlerAdd != null)
@@ -137,26 +163,72 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		public void RemoveAllHandlers()
 		{
-			foreach (object container in _containers) 
-			{
-				ContainerBinding binding = _registry.GetBinding (container);
-				foreach (IViewHandler handler in _handlers) 
-				{
-					binding.RemoveHandler (handler);
-				}
-			}
+			RemoveAllHandlers (true);
 		}
 
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/
 
+		private void RemoveAllHandlers(bool includeFallback)
+		{
+			if (includeFallback && _fallbackContainer != null) 
+			{
+				_registry.RemoveContainer (_fallbackContainer);
+			}
+
+			foreach (object container in _containers) 
+			{
+				ContainerBinding binding = _registry.GetBinding (container);
+				RemoveHandlers (binding);
+			}
+		}
+
+		private void AddAllHandlers()
+		{
+			foreach (object container in _containers) 
+			{
+				ContainerBinding binding = _registry.AddContainer (container);
+				AddHandlers (binding);
+			}
+		}
+
+		private void FallbackContainerBindingRemoved(object container)
+		{
+			_registry.FallbackContainerRemove -= FallbackContainerBindingRemoved;
+
+			_fallbackContainer = null;
+
+			AddAllHandlers ();
+		}
+
+		private void AddHandlers(ContainerBinding binding)
+		{
+			foreach (IViewHandler handler in _handlers)
+			{
+				binding.AddHandler(handler);
+			}
+		}
+
+		private void RemoveHandlers(ContainerBinding binding)
+		{
+			foreach (IViewHandler handler in _handlers)
+			{
+				binding.RemoveHandler (handler);
+			}
+		}
+
 		private bool ValidContainer(object container)
 		{
 			//TODO: Check for nested containers and already existing containers with this ViewManager
+			if (_registry.FallbackBinding != null && _registry.FallbackBinding.Container == container)
+				return true;
 			foreach (object registeredContainer in _containers)
 			{
 				if (container == registeredContainer)
+					return false;
+
+				if (_registry.FallbackBinding != null && _registry.FallbackBinding.Container == registeredContainer)
 					return false;
 
 				if (_registry.Contains (registeredContainer, container) || _registry.Contains (container, registeredContainer))

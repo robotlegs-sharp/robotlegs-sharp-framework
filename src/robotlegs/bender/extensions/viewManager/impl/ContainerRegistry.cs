@@ -34,6 +34,10 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		public event Action<object> RootContainerRemove;
 
+		public event Action<object> FallbackContainerAdd;
+
+		public event Action<object> FallbackContainerRemove;
+
 		public List<ContainerBinding> Bindings 
 		{
 			get 
@@ -97,11 +101,19 @@ namespace robotlegs.bender.extensions.viewManager.impl
 
 		public ContainerBinding SetFallbackContainer(object container)
 		{
+			if (_fallbackBinding != null) 
+			{
+				RemoveBinding (_fallbackBinding);
+			}
+
+			if (container == null)
+				return null;
+
 			ContainerBinding binding;
 			if (_bindingByContainer.TryGetValue (container, out binding))
 				return _fallbackBinding = binding;
 
-			return _fallbackBinding = _bindingByContainer[container] = CreateBinding(container);
+			return _fallbackBinding = _bindingByContainer[container] = CreateBinding(container, true);
 		}
 
 		public void RemoveFallbackContainer()
@@ -160,14 +172,18 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/* Private Functions                                                          */
 		/*============================================================================*/
 
-		private ContainerBinding CreateBinding(object container)
+		private ContainerBinding CreateBinding(object container, bool forceRoot = false)
 		{
 			ContainerBinding binding = new ContainerBinding(container);
 			_bindings.Add(binding);
 
 			binding.BINDING_EMPTY += OnBindingEmpty;
 
-			binding.Parent = FindParentBinding(container);
+			if (!forceRoot) 
+			{
+				binding.Parent = FindParentBinding (container);
+			}
+
 			if (binding.Parent == null)
 			{
 				AddRootBinding(binding);
@@ -178,14 +194,14 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			// B. Have a parent that is not contained within the new binding
 			foreach (ContainerBinding childBinding in _bindingByContainer.Values)
 			{
-				if (_parentFinder.Contains(container, childBinding.Container))
+				if (forceRoot || _parentFinder.Contains(container, childBinding.Container))
 				{
 					if (childBinding.Parent == null)
 					{
 						RemoveRootBinding(childBinding);
 						childBinding.Parent = binding;
 					}
-					else if (!_parentFinder.Contains(container, childBinding.Parent.Container))
+					else if (!_parentFinder.Contains(container, childBinding.Parent.Container) && !forceRoot)
 					{
 						childBinding.Parent = binding;
 					}
@@ -195,6 +211,10 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			if (ContainerAdd != null)
 			{
 				ContainerAdd (binding.Container);
+			}
+			if (FallbackContainerAdd != null) 
+			{
+				FallbackContainerAdd (binding.Container);
 			}
 			return binding;
 		}
@@ -232,6 +252,15 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			if (ContainerRemove != null)
 			{
 				ContainerRemove (binding.Container);
+			}
+
+			if (binding == _fallbackBinding) 
+			{
+				_fallbackBinding = null;
+				if (FallbackContainerRemove != null) 
+				{
+					FallbackContainerRemove (binding.Container);
+				}
 			}
 		}
 

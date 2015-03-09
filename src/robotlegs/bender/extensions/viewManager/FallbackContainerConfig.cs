@@ -1,5 +1,4 @@
-﻿using System;
-using robotlegs.bender.framework.api;
+﻿using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.viewManager.api;
 using robotlegs.bender.extensions.viewManager.impl;
 
@@ -26,15 +25,12 @@ namespace robotlegs.bender.extensions.viewManager
 
 		public void Configure ()
 		{
-			if (registry.FallbackBinding == null)
+			if (registry.FallbackBinding != null) 
 			{
-				registry.SetFallbackContainer (new object ());
+				logger.Warn ("The fallback container has already been set in the registry");
 			}
-			else
-			{
-				logger.Warn ("The fallback container can only be set once for the registry");
-			}
-			viewManager.AddContainer (registry.FallbackBinding.Container);
+
+			viewManager.SetFallbackContainer (new object ());
 		}
 	}
 }

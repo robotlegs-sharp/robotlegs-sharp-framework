@@ -29,8 +29,10 @@ namespace robotlegs.bender.platforms.unity.extensions.monoscriptCache.api
 
 		public static MonoScript GetMonoScript(Type type)
 		{
-			if (monoScriptsCache == null)
+			if (monoScriptsCache == null) 
+			{
 				GetMonoscriptCache ();
+			}
 
 			MonoScript monoScript;
 			monoScriptsCache.TryGetValue (type, out monoScript);

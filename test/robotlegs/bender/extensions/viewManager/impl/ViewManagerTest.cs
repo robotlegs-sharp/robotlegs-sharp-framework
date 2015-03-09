@@ -119,6 +119,73 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			container.AddChild(new SupportView());
 			Assert.That(callCount, Is.EqualTo(0));
 		}
+
+		[Test]
+		public void fallback_handles_when_container_is_not_parent()
+		{
+			int callCount = 0;
+			viewManager.AddViewHandler(new CallbackViewHandler(delegate(object view, Type type) {
+				callCount++;
+			}));
+			viewManager.SetFallbackContainer(new object());
+			SupportContainer newContainer = new SupportContainer ();
+			newContainer.AddChild(new SupportView());
+			Assert.That (callCount, Is.EqualTo (1));
+		}
+
+		[Test]
+		public void adding_fallback_doesnt_duplicate_handlers()
+		{
+			int callCount = 0;
+			viewManager.AddContainer(container);
+			viewManager.AddViewHandler(new CallbackViewHandler(delegate(object view, Type type) {
+				callCount++;
+			}));
+			viewManager.SetFallbackContainer(new object());
+			container.AddChild(new SupportView());
+			Assert.That (callCount, Is.EqualTo (1));
+		}
+
+		[Test]
+		public void adding_and_removing_fallback_puts_back_old_handlers()
+		{
+			int callCount = 0;
+			viewManager.AddViewHandler(new CallbackViewHandler(delegate(object view, Type type) {
+				callCount++;
+			}));
+			SupportContainer newContainer = new SupportContainer ();
+			viewManager.SetFallbackContainer(new object());
+			viewManager.RemoveFallbackContainer ();
+			newContainer.AddChild(new SupportView());
+			Assert.That (callCount, Is.EqualTo (0));
+		}
+
+		[Test]
+		public void adding_different_registry_fallback_removes_view_manager_fallback()
+		{
+			int callCount = 0;
+			viewManager.AddViewHandler(new CallbackViewHandler(delegate(object view, Type type) {
+				callCount++;
+			}));
+			viewManager.SetFallbackContainer(new object());
+			registry.SetFallbackContainer (new object ());
+			container.AddChild(new SupportView());
+			Assert.That (callCount, Is.EqualTo (0));
+		}
+
+		[Test]
+		public void adding_another_fallback_in_registry_reverts_old_handlers()
+		{
+			int callCount = 0;
+			viewManager.AddContainer(container);
+			viewManager.AddViewHandler(new CallbackViewHandler(delegate(object view, Type type) {
+				callCount++;
+			}));
+			viewManager.SetFallbackContainer(new object());
+			registry.SetFallbackContainer (new object ());
+			container.AddChild(new SupportView());
+			Assert.That (callCount, Is.EqualTo (1));
+		}
 	}
 }
 
