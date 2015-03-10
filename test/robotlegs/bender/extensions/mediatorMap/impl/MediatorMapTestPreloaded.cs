@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using robotlegs.bender.extensions.mediatorMap.impl.support;
 using robotlegs.bender.extensions.viewManager.support;
 using robotlegs.bender.framework.impl;
+using robotlegs.bender.extensions.matching;
+using robotlegs.bender.extensions.viewManager.api;
+using robotlegs.bender.framework.impl.guardSupport;
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
 {
@@ -39,310 +42,310 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/*============================================================================*/
 		/* Tests                                                                      */
 		/*============================================================================*/
-		/*
+
 		[Test]
 		public void a_hook_runs_and_receives_injections_of_view_and_mediator()
 		{
-			mediatorMap.map(Sprite).toMediator(RectangleMediator).withHooks(HookWithMediatorAndViewInjectionDrawsRectangle);
+			mediatorMap.Map(typeof(SupportViewWithWidthAndHeight)).ToMediator(typeof(RectangleMediator)).WithHooks(typeof(HookWithMediatorAndViewInjectionDrawsRectangle));
 
-			const view:Sprite = new Sprite();
+			SupportViewWithWidthAndHeight view = new SupportViewWithWidthAndHeight();
 
-			const expectedViewWidth:Number = 100;
-			const expectedViewHeight:Number = 200;
+			int expectedViewWidth = 100;
+			int expectedViewHeight = 200;
 
-			injector.map(Rectangle).toValue(new Rectangle(0, 0, expectedViewWidth, expectedViewHeight));
+			injector.Map(typeof(Rectangle)).ToValue(new Rectangle(0, 0, expectedViewWidth, expectedViewHeight));
 
-			mediatorMap.handleView(view, null);
+			mediatorMap.HandleView(view, view.GetType());
 
-			assertThat(expectedViewWidth, equalTo(view.width));
-			assertThat(expectedViewHeight, equalTo(view.height));
+			Assert.That(view.Width, Is.EqualTo(expectedViewWidth));
+			Assert.That(view.Height, Is.EqualTo(expectedViewHeight));
 		}
 
 		[Test]
 		public void can_be_instantiated()
 		{
-			assertThat(mediatorMap is MediatorMap, isTrue());
+			Assert.That(mediatorMap, Is.InstanceOf<MediatorMap>());
 		}
 
 		[Test]
 		public void create_mediator_instantiates_mediator_for_view_when_mapped()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher));
 
-			mediatorMap.handleView(new Sprite(), null);
+			mediatorMap.HandleView(new SupportView(), typeof(SupportView));
 
-			List<string> expectedNotifications = new List<string> {"ExampleMediator"} ;
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string> {"ExampleMediatorWatcher"} ;
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void doesnt_leave_view_and_mediator_mappings_lying_around()
 		{
-			mediatorMap.mapMatcher(new TypeMatcher().anyOf(MovieClip, Sprite)).toMediator(ExampleMediator);
-			mediatorMap.handleView(new Sprite(), null);
+			mediatorMap.MapMatcher(new TypeMatcher().AnyOf(typeof(SupportView), typeof(SupportView))).ToMediator(typeof(ExampleMediatorWatcher));
+			mediatorMap.HandleView(new SupportView(), typeof(SupportView));
 
-			assertThat(injector.satisfiesDirectly(MovieClip), isFalse());
-			assertThat(injector.satisfiesDirectly(Sprite), isFalse());
-			assertThat(injector.satisfiesDirectly(ExampleMediator), isFalse());
+			Assert.That(injector.SatisfiesDirectly(typeof(SupportEventView)), Is.False);
+			Assert.That(injector.SatisfiesDirectly(typeof(SupportView)), Is.False);
+			Assert.That(injector.SatisfiesDirectly(typeof(ExampleMediatorWatcher)), Is.False);
 		}
 
 		[Test]
 		public void handler_creates_mediator_for_view_mapped_by_matcher()
 		{
-			mediatorMap.mapMatcher(new TypeMatcher().allOf(DisplayObject)).toMediator(ExampleDisplayObjectMediator);
+			mediatorMap.MapMatcher(new TypeMatcher().AllOf(typeof(SupportContainer))).ToMediator(typeof(ExampleDisplayObjectMediator));
 
-			mediatorMap.handleView(new Sprite(), null);
+			mediatorMap.HandleView(new SupportView(), typeof(SupportView));
 
 			List<string> expectedNotifications = new List<string>{"ExampleDisplayObjectMediator"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void handler_doesnt_create_mediator_for_wrong_view_mapped_by_matcher()
 		{
-			mediatorMap.mapMatcher(new TypeMatcher().allOf(MovieClip)).toMediator(ExampleDisplayObjectMediator);
+			mediatorMap.MapMatcher(new TypeMatcher().AllOf(typeof(SupportEventView))).ToMediator(typeof(ExampleDisplayObjectMediator));
 
-			mediatorMap.handleView(new Sprite(), null);
+			mediatorMap.HandleView(new SupportView(), typeof(SupportView));
 
-			const expectedNotifications:Vector.<String> = new <String>[];
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string>();
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void handler_instantiates_mediator_for_view_mapped_by_type()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher));
 
-			mediatorMap.handleView(new Sprite(), null);
+			mediatorMap.HandleView(new SupportView(), typeof(SupportView));
 
-			List<string> expectedNotifications = new List<string>{"ExampleMediator"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string>{"ExampleMediatorWatcher"};
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void implements_IViewHandler()
 		{
-			assertThat(mediatorMap, instanceOf(IViewHandler));
+			Assert.That(mediatorMap, Is.InstanceOf<IViewHandler>());
 		}
 
 		[Test]
 		public void mediate_instantiates_mediator_for_view_when_matched_to_mapping()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher));
 
-			mediatorMap.mediate(new Sprite());
+			mediatorMap.Mediate(new SupportView());
 
-			List<string> expectedNotifications = new List<string>{"ExampleMediator"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string>{"ExampleMediatorWatcher"};
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void mediator_is_created_if_guard_allows_it()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator).withGuards(OnlyIfViewHasChildrenGuard);
-			const view:Sprite = new Sprite();
-			view.addChild(new Sprite());
-			mediatorMap.mediate(view);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher)).WithGuards(typeof(OnlyIfViewHasChildrenGuard));
+			SupportView view = new SupportView();
+			view.AddChild(new SupportView());
+			mediatorMap.Mediate(view);
 
-			List<string> expectedNotifications = new List<string>{"ExampleMediator"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string>{"ExampleMediatorWatcher"};
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void no_mediator_is_created_if_guard_prevents_it()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator).withGuards(OnlyIfViewHasChildrenGuard);
-			const view:Sprite = new Sprite();
-			mediatorMap.mediate(view);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher)).WithGuards(typeof(OnlyIfViewHasChildrenGuard));
+			SupportView view = new SupportView();
+			mediatorMap.Mediate(view);
 
-			const expectedNotifications:Vector.<String> = new <String>[];
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string>();
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void runs_destroy_on_created_mediator_when_unmediate_runs()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher));
 
-			const view:Sprite = new Sprite();
-			mediatorMap.mediate(view);
-			mediatorMap.unmediate(view);
+			SupportView view = new SupportView();
+			mediatorMap.Mediate(view);
+			mediatorMap.Unmediate(view);
 
-			List<string> expectedNotifications = new List<string>{"ExampleMediator", "ExampleMediator destroy"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string>{"ExampleMediatorWatcher", "ExampleMediatorWatcher destroy"};
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void mediator_is_created_for_non_view_object()
 		{
-			mediatorMap.map(NotAView).toMediator(NotAViewMediator);
-			const notAView:NotAView = new NotAView();
-			mediatorMap.mediate(notAView);
+			mediatorMap.Map(typeof(NotAView)).ToMediator(typeof(NotAViewMediator));
+			NotAView notAView = new NotAView();
+			mediatorMap.Mediate(notAView);
 
-			List<string> expectedNotifications = List<string>{"NotAViewMediator"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string>{"NotAViewMediator"};
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void non_view_object_injected_into_mediator_correctly()
 		{
-			mediatorMap.map(NotAView).toMediator(NotAViewMediator);
-			const notAView:NotAView = new NotAView();
-			mediatorMap.mediate(notAView);
-			assertThat(notAView.mediatorName, equalTo("NotAViewMediator"));
+			mediatorMap.Map(typeof(NotAView)).ToMediator(typeof(NotAViewMediator));
+			NotAView notAView = new NotAView();
+			mediatorMap.Mediate(notAView);
+			Assert.That(notAView.mediatorName, Is.EqualTo("NotAViewMediator"));
 		}
 
-		[Test]
+		[Test] 
 		public void mediator_is_destroyed_for_non_view_object()
 		{
-			mediatorMap.map(NotAView).toMediator(NotAViewMediator);
-			const notAView:NotAView = new NotAView();
-			mediatorMap.mediate(notAView);
-			mediatorMap.unmediate(notAView);
+			mediatorMap.Map(typeof(NotAView)).ToMediator(typeof(NotAViewMediator));
+			NotAView notAView = new NotAView();
+			mediatorMap.Mediate(notAView);
+			mediatorMap.Unmediate(notAView);
 
 			List<string> expectedNotifications = new List<string> {"NotAViewMediator", "NotAViewMediator destroy"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void unmediate_cleans_up_mediators()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher));
 
-			const view:Sprite = new Sprite();
+			SupportView view = new SupportView();
 
-			mediatorMap.mediate(view);
-			mediatorMap.unmediate(view);
+			mediatorMap.Mediate(view);
+			mediatorMap.Unmediate(view);
 
-			List<string> expectedNotifications = new List<string> {"ExampleMediator", "ExampleMediator destroy"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			List<string> expectedNotifications = new List<string> {"ExampleMediatorWatcher", "ExampleMediatorWatcher destroy"};
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void multiple_mappings_per_matcher_create_mediators()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator);
-			mediatorMap.map(Sprite).toMediator(ExampleMediator2);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher));
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher2));
 
-			mediatorMap.mediate(new Sprite());
-			List<string> expectedNotifications:Vector.<String> = new List<string> {"ExampleMediator", "ExampleMediator2"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			mediatorMap.Mediate(new SupportView());
+			List<string> expectedNotifications = new List<string> {"ExampleMediatorWatcher", "ExampleMediatorWatcher2"};
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void multiple_mappings_per_matcher_destroy_mediators()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator);
-			mediatorMap.map(Sprite).toMediator(ExampleMediator2);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher));
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher2));
 
-			const view:Sprite = new Sprite();
+			SupportView view = new SupportView();
 
-			mediatorMap.mediate(view);
-			mediatorMap.unmediate(view);
+			mediatorMap.Mediate(view);
+			mediatorMap.Unmediate(view);
 
-			const expectedNotifications:Vector.<String> = new List<string> {"ExampleMediator", "ExampleMediator2", "ExampleMediator destroy", "ExampleMediator2 destroy"};
+			List<string> expectedNotifications = new List<string> {"ExampleMediatorWatcher", "ExampleMediatorWatcher2", "ExampleMediatorWatcher destroy", "ExampleMediatorWatcher2 destroy"};
 			
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
 		}
 
 		[Test]
 		public void only_one_mediator_created_if_identical_mapping_duplicated()
 		{
-			mediatorMap.map(Sprite).toMediator(ExampleMediator).withGuards(HappyGuard).withHooks(Alpha50PercentHook);
-			mediatorMap.map(Sprite).toMediator(ExampleMediator).withGuards(HappyGuard).withHooks(Alpha50PercentHook);
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher)).WithGuards(typeof(HappyGuard)).WithHooks(typeof(AddChildHook));
+			mediatorMap.Map(typeof(SupportView)).ToMediator(typeof(ExampleMediatorWatcher)).WithGuards(typeof(HappyGuard)).WithHooks(typeof(AddChildHook));
 
-			mediatorMap.mediate(new Sprite());
-							const expectedNotifications:Vector.<String> = new List<string> {"ExampleMediator"};
-			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+			SupportView view = new SupportView ();
+			mediatorMap.Mediate(view);
+			List<string> expectedNotifications = new List<string> {"ExampleMediatorWatcher"};
+			Assert.That (expectedNotifications, Is.EqualTo (mediatorWatcher.Notifications).AsCollection);
+			Assert.That (view.NumChildren, Is.EqualTo (1));
 		}
 
 		[Test]
 		public void removing_a_mapping_that_doesnt_exist_doesnt_throw_an_error()
 		{
-			mediatorMap.unmap(Sprite).fromMediator(ExampleMediator);
+			mediatorMap.Unmap(typeof(SupportView)).FromMediator(typeof(ExampleMediatorWatcher));
 		}
-		//*/
 	}
-}
 
-class ExampleMediator
-{
-
-	/*============================================================================*/
-	/* Public Properties                                                          */
-	/*============================================================================*/
-
-	[Inject]
-	public MediatorWatcher mediatorWatcher {get;set;}
-
-	[Inject]
-	public SupportView view {get; set;}
-
-	/*============================================================================*/
-	/* Public Functions                                                           */
-	/*============================================================================*/
-
-	public void initialize()
+	class ExampleMediatorWatcher
 	{
-		mediatorWatcher.Notify("ExampleMediator");
+
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		[Inject]
+		public MediatorWatcher mediatorWatcher {get;set;}
+
+		[Inject]
+		public SupportView view {get; set;}
+
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
+
+		public void Initialize()
+		{
+			mediatorWatcher.Notify("ExampleMediatorWatcher");
+		}
+
+		public void Destroy()
+		{
+			mediatorWatcher.Notify("ExampleMediatorWatcher destroy");
+		}
 	}
 
-	public void destroy()
+	class ExampleMediatorWatcher2
 	{
-		mediatorWatcher.Notify("ExampleMediator destroy");
+
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		[Inject]
+		public MediatorWatcher mediatorWatcher;
+
+		[Inject]
+		public SupportView view;
+
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
+
+		public void Initialize()
+		{
+			mediatorWatcher.Notify("ExampleMediatorWatcher2");
+		}
+
+		public void Destroy()
+		{
+			mediatorWatcher.Notify("ExampleMediatorWatcher2 destroy");
+		}
 	}
-}
 
-class ExampleMediator2
-{
-
-	/*============================================================================*/
-	/* Public Properties                                                          */
-	/*============================================================================*/
-
-	[Inject]
-	public MediatorWatcher mediatorWatcher;
-
-	[Inject]
-	public SupportView view;
-
-	/*============================================================================*/
-	/* Public Functions                                                           */
-	/*============================================================================*/
-
-	public void initialize()
+	class ExampleDisplayObjectMediator
 	{
-		mediatorWatcher.Notify("ExampleMediator2");
+
+		/*============================================================================*/
+		/* Public Properties                                                          */
+		/*============================================================================*/
+
+		[Inject]
+		public MediatorWatcher mediatorWatcher;
+
+		[Inject]
+		public SupportView view;
+
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
+
+		public void Initialize()
+		{
+			mediatorWatcher.Notify("ExampleDisplayObjectMediator");
+		}
 	}
-
-	public void destroy()
-	{
-		mediatorWatcher.Notify("ExampleMediator2 destroy");
-	}
-}
-
-class ExampleDisplayObjectMediator
-{
-
-	/*============================================================================*/
-	/* Public Properties                                                          */
-	/*============================================================================*/
-
-	[Inject]
-	public MediatorWatcher mediatorWatcher;
-
-	[Inject]
-	public SupportView view;
-
-	/*============================================================================*/
-	/* Public Functions                                                           */
-	/*============================================================================*/
-
-	public void initialize()
-	{
-		mediatorWatcher.Notify("ExampleDisplayObjectMediator");
-	}
-
 
 	class RectangleMediator
 	{
@@ -358,19 +361,27 @@ class ExampleDisplayObjectMediator
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void initialize()
+		public void Initialize()
 		{
 
 		}
 
 	}
 
-	struct Rectangle
+	public struct Rectangle
 	{
 		public int x;
 		public int y;
 		public int width;
 		public int height;
+
+		public Rectangle(int x, int y, int width, int height)
+		{
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+		}
 	}
 
 	class OnlyIfViewHasChildrenGuard
@@ -410,7 +421,7 @@ class ExampleDisplayObjectMediator
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void hook()
+		public void Hook()
 		{
 			int requiredWidth = mediator.rectangle.width;
 			int requiredHeight = mediator.rectangle.height;
@@ -419,7 +430,7 @@ class ExampleDisplayObjectMediator
 		}
 	}
 
-	class Alpha50PercentHook
+	class AddChildHook
 	{
 
 		/*============================================================================*/
@@ -433,9 +444,9 @@ class ExampleDisplayObjectMediator
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void hook()
+		public void Hook()
 		{
-			//view.alpha = 0.5;
+			view.AddChild (new SupportView ());
 		}
 	}
 
@@ -446,7 +457,7 @@ class ExampleDisplayObjectMediator
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void hook()
+		public void Hook()
 		{
 		}
 	}
@@ -478,13 +489,13 @@ class ExampleDisplayObjectMediator
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void initialize()
+		public void Initialize()
 		{
 			notAView.mediatorName = "NotAViewMediator";
 			mediatorWatcher.Notify("NotAViewMediator");
 		}
 
-		public void destroy()
+		public void Destroy()
 		{
 			mediatorWatcher.Notify("NotAViewMediator destroy");
 		}
