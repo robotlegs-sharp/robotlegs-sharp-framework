@@ -40,7 +40,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void RunProcessors(object view, Type type, IViewProcessorMapping[] processorMappings)
+		public void RunProcessors(object view, Type type, IEnumerable<IViewProcessorMapping> processorMappings)
 		{
 			if (view is IView)
 			{
@@ -58,7 +58,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			}
 		}
 
-		public void RunUnprocessors(object view, Type type, IViewProcessorMapping[] processorMappings)
+		public void RunUnprocessors(object view, Type type, IEnumerable<IViewProcessorMapping> processorMappings)
 		{
 			foreach (IViewProcessorMapping mapping in processorMappings)
 			{
@@ -168,7 +168,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 			return requiredTypes;
 		}
 
-		private void CreateRemovedListener(IView view, Type type, IViewProcessorMapping[] processorMappings)
+		private void CreateRemovedListener(IView view, Type type, IEnumerable<IViewProcessorMapping> processorMappings)
 		{
 			if (!_listenersByView.ContainsKey(view) || _listenersByView [view] == null)
 			{

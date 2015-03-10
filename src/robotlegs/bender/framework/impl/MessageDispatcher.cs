@@ -161,10 +161,10 @@ namespace robotlegs.bender.framework.impl
 
 		private Delegate _callback;
 
-		public MessageRunner(object message, List<Delegate> handlers, Delegate callback)
+		public MessageRunner(object message, IEnumerable<Delegate> handlers, Delegate callback)
 		{
 			_message = message;
-			_handlers = handlers;
+			_handlers = handlers != null ? new List<Delegate>(handlers) : null;
 			_callback = callback;
 		}
 

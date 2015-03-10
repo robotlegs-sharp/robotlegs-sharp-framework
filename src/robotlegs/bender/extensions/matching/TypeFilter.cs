@@ -55,14 +55,14 @@ namespace robotlegs.bender.extensions.matching
 			}
 		}
 
-		public TypeFilter(List<Type> allOf, List<Type> anyOf, List<Type> noneOf)
+		public TypeFilter(IEnumerable<Type> allOf, IEnumerable<Type> anyOf, IEnumerable<Type> noneOf)
 		{
 			if (allOf == null || anyOf == null || noneOf == null)
 				throw new ArgumentNullException("TypeFilter parameters can not be null");
 
-			allOfTypes = allOf;
-			anyOfTypes = anyOf;
-			noneOfTypes = noneOf;
+			allOfTypes = new List<Type>(allOf);
+			anyOfTypes = new List<Type>(anyOf);
+			noneOfTypes = new List<Type>(noneOf);
 		}
 		
 		public bool Matches (object item)
@@ -102,12 +102,14 @@ namespace robotlegs.bender.extensions.matching
 //			return type.AssemblyQualifiedName; // Removed this, as it's more readable above
 		}
 
-		public List<string> AlphabetiseCaseInsensitiveClassNames(List<Type> types)
+		public List<string> AlphabetiseCaseInsensitiveClassNames(IEnumerable<Type> types)
 		{
 			List<string> allClassNames = new List<string>();
 
 			foreach (Type type in types)
-				allClassNames.Add(GetClassName(type));
+			{
+				allClassNames.Add (GetClassName (type));
+			}
 
 			allClassNames.Sort(string.Compare);
 

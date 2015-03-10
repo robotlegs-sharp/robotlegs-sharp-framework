@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl.guardSupport;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -130,6 +131,24 @@ namespace robotlegs.bender.framework.impl
 			object invalidGuard = new object ();
 			Guards.Approve(invalidGuard);
 			// note: no assertion. we just want to know if an error is thrown
+		}
+
+		[Test]
+		public void guard_approves_func()
+		{
+			Func<bool> function = (Func<bool>)delegate {
+				return true;
+			};
+			Assert.That(Guards.Approve (function), Is.True);
+		}
+
+		[Test]
+		public void guard_approves_func_list()
+		{
+			Func<bool> function = (Func<bool>)delegate {
+				return true;
+			};
+			Assert.That(Guards.Approve (new List<Func<bool>>{function, happyFunction}), Is.True);
 		}
 
 		/*============================================================================*/

@@ -53,7 +53,7 @@ namespace robotlegs.bender.framework.unity.extensions.viewManager.impl
 			return FindParent (childView, new List<ContainerBinding>(containers.Values));
 		}
 
-		public object FindParent(object childView, List<ContainerBinding> containers)
+		public object FindParent(object childView, IEnumerable<ContainerBinding> containers)
 		{
 			if (childView is Component)
 			{

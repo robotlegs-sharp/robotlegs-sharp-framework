@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl.hookSupport;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.framework.impl
 {
@@ -71,6 +72,28 @@ namespace robotlegs.bender.framework.impl
 			object invalidHook = new object();
 			Hooks.Apply(invalidHook);
 			// note: no assertion. we just want to know if an exception is thrown
+		}
+
+		[Test]
+		public void instance_hooks_run_action()
+		{
+			int callCount = 0;
+			Action hook = (Action)delegate() {
+				callCount++;
+			};
+			Hooks.Apply(hook);
+			Assert.AreEqual(callCount, 1);
+		}
+
+		[Test]
+		public void instance_hooks_run_action_list()
+		{
+			int callCount = 0;
+			Action hook = (Action)delegate() {
+				callCount++;
+			};
+			Hooks.Apply(null, new List<Action>{hook, hook});
+			Assert.AreEqual(callCount, 2);
 		}
 	}
 }

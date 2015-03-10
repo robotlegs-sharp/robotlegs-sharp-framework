@@ -24,7 +24,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 
 		private ICommandTrigger _trigger;
 
-		private List<Processor> _processors;
+		private IEnumerable<Processor> _processors; 
 
 		private ILogger _logger;
 
@@ -43,10 +43,10 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		/// <param name="trigger">The trigger that owns this list</param>
 		/// <param name="processors">A reference to the mapping processors for this command map</param>
 		/// <param name="logger">Optional logger</param>
-		public CommandMappingList (ICommandTrigger trigger, List<Processor> processors, ILogger logger = null)
+		public CommandMappingList (ICommandTrigger trigger, IEnumerable<Processor> processors, ILogger logger = null)
 		{
 			_trigger = trigger;
-			_processors = processors;
+			_processors =  processors;
 			_logger = logger;
 		}
 

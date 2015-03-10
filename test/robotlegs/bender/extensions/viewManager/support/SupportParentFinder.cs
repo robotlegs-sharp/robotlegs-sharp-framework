@@ -30,7 +30,7 @@ namespace robotlegs.bender.extensions.viewManager.support
 			return FindParent(childView, new List<ContainerBinding>(containers.Values));
 		}
 
-		public object FindParent (object childView, List<ContainerBinding> containerBindings)
+		public object FindParent (object childView, IEnumerable<ContainerBinding> containerBindings)
 		{
 			SupportContainer supportView = childView as SupportContainer;
 			while (supportView != null && supportView.Parent != null)

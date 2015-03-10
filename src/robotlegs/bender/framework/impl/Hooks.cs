@@ -10,12 +10,18 @@
 using System;
 using System.Reflection;
 using robotlegs.bender.framework.api;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.framework.impl
 {
 	public class Hooks
 	{
 		public static void Apply(IInjector injector, params object[] hooks) 
+		{
+			Apply (injector, hooks as IEnumerable<object>);
+		}
+
+		public static void Apply(IInjector injector, IEnumerable<object> hooks)
 		{
 			object hookInstance;
 
@@ -46,15 +52,30 @@ namespace robotlegs.bender.framework.impl
 
 		public static void Apply(params object[] hooks)
 		{
+			Apply (hooks as IEnumerable<object>);
+		}
+
+		public static void Apply(IEnumerable<object> hooks)
+		{
 			Apply (null, hooks);
 		}
 
 		public static void Apply(IInjector injector, params Action[] hooks)
 		{
-			Apply (injector, hooks as object[]);
+			Apply (injector, hooks as IEnumerable<Action>);
+		}
+
+		public static void Apply(IInjector injector, IEnumerable<Action> hooks)
+		{
+			Apply (injector, hooks as IEnumerable<object>);
 		}
 
 		public static void Apply(params Action[] hooks)
+		{
+			Apply (null, hooks as IEnumerable<Action>);
+		}
+
+		public static void Apply(IEnumerable<Action> hooks)
 		{
 			Apply (null, hooks);
 		}

@@ -10,7 +10,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			return false;
 		}
 
-		public object FindParent (object childView, List<ContainerBinding> containers)
+		public object FindParent (object childView, IEnumerable<ContainerBinding> containers)
 		{
 			return null;
 		}

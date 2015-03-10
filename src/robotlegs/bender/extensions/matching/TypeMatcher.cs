@@ -24,20 +24,34 @@ namespace robotlegs.bender.extensions.matching
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		
 		public TypeMatcher AllOf(params Type[] allOf)
+		{
+			return AllOf (allOf as IEnumerable<Type>);
+		}
+
+		public TypeMatcher AllOf(IEnumerable<Type> allOf)
 		{
 			PushAddedTypesTo(allOf, allOfTypes);
 			return this;
 		}
-		
+
 		public TypeMatcher AnyOf(params Type[] anyOf)
+		{
+			return AnyOf (anyOf as IEnumerable <Type>);
+		}
+
+		public TypeMatcher AnyOf(IEnumerable<Type> anyOf)
 		{
 			PushAddedTypesTo(anyOf, anyOfTypes);
 			return this;
 		}
-		
+
 		public TypeMatcher NoneOf(params Type[] noneOf)
+		{
+			return NoneOf (noneOf as IEnumerable <Type>);
+		}
+
+		public TypeMatcher NoneOf(IEnumerable<Type> noneOf)
 		{
 			PushAddedTypesTo(noneOf, noneOfTypes);
 			return this;
@@ -56,7 +70,7 @@ namespace robotlegs.bender.extensions.matching
 
 		public TypeMatcher Clone()
 		{
-			return new TypeMatcher().AllOf(allOfTypes.ToArray()).AnyOf(anyOfTypes.ToArray()).NoneOf(noneOfTypes.ToArray());
+			return new TypeMatcher().AllOf(allOfTypes).AnyOf(anyOfTypes).NoneOf(noneOfTypes);
 		}
 		
 		/*============================================================================*/
@@ -71,7 +85,7 @@ namespace robotlegs.bender.extensions.matching
 			return new TypeFilter(allOfTypes, anyOfTypes, noneOfTypes);
 		}
 
-		protected void PushAddedTypesTo(Type[] types, List<Type> targetSet)
+		protected void PushAddedTypesTo(IEnumerable<Type> types, List<Type> targetSet)
 		{
 			if (typeFilter != null)
 				ThrowSealedMatcherError ();

@@ -55,10 +55,16 @@ namespace robotlegs.bender.extensions.commandCenter.api
 		 * @param values Optional values
 		 * @param classes Optional classes
 		 */
-		public CommandPayload(List<object> values, List<Type> classes)
+		public CommandPayload(IEnumerable<object> values, IEnumerable<Type> classes)
 		{
-			_values = values;
-			_classes = classes;
+			if (values != null)
+			{
+				_values = new List<object> (values);
+			}
+			if (classes != null) 
+			{
+				_classes = new List<Type> (classes);
+			}
 		}
 		
 		/*============================================================================*/

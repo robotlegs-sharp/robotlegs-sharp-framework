@@ -162,7 +162,7 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			return _parentFinder.FindParent(childView, containers);
 		}
 
-		public object FindParent (object childView, List<ContainerBinding> containers)
+		public object FindParent (object childView, IEnumerable<ContainerBinding> containers)
 		{
 			return _parentFinder.FindParent(childView, containers);
 		}

@@ -48,12 +48,11 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void ExecuteCommands(List<ICommandMapping> mappings, CommandPayload payload = null)
+		public void ExecuteCommands(IEnumerable<ICommandMapping> mappings, CommandPayload payload = null)
 		{
-			int length = mappings.Count;
-			for (int i = 0; i < length; i++)
+			foreach (ICommandMapping mapping in mappings) 
 			{
-				ExecuteCommand(mappings[i], payload);
+				ExecuteCommand(mapping, payload);
 			}
 		}
 
@@ -66,7 +65,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 			if (injectionEnabled)
 				MapPayload(payload);
 				
-			if (mapping.Guards.Count == 0 || Guards.Approve(_injector, mapping.Guards.ToArray()))
+			if (mapping.Guards.Count == 0 || Guards.Approve(_injector, mapping.Guards))
 			{
 				Type commandClass = mapping.CommandClass;
 				if (mapping.FireOnce && _removeMapping != null)
@@ -75,7 +74,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 				if (mapping.Hooks.Count > 0)
 				{
 					_injector.Map(commandClass).ToValue(command);
-					Hooks.Apply(_injector, mapping.Hooks.ToArray());
+					Hooks.Apply(_injector, mapping.Hooks);
 					_injector.Unmap(commandClass);
 				}
 			}

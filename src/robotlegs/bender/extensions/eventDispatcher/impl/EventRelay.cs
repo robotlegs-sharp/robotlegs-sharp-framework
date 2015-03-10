@@ -32,11 +32,11 @@ namespace robotlegs.bender.extensions.eventDispatcher.impl
 		/// <param name="source">Source Event Dispatcher</param>
 		/// <param name="destination">Destination Event Dispatcher</param>
 		/// <param name="types">The list of event types to relay</param>
-		public EventRelay(IEventDispatcher source, IEventDispatcher destination, List<Enum> types = null)
+		public EventRelay(IEventDispatcher source, IEventDispatcher destination, IEnumerable<Enum> types = null)
 		{
 			_source = source;
 			_destination = destination;
-			_types = types == null ? new List<Enum>() : types;
+			_types = types == null ? new List<Enum>() : new List<Enum>(types);
 		}
 
 		/*============================================================================*/

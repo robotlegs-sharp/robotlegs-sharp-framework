@@ -10,13 +10,14 @@
 using System;
 using System.Reflection;
 using robotlegs.bender.framework.api;
+using System.Collections.Generic;
 
 
 namespace robotlegs.bender.framework.impl
 {
 	public class Guards
 	{
-		public static bool Approve(IInjector injector, params object[] guards)
+		public static bool Approve(IInjector injector, IEnumerable<object> guards)
 		{
 			object guardInstance;
 
@@ -52,25 +53,35 @@ namespace robotlegs.bender.framework.impl
 			return true;
 		}
 
+		public static bool Approve(IInjector injector, params object[] guards)
+		{
+			return Approve (injector, guards as IEnumerable<object>);
+		}
+
 		public static bool Approve(params object[] guards)
+		{
+			return Approve (null, guards as IEnumerable<object>);
+		}
+
+		public static bool Approve(IEnumerable<object> guards)
 		{
 			return Approve (null, guards);
 		}
 
 		public static bool Approve(params Func<bool>[] guards)
 		{
-			return Approve (null, guards);
+			return Approve (null, guards as IEnumerable<object>);
 		}
 
 		public static bool Approve(IInjector injector, params Func<bool>[] guards)
 		{
-			return Approve (null, guards as object[]);
+			return Approve (injector, guards as IEnumerable<object>);
 		}
 
-//		public static bool Approve(object[] guards, IInjector injector = null) 
-//		{
-			
-//		}
+		public static bool Approve(IInjector injector, IEnumerable<Func<bool>> guards)
+		{
+			return Approve (injector, guards as IEnumerable<object>);
+		}
 	}
 }
 

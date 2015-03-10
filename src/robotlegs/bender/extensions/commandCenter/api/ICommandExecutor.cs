@@ -22,6 +22,6 @@ namespace robotlegs.bender.extensions.commandCenter.api
 		/// </summary>
 		/// <param name="mapping">The Command Mappings</param>
 		/// <param name="payload">The Command Payload</param>
-		void ExecuteCommands(List<ICommandMapping> mapping, CommandPayload payload);
+		void ExecuteCommands(IEnumerable<ICommandMapping> mapping, CommandPayload payload);
 	}
 }

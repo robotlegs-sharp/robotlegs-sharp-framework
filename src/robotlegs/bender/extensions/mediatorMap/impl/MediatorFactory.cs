@@ -57,7 +57,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			return null;
 		}
 
-		public List<object> CreateMediators(object item, Type type, List<IMediatorMapping> mappings)
+		public List<object> CreateMediators(object item, Type type, IEnumerable<IMediatorMapping> mappings)
 		{
 			List<object> createdMediators = new List<object>();
 			object mediator;
@@ -117,13 +117,13 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 			if (mediator != null)
 				return mediator;
 			
-			if (mapping.Guards.Count == 0 || Guards.Approve(_injector, mapping.Guards.ToArray()))
+			if (mapping.Guards.Count == 0 || Guards.Approve(_injector, mapping.Guards))
 			{
 				mediator = _injector.InstantiateUnmapped(mapping.MediatorType);
 				if (mapping.Hooks.Count > 0)
 				{
 					_injector.Map(mapping.MediatorType).ToValue(mediator);
-					Hooks.Apply(_injector, mapping.Hooks.ToArray());
+					Hooks.Apply(_injector, mapping.Hooks);
 					_injector.Unmap(mapping.MediatorType);
 				}
 				AddMediator(mediator, item, mapping);

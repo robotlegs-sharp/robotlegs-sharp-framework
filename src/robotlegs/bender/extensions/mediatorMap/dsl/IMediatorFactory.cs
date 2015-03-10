@@ -18,7 +18,7 @@ namespace robotlegs.bender.extensions.mediatorMap.dsl
 	{
 		object GetMediator (object item, IMediatorMapping mapping);
 		
-		List<object> CreateMediators (object item, Type type, List<IMediatorMapping> mappings);
+		List<object> CreateMediators (object item, Type type, IEnumerable<IMediatorMapping> mappings);
 		
 		void RemoveMediators (object item);
 		
