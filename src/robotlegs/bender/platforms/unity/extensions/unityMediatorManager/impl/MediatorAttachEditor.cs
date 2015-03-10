@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using robotlegs.bender.platforms.unity.extensions.monoscriptCache.api;
+using robotlegs.bender.platforms.unity.extensions.monoscriptCache;
 
 namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl
 {

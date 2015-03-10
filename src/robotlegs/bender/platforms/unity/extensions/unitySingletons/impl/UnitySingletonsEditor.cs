@@ -12,7 +12,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using swiftsuspenders.mapping;
 using UnityEngine;
-using robotlegs.bender.platforms.unity.extensions.monoscriptCache.api;
+using robotlegs.bender.platforms.unity.extensions.monoscriptCache;
 
 namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 {
