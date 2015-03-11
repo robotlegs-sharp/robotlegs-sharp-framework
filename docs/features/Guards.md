@@ -1,4 +1,3 @@
-
 Guards
 ======
 
@@ -14,12 +13,12 @@ public class ExampleCommand
 
 	[Inject]
 	public IService service;
-	
+
 	public void Execute()
 	{
 		if (!model.InGameScreen)
 			return;
-		
+
 		if (!model.HasItem)
 			return;
 
@@ -37,7 +36,7 @@ public class InGameScreenGuard
 {
 	[Inject]
 	public IModel model;
-	
+
 	public bool Approve()
 	{
 		return !model.InGameScreen;
@@ -64,7 +63,7 @@ Be weary that this only happens upon the registration of the view. So if the InG
 
 
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -79,5 +78,6 @@ From here
 		* [View Processor](./ViewProcessor.md)
 		* [Logger](./Logger.md)
 	* [Platforms](../Platforms.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

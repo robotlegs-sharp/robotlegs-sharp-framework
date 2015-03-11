@@ -1,6 +1,6 @@
 
 View Processor
-=========
+==============
 
 The View Processor Map allows you to do any sort of action on a view when it is registerd or unregistered. This enables the user to do _anything_ with the filtering of IMatchers to certain views.
 

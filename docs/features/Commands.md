@@ -35,7 +35,7 @@ You can also change the Execute method used for the command in the mapping phase
 eventCommandMap.Map(EventClass.Type.ACTION_1).ToCommand<ExampleCommand>().WithExecuteMethod("CustomMethodName");
 ```
 
-And you can also use the WithGuards to prevent the command being invoked under certain conditions and add WithHooks to add extra functionality just before the command is executed. 
+And you can also use the WithGuards to prevent the command being invoked under certain conditions and add WithHooks to add extra functionality just before the command is executed.
 
 ```csharp
 eventCommandMap.Map(EventClass.Type.ACTION_1).ToCommand<ExampleCommand>().WithGuards<ExampleGuard>().WithHooks<ExampleHook>();
@@ -53,7 +53,7 @@ So with an event mapped to a command. All you have to do to dispatch the event w
 dispatcher.Dispatch(new EventClass(EventClass.Type.ACTION_1));
 ```
 
-It's good to know that you can also invoke a command with the [DirectCommandMap TODO:LINK](./link.md) or if you don't like events with the [Signals TODO:EXTENSION](./link) extension instead.
+It's good to know that you can also invoke a command with the [DirectCommandMap](../../src/robotlegs/bender/extensions/directCommandMap/readme.md) ~~or if you don't like events with the [Signals Extension](./link) extension instead~~.
 
 
 Getting data in the command
@@ -164,15 +164,15 @@ public class DetainedCommand()
 }
 ```
 
-The context exposes a small class in called [Pin TODO:LINK](./pin) which stores and releases your object in a dictionary where it cannot not be garbage collected.
+The context exposes a small class in called [Pin](./Context.md#Pin) which stores and releases your object in a dictionary where it cannot not be garbage collected.
 
 Invoke Command Directly
 -----------------------
 
-If you are using event commands, I would try not to call a command directly. However it is possible and is exposed in the [DirectCommandMap TODO:LINK](./asdf).
+If you are using event commands, I would try not to call a command directly. However it is possible and is exposed in the [DirectCommandMap](../../src/robotlegs/bender/extensions/directCommandMap/readme.md).
 
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -186,6 +186,8 @@ From here
 		* [Hooks](./Hooks.md)
 		* [View Processor](./ViewProcessor.md)
 		* [Logger](./Logger.md)
+		* [Modularity](./Modularity.md)
 	* [Platforms](../Platforms.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

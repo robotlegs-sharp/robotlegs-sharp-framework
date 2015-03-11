@@ -1,4 +1,3 @@
-
 Logger
 ======
 
@@ -10,7 +9,6 @@ It inbuilt features for five different severitys of logging.
 * WARN
 * ERROR
 * FATAL
-
 
 It is also possible to output the logs into multiple different API's.
 
@@ -102,7 +100,7 @@ public class ChatroomLogger : ILogTarget
 The best I personally like about the logger is the potential to connect to other API's or a visual log for those hard to debug issues.
 
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -117,5 +115,6 @@ From here
 		* [View Processor](./ViewProcessor.md)
 		* [Logger](./Logger.md)
 	* [Platforms](../Platforms.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

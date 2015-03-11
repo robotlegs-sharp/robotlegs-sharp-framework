@@ -83,11 +83,12 @@ The **EventCommandMap** is the event based command center. This stores event typ
 The **MediatorMap** adds a delegate to the ViewManager. This gives us the view when registered. The mediator map, attaches mediators and associates them with this view.
 The Mediator class uses the **LocalEventMap** a class to help manage listeners you've added and remove them all upon disposal.
 
-The **ViewProcessorMap**
+The **ViewProcessorMap** adds rules with the **IMatcher** for all views and will perform a process on them (without creating a mediator).
 
 #### Modularity
 
-The **Modularity Extension**
+The **Modularity Extension** establishes communication between each context by relaying events from Global Event Dispatcher's to each other.
+It uses the **ModuleConnector** to make different channels and relays events with the **EventRelay** class
 
 A fairly detailed overview
 
@@ -117,11 +118,6 @@ A fairly detailed overview
 * [View Processor Map](../src/robotlegs/bender/extensions/viewProcessorMap/readme.md)
 * [Vigilance](../src/robotlegs/bender/extensions/vigilance/readme.md)
 
-Including Platforms
--------------------
-
-What you need to do to include a platform, and how it ties in
-
 
 From here
 ------------
@@ -130,5 +126,6 @@ From here
 	* [A Brief Overview](./ABriefOverview.md)
 	* [Features](./Features.md)
 	* [Platforms](./Platforms.md)
+	* [Writing An Extension](./WritingAnExtension.md)
 	* [Common Problems](./CommonProblems.md)
 	* [The internals (how it all works)](./TheInternals.md)

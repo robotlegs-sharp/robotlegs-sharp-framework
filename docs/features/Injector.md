@@ -1,6 +1,6 @@
 
 Injector
-======
+========
 
 The injector is a core part of the Robotlegs framework. It is simply used to provide dependant objects at runtime.
 
@@ -8,7 +8,7 @@ It is useful when you want to give access something to an class, but have the ab
 
 
 Setting up an injection mapping
---------------------------------------
+-------------------------------
 
 In order to have things that are injectable, you need to set up some rules for the injector to follow in order to provide you with values. There are a few ways to set up your injectable values.
 
@@ -46,7 +46,7 @@ injector.Map<Car>(Key.MINE).ToValue(myCar);
 
 
 Getting values with [Inject]
----------------------------------
+----------------------------
 
 The injector will scan your class for properties and fields with the ```[Inject]``` tag.
 
@@ -108,7 +108,7 @@ As the injector would not have created the instance.
 
 
 Get values from Injector
-----------------------------
+------------------------
 
 If you have the injector. You can also get your values from it.
 You most likely will use this when creating an extension as you will given an injector via the context.
@@ -125,7 +125,7 @@ Car myCar = injector.GetInstance<Car>(Keys.MINE);
 
 
 Framework classes that are injected into
-----------------------------
+----------------------------------------
 
 Throughout the application the following classes are injected into.
 
@@ -152,7 +152,7 @@ TestClass testClass = injector.InstantiateUnmapped<TestClass>();
 ```
 
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -167,5 +167,6 @@ From here
 		* [View Processor](./ViewProcessor.md)
 		* [Logger](./Logger.md)
 	* [Platforms](../Platforms.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

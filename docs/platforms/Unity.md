@@ -131,8 +131,12 @@ We've added View and EventView classes, to easily extend and to be Mediated.
 
 We've removed the FallbackContainerConfig, and replaced it with the ContextViewListenerConfig which adds the ContextView as the container (and forces user to parent their view's to their ContextView)
 
+We've added the editor UnityMediatorExtension, which adds a new IMediatorManager which manages mediators as normal, but also adds the Mediator Attach script to MonoBehaviours giving you a cue of what is being mediated.
+
+We've added the UnitySingletonsExtension, which monitors the Injector for new singletons mapped and displays it on the ContextView.
+
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -140,5 +144,6 @@ From here
 	* [Platforms](../Platforms.md)
 		* [Unity](./Unity.md)
 		* [Adding A Platform](./AddingAPlatform.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

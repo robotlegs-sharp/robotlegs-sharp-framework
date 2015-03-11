@@ -1,122 +1,86 @@
 
 Context
-==========
+=======
 
-The context is the root of the framework with Robotlegs.
-The context comes with a few things.
+The context is where everything begins in Robotlegs. Instead of Extending a context (like in version on) you add your code to it. You do this with the plugin architecture using Extensions and Configs. From within these classes you also have (or can get reference to) the context.
 
-Extension Installer and Config Manager, which enable you to tie into the Context and setup and boot your own code and even install other people's code wrapped up nicely into extensions.
+The Context is made up of lots of classes. It exposes you with the following features.
+
+- Injector
+- Extension Installer
+- Config Installer
+- Pin
+- Logging
+- Lifecycle
+
+Installing Extensions / Bundles
+-------------------------------
+
+With the context, all 3rd party content can be installed and also configured with robotlegs. The two interfaces you have to install are IBundle and IExtension.
+
+However, you can install anything that has this method signature:
 
 ```csharp
-private IContext context;
-
-public void SetupContext()
+public void Extend(IContext context)
 {
-	context = new Context()
+}
+```
+
+
+The context follows the decorator pattern which returns itself for easier reading.
+
+```csharp
+new Context().Install<MVCSBundle>().Install<ExampleExtension>().Configure<ApplicationConfig>();
+```
+
+> Note: A lot of classes for setup in Robotlegs follow the decorator pattern
+
+The install parameter takes a type, and will only ever install one type, the following example will only install the MVCSBundle once even though each install call method is valid.
+
+```csharp
+IContext context = new Context()
 	.Install<MVCSBundle>()
-	.Install<Extension1>()
-	.Install<Extension2>()
-	.Configure<MyConfig1>()
-	.Configure(new MyConfig2("extra data"));
-	context.Initialize();
-}
+    .Install(new MVCSBundle())
+    .Install(typeof(MVCSBundle));	// MVCSBundle is installed only once
 ```
 
-Regardless of the order, Install classes/instances are run first. If your configuration is an IConfig, it will be processed during the Initialize phase of the context.
+It's good to point out, a IBundle and IExtension have the same interface methods but should be treated very differently.
 
-In our example, you might see the following in your ouput:
+An Extension is for adding something to the Context whereas a Bundle is just a wrapper for easily installing many extensions and configurations.
 
-```
-Installed Extension 1
-Installed Extension 2
-Context Initialized
-Configured Config 1
-Configured Config 2
-```
+For more detail about making your own extensions. Please check out the [Writing An Extension](../WritingAnExtension.md) section.
 
-Bundles and Extensions
-===================
+Configuring
+-----------
 
-With the context, all 3rd party content can be installed and also configured with robotlegs. The three interfaces you have access to are IBundle, IExtensions and IConfig. Each are their own place.
+The Config Manager is another class supplied by the robotlegs framework. This is similar to the Extension Installer, however the intention is to configure the mappings made in the previous extensions.
 
-IBundle
----------
-
-This is a wrapper for installing a set or group of extensions. It has the same functionaliy as IExtension but is named appropriatly. For example, we have MVCSBundle which installs all the extensions we use to handle our Model, View, Controller, Services code.
-
-If you find yourself installing the same extensions and/or configurations together for your applications, perhaps you should consider grouping them into a bundle.
+Here is how you would add anything to be configured to your context.
 
 ```csharp
-namespace robotlegs.example.bundle
-{
-	public class MobileGameBundle
-	{
-		public void Extend(IContext context)
-		{
-			context.Install<RateMePopupExtension>();
-			context.Install<AudioSoundLevelsExtension>();
-			context.Install<ApplicationVersionUpgradeExtension>();
-			context.Install<FacebookExtension>();
-			context.Install<TwitterExtension>();
-
-			context.Configure<RateMeAfterWeekConfig>();
-		}
-	}
-}
+IContext context = new Context()
+	.Configure<Config1>()
+    .Configure(new Config2())
+    .Configure(typeof(Config3));
 ```
 
-IExtension
--------------
-
-This gets passed the context so you are free to do any injecor mapping as soon as this boots up.
+All of these objects passed I have passed into the Configure methods are of type **IConfig** which require the following method signature:
 
 ```csharp
-public void Extend(IContext context)
+public void Configure()
 {
-	context.Injector.Map<IAudioSoundLevelModel>().ToSingleton<AudioSoundLevelModel>();
-	context.Injector.Map<IAudioSoundLevelService>().ToSingleton<AudioSoundLevelService>();
 }
 ```
 
-If your extension is reliant on other extensions, you shoudln't try and get the other extension mappings from the the injector until all extensions have been Installed. This is why we don't inject into the extension for you as it will be possible to get a null object reference if you install your extensions in the wrong order.
+During the initiation phase of the Context all of the IConfigs are injected into with any dependencies and then have their 'Configure' method executed.
 
-Instead, you should be using the callbacks from the lifecycle during the initation process to communicate/use other extensions.
-
-```csharp
-private IInjector _injector;
-
-public void Extend(IContext context)
-{
-	_injector = context.Injector;
-	_injector.Map<MyExtension>().AsSingleton();
-
-	context.BeforeInitializing(BeforeInitializing as Action);
-}
-
-public void BeforeInitializing()
-{
-	IDependable dependable = _injector.GetInstance<IDependable>();
-	if (dependable != null)
-	{
-		dependable.SetMyExtension(_injector.GetInstance<MyExtension>());
-	}
-}
-```
-
-ConfigManager and IConfigs
-=======================
-
-The Config Manager is another class supplied by the robotlegs framework. This is similar to the Extension Installer, however here you get to configure the mapping made in the previous extensions.
-
-IConfig
---------
-
-The config manager installs a default IConfig handler for you. What this does is after the initiation phase when all the Extensions have been installed, is to inject into your IConfig any dependencies and then run their 'Configure' method.
 Here is an example of what an IConfig might look like:
 
 ```csharp
 [Inject]
 public IRateMeService _rateMeService;
+
+[Inject]
 public IAudioSoundLevels _audioSoundLevels;
 
 public void Configure()
@@ -126,11 +90,119 @@ public void Configure()
 }
 ```
 
-Configurations are run after the context has been Initialized.
+Unlinke the Extension Installer. Configs of the same type can be configured multiple times, it will only prevent it from being configured if it has had the same instance.
 
-Config Manager Handlers
-------------------------------
+```csharp
+IContext context = new Context()
+	.Configure(new MyConfig())
+	.Configure(new MyConfig())
+	.Configure(new MyConfig()); // Config will be configured three times
+```
 
+Lifecycle
+---------
+
+The context goes through a very specific lifecycle. A context starts of Uninitialzed, and can go through the following states:
+
+- UNINITIALIZED
+- INITIALIZING
+- ACTIVE
+- SUSPENDING
+- SUSPENDED
+- RESUMING
+- DESTROYING
+- DESTROYED
+
+The context and only ever be initialized once, and destroyed once. After that, there is no reviving the context.
+
+You can control the state with the following methods:
+
+```csharp
+IContext context = new Context();	// Context is UNINITIALIZED
+context.Initialize();				// Context is ACTIVE
+context.Suspend();					// Context is SUSPENDED
+context.Resume();					// Context is ACTIVE
+context.Destroy();					// Context is DESTROYED
+```
+
+If you have installed a platform specific bundle and not the defaut MVCSBundle. You will not have to Initialize or Destroy the context as the lifecycle will be synced with it's ContextView. See your [platform](../Platforms.md) documentation for more information.
+
+Extension, Configs and the Lifecycle order
+------------------------------------------
+
+Now, the Extension Installer and the Config Manager can behave differently in the lifecycle and is important to konw.
+
+Firstly, Extensions can only be installed before the context has been Initialized. If you attemp to install an extension after the context has been initialzed.
+
+Even though you can install extensions after the context has been initialied. Some extensions rely on the 'BeforeInitializing' and 'WhenInitializing' callbacks which will error if added after initialization.
+
+```csharp
+new Context().Initialize().Install<MVCSBundle>(); // Throws error because of 'BeforeInitializing'
+```
+
+Because of this is advised you try to install your extensions before initialization.
+
+The ConfigManager will process the IConfig files after initialization. Unlike the extensions which are processed immediatly.
+
+
+```csharp
+private IContext context;
+
+public void SetupContext()
+{
+	context = new Context()
+		.Install<Extension1>()
+		.Install<Extension2>()
+		.Configure<MyConfig1>()
+		.Configure(new MyConfig2("extra data"));
+	context.Initialize();
+	context.Configure(typeof(MyConfig3));
+
+	// Output:
+    // Installed Extension 1
+	// Installed Extension 2
+	// Context Initialized
+	// Configured Config 1
+	// Configured Config 2
+	// Configured Config 3
+}
+```
+
+Install methods are run when executed. And if your configuration is an IConfig, it will be processed during the Initialize phase of the context.
+
+> N.B. Anything processed by new Config Handlers (Not the default IConfig) will be processed immediatly and not wait for initialization.
+
+Also, it's good to point out where all configs and states are handled in relation to the 'BeforeInitializing', 'WhenInitializing' and 'AfterInitializing' callbacks.
+
+1. context.**Initialize()**;
+2. Context State: **Initializing**
+3. **BeforeInitializing** handlers processed
+4. **WhenInitializing** handlers processed
+5. Queued **IConfigs** are processed
+6. **AfterInitializing** handlers processed
+7. Context State: **Active**
+
+Pin
+---
+
+The pin is a *tiny* class that will keep a resource in memory and prevent it from being garbage collected. It was primarilly added to Detain and Release a command, however you are free to use it for any other purpose.
+
+The pin class has been added to the IContext interface:
+
+```csharp
+void Load()
+{
+	context.Detain(this);
+}
+
+void LoadComplete()
+{
+	context.Release(this);
+}
+```
+
+Config Handlers
+---------------
 The config manager is the part of the context that manages all objects that are passed into the 'Configure' function call for the Context.
 
 When items are passed into Configure. It is checked with all IMatchers on an object and if it passes, it can then then use the handler function on it.
@@ -149,10 +221,12 @@ You can add new IMatchers and Handlers for anything that is passed into configur
 
 Please be aware, that your IMatchers and IHandlers will not wait for the context to initialize before processing. This is a feature tied into the previous handlers.
 
+Here is how you can add your own handlers for different types of IConfig:
+
 ```csharp
 private void AddHandler()
 {
-	context.AddConfigHandler(new XMLMatcher, HandleXMLInstaller);
+	context.AddConfigHandler(new InstanceOfMatcher (typeof(XMLDocument)), HandleXMLInstaller);
 }
 
 public void HandleXML(obj xml)
@@ -161,32 +235,37 @@ public void HandleXML(obj xml)
 	XmlNode[] nodes = xmlDoc.SelectNodes("//configurations");
 	foreach (XMLNode node node in nodes)
 	{
-		string fullName = node.Value;
-		Type type = SomeHowGetTypeFromFullName();
+		string assemblyQualifiedName = node.Value;
+		Type type = Type.GetType(assemblyQualifiedName);
 		context.Configure(type);
 	}
 }
 ```
 
-And with the following IMatcher
+AddChild & RemoveChild
+----------------------
+
+AddChild and RemoveChild allows it's Injector to be parented and unparented.
+
+When an injector has a parent, if it cannot find a value directly it will ask for it from it's parent and so on until it finds a value or runs out of parents.
 
 ```csharp
-public class XMLMatcher : IMatcher
-{
-	public bool Matches(object obj)
-	{
-		if (object is XMLDocument)
-			return true;
-		return false;
-	}
-}
-``` 
+Context parentContext = new Context();
+Context childContext = new Context();
+parentContext.AddChild(childContext);
 
-For more detail about making extensions. Please check out the [asdf]() section.
+parentContext.Injector.Map<Test>().AsSingleton();
+
+Test test = childContext.GetInstance<Test>(); // Returns the value mapped on the parent context
+```
+
+If you add a child to a context. You can remove it as a parent injector by calling ```RemoveChild```. Or if you destory the child context the removal is handled for you.
+
+For more information about how to communicate between contexts, see the [Modularity](./Modularity.md) section.
 
 
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -200,6 +279,8 @@ From here
 		* [Hooks](./Hooks.md)
 		* [View Processor](./ViewProcessor.md)
 		* [Logger](./Logger.md)
+		* [Modularity](./Modularity.md)
 	* [Platforms](../Platforms.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

@@ -29,7 +29,7 @@ Stage Crawler
 It's reccomended to add a **StageCrawlerExtension**. This class functionality searches for View's that need to be processed/mediated that may have been missed before initialization.
 
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -37,5 +37,6 @@ From here
 	* [Platforms](../Platforms.md)
 		* [Unity](./Unity.md)
 		* [Adding A Platform](./AddingAPlatform.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

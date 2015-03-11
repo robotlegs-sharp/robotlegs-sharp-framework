@@ -121,7 +121,7 @@ Unfortunately, events rely on the subscriber knowing the delegate type. This sys
 This way, we can downcast the type to IEvent, get the message key. Send it to the appropriate people and upcast it back to how they expect it.
 
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -135,6 +135,8 @@ From here
 		* [Hooks](./Hooks.md)
 		* [View Processor](./ViewProcessor.md)
 		* [Logger](./Logger.md)
+		* [Modularity](./Modularity.md)
 	* [Platforms](../Platforms.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

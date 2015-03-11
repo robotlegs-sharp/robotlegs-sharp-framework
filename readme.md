@@ -2,7 +2,7 @@
 Robotlegs
 ========
 
-Robotlegs-Sharp is a application framework for C# ported from [Robotlegs for AS3][1].
+Robotlegs-Sharp is a application framework for C# ported from [Robotlegs for AS3](http://www.robotlegs.org/).
 It offers:
 
 * Dependency injection
@@ -11,17 +11,19 @@ It offers:
 * View Management
 * Plug-and-play extensions
 
+You can also check out it's features in more detail [here](./docs/Features.md)
+
 Download & Install
 -----------------------
 We have provided the files as .dll binarys for ease of including into your projects. Please note you also need the dependency of swiftsuspenders.
 
-* [Robotlegs Binary][2]
-* [SwiftSuspenders Binary][3]
+* [Robotlegs Binary](./build/robotlegs.dll "Robotlegs Binary")
+* [SwiftSuspenders Binary](./lib/swiftsuspenders.dll "SwiftSuspenders Binary")
 
-If you are using any AOT compilation for example on iOS, we would recommend you download and using the sources here:
+If you are wanting to browse though the interals, or want the source to recompile. Please download the sources here:
 
-* [Robotlegs Source][4]
-* [SwiftSuspenders Source][5]
+* [Robotlegs Source](./src/)
+* [SwiftSuspenders Source](http://www.swiftsuspenders.com/src)
 
 Getting Started
 ------------------
@@ -29,6 +31,7 @@ Getting Started
 * [A Brief Overview](./docs/ABriefOverview.md)
 * [Features](./docs/Features.md)
 * [Platforms](./docs/Platforms.md)
+* [Writing An Extension](./docs/WritingAnExtension.md)
 * [Common Problems](./docs/CommonProblems.md)
 * [The internals (how it all works)](./docs/TheInternals.md)
 
@@ -40,10 +43,8 @@ The following source/framework has been applied with the [MIT license](./LICENSE
 Acknowledgements
 -----------------------
 
-Text goes here
+Thanks to the original [Robotlegs Contributors](https://github.com/robotlegs/robotlegs-framework/graphs/contributors) who developed the first and second revision of the framework. Your original source has been beautifully done with painfully complex patterns.
 
-[1]: http://www.robotlegs.org/
-[2]: ./build/robotlegs.dll "Robotlegs Binary"
-[3]: ./lib/swiftsuspenders.dll "SwiftSuspenders Binary"
-[4]: ./src/
-[5]: http://www.swiftsuspenders.com/src
+Thanks to all who have [contributed to this repository](./graphs/contributors). Without you this port would be vaporware.
+
+And thanks to whomever is reading this text, if you are benefiting from this framework it's made the year writing this port worthwhile.

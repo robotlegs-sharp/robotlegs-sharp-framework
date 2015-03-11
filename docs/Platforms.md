@@ -20,12 +20,9 @@ You can also add more features to each platform if required by adding your own E
 Avaliable Platforms
 -------------------
 
-* [Unity](./platforms/Unity.md)
+* ###[Unity](./platforms/Unity.md)
 
-Adding your own platform
-------------------------
-
-We'd reccomend adding some of the features avalible when adding new platforms. Please see [this guide](./platforms/AddingAPlatform.md) to get started.
+* ###[Add your own platform](./platforms/AddingAPlatform.md)
 
 The Vanillla MVCSBundle
 -----------------------
@@ -57,11 +54,12 @@ Without platform specific code, the orignal bundle comes packed with MVCS allowi
 If you want to find out more, check out [the internals](./TheInternals.md) page for more reference.
 
 From here
-------------
+---------
 
 * [Readme](../README.md)
 	* [A Brief Overview](./ABriefOverview.md)
 	* [Features](./Features.md)
 	* [Platforms](./Platforms.md)
+	* [Writing An Extension](./WritingAnExtension.md)
 	* [Common Problems](./CommonProblems.md)
 	* [The internals (how it all works)](./TheInternals.md)

@@ -2,6 +2,8 @@
 Modularity
 ==========
 
+
+
 Disclaimer
 ----------
 
@@ -25,6 +27,7 @@ public var moduleConnector: IModuleConnector;
 ```
 
 Say we have two contexts who want to communicate. ContextA wants to send a message to ContextB.
+
 You need to setup which event should go to what context. Here is how we connect a one way event from A to B.
 
 ```csharp
@@ -70,10 +73,8 @@ moduleConnector.OnChannel("A-and-B").ReceiveEvent(WarnModuleBEvent.Type.WARN);
 
 With this in place, other contexts can use the default channel with the same event without conflicting with this channel.
 
-
-
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -89,4 +90,3 @@ From here
 		* [Logger](./Logger.md)
 	* [Platforms](../Platforms.md)
 	* [Common Problems](../CommonProblems.md)
-	* [The internals (how it all works)](../TheInternals.md)

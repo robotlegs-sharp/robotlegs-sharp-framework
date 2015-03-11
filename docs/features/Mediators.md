@@ -7,7 +7,7 @@ Mediators are coupled with views giving them the ability to communicate with the
 The view's have their mediators assigned to them in the setup phase of Robotlegs.
 
 Basic Mapping
--------
+-------------
 
 You can map the views in a few different ways.
 
@@ -28,7 +28,7 @@ mediatorMap.Map<IScoreView>().ToMediator<ScoreMediator>();
 This means, any view that implements IScoreView will have the score mediator applied to it. That's pretty cool and very easy to start re-using lots of mediators. But the fun doesn't stop there...
 
 Mapping With IMatcher
------------------
+---------------------
 
 The mediator map also allows TypeFilter/NamespaceFilter which is created with the TypeMatcher/NamespaceMatcher classes. Enabling you to truly customise what your mediators will be attached to.
 
@@ -130,7 +130,7 @@ For communication out to our mediator, I have used a new EventDispatcher (not th
 
 
 Which Mediator Base?
--------------
+--------------------
 
 Now that your view is ready to be registered, you've got your mapping setup. You need to make a mediator.
 
@@ -217,7 +217,7 @@ And if you have a property called 'viewComponent' it will populate it with the v
 
 
 From here
-------------
+---------
 
 * [Readme](../../README.md)
 	* [A Brief Overview](../ABriefOverview.md)
@@ -231,6 +231,8 @@ From here
 		* [Hooks](./Hooks.md)
 		* [View Processor](./ViewProcessor.md)
 		* [Logger](./Logger.md)
+		* [Modularity](./Modularity.md)
 	* [Platforms](../Platforms.md)
+	* [Writing An Extension](../WritingAnExtension.md)
 	* [Common Problems](../CommonProblems.md)
 	* [The internals (how it all works)](../TheInternals.md)

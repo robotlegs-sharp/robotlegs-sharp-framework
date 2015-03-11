@@ -1,9 +1,9 @@
 
 A Brief Overview
-=============
+================
 
 Start up
----------
+--------
 
 Typically, when you start a Robotlegs project. You'll need to make a context, and then install some extensions/bundles and your own configurations.
 
@@ -131,7 +131,7 @@ public class MyCommand : ICommand
 
 
 Mediators
-------------
+---------
 
 Mediators are classes that tied to View components. The mediator is a bridge that allows you view to communicate to the rest of the application (usually via the global event dispatcher).
 
@@ -257,14 +257,14 @@ public MyService : IMyService
 
 [Read more about injector mapping rules](./features/Injector.md)
 
--------------------------
 
 From here
-------------
+---------
 
 * [Readme](../README.md)
 	* [A Brief Overview](./ABriefOverview.md)
 	* [Features](./Features.md)
 	* [Platforms](./Platforms.md)
+	* [Writing An Extension](./WritingAnExtension.md)
 	* [Common Problems](./CommonProblems.md)
 	* [The internals (how it all works)](./TheInternals.md)
