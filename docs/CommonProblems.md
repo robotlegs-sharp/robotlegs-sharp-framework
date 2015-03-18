@@ -1,4 +1,3 @@
-
 Common Problems
 ==============
 
@@ -45,7 +44,7 @@ If at any point, you are accessing a parameter that has been injected, and it's 
 
 A lot of people have this issues when putting their command contents in a constructor and not the 'Execute' method.
 
-```
+```csharp
 public class BadCommand
 {
 	[Inject]
@@ -60,6 +59,17 @@ public class BadCommand
 ```
 
 If you want to know when the injector runs on Robotlegs classes, [look here](./features/Injector.md#Framework-classes-that-are-injected-into).
+
+Also, be sure the injector has access to inject into the parameter. 
+A common problem is declaring the property as private, just make sure the parameter is **public**.
+
+```csharp
+[Inject]
+private IInjector injectorWillNotRunOnThis;
+
+[Inject]
+public IInjector injectorWillInjectThis;
+```
 
 From here
 ---------
