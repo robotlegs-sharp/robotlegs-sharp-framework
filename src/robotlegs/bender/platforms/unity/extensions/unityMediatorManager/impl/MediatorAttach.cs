@@ -9,7 +9,6 @@
 //------------------------------------------------------------------------------
 using System;
 using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
 
 namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl

@@ -7,61 +7,56 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
 using UnityEditor;
-using System.Collections.Generic;
-using swiftsuspenders.mapping;
-using UnityEngine;
 using robotlegs.bender.platforms.unity.extensions.monoscriptCache;
 
-namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
+namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl
 {
-	[CustomEditor(typeof(UnitySingletons))]
-	public class UnitySingletonsEditor : Editor
+	[CustomEditor(typeof(MediatorAttach))]
+	public class MediatorAttachEditor : Editor
 	{
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
-		
+
 		private bool start;
-		
-		private UnitySingletons unitySingletons;
-		
+
+		private MediatorAttach mediatorAttach;
+
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/
-		
+
 		private void OnEnable()
 		{
 			if (start)
 				return;
 
 			start = true;
-			unitySingletons = target as UnitySingletons;
+
+			mediatorAttach = target as MediatorAttach;
 		}
 		
 		/*============================================================================*/
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public override void OnInspectorGUI ()
+		public override void OnInspectorGUI()
 		{
-			foreach (KeyValuePair<MappingId, object> kvp in unitySingletons.Factory.SingletonInstances) 
+			EditorGUILayout.LabelField ("View", mediatorAttach.View.GetType().Name);
+			foreach (object mediator in mediatorAttach.Mediators) 
 			{
-				string label = kvp.Key.type.Name;
-				if (kvp.Key.key != null)
-					label += ": " + kvp.Key.key.ToString();
-
-				MonoScript ms = MonoScriptCache.GetMonoScript(kvp.Value.GetType());
+				MonoScript ms = MonoScriptCache.GetMonoScript(mediator.GetType());
 				if (ms != null)
 				{
-					EditorGUILayout.ObjectField(label, MonoScriptCache.GetMonoScript(kvp.Value.GetType()), typeof(MonoScript), false);
+					EditorGUILayout.ObjectField("Mediator", ms, typeof(MonoScript), false);
 				}
 				else
 				{
-					EditorGUILayout.LabelField(label, kvp.Value.GetType().Name);
+					EditorGUILayout.LabelField ("Mediator", mediator.GetType().Name);
 				}
 			}
 		}
 	}
 }
+
