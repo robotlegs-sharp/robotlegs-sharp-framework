@@ -2,16 +2,14 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{FBC7C81F-AD6C-48BB-AF4F-E86BE9BAA65F}</ProjectGuid>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{38803C71-F42B-4FBB-8088-566C1F3FE9E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -19,16 +17,14 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -37,9 +33,6 @@
     <Reference Include="swiftsuspenders-sharp">
       <HintPath>lib\swiftsuspenders-sharp.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>lib\nunit.framework.dll</HintPath>
@@ -257,7 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
-      <Project>{0860F3E8-816C-4B61-A774-BFAB44F94896}</Project>
+      <Project>{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}</Project>
       <Name>robotlegs-sharp-framework</Name>
     </ProjectReference>
   </ItemGroup>

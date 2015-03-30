@@ -1,23 +1,35 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robotlegs-sharp-framework-test", "robotlegs-sharp-framework-test.csproj", "{FBC7C81F-AD6C-48BB-AF4F-E86BE9BAA65F}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robotlegs-sharp-framework-test", "robotlegs-sharp-framework-test.csproj", "{38803C71-F42B-4FBB-8088-566C1F3FE9E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robotlegs-sharp-framework", "robotlegs-sharp-framework.csproj", "{0860F3E8-816C-4B61-A774-BFAB44F94896}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robotlegs-sharp-framework", "robotlegs-sharp-framework.csproj", "{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robotlegs-sharp-platform-unity", "robotlegs-sharp-platform-unity.csproj", "{9DA7E079-E927-439D-BC50-BBD2EB30B5D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robotlegs-sharp-platform-unity-editor", "robotlegs-sharp-platform-unity-editor.csproj", "{0A5E3C39-DB52-4BB1-8EA0-739CEBD95E95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x86 = Debug|x86
-		Release|x86 = Release|x86
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0860F3E8-816C-4B61-A774-BFAB44F94896}.Debug|x86.ActiveCfg = Debug|x86
-		{0860F3E8-816C-4B61-A774-BFAB44F94896}.Debug|x86.Build.0 = Debug|x86
-		{0860F3E8-816C-4B61-A774-BFAB44F94896}.Release|x86.ActiveCfg = Release|x86
-		{0860F3E8-816C-4B61-A774-BFAB44F94896}.Release|x86.Build.0 = Release|x86
-		{FBC7C81F-AD6C-48BB-AF4F-E86BE9BAA65F}.Debug|x86.ActiveCfg = Debug|x86
-		{FBC7C81F-AD6C-48BB-AF4F-E86BE9BAA65F}.Debug|x86.Build.0 = Debug|x86
-		{FBC7C81F-AD6C-48BB-AF4F-E86BE9BAA65F}.Release|x86.ActiveCfg = Release|x86
-		{FBC7C81F-AD6C-48BB-AF4F-E86BE9BAA65F}.Release|x86.Build.0 = Release|x86
+		{0A5E3C39-DB52-4BB1-8EA0-739CEBD95E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A5E3C39-DB52-4BB1-8EA0-739CEBD95E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A5E3C39-DB52-4BB1-8EA0-739CEBD95E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A5E3C39-DB52-4BB1-8EA0-739CEBD95E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38803C71-F42B-4FBB-8088-566C1F3FE9E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38803C71-F42B-4FBB-8088-566C1F3FE9E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38803C71-F42B-4FBB-8088-566C1F3FE9E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38803C71-F42B-4FBB-8088-566C1F3FE9E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DA7E079-E927-439D-BC50-BBD2EB30B5D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DA7E079-E927-439D-BC50-BBD2EB30B5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DA7E079-E927-439D-BC50-BBD2EB30B5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DA7E079-E927-439D-BC50-BBD2EB30B5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

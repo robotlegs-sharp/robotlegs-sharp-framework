@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0A5E3C39-DB52-4BB1-8EA0-739CEBD95E95}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>robotlegssharpplatformunityeditor</RootNamespace>
+    <AssemblyName>robotlegs-sharp-platform-unity-editor</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\editor\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\editor\" />
+    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\monoscriptCache\editor\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\monoscriptCache\editor\MonoScriptCache.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\editor\MediatorAttachEditor.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\editor\UnitySingletonsEditor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="swiftsuspenders-sharp">
+      <HintPath>lib\swiftsuspenders-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="robotlegs-sharp-framework.csproj">
+      <Project>{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}</Project>
+      <Name>robotlegs-sharp-framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="robotlegs-sharp-platform-unity.csproj">
+      <Project>{9DA7E079-E927-439D-BC50-BBD2EB30B5D3}</Project>
+      <Name>robotlegs-sharp-platform-unity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

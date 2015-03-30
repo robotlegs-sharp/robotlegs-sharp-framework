@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
 namespace robotlegs.bender.platforms.unity.extensions.monoscriptCache
 {
 	public static class MonoScriptCache

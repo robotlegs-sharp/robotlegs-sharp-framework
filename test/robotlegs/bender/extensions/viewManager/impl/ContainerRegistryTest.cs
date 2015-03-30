@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using robotlegs.bender.framework.unity.extensions.viewManager.impl;
+﻿using NUnit.Framework;
 using robotlegs.bender.extensions.viewManager.support;
 using System.Collections.Generic;
 using robotlegs.bender.extensions.viewManager.api;

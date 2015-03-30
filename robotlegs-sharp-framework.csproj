@@ -2,16 +2,14 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{0860F3E8-816C-4B61-A774-BFAB44F94896}</ProjectGuid>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegs.bender</RootNamespace>
     <AssemblyName>Robotlegs-Sharp-Framework</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -19,16 +17,14 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -48,23 +44,13 @@
     <Folder Include="src\robotlegs\bender\extensions\localEventMap\" />
     <Folder Include="src\robotlegs\bender\extensions\localEventMap\api\" />
     <Folder Include="src\robotlegs\bender\extensions\localEventMap\impl\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\" />
     <Folder Include="src\robotlegs\bender\bundles\mvcs\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\api\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\impl\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\dsl\" />
     <Folder Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\" />
     <Folder Include="src\robotlegs\bender\extensions\modularity\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\" />
-    <Folder Include="src\robotlegs\bender\platforms\unity\extensions\monoscriptCache\editor\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\extensions\commandCenter\api\CommandPayload.cs" />
@@ -175,9 +161,6 @@
     <Compile Include="src\robotlegs\bender\extensions\viewManager\StageCrawlerExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\StageCrawler.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IStageCrawler.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\contentView\UnityStageCrawlerConfig.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityViewStateWatcher.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityStageCrawler.cs" />
     <Compile Include="src\robotlegs\bender\extensions\contextview\StageSyncExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\api\IViewStateWatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\api\ViewNotifier.cs" />
@@ -201,9 +184,6 @@
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\MediatorCreator.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\utils\FastPropertyInjector.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewProcessorMap\api\ViewProcessorMapException.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\bundles\UnityMVCSBundle.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\UnityParentFinderExtension.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\BlankParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\FallbackContainerConfig.cs" />
     <Compile Include="src\robotlegs\bender\extensions\modularity\ModularityExtension.cs" />
@@ -218,29 +198,15 @@
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\impl\LifecycleEventRelay.cs" />
     <Compile Include="src\robotlegs\bender\extensions\eventDispatcher\api\LifecycleEvent.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\ViewStateWatcherExtension.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityViewStateWatcherExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\viewManager\impl\BlankViewStateWatcherExtension.cs" />
     <Compile Include="src\robotlegs\bender\extensions\modularity\impl\ViewManagerBasedExistenceWatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\vigilance\VigilantException.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IBundle.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\View.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\EventView.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\api\IEventView.cs" />
     <Compile Include="src\robotlegs\bender\extensions\matching\NamespaceMatcher.cs" />
     <Compile Include="src\robotlegs\bender\extensions\matching\NamespaceFilter.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\DebugLoggingExtension.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\impl\DebugLogTarget.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorFactory.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorManager.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\MediatorAttach.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\editor\MediatorAttachEditor.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\UnityMediatorManager.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\UnityMediatorManagerExtension.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\SingletonFactory.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\UnitySingletons.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\editor\UnitySingletonsEditor.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\UnitySingletonsExtension.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\monoscriptCache\editor\MonoScriptCache.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorViewHandler.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,12 +217,6 @@
     <Reference Include="swiftsuspenders-sharp">
       <HintPath>lib\swiftsuspenders-sharp.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

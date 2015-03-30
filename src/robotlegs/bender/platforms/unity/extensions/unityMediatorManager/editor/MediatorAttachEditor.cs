@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 using UnityEditor;
 using robotlegs.bender.platforms.unity.extensions.monoscriptCache;
+using UnityEngine;
 
 namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl
 {
