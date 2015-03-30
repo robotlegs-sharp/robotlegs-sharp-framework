@@ -11,14 +11,54 @@ namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<object> added;
+		public event Action<object> added
+		{
+			add
+			{
+				_added += value;
+			}
+			remove 
+			{
+				_added -= value;
+			}
+		}
 
-		public event Action<object> removed;
+		public event Action<object> removed
+		{
+			add
+			{
+				_removed += value;
+			}
+			remove 
+			{
+				_removed -= value;
+			}
+		}
 
-		public event Action<object> disabled;
+		public event Action<object> disabled
+		{
+			add
+			{
+				_disabled += value;
+			}
+			remove 
+			{
+				_disabled -= value;
+			}
+		}
 
 		#pragma warning disable 0108
-		public event Action<object> enabled;
+		public event Action<object> enabled
+		{
+			add
+			{
+				_enabled += value;
+			}
+			remove 
+			{
+				_enabled -= value;
+			}
+		}
 		#pragma warning restore 0108
 
 		public GameObject target;
@@ -35,6 +75,14 @@ namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
+		private Action<object> _added;
+
+		private Action<object> _removed;
+
+		private Action<object> _disabled;
+
+		private Action<object> _enabled;
+
 		private bool _isAdded;
 
 		private bool _hasBeenDisabled;
@@ -46,9 +94,9 @@ namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 		protected virtual void Start()
 		{
 			_isAdded = true;
-			if (this.added != null)
+			if (_added != null)
 			{
-				this.added (target);
+				_added (target);
 			}
 		}
 
@@ -57,9 +105,9 @@ namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 			if(_hasBeenDisabled)
 			{
 				_hasBeenDisabled = false;
-				if (this.enabled != null)
+				if (_enabled != null)
 				{
-					this.enabled (target);
+					_enabled (target);
 				}
 			}
 		}
@@ -67,18 +115,18 @@ namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 		protected virtual void OnDisable()
 		{
 			_hasBeenDisabled = true;
-			if (this.disabled != null)
+			if (_disabled != null)
 			{
-				this.disabled (target);
+				_disabled (target);
 			}
 		}
 
 		protected virtual void OnDestroy()
 		{
 			_isAdded = false;
-			if (this.removed != null)
+			if (_removed != null)
 			{
-				this.removed (target);
+				_removed (target);
 			}
 		}
 	}

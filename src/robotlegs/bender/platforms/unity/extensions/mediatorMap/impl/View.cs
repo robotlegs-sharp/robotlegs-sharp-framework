@@ -7,8 +7,20 @@ namespace robotlegs.bender.platforms.unity.extensions.mediatorMap.impl
 {
 	public class View : MonoBehaviour, IView
 	{
-		public event Action<IView> RemoveView;
-
+		public event Action<IView> RemoveView
+		{
+			add
+			{
+				_removeView += value;
+			}
+			remove
+			{
+				_removeView -= value;
+			}
+		}
+		
+		private Action<IView> _removeView;
+		
 		protected virtual void Start ()
 		{
 			ViewNotifier.RegisterView(this);
@@ -16,8 +28,8 @@ namespace robotlegs.bender.platforms.unity.extensions.mediatorMap.impl
 
 		protected virtual void OnDestroy ()
 		{
-			if (RemoveView != null)
-				RemoveView(this);
+			if (_removeView != null)
+				_removeView(this);
 		}
 	}
 }

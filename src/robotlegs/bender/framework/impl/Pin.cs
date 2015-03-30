@@ -22,15 +22,39 @@ namespace robotlegs.bender.framework.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<object> Detained;
+		public event Action<object> Detained
+		{
+			add
+			{
+				_detained += value;
+			}
+			remove
+			{
+				_detained -= value;
+			}
+		}
 
-		public event Action<object> Released;
+		public event Action<object> Released
+		{
+			add
+			{
+				_released += value;
+			}
+			remove
+			{
+				_released -= value;
+			}
+		}
 
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
 		
 		private Dictionary<object, bool>_instances = new Dictionary<object, bool>();
+
+		private Action<object> _detained;
+
+		private Action<object> _released;
 //		private IEventDispatcher _dispatcher;
 
 		/*============================================================================*/
@@ -46,8 +70,8 @@ namespace robotlegs.bender.framework.impl
 			if (!_instances.ContainsKey(instance))
 			{
 				_instances[instance] = true;
-				if (Detained != null)
-					Detained (instance);
+				if (_detained != null)
+					_detained (instance);
 			}
 		}
 
@@ -60,8 +84,8 @@ namespace robotlegs.bender.framework.impl
 			if (_instances.ContainsKey(instance))
 			{
 				_instances.Remove(instance);
-				if (Released != null)
-					Released (instance);
+				if (_released != null)
+					_released (instance);
 			}
 		}
 

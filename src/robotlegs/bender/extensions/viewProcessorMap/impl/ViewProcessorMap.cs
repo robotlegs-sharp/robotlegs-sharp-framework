@@ -23,6 +23,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		/* Constructor                                                                */
 		/*============================================================================*/
 
+		[Inject(true)] //TODO: When propertyInfo.IsOptional tag works for the injector in IL2CPP remove optional inject tag 
 		public ViewProcessorMap(IViewProcessorFactory factory, IViewProcessorViewHandler handler = null)
 		{
 			if (handler == null)

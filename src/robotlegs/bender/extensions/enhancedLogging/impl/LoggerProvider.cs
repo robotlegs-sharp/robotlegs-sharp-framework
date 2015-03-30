@@ -10,13 +10,37 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<DependencyProvider, object> PostApply;
+		public event Action<DependencyProvider, object> PostApply
+		{
+			add
+			{
+				_postApply += value;
+			}
+			remove 
+			{
+				_postApply -= value;
+			}
+		}
 
-		public event Action<DependencyProvider, object> PreDestroy;
+		public event Action<DependencyProvider, object> PreDestroy
+		{
+			add
+			{
+				_preDestroy += value;
+			}
+			remove 
+			{
+				_preDestroy -= value;
+			}
+		}
 
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private Action<DependencyProvider, object> _postApply;
+
+		private Action<DependencyProvider, object> _preDestroy;
 
 		private IContext _context;
 
@@ -36,18 +60,18 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 		public object Apply (Type targetType, swiftsuspenders.Injector activeInjector, System.Collections.Generic.Dictionary<string, object> injectParameters)
 		{
 			object logger = _context.GetLogger(targetType);;
-			if (PostApply != null)
+			if (_postApply != null)
 			{
-				PostApply(this, logger);
+				_postApply(this, logger);
 			}
 			return logger;
 		}
 
 		public void Destroy ()
 		{
-			if (PreDestroy != null) 
+			if (_preDestroy != null) 
 			{
-				PreDestroy(this, null);
+				_preDestroy(this, null);
 			}
 		}
 	}

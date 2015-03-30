@@ -26,17 +26,77 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<object> ContainerAdd;
+		public event Action<object> ContainerAdd
+		{
+			add
+			{
+				_containerAdd += value;
+			}
+			remove 
+			{
+				_containerAdd -= value;
+			}
+		}
 
-		public event Action<object> ContainerRemove;
+		public event Action<object> ContainerRemove
+		{
+			add
+			{
+				_containerRemove += value;
+			}
+			remove 
+			{
+				_containerRemove -= value;
+			}
+		}
 
-		public event Action<object> RootContainerAdd;
+		public event Action<object> RootContainerAdd
+		{
+			add
+			{
+				_rootContainerAdd += value;
+			}
+			remove 
+			{
+				_rootContainerAdd -= value;
+			}
+		}
 
-		public event Action<object> RootContainerRemove;
+		public event Action<object> RootContainerRemove
+		{
+			add
+			{
+				_rootContainerRemove += value;
+			}
+			remove 
+			{
+				_rootContainerRemove -= value;
+			}
+		}
 
-		public event Action<object> FallbackContainerAdd;
+		public event Action<object> FallbackContainerAdd
+		{
+			add
+			{
+				_fallbackContainerAdd += value;
+			}
+			remove 
+			{
+				_fallbackContainerAdd -= value;
+			}
+		}
 
-		public event Action<object> FallbackContainerRemove;
+		public event Action<object> FallbackContainerRemove
+		{
+			add
+			{
+				_fallbackContainerRemove += value;
+			}
+			remove 
+			{
+				_fallbackContainerRemove -= value;
+			}
+		}
 
 		public List<ContainerBinding> Bindings 
 		{
@@ -65,6 +125,18 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private Action<object> _containerAdd;
+
+		private Action<object> _containerRemove;
+
+		private Action<object> _rootContainerAdd;
+
+		private Action<object> _rootContainerRemove;
+
+		private Action<object> _fallbackContainerAdd;
+
+		private Action<object> _fallbackContainerRemove;
 
 		private List<ContainerBinding> _bindings = new List<ContainerBinding>();
 
@@ -208,13 +280,13 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				}
 			}
 
-			if (ContainerAdd != null)
+			if (_containerAdd != null)
 			{
-				ContainerAdd (binding.Container);
+				_containerAdd (binding.Container);
 			}
-			if (FallbackContainerAdd != null) 
+			if (_fallbackContainerAdd != null) 
 			{
-				FallbackContainerAdd (binding.Container);
+				_fallbackContainerAdd (binding.Container);
 			}
 			return binding;
 		}
@@ -249,17 +321,17 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				}
 			}
 
-			if (ContainerRemove != null)
+			if (_containerRemove != null)
 			{
-				ContainerRemove (binding.Container);
+				_containerRemove (binding.Container);
 			}
 
 			if (binding == _fallbackBinding) 
 			{
 				_fallbackBinding = null;
-				if (FallbackContainerRemove != null) 
+				if (_fallbackContainerRemove != null) 
 				{
-					FallbackContainerRemove (binding.Container);
+					_fallbackContainerRemove (binding.Container);
 				}
 			}
 		}
@@ -267,18 +339,18 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		private void AddRootBinding(ContainerBinding binding)
 		{
 			_rootBindings.Add(binding);
-			if (RootContainerAdd != null)
+			if (_rootContainerAdd != null)
 			{
-				RootContainerAdd (binding.Container);
+				_rootContainerAdd (binding.Container);
 			}
 		}
 
 		private void RemoveRootBinding(ContainerBinding binding)
 		{
 			_rootBindings.Remove (binding);
-			if (RootContainerRemove != null)
+			if (_rootContainerRemove != null)
 			{
-				RootContainerRemove (binding.Container);
+				_rootContainerRemove (binding.Container);
 			}
 		}
 		

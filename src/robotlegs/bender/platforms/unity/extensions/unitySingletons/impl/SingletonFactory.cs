@@ -21,9 +21,29 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<MappingId, object> AddedSingleton;
+		public event Action<MappingId, object> AddedSingleton
+		{
+			add
+			{
+				_addedSingleton += value;
+			}
+			remove 
+			{
+				_addedSingleton -= value;
+			}
+		}
 
-		public event Action<MappingId> RemovedSingleton;
+		public event Action<MappingId> RemovedSingleton
+		{
+			add
+			{
+				_removedSingleton += value;
+			}
+			remove 
+			{
+				_removedSingleton -= value;
+			}
+		}
 
 		public Dictionary<MappingId, object> SingletonInstances
 		{
@@ -36,6 +56,10 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private Action<MappingId, object> _addedSingleton;
+
+		private Action<MappingId> _removedSingleton;
 
 		private IInjector _injector;
 		
@@ -118,18 +142,18 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 		private void AddSingleton(MappingId mappingId, object singleton)
 		{
 			_singletonInstances [mappingId] = singleton;
-			if (AddedSingleton != null) 
+			if (_addedSingleton != null) 
 			{
-				AddedSingleton(mappingId, singleton);
+				_addedSingleton(mappingId, singleton);
 			}
 		}
 		
 		private void RemoveSingleton(MappingId mappingId)
 		{
 			_singletonInstances.Remove (mappingId);
-			if (RemovedSingleton != null) 
+			if (_removedSingleton != null) 
 			{
-				RemovedSingleton(mappingId);
+				_removedSingleton(mappingId);
 			}
 		}
 	}

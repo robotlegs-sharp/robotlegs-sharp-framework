@@ -20,7 +20,17 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<ContainerBinding> BINDING_EMPTY;
+		public event Action<ContainerBinding> BINDING_EMPTY
+		{
+			add
+			{
+				_bindingEmpty += value;
+			}
+			remove 
+			{
+				_bindingEmpty -= value;
+			}
+		}
 
 		/// <summary>
 		/// The parent binding in relation to this container
@@ -43,6 +53,8 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private Action<ContainerBinding> _bindingEmpty;
 
 		/// <summary>
 		/// The view handlers added to the container
@@ -87,9 +99,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		{
 			_handlers.Remove(handler);
 
-			if (_handlers.Count == 0 && BINDING_EMPTY != null)
+			if (_handlers.Count == 0 && _bindingEmpty != null)
 			{
-				BINDING_EMPTY (this);
+				_bindingEmpty (this);
 			}
 		}
 

@@ -10,25 +10,173 @@ namespace robotlegs.bender.framework.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<Exception> ERROR;
+		public event Action<Exception> ERROR
+		{
+			add
+			{
+				_ERROR += value;
+			}
+			remove 
+			{
+				_ERROR -= value;
+			}
+		}
 
-		public event Action STATE_CHANGE;
+		public event Action STATE_CHANGE
+		{
+			add
+			{
+				_STATE_CHANGE += value;
+			}
+			remove 
+			{
+				_STATE_CHANGE -= value;
+			}
+		}
 
-		public event Action<object> PRE_INITIALIZE;
-		public event Action<object> INITIALIZE;
-		public event Action<object> POST_INITIALIZE;
+		public event Action<object> PRE_INITIALIZE
+		{
+			add
+			{
+				_PRE_INITIALIZE += value;
+			}
+			remove 
+			{
+				_PRE_INITIALIZE -= value;
+			}
+		}
 
-		public event Action<object> PRE_SUSPEND;
-		public event Action<object> SUSPEND;
-		public event Action<object> POST_SUSPEND;
+		public event Action<object> INITIALIZE
+		{
+			add
+			{
+				_INITIALIZE += value;
+			}
+			remove 
+			{
+				_INITIALIZE -= value;
+			}
+		}
 
-		public event Action<object> PRE_RESUME;
-		public event Action<object> RESUME;
-		public event Action<object> POST_RESUME;
+		public event Action<object> POST_INITIALIZE
+		{
+			add
+			{
+				_POST_INITIALIZE += value;
+			}
+			remove 
+			{
+				_POST_INITIALIZE -= value;
+			}
+		}
 
-		public event Action<object> PRE_DESTROY;
-		public event Action<object> DESTROY;
-		public event Action<object> POST_DESTROY;
+		public event Action<object> PRE_SUSPEND
+		{
+			add
+			{
+				_PRE_SUSPEND += value;
+			}
+			remove 
+			{
+				_PRE_SUSPEND -= value;
+			}
+		}
+
+		public event Action<object> SUSPEND
+		{
+			add
+			{
+				_SUSPEND += value;
+			}
+			remove 
+			{
+				_SUSPEND -= value;
+			}
+		}
+
+		public event Action<object> POST_SUSPEND
+		{
+			add
+			{
+				_POST_SUSPEND += value;
+			}
+			remove 
+			{
+				_POST_SUSPEND -= value;
+			}
+		}
+
+		public event Action<object> PRE_RESUME
+		{
+			add
+			{
+				_PRE_RESUME += value;
+			}
+			remove 
+			{
+				_PRE_RESUME -= value;
+			}
+		}
+
+		public event Action<object> RESUME
+		{
+			add
+			{
+				_RESUME += value;
+			}
+			remove 
+			{
+				_RESUME -= value;
+			}
+		}
+
+		public event Action<object> POST_RESUME
+		{
+			add
+			{
+				_POST_RESUME += value;
+			}
+			remove 
+			{
+				_POST_RESUME -= value;
+			}
+		}
+
+		public event Action<object> PRE_DESTROY
+		{
+			add
+			{
+				_PRE_DESTROY += value;
+			}
+			remove 
+			{
+				_PRE_DESTROY -= value;
+			}
+		}
+
+		public event Action<object> DESTROY
+		{
+			add
+			{
+				_DESTROY += value;
+			}
+			remove 
+			{
+				_DESTROY -= value;
+			}
+		}
+
+		public event Action<object> POST_DESTROY
+		{
+			add
+			{
+				_POST_DESTROY += value;
+			}
+			remove 
+			{
+				_POST_DESTROY -= value;
+			}
+		}
 
 		public LifecycleState state
 		{
@@ -90,6 +238,26 @@ namespace robotlegs.bender.framework.impl
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private Action<Exception> _ERROR;
+
+		private Action _STATE_CHANGE;
+
+		private Action<object> _PRE_INITIALIZE;
+		private Action<object> _INITIALIZE;
+		private Action<object> _POST_INITIALIZE;
+
+		private Action<object> _PRE_SUSPEND;
+		private Action<object> _SUSPEND;
+		private Action<object> _POST_SUSPEND;
+
+		private Action<object> _PRE_RESUME;
+		private Action<object> _RESUME;
+		private Action<object> _POST_RESUME;
+
+		private Action<object> _PRE_DESTROY;
+		private Action<object> _DESTROY;
+		private Action<object> _POST_DESTROY;
 
 		private readonly object _target;
 
@@ -275,13 +443,13 @@ namespace robotlegs.bender.framework.impl
 			if (_state == state)
 				return;
 			_state = state;
-			if (STATE_CHANGE != null)
-				STATE_CHANGE ();
+			if (_STATE_CHANGE != null)
+				_STATE_CHANGE ();
 		}
 
 		internal bool HasErrorSubscriber()
 		{
-			return ERROR != null;
+			return _ERROR != null;
 		}
 
 		/*============================================================================*/
@@ -336,7 +504,7 @@ namespace robotlegs.bender.framework.impl
 		public void ReportError(Exception error)
 		{
 			if (HasErrorSubscriber ())
-				ERROR (error);
+				_ERROR (error);
 			else
 				throw error;
 		}
@@ -348,74 +516,74 @@ namespace robotlegs.bender.framework.impl
 
 		private void DispatchPreInitialize()
 		{
-			if (PRE_INITIALIZE != null)
-				PRE_INITIALIZE (_target);
+			if (_PRE_INITIALIZE != null)
+				_PRE_INITIALIZE (_target);
 		}
 
 		private void DispatchInitialize()
 		{
-			if (INITIALIZE != null)
-				INITIALIZE (_target);
+			if (_INITIALIZE != null)
+				_INITIALIZE (_target);
 		}
 
 		private void DispatchPostInitialize()
 		{
-			if (POST_INITIALIZE != null)
-				POST_INITIALIZE (_target);
+			if (_POST_INITIALIZE != null)
+				_POST_INITIALIZE (_target);
 		}
 
 		private void DispatchPreSuspend()
 		{
-			if (PRE_SUSPEND != null)
-				PRE_SUSPEND (_target);
+			if (_PRE_SUSPEND != null)
+				_PRE_SUSPEND (_target);
 		}
 
 		private void DispatchSuspend()
 		{
-			if (SUSPEND != null)
-				SUSPEND (_target);
+			if (_SUSPEND != null)
+				_SUSPEND (_target);
 		}
 
 		private void DispatchPostSuspend()
 		{
-			if (POST_SUSPEND != null)
-				POST_SUSPEND (_target);
+			if (_POST_SUSPEND != null)
+				_POST_SUSPEND (_target);
 		}
 
 		private void DispatchPreResume()
 		{
-			if (PRE_RESUME != null)
-				PRE_RESUME (_target);
+			if (_PRE_RESUME != null)
+				_PRE_RESUME (_target);
 		}
 
 		private void DispatchResume()
 		{
-			if (RESUME != null)
-				RESUME (_target);
+			if (_RESUME != null)
+				_RESUME (_target);
 		}
 
 		private void DispatchPostResume()
 		{
-			if (POST_RESUME != null)
-				POST_RESUME (_target);
+			if (_POST_RESUME != null)
+				_POST_RESUME (_target);
 		}
 
 		private void DispatchPreDestroy()
 		{
-			if (PRE_DESTROY != null)
-				PRE_DESTROY(_target);
+			if (_PRE_DESTROY != null)
+				_PRE_DESTROY(_target);
 		}
 
 		private void DispatchDestroy()
 		{
-			if (DESTROY != null)
-				DESTROY(_target);
+			if (_DESTROY != null)
+				_DESTROY(_target);
 		}
 
 		private void DispatchPostDestroy()
 		{
-			if (POST_DESTROY != null)
-				POST_DESTROY(_target);
+			if (_POST_DESTROY != null)
+				_POST_DESTROY(_target);
 		}
 	}
 }

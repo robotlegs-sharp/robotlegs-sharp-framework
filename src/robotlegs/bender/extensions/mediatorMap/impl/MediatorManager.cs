@@ -20,8 +20,24 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<object> ViewRemoved;
-		
+		public event Action<object> ViewRemoved
+		{
+			add
+			{
+				_viewRemoved += value;
+			}
+			remove 
+			{
+				_viewRemoved -= value;
+			}
+		}
+
+		/*============================================================================*/
+		/* Private Properties                                                         */
+		/*============================================================================*/
+
+		private Action<object> _viewRemoved;
+
 		/*============================================================================*/
 		/* Public Functions                                                           */
 		/*============================================================================*/
@@ -52,9 +68,9 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		
 		private void HandleRemoveView (IView view)
 		{
-			if (ViewRemoved != null)
+			if (_viewRemoved != null)
 			{
-				ViewRemoved(view);
+				_viewRemoved(view);
 			}
 		}
 

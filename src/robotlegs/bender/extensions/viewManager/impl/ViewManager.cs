@@ -26,13 +26,53 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<object> ContainerAdded;
+		public event Action<object> ContainerAdded
+		{
+			add
+			{
+				_containerAdded += value;
+			}
+			remove 
+			{
+				_containerAdded -= value;
+			}
+		}
 
-		public event Action<object> ContainerRemoved;
+		public event Action<object> ContainerRemoved
+		{
+			add
+			{
+				_containerRemoved += value;
+			}
+			remove 
+			{
+				_containerRemoved -= value;
+			}
+		}
 
-		public event Action<IViewHandler> HandlerAdd;
+		public event Action<IViewHandler> HandlerAdd
+		{
+			add
+			{
+				_handlerAdd += value;
+			}
+			remove 
+			{
+				_handlerAdd -= value;
+			}
+		}
 
-		public event Action<IViewHandler> HandlerRemove;
+		public event Action<IViewHandler> HandlerRemove
+		{
+			add
+			{
+				_handlerRemove += value;
+			}
+			remove 
+			{
+				_handlerRemove -= value;
+			}
+		}
 
 		public List<object> Containers
 		{
@@ -45,6 +85,14 @@ namespace robotlegs.bender.extensions.viewManager.impl
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private Action<object> _containerAdded;
+
+		private Action<object> _containerRemoved;
+
+		private Action<IViewHandler> _handlerAdd;
+
+		private Action<IViewHandler> _handlerRemove;
 
 		private List<IViewHandler> _handlers = new List<IViewHandler>();
 
@@ -77,9 +125,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 			ContainerBinding containerBinding = _registry.AddContainer(container);
 			AddHandlers (containerBinding);
 
-			if (ContainerAdded != null)
+			if (_containerAdded != null)
 			{
-				ContainerAdded (container);
+				_containerAdded (container);
 			}
 		}
 
@@ -94,9 +142,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				RemoveHandlers (binding);
 			}
 
-			if (ContainerRemoved != null)
+			if (_containerRemoved != null)
 			{
-				ContainerRemoved (container);
+				_containerRemoved (container);
 			}
 		}
 
@@ -140,9 +188,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				}
 			}
 
-			if (HandlerAdd != null)
+			if (_handlerAdd != null)
 			{
-				HandlerAdd (handler);
+				_handlerAdd (handler);
 			}
 		}
 
@@ -155,9 +203,9 @@ namespace robotlegs.bender.extensions.viewManager.impl
 				_registry.GetBinding(container).RemoveHandler(handler);
 			}
 
-			if (HandlerRemove != null)
+			if (_handlerRemove != null)
 			{
-				HandlerRemove (handler);
+				_handlerRemove (handler);
 			}
 		}
 

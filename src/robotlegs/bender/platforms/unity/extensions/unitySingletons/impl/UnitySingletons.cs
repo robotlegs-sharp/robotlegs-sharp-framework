@@ -19,9 +19,29 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 		
-		public event Action<MappingId, object> AddedSingleton;
+		public event Action<MappingId, object> AddedSingleton
+		{
+			add
+			{
+				_addedSingleton += value;
+			}
+			remove 
+			{
+				_addedSingleton -= value;
+			}
+		}
 		
-		public event Action<MappingId> RemovedSingleton;
+		public event Action<MappingId> RemovedSingleton
+		{
+			add
+			{
+				_removedSingeton += value;
+			}
+			remove 
+			{
+				_removedSingeton -= value;
+			}
+		}
 
 		public SingletonFactory Factory
 		{
@@ -34,6 +54,10 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
+
+		private Action<MappingId, object> _addedSingleton;
+
+		private Action<MappingId> _removedSingeton;
 
 		private SingletonFactory _factory;
 		
@@ -58,17 +82,17 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 
 		private void OnAddedSingleton(MappingId mappingId, object singleton)
 		{
-			if (AddedSingleton != null) 
+			if (_addedSingleton != null) 
 			{
-				AddedSingleton (mappingId, singleton);
+				_addedSingleton (mappingId, singleton);
 			}
 		}
 
 		private void OnRemovedSingleton(MappingId mappingId)
 		{
-			if (RemovedSingleton != null) 
+			if (_removedSingeton != null) 
 			{
-				RemovedSingleton (mappingId);
+				_removedSingeton (mappingId);
 			}
 		}
 	}

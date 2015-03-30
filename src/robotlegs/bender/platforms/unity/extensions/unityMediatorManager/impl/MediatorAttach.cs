@@ -19,9 +19,29 @@ namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public event Action<object> AddedMediator;
+		public event Action<object> AddedMediator
+		{
+			add
+			{
+				_addedMediator += value;
+			}
+			remove 
+			{
+				_addedMediator -= value;
+			}
+		}
 
-		public event Action<object> RemovedMediator;
+		public event Action<object> RemovedMediator
+		{
+			add
+			{
+				_removedMediator += value;
+			}
+			remove 
+			{
+				_removedMediator -= value;
+			}
+		}
 
 		public object[] Mediators
 		{
@@ -42,7 +62,11 @@ namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl
 		/*============================================================================*/
 		/* Private Properties                                                         */
 		/*============================================================================*/
-		
+
+		private Action<object> _addedMediator;
+
+		private Action<object> _removedMediator;
+
 		private object[] _mediators = new object[0];
 		
 		private object _view;
@@ -61,9 +85,9 @@ namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl
 			List<object> newMediators = new List<object> (_mediators);
 			newMediators.Add (mediator);
 			_mediators = newMediators.ToArray();
-			if (AddedMediator != null) 
+			if (_addedMediator != null) 
 			{
-				AddedMediator(mediator);
+				_addedMediator(mediator);
 			}
 		}
 
@@ -73,9 +97,9 @@ namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl
 			if (newMediators.Remove (mediator)) 
 			{
 				_mediators = newMediators.ToArray();
-				if (RemovedMediator != null) 
+				if (_removedMediator != null) 
 				{
-					RemovedMediator(mediator);
+					_removedMediator(mediator);
 				}
 			}
 		}
