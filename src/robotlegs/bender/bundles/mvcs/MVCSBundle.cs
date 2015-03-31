@@ -17,6 +17,10 @@ namespace robotlegs.bender.bundles.mvcs
 {
 	public class MVCSBundle : IExtension
 	{
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
+
 		public void Extend(IContext context)
 		{
 			/**

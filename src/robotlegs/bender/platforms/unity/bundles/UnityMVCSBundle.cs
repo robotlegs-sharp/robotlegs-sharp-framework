@@ -33,6 +33,10 @@ namespace robotlegs.bender.bundles
 {
 	public class UnityMVCSBundle : IExtension
 	{
+		/*============================================================================*/
+		/* Public Functions                                                           */
+		/*============================================================================*/
+
 		public void Extend (IContext context)
 		{
 			context.LogLevel = LogLevel.INFO;
@@ -42,11 +46,13 @@ namespace robotlegs.bender.bundles
 				context.Install (typeof(UnitySingletonsExtension));
 				context.Install (typeof(UnityMediatorManagerExtension));
 			}
+
 			context.Install(typeof(DebugLoggingExtension));
 			context.Install(typeof(VigilanceExtension));
 			context.Install(typeof(InjectableLoggerExtension));
 			context.Install(typeof(UnityParentFinderExtension));
 			context.Install(typeof(ContextViewExtension));
+			context.Install(typeof(ContextViewTransformExtension));
 			context.Install(typeof(EventDispatcherExtension));
 			context.Install(typeof(ModularityExtension));
 			context.Install(typeof(DirectCommandMapExtension));

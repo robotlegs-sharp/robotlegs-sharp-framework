@@ -6,6 +6,7 @@ using robotlegs.bender.framework.impl;
 using robotlegs.bender.extensions.contextview;
 using robotlegs.bender.extensions.contextview.impl;
 using robotlegs.bender.framework.impl.loggingSupport;
+using robotlegs.bender.extensions.contextview.api;
 
 namespace robotlegs.bender.extensions.contextView
 {
@@ -43,12 +44,12 @@ namespace robotlegs.bender.extensions.contextView
 		}
 
 		[Test]
-		public void contextView_is_mapped()
+		public void icontextView_is_mapped()
 		{
-			ContextView actual = null;
+			IContextView actual = null;
 			context.Install<ContextViewExtension>().Configure(new ContextView(view));
 			context.WhenInitializing((Action)delegate() {
-				actual = context.injector.GetInstance<ContextView>();
+				actual = context.injector.GetInstance<IContextView>();
 			});
 			context.Initialize();
 			Assert.That(actual.view, Is.EqualTo(view));
@@ -57,11 +58,11 @@ namespace robotlegs.bender.extensions.contextView
 		[Test]
 		public void second_view_container_is_ignored()
 		{
-			ContextView actual = null;
+			IContextView actual = null;
 			SupportView secondView = new SupportView();
 			context.Install<ContextViewExtension>().Configure(new ContextView(view), new ContextView(secondView));
 			context.WhenInitializing((Action)delegate() {
-				actual = context.injector.GetInstance<ContextView>();
+				actual = context.injector.GetInstance<IContextView>();
 			});
 			context.Initialize();
 			Assert.That(actual.view, Is.EqualTo(view));

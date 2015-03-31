@@ -6,8 +6,8 @@ using robotlegs.bender.extensions.modularity.impl;
 using System;
 using swiftsuspenders.dependencyproviders;
 using System.Collections.Generic;
-using robotlegs.bender.extensions.contextview.impl;
 using robotlegs.bender.platforms.unity.extensions.unitySingletons.impl;
+using robotlegs.bender.extensions.contextview.api;
 
 namespace robotlegs.bender.platforms.unity.extensions.unitySingletons
 {
@@ -43,9 +43,9 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons
 
 		private void BeforeInitializing()
 		{
-			if (_injector.HasDirectMapping(typeof(ContextView)))
+			if (_injector.HasDirectMapping(typeof(IContextView)))
 			{
-				ContextView contextView = _injector.GetInstance(typeof(ContextView)) as ContextView;
+				IContextView contextView = _injector.GetInstance(typeof(IContextView)) as IContextView;
 				unitySingletons = (contextView.view as Transform).gameObject.AddComponent<UnitySingletons>();
 				unitySingletons.SetFactory(_singletonFactory);
 			}

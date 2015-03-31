@@ -44,7 +44,6 @@ namespace robotlegs.bender.extensions.contextview
 			if (!HasContextBinding ())
 			{
 				_logger.Debug("Mapping {0} as contextView", contextView.view);
-				_injector.Map(typeof(ContextView)).ToValue(contextView);
 				_injector.Map(typeof(IContextView)).ToValue(contextView);
 			}
 			else

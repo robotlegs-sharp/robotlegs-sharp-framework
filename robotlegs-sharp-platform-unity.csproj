@@ -41,10 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\contentView\UnityStageCrawlerConfig.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\contentView\UnityFallbackStageCrawlerConfig.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\contentView\ContextViewTransformExtension.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\contentView\impl\TransformContextView.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityViewStateWatcher.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityStageCrawler.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\bundles\UnityMVCSBundle.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\bundles\UnityFallbackBundle.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\UnityParentFinderExtension.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityFallbackStageCrawler.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityViewStateWatcherExtension.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\View.cs" />
