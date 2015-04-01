@@ -5,7 +5,6 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using System;
 namespace robotlegs.bender.extensions.mediatorMap.dsl
 {
 	public interface IMediatorConfigurator

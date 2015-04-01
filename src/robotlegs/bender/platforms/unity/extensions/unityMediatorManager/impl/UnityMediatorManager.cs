@@ -6,12 +6,11 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.extensions.mediatorMap.impl;
+using System.Collections.Generic;
 using System.Reflection;
 using robotlegs.bender.extensions.mediatorMap.api;
-using UnityEngine;
-using System.Collections.Generic;
 using robotlegs.bender.extensions.mediatorMap.dsl;
+using UnityEngine;
 
 
 namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl

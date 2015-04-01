@@ -5,10 +5,10 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using UnityEditor;
 using System.Collections.Generic;
-using swiftsuspenders.mapping;
 using robotlegs.bender.platforms.unity.extensions.monoscriptCache;
+using swiftsuspenders.mapping;
+using UnityEditor;
 
 namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 {

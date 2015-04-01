@@ -7,8 +7,8 @@
 
 using System;
 using System.Collections.Generic;
-using swiftsuspenders.dependencyproviders;
 using robotlegs.bender.framework.api;
+using swiftsuspenders.dependencyproviders;
 using swiftsuspenders.mapping;
 
 namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl

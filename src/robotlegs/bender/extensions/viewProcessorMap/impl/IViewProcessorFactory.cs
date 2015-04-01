@@ -6,8 +6,8 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.viewProcessorMap.dsl;
 using System.Collections.Generic;
+using robotlegs.bender.extensions.viewProcessorMap.dsl;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {

@@ -6,9 +6,8 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.eventDispatcher.api;
 using System.Collections.Generic;
-using System.Reflection;
+using robotlegs.bender.extensions.eventDispatcher.api;
 
 namespace robotlegs.bender.extensions.eventDispatcher.impl
 {

@@ -5,9 +5,8 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using System;
-using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.enhancedLogging.impl;
+using robotlegs.bender.framework.api;
 
 
 namespace robotlegs.bender.extensions.enhancedLogging

@@ -5,7 +5,6 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System;
 using robotlegs.bender.extensions.viewProcessorMap.dsl;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl

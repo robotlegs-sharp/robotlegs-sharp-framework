@@ -5,12 +5,10 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using System;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.viewManager.impl;
-using robotlegs.bender.framework.unity.extensions.viewManager.impl;
 using robotlegs.bender.extensions.viewManager;
-
+using robotlegs.bender.extensions.viewManager.impl;
+using robotlegs.bender.framework.api;
+using robotlegs.bender.framework.unity.extensions.viewManager.impl;
 
 namespace robotlegs.bender.platforms.unity.extensions.viewManager
 {

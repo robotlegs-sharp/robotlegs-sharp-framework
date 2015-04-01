@@ -5,10 +5,9 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System;
-using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.eventCommandMap.api;
 using robotlegs.bender.extensions.eventCommandMap.impl;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.eventCommandMap
 {

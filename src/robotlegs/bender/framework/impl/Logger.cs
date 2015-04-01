@@ -8,7 +8,6 @@
 using System;
 using robotlegs.bender.framework.api;
 
-
 namespace robotlegs.bender.framework.impl
 {
 	/// <summary>

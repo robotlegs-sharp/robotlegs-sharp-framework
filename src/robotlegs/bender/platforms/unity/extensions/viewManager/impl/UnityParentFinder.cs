@@ -5,12 +5,10 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using System;
-using robotlegs.bender.extensions.viewManager;
-using UnityEngine;
 using System.Collections.Generic;
+using robotlegs.bender.extensions.viewManager;
 using robotlegs.bender.extensions.viewManager.impl;
-
+using UnityEngine;
 
 namespace robotlegs.bender.framework.unity.extensions.viewManager.impl
 {

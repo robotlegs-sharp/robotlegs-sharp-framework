@@ -5,17 +5,14 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.matching;
 using robotlegs.bender.extensions.contextview.api;
-using robotlegs.bender.extensions.viewManager.api;
-using System;
-using robotlegs.bender.extensions.modularity.api;
-using robotlegs.bender.extensions.modularity.impl;
 using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.eventDispatcher.impl;
+using robotlegs.bender.extensions.modularity.api;
+using robotlegs.bender.extensions.modularity.impl;
 using robotlegs.bender.extensions.viewManager;
-using robotlegs.bender.extensions.viewManager.impl;
+using robotlegs.bender.extensions.viewManager.api;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.modularity
 {

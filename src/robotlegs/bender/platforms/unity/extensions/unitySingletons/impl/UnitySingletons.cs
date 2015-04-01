@@ -6,8 +6,8 @@
 //------------------------------------------------------------------------------
 
 using System;
-using UnityEngine;
 using swiftsuspenders.mapping;
+using UnityEngine;
 
 namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 {

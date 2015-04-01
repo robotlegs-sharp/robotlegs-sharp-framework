@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using robotlegs.bender.extensions.viewManager.api;
 
-
 namespace robotlegs.bender.extensions.viewManager.impl
 {
 	/// <summary>

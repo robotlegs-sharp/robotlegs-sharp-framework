@@ -6,10 +6,10 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using swiftsuspenders.dependencyproviders;
-using swiftsuspenders.typedescriptions;
-using swiftsuspenders.mapping;
 using swiftsuspenders;
+using swiftsuspenders.dependencyproviders;
+using swiftsuspenders.mapping;
+using swiftsuspenders.typedescriptions;
 
 namespace robotlegs.bender.framework.api
 {

@@ -8,7 +8,6 @@
 using System;
 using robotlegs.bender.framework.impl;
 
-
 namespace robotlegs.bender.framework.api
 {
 	public interface ILogTarget

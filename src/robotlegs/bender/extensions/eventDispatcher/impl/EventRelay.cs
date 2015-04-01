@@ -5,9 +5,9 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using robotlegs.bender.extensions.eventDispatcher.api;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using robotlegs.bender.extensions.eventDispatcher.api;
 
 namespace robotlegs.bender.extensions.eventDispatcher.impl
 {

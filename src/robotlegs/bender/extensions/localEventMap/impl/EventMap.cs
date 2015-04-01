@@ -6,10 +6,10 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.localEventMap.api;
-using robotlegs.bender.extensions.eventDispatcher.api;
 using System.Collections.Generic;
+using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.eventDispatcher.impl;
+using robotlegs.bender.extensions.localEventMap.api;
 
 namespace robotlegs.bender.extensions.localEventMap.impl
 {

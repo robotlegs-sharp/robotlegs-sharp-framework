@@ -8,7 +8,6 @@
 using System;
 using robotlegs.bender.extensions.mediatorMap.dsl;
 
-
 namespace robotlegs.bender.extensions.mediatorMap.impl
 {
 	public class NullMediatorUnmapper : IMediatorUnmapper

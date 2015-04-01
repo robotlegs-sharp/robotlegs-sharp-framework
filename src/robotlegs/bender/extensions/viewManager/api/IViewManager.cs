@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 
-
 namespace robotlegs.bender.extensions.viewManager.api
 {
 	public interface IViewManager

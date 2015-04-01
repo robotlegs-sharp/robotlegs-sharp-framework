@@ -6,10 +6,9 @@
 //------------------------------------------------------------------------------
 
 using robotlegs.bender.extensions.contextview.api;
-using robotlegs.bender.framework.api;
 using robotlegs.bender.extensions.matching;
 using robotlegs.bender.extensions.viewManager.api;
-
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.viewManager
 {

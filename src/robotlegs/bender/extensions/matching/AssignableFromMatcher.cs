@@ -8,7 +8,6 @@
 using System;
 using robotlegs.bender.framework.api;
 
-
 namespace robotlegs.bender.extensions.matching
 {
 	public class AssignableFromMatcher : IMatcher

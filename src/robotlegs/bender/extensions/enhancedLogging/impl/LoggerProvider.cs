@@ -6,8 +6,8 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using swiftsuspenders.dependencyproviders;
 using robotlegs.bender.framework.api;
+using swiftsuspenders.dependencyproviders;
 
 namespace robotlegs.bender.extensions.enhancedLogging.impl
 {

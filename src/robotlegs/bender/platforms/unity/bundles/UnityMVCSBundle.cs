@@ -5,7 +5,6 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using System;
 using robotlegs.bender.extensions.contextview;
 using robotlegs.bender.extensions.directCommandMap;
 using robotlegs.bender.extensions.enhancedLogging;
@@ -21,10 +20,10 @@ using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl;
 using robotlegs.bender.platforms.unity.extensions.contextview;
 using robotlegs.bender.platforms.unity.extensions.debugLogging;
+using robotlegs.bender.platforms.unity.extensions.unityMediatorManager;
+using robotlegs.bender.platforms.unity.extensions.unitySingletons;
 using robotlegs.bender.platforms.unity.extensions.viewManager;
 using robotlegs.bender.platforms.unity.extensions.viewManager.impl;
-using robotlegs.bender.platforms.unity.extensions.unitySingletons;
-using robotlegs.bender.platforms.unity.extensions.unityMediatorManager;
 using UnityEngine;
 
 namespace robotlegs.bender.bundles

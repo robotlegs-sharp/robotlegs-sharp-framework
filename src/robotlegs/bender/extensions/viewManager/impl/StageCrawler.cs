@@ -5,9 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System;
 using robotlegs.bender.extensions.viewManager.api;
-
 
 namespace robotlegs.bender.extensions.viewManager.impl
 {

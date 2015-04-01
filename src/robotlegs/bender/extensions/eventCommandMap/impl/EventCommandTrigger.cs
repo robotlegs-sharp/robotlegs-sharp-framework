@@ -6,13 +6,12 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.commandCenter.api;
 using System.Collections.Generic;
-using robotlegs.bender.extensions.commandCenter.dsl;
+using robotlegs.bender.extensions.commandCenter.api;
 using robotlegs.bender.extensions.commandCenter.impl;
-using robotlegs.bender.framework.api;
+using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.eventDispatcher.impl;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.eventCommandMap.impl
 {

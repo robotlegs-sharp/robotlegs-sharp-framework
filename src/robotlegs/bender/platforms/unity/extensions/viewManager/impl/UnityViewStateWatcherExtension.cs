@@ -7,8 +7,8 @@
 
 using robotlegs.bender.extensions.viewManager;
 using robotlegs.bender.extensions.viewManager.api;
-using UnityEngine;
 using robotlegs.bender.platforms.unity.extensions.viewManager.impl;
+using UnityEngine;
 
 namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 {

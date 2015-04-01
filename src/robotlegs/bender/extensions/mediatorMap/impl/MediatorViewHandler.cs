@@ -6,11 +6,9 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.extensions.viewManager.api;
-using robotlegs.bender.extensions.mediatorMap.api;
 using System.Collections.Generic;
+using robotlegs.bender.extensions.mediatorMap.api;
 using robotlegs.bender.extensions.mediatorMap.dsl;
-
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
 {

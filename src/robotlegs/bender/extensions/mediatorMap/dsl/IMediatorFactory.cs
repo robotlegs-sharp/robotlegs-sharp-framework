@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using robotlegs.bender.extensions.mediatorMap.api;
 
-
 namespace robotlegs.bender.extensions.mediatorMap.dsl
 {
 	public interface IMediatorFactory

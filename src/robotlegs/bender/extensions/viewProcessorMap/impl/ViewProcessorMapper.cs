@@ -5,11 +5,10 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System;
+using System.Collections.Generic;
+using robotlegs.bender.extensions.matching;
 using robotlegs.bender.extensions.viewProcessorMap.dsl;
 using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.matching;
-using System.Collections.Generic;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl
 {

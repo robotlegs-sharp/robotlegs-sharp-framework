@@ -6,10 +6,10 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.viewProcessorMap.api;
-using robotlegs.bender.extensions.viewManager.api;
 using System.Collections.Generic;
 using robotlegs.bender.extensions.matching;
+using robotlegs.bender.extensions.viewManager.api;
+using robotlegs.bender.extensions.viewProcessorMap.api;
 using robotlegs.bender.extensions.viewProcessorMap.dsl;
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl

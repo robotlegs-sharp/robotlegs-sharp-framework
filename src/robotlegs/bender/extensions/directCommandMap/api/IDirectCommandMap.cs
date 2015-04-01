@@ -5,8 +5,6 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System;
-
 namespace robotlegs.bender.extensions.directCommandMap.api
 {
 	public interface IDirectCommandMap : IDirectCommandMapper

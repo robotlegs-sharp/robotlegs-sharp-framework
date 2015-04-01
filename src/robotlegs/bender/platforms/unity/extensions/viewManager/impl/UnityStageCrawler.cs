@@ -5,10 +5,9 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System;
+using robotlegs.bender.extensions.mediatorMap.api;
 using robotlegs.bender.extensions.viewManager.impl;
 using UnityEngine;
-using robotlegs.bender.extensions.mediatorMap.api;
 
 namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 {

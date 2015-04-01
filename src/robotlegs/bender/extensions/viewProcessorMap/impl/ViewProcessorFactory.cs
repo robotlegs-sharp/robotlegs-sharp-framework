@@ -5,16 +5,16 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using robotlegs.bender.framework.api;
+﻿using System;
 using System.Collections.Generic;
-using System;
-using robotlegs.bender.extensions.mediatorMap.api;
-using robotlegs.bender.extensions.matching;
-using robotlegs.bender.extensions.viewProcessorMap.dsl;
 using System.Reflection;
+using robotlegs.bender.extensions.matching;
+using robotlegs.bender.extensions.mediatorMap.api;
+using robotlegs.bender.extensions.viewProcessorMap.api;
+using robotlegs.bender.extensions.viewProcessorMap.dsl;
+using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl;
 using swiftsuspenders.errors;
-using robotlegs.bender.extensions.viewProcessorMap.api;
 
 
 namespace robotlegs.bender.extensions.viewProcessorMap.impl

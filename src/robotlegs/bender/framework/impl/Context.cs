@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.framework.impl;
-using robotlegs.bender.framework.api;
 using System.Collections.Generic;
+using robotlegs.bender.framework.api;
+using robotlegs.bender.framework.impl;
 
 namespace robotlegs.bender.framework.impl
 {

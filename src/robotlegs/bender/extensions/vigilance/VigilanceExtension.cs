@@ -8,8 +8,8 @@
 ﻿using System;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.framework.impl;
-using swiftsuspenders.mapping;
 using swiftsuspenders.errors;
+using swiftsuspenders.mapping;
 
 namespace robotlegs.bender.extensions.vigilance
 {

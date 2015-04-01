@@ -5,16 +5,10 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using UnityEngine;
-using System.Collections;
-using robotlegs.bender.framework.api;
-using swiftsuspenders.mapping;
-using robotlegs.bender.extensions.modularity.impl;
-using System;
-using swiftsuspenders.dependencyproviders;
-using System.Collections.Generic;
-using robotlegs.bender.platforms.unity.extensions.unitySingletons.impl;
 using robotlegs.bender.extensions.contextview.api;
+using robotlegs.bender.framework.api;
+using robotlegs.bender.platforms.unity.extensions.unitySingletons.impl;
+using UnityEngine;
 
 namespace robotlegs.bender.platforms.unity.extensions.unitySingletons
 {

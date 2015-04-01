@@ -7,8 +7,8 @@
 
 using System;
 using System.Collections.Generic;
-using robotlegs.bender.framework.api;
 using System.Reflection;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.framework.impl
 {

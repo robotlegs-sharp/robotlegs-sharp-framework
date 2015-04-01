@@ -5,10 +5,10 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
+using System;
+using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.eventDispatcher.impl;
 using robotlegs.bender.extensions.modularity.dsl;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using System;
 
 namespace robotlegs.bender.extensions.modularity.impl
 {

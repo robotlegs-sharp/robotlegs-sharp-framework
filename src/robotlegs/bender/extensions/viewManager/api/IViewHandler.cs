@@ -6,6 +6,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+
 namespace robotlegs.bender.extensions.viewManager.api
 {
 	public interface IViewHandler

@@ -6,11 +6,11 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.mediatorMap.api;
+using System.Reflection;
 using robotlegs.bender.extensions.eventDispatcher.api;
 using robotlegs.bender.extensions.localEventMap.api;
+using robotlegs.bender.extensions.mediatorMap.api;
 using robotlegs.bender.framework.api;
-using System.Reflection;
 
 namespace robotlegs.bender.bundles.mvcs
 {

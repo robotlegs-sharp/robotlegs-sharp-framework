@@ -6,11 +6,11 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.commandCenter.api;
 using System.Collections.Generic;
-using robotlegs.bender.framework.impl;
 using System.Reflection;
+using robotlegs.bender.extensions.commandCenter.api;
 using robotlegs.bender.framework.api;
+using robotlegs.bender.framework.impl;
 
 namespace robotlegs.bender.extensions.commandCenter.impl
 {

@@ -5,10 +5,8 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using System;
 using robotlegs.bender.framework.api;
 using robotlegs.bender.platforms.unity.extensions.debugLogging.impl;
-
 
 namespace robotlegs.bender.platforms.unity.extensions.debugLogging
 {

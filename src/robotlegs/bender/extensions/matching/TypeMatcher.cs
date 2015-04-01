@@ -5,9 +5,8 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System.Collections;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace robotlegs.bender.extensions.matching
 {

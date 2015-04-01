@@ -5,8 +5,8 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.mediatorMap.dsl;
+﻿using robotlegs.bender.extensions.mediatorMap.dsl;
+using robotlegs.bender.framework.api;
 using robotlegs.bender.platforms.unity.extensions.unityMediatorManager.impl;
 
 namespace robotlegs.bender.platforms.unity.extensions.unityMediatorManager

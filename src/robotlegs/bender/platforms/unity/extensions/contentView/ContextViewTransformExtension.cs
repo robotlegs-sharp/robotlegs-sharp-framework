@@ -5,10 +5,9 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using System;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.matching;
 using robotlegs.bender.extensions.contextview.api;
+using robotlegs.bender.extensions.matching;
+using robotlegs.bender.framework.api;
 using UnityEngine;
 
 namespace robotlegs.bender.platforms.unity.extensions.contextview

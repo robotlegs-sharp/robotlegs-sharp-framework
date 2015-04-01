@@ -4,10 +4,9 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file 
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
-
-﻿using System;
-using robotlegs.bender.framework.api;
+﻿
 using robotlegs.bender.extensions.directCommandMap.api;
+using robotlegs.bender.framework.api;
 
 namespace robotlegs.bender.extensions.directCommandMap
 {

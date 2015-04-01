@@ -5,8 +5,8 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using robotlegs.bender.extensions.commandCenter.api;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using robotlegs.bender.extensions.commandCenter.api;
 
 namespace robotlegs.bender.extensions.commandCenter.impl
 {

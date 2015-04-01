@@ -6,6 +6,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+
 namespace robotlegs.bender.extensions.matching
 {
 	public class TypeMatcherException : Exception

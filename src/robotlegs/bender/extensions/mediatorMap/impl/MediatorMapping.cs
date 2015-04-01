@@ -6,11 +6,10 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.extensions.mediatorMap.api;
-using robotlegs.bender.extensions.matching;
 using System.Collections.Generic;
+using robotlegs.bender.extensions.matching;
+using robotlegs.bender.extensions.mediatorMap.api;
 using robotlegs.bender.extensions.mediatorMap.dsl;
-
 
 namespace robotlegs.bender.extensions.mediatorMap.impl
 {

@@ -5,9 +5,8 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System;
-using swiftsuspenders;
 using robotlegs.bender.framework.api;
+using swiftsuspenders;
 
 namespace robotlegs.bender.framework.impl
 {
