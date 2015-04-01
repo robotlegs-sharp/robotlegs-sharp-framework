@@ -6,7 +6,7 @@
     <ProjectGuid>{0A5E3C39-DB52-4BB1-8EA0-739CEBD95E95}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>robotlegssharpplatformunityeditor</RootNamespace>
-    <AssemblyName>robotlegs-sharp-platform-unity-editor</AssemblyName>
+    <AssemblyName>Robotlegs-Sharp-Platform-Unity-Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

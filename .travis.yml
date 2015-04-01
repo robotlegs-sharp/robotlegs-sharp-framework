@@ -6,12 +6,13 @@ script:
   - build_number=$TRAVIS_BUILD_NUMBER
   - version_number=0.9.0
   - xbuild /p:Configuration=Release robotlegs-sharp-framework-test.sln
+  - cp ./lib/*.dll ./bin/Release
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./bin/Release/Robotlegs-Sharp-Framework-Test.dll
 after_success:
   - mv bin/Release/*.dll bin/
   - mkdir bin/editor
-  - mv bin/robotlegs-sharp-platform-unity-editor.dll bin/editor/robotlegs-sharp-platform-unity-editor.dll
+  - mv bin/Robotlegs-Sharp-Platform-Unity-Editor.dll bin/editor/Robotlegs-Sharp-Platform-Unity-Editor.dll
   - mv readme.md readme.txt
-  - zip -r build.zip src bin/Robotlegs-Sharp-Framework.dll bin/robotlegs-sharp-platform-unity.dll bin/editor/robotlegs-sharp-platform-unity-editor.dll lib/swiftsuspenders-sharp.dll readme.txt LICENSE
+  - zip -r build.zip src bin/Robotlegs-Sharp-Framework.dll bin/Robotlegs-Sharp-Platform-Unity.dll bin/editor/Robotlegs-Sharp-Platform-Unity-Editor.dll lib/swiftsuspenders-sharp.dll readme.txt LICENSE
   - curl --ftp-create-dirs -T build.zip -u ${travis_ftp_user}:${travis_ftp_pass} ftp://$travis_ftp_host/build_v${version_number}_b${build_number}.zip
   - curl --data "version=${version_number}&build=${build_number}&update_key=${travis_update_key}" ${travis_update_url}
