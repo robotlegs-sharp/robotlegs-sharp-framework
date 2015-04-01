@@ -12,7 +12,6 @@ after_success:
   - mv bin/Release/*.dll bin/
   - mkdir bin/editor
   - mv bin/Robotlegs-Sharp-Platform-Unity-Editor.dll bin/editor/Robotlegs-Sharp-Platform-Unity-Editor.dll
-  - mv readme.md readme.txt
-  - zip -r build.zip src bin/Robotlegs-Sharp-Framework.dll bin/Robotlegs-Sharp-Platform-Unity.dll bin/editor/Robotlegs-Sharp-Platform-Unity-Editor.dll lib/swiftsuspenders-sharp.dll readme.txt LICENSE
+  - zip -r build.zip src bin/Robotlegs-Sharp-Framework.dll bin/Robotlegs-Sharp-Platform-Unity.dll bin/editor/Robotlegs-Sharp-Platform-Unity-Editor.dll lib/swiftsuspenders-sharp.dll readme.md LICENSE
   - curl --ftp-create-dirs -T build.zip -u ${travis_ftp_user}:${travis_ftp_pass} ftp://$travis_ftp_host/robotlegs-sharp-framework-v${version_number}_b${build_number}.zip
   - curl --data "version=${version_number}&build=${build_number}&update_key=${travis_update_key}" ${travis_update_url}

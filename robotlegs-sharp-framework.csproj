@@ -208,6 +208,8 @@
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorFactory.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorManager.cs" />
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorViewHandler.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\IGuard.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\IHook.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

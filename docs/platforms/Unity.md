@@ -12,7 +12,7 @@ To start using the Unity specific extensions. Instead of installing the MVCSBund
 ```csharp
 context = new Context()
 	.Install<UnityMVCSBundle>()
-    .Configure(new ContextView(transform));
+    .Configure(new TransformContextView(transform));
 ```
 
 The context will initialize automatically for you when a Script on the ContextView has initialized and will destory when your context view has been destoyed.
@@ -28,13 +28,13 @@ Now by design, the View's are only mediated/processed when it is parented to a c
 
 View A will not get processed/mediated (whereas, View B and View C will).
 
-If you want your context to map **all remaining views** that are not parented to a context. Add the FallbackContainerConfig to that Context.
+If you want your context to map **all remaining views** that are not parented to a context. Add the UnityFallbackBundle to that Context.
 
 ```csharp
 context = new Context()
 	.Install<UnityMVCSBundle>()
-    .Configure<FallbackContainerConfig>()
-    .Configure(new ContextView(transform));
+    .Install<UnityFallbackBundle>()
+    .Configure(new TransformContextView(transform));
 ```
 
 #### Views
@@ -134,6 +134,8 @@ We've removed the FallbackContainerConfig, and replaced it with the ContextViewL
 We've added the editor UnityMediatorExtension, which adds a new IMediatorManager which manages mediators as normal, but also adds the Mediator Attach script to MonoBehaviours giving you a cue of what is being mediated.
 
 We've added the UnitySingletonsExtension, which monitors the Injector for new singletons mapped and displays it on the ContextView.
+
+We've added the ContextViewTransformExtension, which grabs a Transform from the ContextView and maps it for injection.
 
 From here
 ---------
