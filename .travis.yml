@@ -7,7 +7,7 @@ script:
   - version_number=0.9.0
   - xbuild /p:Configuration=Release robotlegs-sharp-framework-test.sln
   - cp ./lib/*.dll ./bin/Release
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./bin/Release/Robotlegs-Sharp-Framework-Test.dll
+  - mono --runtime=v3.5 ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./bin/Release/Robotlegs-Sharp-Framework-Test.dll
 after_success:
   - mv bin/Release/*.dll bin/
   - mkdir bin/editor
