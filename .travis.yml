@@ -7,7 +7,7 @@ script:
   - version_number=0.9.0
   - xbuild /p:Configuration=Release robotlegs-sharp-framework-test.sln
   - cp ./lib/*.dll ./bin/Release
-  - mono --runtime=v3.5 ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./bin/Release/Robotlegs-Sharp-Framework-Test.dll
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./bin/Release/Robotlegs-Sharp-Framework-Test.dll
 after_success:
   - mv bin/Release/*.dll bin/
   - mkdir bin/editor
@@ -15,3 +15,7 @@ after_success:
   - zip -r build.zip src bin/Robotlegs-Sharp-Framework.dll bin/Robotlegs-Sharp-Platform-Unity.dll bin/editor/Robotlegs-Sharp-Platform-Unity-Editor.dll lib/swiftsuspenders-sharp.dll readme.md LICENSE
   - curl --ftp-create-dirs -T build.zip -u ${travis_ftp_user}:${travis_ftp_pass} ftp://$travis_ftp_host/robotlegs-sharp-framework-v${version_number}_b${build_number}.zip
   - curl --data "version=${version_number}&build=${build_number}&update_key=${travis_update_key}" ${travis_update_url}
+notifications:
+  email:
+    - prankard@gmail.com
+    - matt@rancon.co.uk
