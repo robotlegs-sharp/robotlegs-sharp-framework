@@ -89,10 +89,6 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 
 		public bool Equals (IEventDispatcher dispatcher, Enum type, Delegate listener, Type eventClass)
 		{
-			Console.WriteLine (_dispatcher == dispatcher);
-			Console.WriteLine (_type == type);
-			Console.WriteLine (_listener == listener);
-			Console.WriteLine (_eventClass == eventClass);
 			return _dispatcher == dispatcher && _type.Equals(type) && _listener == listener && _eventClass == eventClass;
 		}
 	}
