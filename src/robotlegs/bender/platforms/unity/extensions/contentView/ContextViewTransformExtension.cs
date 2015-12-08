@@ -8,7 +8,6 @@
 using robotlegs.bender.extensions.contextview.api;
 using robotlegs.bender.extensions.matching;
 using robotlegs.bender.framework.api;
-using UnityEngine;
 
 namespace robotlegs.bender.platforms.unity.extensions.contextview
 {
@@ -41,20 +40,20 @@ namespace robotlegs.bender.platforms.unity.extensions.contextview
 		{
 			IContextView contextView = contextViewObject as IContextView;
 
-			if (!(contextView.view is Transform)) 
+			if (!(contextView.view is UnityEngine.Transform)) 
 			{
 				_logger.Warn ("Cannot map {0} as Transform for the ContextViewTransformExtension to work. Try to configure with 'new TransformContextView(transform)'", contextView.view);
 				return;
 			}
 
-			if (_injector.HasDirectMapping (typeof(Transform))) 
+			if (_injector.HasDirectMapping (typeof(UnityEngine.Transform))) 
 			{
 				_logger.Warn ("A Transform has already been mapped, ignoring {0}", contextView.view);
 				return;
 			}
 
 			_logger.Debug("Mapping {0} as Transform", contextView.view);
-			_injector.Map(typeof(Transform)).ToValue(contextView.view);
+			_injector.Map(typeof(UnityEngine.Transform)).ToValue(contextView.view);
 		}
 	}
 }
