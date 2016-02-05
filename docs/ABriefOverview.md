@@ -80,7 +80,7 @@ In robotlegs Commands are usually triggered by IEvent's.
 An IEvent is a small class that contains an key and data. You can extend the Event class to have an easier starting point for creation of an IEvent.
 
 ```csharp
-public class MyEvent
+public class MyEvent extends Event
 {
 	public enum Type
 	{
@@ -199,7 +199,7 @@ You can get your models, from within a command. Or dispatch an event from the mo
 You would use the injector to map your model like this:
 
 ```
-injector.Map<IMyModel>().ToSingleton<MyService>();
+injector.Map<IMyModel>().ToSingleton<MyModel>();
 ```
 
 Here is an example of basic model that stores some data.
