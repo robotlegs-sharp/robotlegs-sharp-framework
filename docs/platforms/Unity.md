@@ -125,7 +125,7 @@ We've added a UnityParentFinder, which enables the ViewManager know who is paren
 
 We've included the Modularity Extension.
 
-We've added a UnityStateWatcher, which moniters the context view to know when it has initalized or been destroyed.
+We've added a UnityStateWatcher, which monitors the context view to know when it has initalized or been destroyed.
 
 We've added View and EventView classes, to easily extend and to be Mediated.
 
