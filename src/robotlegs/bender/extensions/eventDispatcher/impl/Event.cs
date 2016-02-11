@@ -10,6 +10,7 @@ using robotlegs.bender.extensions.eventDispatcher.api;
 
 namespace robotlegs.bender.extensions.eventDispatcher.impl
 {
+	[Serializable]
 	public class Event : IEvent
 	{
 		private Enum _type;

@@ -55,12 +55,12 @@ namespace robotlegs.bender.extensions.eventCommandMap.impl
 
 		public void Activate ()
 		{
-			_dispatcher.AddEventListener<IEvent> (_type, EventHandler);
+			_dispatcher.AddEventListener(_type, (Action<IEvent>) EventHandler);
 		}
 
 		public void Deactivate ()
 		{
-			_dispatcher.RemoveEventListener<IEvent> (_type, EventHandler);
+			_dispatcher.RemoveEventListener (_type, (Action<IEvent>) EventHandler);
 		}
 
 		public override string ToString ()

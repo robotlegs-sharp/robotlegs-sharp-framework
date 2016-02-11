@@ -44,6 +44,10 @@ namespace robotlegs.bender.bundles.mvcs
 
 		public object viewComponent
 		{
+			get
+			{
+				return _viewComponent;
+			}
 			set
 			{
 				_viewComponent = value;
