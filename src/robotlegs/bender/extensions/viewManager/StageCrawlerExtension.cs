@@ -18,7 +18,7 @@ namespace robotlegs.bender.extensions.viewManager
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
-		private ILogger _logger;
+		private ILogging _logger;
 
 		private IInjector _injector;
 

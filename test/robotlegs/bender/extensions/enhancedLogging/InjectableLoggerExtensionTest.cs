@@ -47,10 +47,10 @@ namespace robotlegs.bender.extensions.enhancedLogging
 		{
 			object actual = null;
 			context.WhenInitializing((Action) delegate() {
-				actual = context.injector.GetInstance(typeof(ILogger));
+				actual = context.injector.GetInstance(typeof(ILogging));
 			});
 			context.Initialize();
-			Assert.That(actual, Is.InstanceOf<ILogger>());
+			Assert.That(actual, Is.InstanceOf<ILogging>());
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 	{
 		private Mock<IEventMap> eventMap;
 
-		private Mock<ILogger> logger;
+		private Mock<ILogging> logger;
 
 		private SugaryMediator instance;
 
@@ -42,7 +42,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		{
 			instance = new SugaryMediator();
 			eventMap = new Mock<IEventMap> ();
-			logger = new Mock<ILogger> ();
+			logger = new Mock<ILogging> ();
 			instance.eventMap = eventMap.Object;
 			instance.logger = logger.Object;
 			instance.eventDispatcher = eventDispatcher;

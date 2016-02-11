@@ -37,7 +37,7 @@ namespace robotlegs.bender.framework.impl
 		/// </summary>
 		/// <returns>Logger</returns>
 		/// <param name="source">Logging source</param>
-		public ILogger GetLogger(object source)
+		public ILogging GetLogger(object source)
 		{
 			return new Logger(source, this);
 		}

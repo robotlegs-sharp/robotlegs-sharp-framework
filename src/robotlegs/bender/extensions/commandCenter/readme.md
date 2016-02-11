@@ -4,8 +4,6 @@ This extension is used by command based extensions such as the Event Command Map
 
 It is not intended to be used directly.
 
-# James' Notes
-
 ## Command Mapper
 This is utility which you give the command mapping list.
 With this class, you can call 'toCommand' 'withGuards' 'withHooks' 'withExecuteMethod'.

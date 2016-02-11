@@ -28,7 +28,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		public Mock<IViewProcessorViewHandler> handler = new Mock<IViewProcessorViewHandler>();
 
-		public Mock<ILogger> logger = new Mock<ILogger>();
+		public Mock<ILogging> logger = new Mock<ILogging>();
 
 		/*============================================================================*/
 		/* Private Properties                                                         */

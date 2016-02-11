@@ -19,7 +19,7 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 
 		private IInjector _injector;
 
-		private ILogger _logger;
+		private ILogging _logger;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
@@ -30,7 +30,7 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 		* @param injector Injector
 		* @param logger Logger
 		*/
-		public InjectorListener(IInjector injector, ILogger logger)
+		public InjectorListener(IInjector injector, ILogging logger)
 		{
 			_injector = injector;
 			_logger = logger;

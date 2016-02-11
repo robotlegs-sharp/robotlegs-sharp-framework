@@ -49,7 +49,7 @@ namespace robotlegs.bender.framework.impl
 		[Test]
 		public void get_logger()
 		{
-			Assert.IsInstanceOf<ILogger>(logManager.GetLogger(source));
+			Assert.IsInstanceOf<ILogging>(logManager.GetLogger(source));
 		}
 
 		[Test]

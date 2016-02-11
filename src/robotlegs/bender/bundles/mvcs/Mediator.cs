@@ -37,7 +37,7 @@ namespace robotlegs.bender.bundles.mvcs
 		public IEventMap eventMap {get;set;}
 		
 		[Inject]
-		public ILogger logger {get;set;}
+		public ILogging logger {get;set;}
 
 		[Inject]
 		public IEventDispatcher eventDispatcher {get;set;}

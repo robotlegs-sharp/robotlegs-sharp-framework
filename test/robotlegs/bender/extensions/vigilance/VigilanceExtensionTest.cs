@@ -20,7 +20,7 @@ namespace robotlegs.bender.extensions.vigilance
 		/* Private Properties                                                         */
 		/*============================================================================*/
 
-		private ILogger logger;
+		private ILogging logger;
 
 		private IInjector injector;
 

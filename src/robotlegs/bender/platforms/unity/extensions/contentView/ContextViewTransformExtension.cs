@@ -19,7 +19,7 @@ namespace robotlegs.bender.platforms.unity.extensions.contextview
 		
 		private IInjector _injector;
 		
-		private ILogger _logger;
+		private ILogging _logger;
 
 		/*============================================================================*/
 		/* Public Functions                                                           */

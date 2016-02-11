@@ -30,7 +30,7 @@ namespace robotlegs.bender.extensions.eventCommandMap.impl
 
 		private CommandTriggerMap _triggerMap;
 
-		private ILogger _logger;
+		private ILogging _logger;
 
 		/*============================================================================*/
 		/* Constructor                                                                */

@@ -28,7 +28,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 
 		public Mock<IMediatorViewHandler> handler;
 
-		public Mock<ILogger> logger;
+		public Mock<ILogging> logger;
 
 		/*============================================================================*/
 		/* Private Properties                                                         */
@@ -45,7 +45,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		[SetUp]
 		public void SetUp()
 		{
-			logger = new Mock<ILogger>();
+			logger = new Mock<ILogging>();
 			handler = new Mock<IMediatorViewHandler>();
 
 			TypeMatcher matcher = new TypeMatcher().AllOf(typeof(SupportView));

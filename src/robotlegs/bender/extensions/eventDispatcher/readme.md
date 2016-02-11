@@ -26,7 +26,3 @@ An instance of IEventDispatcher is mapped into the context during extension inst
 [Inject]
 public var eventDispatcher:IEventDispatcher;
 ```
-# James' Notes
-
-Not only does this make an instance of the event bus.
-But it also relays the lifecycle events of the context to the global event bus so everyone else can hear them easily.

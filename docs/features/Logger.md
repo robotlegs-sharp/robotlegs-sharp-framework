@@ -24,13 +24,13 @@ If your class is [is injected into](./Injector.md#Framework classes that are inj
 
 ```csharp
 [Inject]
-public ILogger logger;
+public ILogging logger;
 ```
 
 You can pull it from the context, but need to tell it what class you are logging from.
 
 ```csharp
-ILogger logger = context.GetLogger(this);
+ILogging logger = context.GetLogger(this);
 ```
 
 How to Log

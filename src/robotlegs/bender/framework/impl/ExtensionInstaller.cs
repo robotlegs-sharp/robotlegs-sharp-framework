@@ -23,7 +23,7 @@ namespace robotlegs.bender.framework.impl
 
 		public Context _context;
 
-		private ILogger _logger;
+		private ILogging _logger;
 
 		/*============================================================================*/
 		/* Constructor                                                                */

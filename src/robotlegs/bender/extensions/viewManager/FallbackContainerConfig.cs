@@ -24,7 +24,7 @@ namespace robotlegs.bender.extensions.viewManager
 		public IViewManager viewManager;
 
 		[Inject]
-		public ILogger logger;
+		public ILogging logger;
 
 		/*============================================================================*/
 		/* Public Functions                                                           */

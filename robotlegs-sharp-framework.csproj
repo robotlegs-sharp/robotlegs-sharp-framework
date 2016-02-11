@@ -102,7 +102,6 @@
     <Compile Include="src\robotlegs\bender\framework\api\IConfig.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IContext.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IExtension.cs" />
-    <Compile Include="src\robotlegs\bender\framework\api\ILogger.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\ILogTarget.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IMatcher.cs" />
     <Compile Include="src\robotlegs\bender\framework\impl\ConfigManager.cs" />
@@ -210,6 +209,7 @@
     <Compile Include="src\robotlegs\bender\extensions\mediatorMap\dsl\IMediatorViewHandler.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IGuard.cs" />
     <Compile Include="src\robotlegs\bender\framework\api\IHook.cs" />
+    <Compile Include="src\robotlegs\bender\framework\api\ILogging.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\robotlegs\bender\framework\impl\ConfigManager.md" />

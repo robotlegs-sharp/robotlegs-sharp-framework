@@ -21,7 +21,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		/* Public Properties                                                          */
 		/*============================================================================*/
 
-		public Mock<ILogger> logger;
+		public Mock<ILogging> logger;
 
 		public Mock<ICommandTrigger> trigger;
 
@@ -46,7 +46,7 @@ namespace robotlegs.bender.extensions.commandCenter.impl
 		[SetUp]
 		public void before()
 		{
-			logger = new Mock<ILogger> ();
+			logger = new Mock<ILogging> ();
 			trigger = new Mock<ICommandTrigger> ();
 			processors = new List<CommandMappingList.Processor>();
 			subject = new CommandMappingList(trigger.Object, processors, logger.Object);

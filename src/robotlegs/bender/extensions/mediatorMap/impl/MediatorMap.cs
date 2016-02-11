@@ -23,7 +23,7 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 
 		private Dictionary<string, MediatorMapper> _mappers = new Dictionary<string, MediatorMapper>();
 
-		private ILogger _logger;
+		private ILogging _logger;
 
 		private IMediatorFactory _factory;
 

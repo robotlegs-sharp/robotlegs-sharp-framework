@@ -32,7 +32,7 @@ namespace robotlegs.bender.extensions.modularity
 
 		private IInjector _injector;
 
-		private ILogger _logger;
+		private ILogging _logger;
 
 		private bool _inherit;
 

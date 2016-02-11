@@ -26,13 +26,13 @@ namespace robotlegs.bender.extensions.mediatorMap.impl
 		
 		private IMediatorViewHandler _handler;
 		
-		private ILogger _logger;
+		private ILogging _logger;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public MediatorMapper (ITypeFilter typeFilter, IMediatorViewHandler handler, ILogger logger)
+		public MediatorMapper (ITypeFilter typeFilter, IMediatorViewHandler handler, ILogging logger)
 		{
 			_typeFilter = typeFilter;
 			_handler = handler;

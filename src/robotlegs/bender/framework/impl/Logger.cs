@@ -13,7 +13,7 @@ namespace robotlegs.bender.framework.impl
 	/// <summary>
 	/// Default Robotlegs logger
 	/// </summary>
-	public class Logger : ILogger
+	public class Logger : ILogging
 	{
 		
 		/*============================================================================*/

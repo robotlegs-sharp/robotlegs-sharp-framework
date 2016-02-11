@@ -274,7 +274,7 @@ namespace robotlegs.bender.framework.impl
 
 		private ExtensionInstaller _extensionInstaller;
 
-		private ILogger _logger;
+		private ILogging _logger;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
@@ -515,7 +515,7 @@ namespace robotlegs.bender.framework.impl
 			return this;
 		}
 		
-		public ILogger GetLogger(object source)
+		public ILogging GetLogger(object source)
 		{
 			return _logManager.GetLogger(source);
 		}

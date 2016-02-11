@@ -14,7 +14,7 @@ namespace robotlegs.bender.extensions.enhancedLogging
 	{
 		public void Extend (IContext context)
 		{
-			context.injector.Map(typeof(ILogger)).ToProvider(new LoggerProvider(context));
+			context.injector.Map(typeof(ILogging)).ToProvider(new LoggerProvider(context));
 		}
 	}
 }

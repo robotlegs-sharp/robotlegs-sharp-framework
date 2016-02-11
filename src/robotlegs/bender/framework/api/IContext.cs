@@ -94,7 +94,7 @@ namespace robotlegs.bender.framework.api
 		/// </summary>
 		/// <returns>this</returns>
 		/// <param name="source">Logging source</param>
-		ILogger GetLogger(Object source);
+		ILogging GetLogger(Object source);
 
 		/// <summary>
 		/// Adds a custom log target

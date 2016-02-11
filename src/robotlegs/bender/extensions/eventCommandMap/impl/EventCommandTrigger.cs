@@ -35,7 +35,7 @@ namespace robotlegs.bender.extensions.eventCommandMap.impl
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public EventCommandTrigger (IInjector injector, IEventDispatcher dispatcher, Enum type, Type eventClass = null, IEnumerable<CommandMappingList.Processor> processors = null, ILogger logger = null)
+		public EventCommandTrigger (IInjector injector, IEventDispatcher dispatcher, Enum type, Type eventClass = null, IEnumerable<CommandMappingList.Processor> processors = null, ILogging logger = null)
 		{
 			_dispatcher = dispatcher;
 			_type = type;

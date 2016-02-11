@@ -24,13 +24,13 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 
 		private ITypeFilter _matcher;
 
-		private ILogger _logger;
+		private ILogging _logger;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
 
-		public ViewProcessorMapper(ITypeFilter matcher, IViewProcessorViewHandler handler, ILogger logger = null)
+		public ViewProcessorMapper(ITypeFilter matcher, IViewProcessorViewHandler handler, ILogging logger = null)
 		{
 			_handler = handler;
 			_matcher = matcher;

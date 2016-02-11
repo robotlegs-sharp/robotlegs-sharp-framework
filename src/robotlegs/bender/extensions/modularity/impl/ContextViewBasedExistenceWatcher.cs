@@ -21,7 +21,7 @@ namespace robotlegs.bender.extensions.modularity.impl
 		/* protected Properties                                                       */
 		/*============================================================================*/
 
-		protected ILogger _logger;
+		protected ILogging _logger;
 
 		protected IContext _context;
 

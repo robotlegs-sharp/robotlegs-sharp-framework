@@ -18,7 +18,7 @@ namespace robotlegs.bender.extensions.viewManager
 		/* Protected Properties                                                         */
 		/*============================================================================*/
 
-		protected ILogger _logger;
+		protected ILogging _logger;
 
 		protected IInjector _injector;
 

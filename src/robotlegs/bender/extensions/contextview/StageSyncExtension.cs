@@ -41,7 +41,7 @@ namespace robotlegs.bender.extensions.contextview
 		/* Protected Functions                                                        */
 		/*============================================================================*/
 
-		protected ILogger _logger;
+		protected ILogging _logger;
 		
 		/*============================================================================*/
 		/* Public Functions                                                           */
