@@ -37,8 +37,8 @@
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\contentView\impl\TransformContextView.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityViewStateWatcher.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityStageCrawler.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\bundles\UnityMVCSBundle.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\bundles\UnityFallbackBundle.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\bundles\UnityMultiContextBundle.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\bundles\UnitySingleContextBundle.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\UnityParentFinderExtension.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityFallbackStageCrawler.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityParentFinder.cs" />
