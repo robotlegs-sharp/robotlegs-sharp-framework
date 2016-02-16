@@ -11,11 +11,11 @@ To start using the Unity specific extensions. Instead of installing the MVCSBund
 
 ```csharp
 context = new Context()
-	.Install<UnityMVCSBundle>()
+	.Install<UnityMultiContextBundle>()
     .Configure(new TransformContextView(transform));
 ```
 
-The context will initialize automatically for you when a Script on the ContextView has initialized and will destory when your context view has been destoyed.
+The context will initialize automatically for you when a Script on the ContextView has initialized and will destroy when your context view has been destoyed.
 
 Now by design, the View's are only mediated/processed when it is parented to a context. So in this heirchy:
 
@@ -28,12 +28,11 @@ Now by design, the View's are only mediated/processed when it is parented to a c
 
 View A will not get processed/mediated (whereas, View B and View C will).
 
-If you want your context to map **all remaining views** that are not parented to a context. Add the UnityFallbackBundle to that Context.
+If you want your context to map **all remaining views** that are not parented to a context. Add the UnitySingleContextBundle to that Context instead.
 
 ```csharp
 context = new Context()
-	.Install<UnityMVCSBundle>()
-    .Install<UnityFallbackBundle>()
+	.Install<UnitySingleContextBundle>()
     .Configure(new TransformContextView(transform));
 ```
 
@@ -114,8 +113,8 @@ Tied as a Mediator Manager class. Unity will add a tiny component to your view i
 
 We've added Unity Singletons which adds to your ContextView. Visually, you can see what singletons have been mapped at the point. Note that by default, your **AsSingleton** and **ToSingleton** do not instantiate by default until it is first pulled out of the injector. This class will help you visualise this.
 
-Bundle Differences
-------------------
+Bundle Differences from original
+--------------------------------
 
 We've removed the Console Logging Extension, and have added the Debug Logging Extension so the logger logs out to the correct console.
 

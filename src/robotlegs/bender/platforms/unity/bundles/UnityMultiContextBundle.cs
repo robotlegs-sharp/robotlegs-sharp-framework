@@ -28,7 +28,14 @@ using UnityEngine;
 
 namespace robotlegs.bender.bundles
 {
-	public class UnityMVCSBundle : IExtension
+	/// <summary>
+	/// Unity multi context bundle, installs the MVCS packages for a many context,
+	/// view's must be a child of the context view to mediated
+	/// Installs the ModularityExtension which inherits mappings from it's parent
+	/// context's in the heirarchy
+	/// </summary>
+	/// 
+	public class UnityMultiContextBundle : IExtension
 	{
 		/*============================================================================*/
 		/* Public Functions                                                           */
