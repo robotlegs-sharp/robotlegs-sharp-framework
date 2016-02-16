@@ -67,7 +67,7 @@ namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 		}
 		#pragma warning restore 0108
 
-		public GameObject target;
+		public object target;
 
 		public bool isAdded 
 		{ 

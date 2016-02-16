@@ -25,7 +25,9 @@ namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
 				_logger.Warn("ContextView is not a Component or a GameObject, {0}", contextView);
 				return null;
 			}
-			return target.AddComponent<UnityViewStateWatcher>();
+			UnityViewStateWatcher viewStateWatcher = target.AddComponent<UnityViewStateWatcher>();
+			viewStateWatcher.target = contextView;
+			return viewStateWatcher;
 		}
 	}
 }

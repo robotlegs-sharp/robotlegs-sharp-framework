@@ -247,6 +247,7 @@
     <Compile Include="test\robotlegs\bender\extensions\mediatorMap\impl\support\MediatorViewHandlerStub.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportEventView.cs" />
     <Compile Include="test\robotlegs\bender\extensions\viewManager\support\SupportEventViewImplemented.cs" />
+    <Compile Include="test\robotlegs\bender\extensions\modularity\impl\LogLevelTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">

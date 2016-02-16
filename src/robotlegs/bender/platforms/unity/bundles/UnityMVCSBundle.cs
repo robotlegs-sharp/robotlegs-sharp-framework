@@ -51,6 +51,7 @@ namespace robotlegs.bender.bundles
 			context.Install(typeof(ContextViewExtension));
 			context.Install(typeof(ContextViewTransformExtension));
 			context.Install(typeof(EventDispatcherExtension));
+			context.Install(typeof(UnityViewStateWatcherExtension));
 			context.Install(typeof(ModularityExtension));
 			context.Install(typeof(DirectCommandMapExtension));
 			context.Install(typeof(EventCommandMapExtension));
@@ -60,7 +61,6 @@ namespace robotlegs.bender.bundles
 			context.Install(typeof(ViewProcessorMapExtension));
 			context.Install(typeof(StageCrawlerExtension));
 			context.Install(typeof(StageSyncExtension));
-			context.Install(typeof(UnityViewStateWatcherExtension));
 
 			context.Configure(typeof(UnityStageCrawlerConfig));
 			context.Configure(typeof(ContextViewListenerConfig));
