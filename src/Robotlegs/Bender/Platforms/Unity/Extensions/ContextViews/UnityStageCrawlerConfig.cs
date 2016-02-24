@@ -5,28 +5,22 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using System;
 using Robotlegs.Bender.Extensions.ViewManagement.API;
 using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Platforms.Unity.Extensions.ViewManager.Impl;
 
-namespace Robotlegs.Bender.Platforms.Unity.Extensions.ContextView
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.ContextViews
 {
-	public class UnityFallbackStageCrawlerConfig : IConfig
+	public class UnityStageCrawlerConfig : IConfig
 	{
 		[Inject]
 		public IInjector injector {get;set;}
-		
+
 		public void Configure ()
 		{
-			Type stageCrawlerInterface = typeof(IStageCrawler);
-			if (injector.HasMapping (stageCrawlerInterface)) 
-			{
-				injector.Unmap (stageCrawlerInterface);
-			}
-			injector.Map (stageCrawlerInterface).ToType (typeof(UnityFallbackStageCrawler));
+			injector.Map (typeof(IStageCrawler)).ToType (typeof(UnityStageCrawler));
 		}
-		
+
 	}
 }
 

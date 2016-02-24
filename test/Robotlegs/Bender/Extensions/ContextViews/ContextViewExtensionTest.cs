@@ -10,12 +10,12 @@ using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Extensions.ViewManagement.Support;
 using NUnit.Framework;
 using Robotlegs.Bender.Framework.Impl;
-using Robotlegs.Bender.Extensions.ContextView;
-using Robotlegs.Bender.Extensions.ContextView.Impl;
+using Robotlegs.Bender.Extensions.ContextViews;
+using Robotlegs.Bender.Extensions.ContextViews.Impl;
 using Robotlegs.Bender.Framework.Impl.LoggingSupport;
-using Robotlegs.Bender.Extensions.ContextView.API;
+using Robotlegs.Bender.Extensions.ContextViews.API;
 
-namespace Robotlegs.Bender.Extensions.ContextView
+namespace Robotlegs.Bender.Extensions.ContextViews
 {
 	[TestFixture]
 	public class ContextViewExtensionTest
@@ -54,7 +54,7 @@ namespace Robotlegs.Bender.Extensions.ContextView
 		public void icontextView_is_mapped()
 		{
 			IContextView actual = null;
-			context.Install<ContextViewExtension>().Configure(new ContextView.Impl.ContextView(view));
+			context.Install<ContextViewExtension>().Configure(new ContextView(view));
 			context.WhenInitializing((Action)delegate() {
 				actual = context.injector.GetInstance<IContextView>();
 			});
@@ -67,7 +67,7 @@ namespace Robotlegs.Bender.Extensions.ContextView
 		{
 			IContextView actual = null;
 			SupportView secondView = new SupportView();
-			context.Install<ContextViewExtension>().Configure(new ContextView.Impl.ContextView(view), new ContextView.Impl.ContextView(secondView));
+			context.Install<ContextViewExtension>().Configure(new ContextView(view), new ContextView(secondView));
 			context.WhenInitializing((Action)delegate() {
 				actual = context.injector.GetInstance<IContextView>();
 			});

@@ -31,10 +31,10 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\DependencyProviders\UnityComponentProvider.cs" />
-    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContentView\UnityStageCrawlerConfig.cs" />
-    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContentView\UnityFallbackStageCrawlerConfig.cs" />
-    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContentView\ContextViewTransformExtension.cs" />
-    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContentView\Impl\TransformContextView.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContextViews\UnityStageCrawlerConfig.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContextViews\UnityFallbackStageCrawlerConfig.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContextViews\ContextViewTransformExtension.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContextViews\Impl\TransformContextView.cs" />
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ViewManagement\Impl\UnityViewStateWatcher.cs" />
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ViewManagement\Impl\UnityStageCrawler.cs" />
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Bundles\UnityMultiContextBundle.cs" />

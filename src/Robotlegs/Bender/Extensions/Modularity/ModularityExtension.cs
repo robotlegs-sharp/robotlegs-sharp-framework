@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using Robotlegs.Bender.Extensions.ContextView.API;
+using Robotlegs.Bender.Extensions.ContextViews.API;
 using Robotlegs.Bender.Extensions.EventManagement.API;
 using Robotlegs.Bender.Extensions.EventManagement.Impl;
 using Robotlegs.Bender.Extensions.Modularity.API;

@@ -54,7 +54,7 @@
     <Folder Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Support\" />
     <Folder Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Impl\" />
     <Folder Include="test\Robotlegs\Bender\Extensions\Modularity\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\ContextView\" />
+    <Folder Include="test\Robotlegs\Bender\Extensions\ContextViews\" />
     <Folder Include="test\Robotlegs\Bender\Extensions\CommandCenter\" />
     <Folder Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\" />
     <Folder Include="test\Robotlegs\Bender\Extensions\CommandCenter\Impl\" />
@@ -122,7 +122,7 @@
     <Compile Include="test\Robotlegs\Bender\Extensions\Modularity\ModularityExtensionTest.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\Modularity\Impl\ModuleConnectionConfiguratorTest.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\Modularity\Impl\ModuleConnectorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ContextView\StageSyncExtensionTest.cs" />
+    <Compile Include="test\Robotlegs\Bender\Extensions\ContextViews\StageSyncExtensionTest.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\NullCommand.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\CallbackCommand.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\CallbackCommand2.cs" />
@@ -164,7 +164,7 @@
     <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackBundle.cs" />
     <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackUntypedExtension.cs" />
     <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\ExtensionWithMultipleConstructors.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ContextView\ContextViewExtensionTest.cs" />
+    <Compile Include="test\Robotlegs\Bender\Extensions\ContextViews\ContextViewExtensionTest.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\LocalEventMap\Impl\Support\CustomEvent.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\IType1.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\IType2.cs" />

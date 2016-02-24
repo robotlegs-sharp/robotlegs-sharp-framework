@@ -1,4 +1,4 @@
-﻿using Robotlegs.Bender.Extensions.ContextView.API;
+﻿using Robotlegs.Bender.Extensions.ContextViews.API;
 using swiftsuspenders;
 using swiftsuspenders.dependencyproviders;
 using System;

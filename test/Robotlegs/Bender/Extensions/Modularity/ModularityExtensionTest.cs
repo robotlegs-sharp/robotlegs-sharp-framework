@@ -7,9 +7,9 @@
 
 using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Framework.Impl;
-using Robotlegs.Bender.Extensions.ContextView;
+using Robotlegs.Bender.Extensions.ContextViews;
 using NUnit.Framework;
-using Robotlegs.Bender.Extensions.ContextView.Impl;
+using Robotlegs.Bender.Extensions.ContextViews.Impl;
 using Robotlegs.Bender.Framework.Impl.LoggingSupport;
 using Robotlegs.Bender.Extensions.EventManagement;
 using Robotlegs.Bender.Extensions.Modularity.API;
@@ -92,7 +92,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 			llt.ERROR += (LogLevelTarget.LogEventDelegate)delegate(object source, object message, object[] messageParams) {
 				Assert.Fail();
 			};
-			context.Configure (new ContextView.Impl.ContextView (root));
+			context.Configure (new ContextView (root));
 		}
 
 		[Test]
@@ -109,7 +109,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				Assert.That(message, Is.StringContaining("IViewStateWatcher installed prior to Modularity").IgnoreCase);
 				Assert.Pass();
 			};
-			context.Configure (new ContextView.Impl.ContextView (root));
+			context.Configure (new ContextView (root));
 			Assert.Fail();
 		}
 
@@ -157,13 +157,13 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install (typeof(SupportParentFinderExtension))
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
-				.Configure(new ContextView.Impl.ContextView(parentView));
+				.Configure(new ContextView(parentView));
 
 			childContext
 				.Install (typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
 				.Install (typeof(SupportParentFinderExtension))
-				.Configure (new ContextView.Impl.ContextView (childView));
+				.Configure (new ContextView (childView));
 
 			ContainerRegistry cr = new ContainerRegistry();
 			cr.SetParentFinder (new SupportParentFinder ());
@@ -184,8 +184,8 @@ namespace Robotlegs.Bender.Extensions.Modularity
 		public void Context_Does_Not_Inherit_Parent_Injector_When_Not_Interested()
 		{
 			AddRootToStage();
-			parentContext.Install(typeof(ModularityExtension)).Configure(new ContextView.Impl.ContextView(parentView));
-			childContext.Install(new ModularityExtension(false)).Configure(new ContextView.Impl.ContextView(childView));
+			parentContext.Install(typeof(ModularityExtension)).Configure(new ContextView(parentView));
+			childContext.Install(new ModularityExtension(false)).Configure(new ContextView(childView));
 			root.AddChild(parentView);
 			parentView.AddChild(childView);
 
@@ -196,8 +196,8 @@ namespace Robotlegs.Bender.Extensions.Modularity
 		public void Context_Does_Not_Inherit_Parent_Injector_When_Disallowed_By_Parent()
 		{
 			AddRootToStage();
-			parentContext.Install(new ModularityExtension(true, false)).Configure(new ContextView.Impl.ContextView(parentView));
-			childContext.Install(typeof(ModularityExtension)).Configure(new ContextView.Impl.ContextView(childView));
+			parentContext.Install(new ModularityExtension(true, false)).Configure(new ContextView(parentView));
+			childContext.Install(typeof(ModularityExtension)).Configure(new ContextView(childView));
 			root.AddChild (parentView);
 			parentView.AddChild (childView);
 
@@ -213,13 +213,13 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install (typeof(SupportParentFinderExtension))
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
-				.Configure(new ContextView.Impl.ContextView(parentView));
+				.Configure(new ContextView(parentView));
 
 			childContext
 				.Install (typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
 				.Install (typeof(SupportParentFinderExtension))
-				.Configure (new ContextView.Impl.ContextView (childView));
+				.Configure (new ContextView (childView));
 
 
 			SupportView anotherChildView = new SupportView ();
@@ -229,7 +229,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install (typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
 				.Install (typeof(SupportParentFinderExtension))
-				.Configure (new ContextView.Impl.ContextView (anotherChildView));
+				.Configure (new ContextView (anotherChildView));
 
 
 			ContainerRegistry cr = new ContainerRegistry();
@@ -258,13 +258,13 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(SupportParentFinderExtension))
 				.Install (typeof(ModularityExtension))
-				.Configure(new ContextView.Impl.ContextView(parentView));
+				.Configure(new ContextView(parentView));
 
 			childContext
 				.Install (typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
 				.Install (typeof(SupportParentFinderExtension))
-				.Configure (new ContextView.Impl.ContextView (childView));
+				.Configure (new ContextView (childView));
 
 
 			SupportView anotherChildView = new SupportView ();
@@ -274,7 +274,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install (typeof(ContextViewExtension))
 				.Install (typeof(ModularityExtension))
 				.Install (typeof(SupportParentFinderExtension))
-				.Configure (new ContextView.Impl.ContextView (anotherChildView));
+				.Configure (new ContextView (anotherChildView));
 
 
 			ContainerRegistry cr = new ContainerRegistry();
@@ -333,7 +333,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install(typeof(ViewManagerExtension))
 				.Install (typeof(SupportParentFinderExtension))
 				.Configure(typeof(ContextViewListenerConfig))
-				.Configure(new ContextView.Impl.ContextView(parentView));
+				.Configure(new ContextView(parentView));
 
 			IViewManager viewManager = parentContext.injector.GetInstance (typeof(IViewManager)) as IViewManager;
 			viewManager.AddContainer (childView);
@@ -342,7 +342,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
 				.Install (typeof(SupportParentFinderExtension))
-				.Configure(new ContextView.Impl.ContextView(childView));
+				.Configure(new ContextView(childView));
 
 			root.AddChild(parentView);
 			root.AddChild(childView);
@@ -386,7 +386,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install(typeof(ViewManagerExtension))
 				.Install (typeof(SupportParentFinderExtension))
 				.Configure(typeof(ContextViewListenerConfig))
-				.Configure(new ContextView.Impl.ContextView(parentView));
+				.Configure(new ContextView(parentView));
 
 			GetModularityEventDispatcher().AddEventListener(ModularContextEvent.Type.CONTEXT_ADD, delegate() {
 				eventFireCount++;
@@ -399,7 +399,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
 				.Install (typeof(SupportParentFinderExtension))
-				.Configure(new ContextView.Impl.ContextView(childView));
+				.Configure(new ContextView(childView));
 
 			Assert.That (eventFireCount, Is.EqualTo(1));
 		}
@@ -420,7 +420,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install(typeof(ViewManagerExtension))
 				.Install (typeof(SupportParentFinderExtension))
 				.Configure(typeof(ContextViewListenerConfig))
-				.Configure(new ContextView.Impl.ContextView(parentView));
+				.Configure(new ContextView(parentView));
 
 			GetModularityEventDispatcher().AddEventListener(ModularContextEvent.Type.CONTEXT_ADD, delegate() {
 				eventFired = true;
@@ -434,7 +434,7 @@ namespace Robotlegs.Bender.Extensions.Modularity
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install (typeof(ModularityExtension))
 				.Install (typeof(SupportParentFinderExtension))
-				.Configure(new ContextView.Impl.ContextView(childView));
+				.Configure(new ContextView(childView));
 
 			Assert.That (eventFired, Is.True);
 			Assert.That (childContextUninitialzied, Is.True);

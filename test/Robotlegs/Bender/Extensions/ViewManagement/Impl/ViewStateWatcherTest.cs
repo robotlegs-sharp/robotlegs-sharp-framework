@@ -10,7 +10,7 @@ using Robotlegs.Bender.Extensions.ViewManagement.API;
 using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Extensions.ViewManagement.Support;
 using Robotlegs.Bender.Framework.Impl;
-using Robotlegs.Bender.Extensions.ContextView.Impl;
+using Robotlegs.Bender.Extensions.ContextViews.Impl;
 using swiftsuspenders.errors;
 
 namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
@@ -51,7 +51,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcherExtension_Is_Mapped_To_Injector_After_Context_View_Is_Configured()
 		{
 			object actual = null;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			actual = context.injector.GetInstance<IViewStateWatcher>();
 
 			Assert.That(actual, Is.InstanceOf<IViewStateWatcher>());
@@ -67,7 +67,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		[Test]
 		public void ViewStateWatcher_Knowns_When_View_Is_Added()
 		{
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 
 			Assert.That (actual.isAdded, Is.False);
@@ -79,7 +79,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcher_Hears_When_View_Is_Added()
 		{
 			bool heardEvent = false;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 			actual.added += delegate(object obj) {
 				heardEvent = true;
@@ -93,7 +93,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcher_Hears_When_View_Is_Removed()
 		{
 			bool heardEvent = false;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 			actual.removed += delegate(object obj) {
 				heardEvent = true;
@@ -107,7 +107,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcher_Hears_When_View_Is_Enabled()
 		{
 			bool heardEvent = false;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 			actual.enabled += delegate(object obj) {
 				heardEvent = true;
@@ -121,7 +121,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcher_Hears_When_View_Is_Disabled()
 		{
 			bool heardEvent = false;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 			actual.disabled += delegate(object obj) {
 				heardEvent = true;
@@ -135,7 +135,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcher_Passes_View_Through_Added_Event()
 		{
 			object passedObject = null;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 			actual.added += delegate(object obj) {
 				passedObject = obj;
@@ -149,7 +149,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcher_Passes_View_Through_Removed_Event()
 		{
 			object passedObject = null;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 			actual.removed += delegate(object obj) {
 				passedObject = obj;
@@ -163,7 +163,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcher_Passes_View_Through_Enabled_Event()
 		{
 			object passedObject = null;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 			actual.enabled += delegate(object obj) {
 				passedObject = obj;
@@ -177,7 +177,7 @@ namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 		public void ViewStateWatcher_Passes_View_Through_Disabled_Event()
 		{
 			object passedObject = null;
-			context.Configure (new ContextView.Impl.ContextView (contextViewObject));
+			context.Configure (new ContextView (contextViewObject));
 			IViewStateWatcher actual = context.injector.GetInstance<IViewStateWatcher>() as IViewStateWatcher;
 			actual.disabled += delegate(object obj) {
 				passedObject = obj;

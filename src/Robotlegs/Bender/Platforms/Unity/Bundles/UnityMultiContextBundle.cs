@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using Robotlegs.Bender.Extensions.ContextView;
+using Robotlegs.Bender.Extensions.ContextViews;
 using Robotlegs.Bender.Extensions.DirectCommand;
 using Robotlegs.Bender.Extensions.EnhancedLogging;
 using Robotlegs.Bender.Extensions.EventCommand;
@@ -18,7 +18,7 @@ using Robotlegs.Bender.Extensions.ViewProcessor;
 using Robotlegs.Bender.Extensions.Vigilance;
 using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Framework.Impl;
-using Robotlegs.Bender.Platforms.Unity.Extensions.ContextView;
+using Robotlegs.Bender.Platforms.Unity.Extensions.ContextViews;
 using Robotlegs.Bender.Platforms.Unity.Extensions.DebugLogging;
 using Robotlegs.Bender.Platforms.Unity.Extensions.Mediation;
 using Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons;

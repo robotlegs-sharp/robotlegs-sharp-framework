@@ -64,10 +64,10 @@
     <Compile Include="src\Robotlegs\Bender\Extensions\CommandCenter\DSL\ICommandUnmapper.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandMapper.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandMapping.cs" />
-    <Compile Include="src\Robotlegs\Bender\Extensions\ContextView\ContextViewExtension.cs" />
-    <Compile Include="src\Robotlegs\Bender\Extensions\ContextView\ContextViewListenerConfig.cs" />
-    <Compile Include="src\Robotlegs\Bender\Extensions\ContextView\API\IContextView.cs" />
-    <Compile Include="src\Robotlegs\Bender\Extensions\ContextView\Impl\ContextView.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\ContextViews\ContextViewExtension.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\ContextViews\ContextViewListenerConfig.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\ContextViews\API\IContextView.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\ContextViews\Impl\ContextView.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\EnhancedLogging\ConsoleLoggingExtension.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\EnhancedLogging\Impl\ConsoleLogTarget.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\Matching\InstanceOfMatcher.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="src\Robotlegs\Bender\Framework\API\ILifecycleEvent.cs" />
     <Compile Include="src\Robotlegs\Bender\Framework\API\MessageDispatcherDelegate.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\Matching\AssignableFromMatcher.cs" />
-    <Compile Include="src\Robotlegs\Bender\Extensions\ContextView\StageSyncExtension.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\ContextViews\StageSyncExtension.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\Modularity\ModularityExtension.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\Modularity\API\IModuleConnector.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\Modularity\DSL\IModuleConnectionAction.cs" />
