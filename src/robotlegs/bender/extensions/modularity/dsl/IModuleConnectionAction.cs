@@ -7,7 +7,7 @@
 
 using System;
 
-namespace robotlegs.bender.extensions.modularity.dsl
+namespace Robotlegs.Bender.Extensions.Modularity.DSL
 {
 	public interface IModuleConnectionAction
 	{

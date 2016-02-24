@@ -5,9 +5,9 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.modularity.dsl;
+using Robotlegs.Bender.Extensions.Modularity.DSL;
 
-namespace robotlegs.bender.extensions.modularity.api
+namespace Robotlegs.Bender.Extensions.Modularity.API
 {
 	/// <summary>
 	/// Create event relays between modules

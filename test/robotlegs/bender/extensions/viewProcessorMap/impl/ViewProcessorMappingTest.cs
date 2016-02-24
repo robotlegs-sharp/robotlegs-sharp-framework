@@ -13,10 +13,10 @@
 //------------------------------------------------------------------------------
 using System.Collections.Generic;
 using System;
-using robotlegs.bender.extensions.matching;
+using Robotlegs.Bender.Extensions.Matching;
 using NUnit.Framework;
 
-namespace robotlegs.bender.extensions.viewProcessorMap.impl
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Impl
 {
 	public class ViewProcessorMappingTest
 	{

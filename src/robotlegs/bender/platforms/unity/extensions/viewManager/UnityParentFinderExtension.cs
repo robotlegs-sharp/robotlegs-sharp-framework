@@ -5,12 +5,12 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.viewManager;
-using robotlegs.bender.extensions.viewManager.impl;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.ViewManagement;
+using Robotlegs.Bender.Extensions.ViewManagement.Impl;
+using Robotlegs.Bender.Framework.API;
 using robotlegs.bender.framework.unity.extensions.viewManager.impl;
 
-namespace robotlegs.bender.platforms.unity.extensions.viewManager
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.ViewManager
 {
 	public class UnityParentFinderExtension : IExtension
 	{

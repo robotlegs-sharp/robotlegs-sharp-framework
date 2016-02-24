@@ -8,10 +8,10 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using robotlegs.bender.extensions.commandCenter.api;
-using robotlegs.bender.extensions.commandCenter.dsl;
+using Robotlegs.Bender.Extensions.CommandCenter.API;
+using Robotlegs.Bender.Extensions.CommandCenter.DSL;
 
-namespace robotlegs.bender.extensions.commandCenter.impl
+namespace Robotlegs.Bender.Extensions.CommandCenter.Impl
 {
 	[TestFixture]
 	public class CommandMapperTest

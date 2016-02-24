@@ -5,11 +5,11 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.localEventMap.api;
-using robotlegs.bender.extensions.localEventMap.impl;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.LocalEventMap.API;
+using Robotlegs.Bender.Extensions.LocalEventMap.Impl;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.localEventMap
+namespace Robotlegs.Bender.Extensions.LocalEventMap
 {
 	/// <summary>
 	/// An Event Map keeps track of listeners and provides the ability to

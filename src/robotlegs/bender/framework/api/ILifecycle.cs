@@ -7,7 +7,7 @@
 
 ﻿using System;
 
-namespace robotlegs.bender.framework.api
+namespace Robotlegs.Bender.Framework.API
 {
 	public interface ILifecycle : ILifecycleEvent
 	{

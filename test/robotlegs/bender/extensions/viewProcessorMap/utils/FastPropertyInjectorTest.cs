@@ -5,13 +5,13 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.Impl;
 using NUnit.Framework;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 using System.Collections.Generic;
 using System;
 
-namespace robotlegs.bender.extensions.viewProcessorMap.utils
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Utils
 {
 	[TestFixture]
 	public class FastPropertyInjectorTest

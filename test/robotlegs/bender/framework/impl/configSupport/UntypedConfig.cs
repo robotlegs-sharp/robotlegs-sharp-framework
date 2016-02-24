@@ -7,7 +7,7 @@
 
 ﻿using System;
 
-namespace robotlegs.bender.framework.impl.configSupport
+namespace Robotlegs.Bender.Framework.Impl.ConfigSupport
 {
 	public class UntypedConfig
 	{

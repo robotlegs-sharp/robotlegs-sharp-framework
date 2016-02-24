@@ -5,13 +5,13 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl;
 using NUnit.Framework;
-using robotlegs.bender.extensions.viewManager.support;
+using Robotlegs.Bender.Extensions.ViewManagement.Support;
 
 
-namespace robotlegs.bender.extensions.viewProcessorMap.impl
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Impl
 {
 	public class ViewInjectionProcessorTest
 	{

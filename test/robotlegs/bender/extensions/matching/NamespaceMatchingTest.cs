@@ -12,13 +12,12 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 using NUnit.Framework;
-using System.Collections.Generic;
-using robotlegs.bender.extensions.matching.support.a;
-using robotlegs.bender.extensions.matching.support.c;
-using robotlegs.bender.extensions.matching.support.b;
+using Robotlegs.Bender.Extensions.Matching.Support.A;
+using Robotlegs.Bender.Extensions.Matching.Support.C;
+using Robotlegs.Bender.Extensions.Matching.Support.B;
 using System;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	public class NamespaceMatchingTest
 	{
@@ -29,13 +28,13 @@ namespace robotlegs.bender.extensions.matching
 
 		private NamespaceMatcher instance;
 
-		private string PACKAGE_A = "robotlegs.bender.extensions.matching.support.a";
+		private string PACKAGE_A = "Robotlegs.Bender.Extensions.Matching.Support.A";
 
-		private string PACKAGE_B = "robotlegs.bender.extensions.matching.support.b";
+		private string PACKAGE_B = "Robotlegs.Bender.Extensions.Matching.Support.B";
 
-		private string PACKAGE_C = "robotlegs.bender.extensions.matching.support.c";
+		private string PACKAGE_C = "Robotlegs.Bender.Extensions.Matching.Support.C";
 
-		private string PARENT_PACKAGE = "robotlegs.bender.extensions.matching.support";
+		private string PARENT_PACKAGE = "Robotlegs.Bender.Extensions.Matching.Support";
 
 		private string REQUIRE;
 

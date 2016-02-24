@@ -8,11 +8,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using robotlegs.bender.extensions.commandCenter.api;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Extensions.CommandCenter.API;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl;
 
-namespace robotlegs.bender.extensions.commandCenter.impl
+namespace Robotlegs.Bender.Extensions.CommandCenter.Impl
 {
 	public class CommandExecutor : ICommandExecutor
 	{

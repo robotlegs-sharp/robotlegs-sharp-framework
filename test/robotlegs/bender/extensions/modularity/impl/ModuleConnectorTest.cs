@@ -5,17 +5,15 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.eventDispatcher;
-using robotlegs.bender.extensions.modularity.api;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.eventDispatcher.api;
+using Robotlegs.Bender.Extensions.EventManagement;
+using Robotlegs.Bender.Extensions.Modularity.API;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Extensions.EventManagement.API;
 using NUnit.Framework;
-using robotlegs.bender.framework.impl;
-using robotlegs.bender.extensions.eventCommandMap.support;
-using System;
-using robotlegs.bender.extensions.eventDispatcher.impl;
+using Robotlegs.Bender.Framework.Impl;
+using Robotlegs.Bender.Extensions.EventCommand.Support;
 
-namespace robotlegs.bender.extensions.modularity.impl
+namespace Robotlegs.Bender.Extensions.Modularity.Impl
 {
 
 	public class ModuleConnectorTest

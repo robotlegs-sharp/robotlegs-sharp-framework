@@ -6,10 +6,10 @@
 //------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 using System;
 
-namespace robotlegs.bender.extensions.viewProcessorMap.support
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Support
 {
 	public class TrackingProcessor : ITrackingProcessor
 	{

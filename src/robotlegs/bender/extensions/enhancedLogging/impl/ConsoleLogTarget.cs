@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.enhancedLogging.impl
+namespace Robotlegs.Bender.Extensions.EnhancedLogging.Impl
 {
 	public class ConsoleLogTarget : ILogTarget
 	{
@@ -36,7 +36,7 @@ namespace robotlegs.bender.extensions.enhancedLogging.impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void Log (object source, robotlegs.bender.framework.impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
+		public void Log (object source, Robotlegs.Bender.Framework.Impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
 		{
 			Console.WriteLine(timestamp.ToLongTimeString()
 			      + " " + level.ToString()

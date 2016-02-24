@@ -14,9 +14,9 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using robotlegs.bender.extensions.matching.support;
+using Robotlegs.Bender.Extensions.Matching.Support;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	[TestFixture]
 	public class TypeFilterUsageTest

@@ -7,11 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 using swiftsuspenders.dependencyproviders;
 using swiftsuspenders.mapping;
 
-namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons.Impl
 {
 	public class SingletonFactory
 	{

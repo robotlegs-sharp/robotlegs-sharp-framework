@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.eventDispatcher.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
 
-namespace robotlegs.bender.extensions.localEventMap.api
+namespace Robotlegs.Bender.Extensions.LocalEventMap.API
 {
 	public interface IEventMap
 	{

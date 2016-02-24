@@ -8,12 +8,12 @@
 ﻿using System;
 using NUnit.Framework;
 using System.Threading.Tasks;
-using robotlegs.bender.framework.impl.safelyCallBackSupport;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.Impl.SafelyCallBackSupport;
+using Robotlegs.Bender.Framework.API;
 using System.Threading;
 using System.Collections.Generic;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	[TestFixture]
 	public class MessageDispatcherTest

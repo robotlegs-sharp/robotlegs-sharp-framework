@@ -7,7 +7,7 @@
 
 ﻿using System;
 
-namespace robotlegs.bender.extensions.vigilance
+namespace Robotlegs.Bender.Extensions.Vigilance
 {
 	public class VigilantException : Exception
 	{

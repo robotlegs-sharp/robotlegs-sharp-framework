@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-namespace robotlegs.bender.framework.api
+namespace Robotlegs.Bender.Framework.API
 {
 	public delegate void HandlerMessageDelegate(object message);
 	public delegate void HandlerMessageCallbackDelegate(object message, HandlerAsyncCallback callback);

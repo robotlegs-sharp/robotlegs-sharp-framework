@@ -5,18 +5,17 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.contextview.api;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.eventDispatcher.impl;
-using robotlegs.bender.extensions.modularity.api;
-using robotlegs.bender.extensions.modularity.impl;
-using robotlegs.bender.extensions.viewManager;
-using robotlegs.bender.extensions.viewManager.api;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.contextview.impl;
-using robotlegs.bender.extensions.matching;
+using Robotlegs.Bender.Extensions.ContextView.API;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Extensions.EventManagement.Impl;
+using Robotlegs.Bender.Extensions.Modularity.API;
+using Robotlegs.Bender.Extensions.Modularity.Impl;
+using Robotlegs.Bender.Extensions.ViewManagement;
+using Robotlegs.Bender.Extensions.ViewManagement.API;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Extensions.Matching;
 
-namespace robotlegs.bender.extensions.modularity
+namespace Robotlegs.Bender.Extensions.Modularity
 {
 	/// <summary>
 	/// <p>This extension allows a context to inherit dependencies from a parent context,

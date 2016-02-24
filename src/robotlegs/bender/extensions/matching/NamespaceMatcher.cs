@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 
 	/**

@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	public class AssignableFromMatcher : IMatcher
 	{

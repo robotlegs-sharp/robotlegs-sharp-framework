@@ -5,14 +5,14 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.framework.impl;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.Impl;
+using Robotlegs.Bender.Framework.API;
 using NUnit.Framework;
-using robotlegs.bender.extensions.contextview;
-using robotlegs.bender.extensions.contextview.impl;
-using robotlegs.bender.extensions.viewManager.support;
+using Robotlegs.Bender.Extensions.ContextView;
+using Robotlegs.Bender.Extensions.ContextView.Impl;
+using Robotlegs.Bender.Extensions.ViewManagement.Support;
 
-namespace robotlegs.bender.extensions.contextView
+namespace Robotlegs.Bender.Extensions.ContextView
 {
 	public class StageSyncExtensionTest
 	{
@@ -46,7 +46,7 @@ namespace robotlegs.bender.extensions.contextView
 			context
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install(typeof(StageSyncExtension))
-				.Configure(new ContextView(contextView));
+				.Configure(new ContextView.Impl.ContextView(contextView));
 			contextView.AddThisView ();
 			Assert.That (context.Initialized, Is.True);
 		}
@@ -58,7 +58,7 @@ namespace robotlegs.bender.extensions.contextView
 			context
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install(typeof(StageSyncExtension))
-				.Configure(new ContextView(contextView));
+				.Configure(new ContextView.Impl.ContextView(contextView));
 			Assert.That (context.Initialized, Is.True);
 		}
 
@@ -68,7 +68,7 @@ namespace robotlegs.bender.extensions.contextView
 			context
 				.Install(typeof(TestSupportViewStateWatcherExtension))
 				.Install(typeof(StageSyncExtension))
-				.Configure(new ContextView(contextView));
+				.Configure(new ContextView.Impl.ContextView(contextView));
 			contextView.AddThisView ();
 			contextView.RemoveThisView ();
 			Assert.That (context.Destroyed, Is.True);
@@ -80,7 +80,7 @@ namespace robotlegs.bender.extensions.contextView
 			context
 				.Install(typeof(StageSyncExtension))
 				.Install(typeof(TestSupportViewStateWatcherExtension))
-				.Configure(new ContextView(contextView));
+				.Configure(new ContextView.Impl.ContextView(contextView));
 			contextView.AddThisView ();
 			Assert.That (context.Initialized, Is.True);
 		}
@@ -90,7 +90,7 @@ namespace robotlegs.bender.extensions.contextView
 		{
 			context
 				.Install(typeof(StageSyncExtension))
-				.Configure(new ContextView(contextView));
+				.Configure(new ContextView.Impl.ContextView(contextView));
 			contextView.AddThisView ();
 			Assert.That (context.Initialized, Is.True);
 		}

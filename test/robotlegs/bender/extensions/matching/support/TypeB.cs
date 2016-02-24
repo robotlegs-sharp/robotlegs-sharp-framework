@@ -12,7 +12,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-namespace robotlegs.bender.extensions.matching.support
+namespace Robotlegs.Bender.Extensions.Matching.Support
 {
 
 	public class TypeB

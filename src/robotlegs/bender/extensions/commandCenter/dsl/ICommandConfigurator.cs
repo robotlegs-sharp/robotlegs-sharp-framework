@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-namespace robotlegs.bender.extensions.commandCenter.dsl
+namespace Robotlegs.Bender.Extensions.CommandCenter.DSL
 {
 	public interface ICommandConfigurator
 	{

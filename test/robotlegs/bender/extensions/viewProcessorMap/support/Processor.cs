@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace robotlegs.bender.extensions.viewProcessorMap.support
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Support
 {
 	public class Processor
 	{

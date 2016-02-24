@@ -5,10 +5,10 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.framework.api;
-using robotlegs.bender.platforms.unity.extensions.debugLogging.impl;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Platforms.Unity.Extensions.DebugLogging.Impl;
 
-namespace robotlegs.bender.platforms.unity.extensions.debugLogging
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.DebugLogging
 {
 	public class DebugLoggingExtension : IExtension
 	{

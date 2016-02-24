@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.commandCenter.impl;
+using Robotlegs.Bender.Extensions.CommandCenter.Impl;
 
-namespace robotlegs.bender.extensions.commandCenter.support
+namespace Robotlegs.Bender.Extensions.CommandCenter.Support
 {
 	public class PriorityMapping : CommandMapping
 	{

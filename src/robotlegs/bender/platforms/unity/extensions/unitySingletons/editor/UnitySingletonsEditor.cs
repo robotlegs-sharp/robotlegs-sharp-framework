@@ -6,13 +6,13 @@
 //------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using robotlegs.bender.platforms.unity.extensions.monoscriptCache;
+using Robotlegs.Bender.Platforms.Unity.Extensions.MonoScriptCache;
 using swiftsuspenders.mapping;
 using UnityEditor;
 
-namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons.Impl
 {
-	[CustomEditor(typeof(UnitySingletons))]
+	[CustomEditor(typeof(UnitySingletonsDisplay))]
 	public class UnitySingletonsEditor : Editor
 	{
 		/*============================================================================*/
@@ -21,7 +21,7 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 		
 		private bool start;
 		
-		private UnitySingletons unitySingletons;
+		private UnitySingletonsDisplay unitySingletons;
 		
 		/*============================================================================*/
 		/* Private Functions                                                          */
@@ -33,7 +33,7 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 				return;
 
 			start = true;
-			unitySingletons = target as UnitySingletons;
+			unitySingletons = target as UnitySingletonsDisplay;
 		}
 		
 		/*============================================================================*/
@@ -48,10 +48,10 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons.impl
 				if (kvp.Key.key != null)
 					label += ": " + kvp.Key.key.ToString();
 
-				MonoScript ms = MonoScriptCache.GetMonoScript(kvp.Value.GetType());
+				MonoScript ms = MonoScriptCacher.GetMonoScript(kvp.Value.GetType());
 				if (ms != null)
 				{
-					EditorGUILayout.ObjectField(label, MonoScriptCache.GetMonoScript(kvp.Value.GetType()), typeof(MonoScript), false);
+					EditorGUILayout.ObjectField(label, MonoScriptCacher.GetMonoScript(kvp.Value.GetType()), typeof(MonoScript), false);
 				}
 				else
 				{

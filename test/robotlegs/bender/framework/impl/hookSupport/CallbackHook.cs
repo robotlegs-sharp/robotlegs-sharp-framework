@@ -7,7 +7,7 @@
 
 ﻿using System;
 
-namespace robotlegs.bender.framework.impl.hookSupport
+namespace Robotlegs.Bender.Framework.Impl.HookSupport
 {
 	public class CallbackHook
 	{

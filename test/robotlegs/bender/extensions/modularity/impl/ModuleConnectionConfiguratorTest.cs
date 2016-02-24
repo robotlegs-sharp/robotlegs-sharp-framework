@@ -5,13 +5,13 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.eventDispatcher.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
 using Moq;
 using System;
 using NUnit.Framework;
-using robotlegs.bender.extensions.eventCommandMap.support;
+using Robotlegs.Bender.Extensions.EventCommand.Support;
 
-namespace robotlegs.bender.extensions.modularity.impl
+namespace Robotlegs.Bender.Extensions.Modularity.Impl
 {
 
 	public class ModuleConnectionConfiguratorTest

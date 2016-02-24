@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿namespace robotlegs.bender.extensions.commandCenter.api
+﻿namespace Robotlegs.Bender.Extensions.CommandCenter.API
 {
 	public interface ICommandTrigger
 	{

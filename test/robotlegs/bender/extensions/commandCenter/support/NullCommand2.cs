@@ -5,9 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿using System;
-
-namespace robotlegs.bender.extensions.commandCenter.support
+namespace Robotlegs.Bender.Extensions.CommandCenter.Support
 {
 	public class NullCommand2
 	{

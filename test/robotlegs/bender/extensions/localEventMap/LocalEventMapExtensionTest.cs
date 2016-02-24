@@ -11,12 +11,12 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file 
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.Impl;
 using NUnit.Framework;
-using robotlegs.bender.extensions.localEventMap.api;
-using robotlegs.bender.extensions.eventDispatcher;
+using Robotlegs.Bender.Extensions.LocalEventMap.API;
+using Robotlegs.Bender.Extensions.EventManagement;
 
-namespace robotlegs.bender.extensions.localEventMap
+namespace Robotlegs.Bender.Extensions.LocalEventMap
 {
 	public class LocalEventMapExtensionTest
 	{

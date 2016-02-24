@@ -7,7 +7,7 @@
 
 ﻿using System;
 
-namespace robotlegs.bender.extensions.commandCenter.support
+namespace Robotlegs.Bender.Extensions.CommandCenter.Support
 {
 	public class PayloadInjectionPointsGuard
 	{

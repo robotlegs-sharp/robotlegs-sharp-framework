@@ -5,11 +5,11 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.contextview.api;
-using robotlegs.bender.extensions.matching;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.ContextView.API;
+using Robotlegs.Bender.Extensions.Matching;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.contextview
+namespace Robotlegs.Bender.Extensions.ContextView
 {
 	/// <summary>
 	/// <p>This Extension waits for a ContextView to be added as a configuration

@@ -5,10 +5,10 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.enhancedLogging.impl;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.EnhancedLogging.Impl;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.enhancedLogging
+namespace Robotlegs.Bender.Extensions.EnhancedLogging
 {
 	/// <summary>
 	/// This extension logs messages for all Injector actions.

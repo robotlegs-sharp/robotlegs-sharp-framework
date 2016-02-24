@@ -11,11 +11,11 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file 
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 using System;
-using robotlegs.bender.framework.impl.loggingSupport;
+using Robotlegs.Bender.Framework.Impl.LoggingSupport;
 
-namespace robotlegs.bender.extensions.enhancedLogging.support
+namespace Robotlegs.Bender.Extensions.EnhancedLogging.Support
 {
 
 	public class SupportLogTarget : ILogTarget
@@ -40,7 +40,7 @@ namespace robotlegs.bender.extensions.enhancedLogging.support
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void Log (object source, robotlegs.bender.framework.impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
+		public void Log (object source, Robotlegs.Bender.Framework.Impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
 		{
 			_callback(new LogParams (source, level, timestamp, message, messageParameters));
 		}

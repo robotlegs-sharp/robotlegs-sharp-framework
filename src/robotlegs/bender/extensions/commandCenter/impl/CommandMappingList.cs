@@ -7,10 +7,10 @@
 
 ﻿using System;
 using System.Collections.Generic;
-using robotlegs.bender.extensions.commandCenter.api;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.CommandCenter.API;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.commandCenter.impl
+namespace Robotlegs.Bender.Extensions.CommandCenter.Impl
 {
 	public class CommandMappingList : ICommandMappingList
 	{

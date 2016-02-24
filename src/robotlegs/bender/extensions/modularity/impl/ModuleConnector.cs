@@ -6,13 +6,13 @@
 //------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.eventDispatcher.impl;
-using robotlegs.bender.extensions.modularity.api;
-using robotlegs.bender.extensions.modularity.dsl;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Extensions.EventManagement.Impl;
+using Robotlegs.Bender.Extensions.Modularity.API;
+using Robotlegs.Bender.Extensions.Modularity.DSL;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.modularity.impl
+namespace Robotlegs.Bender.Extensions.Modularity.Impl
 {
 	public class ModuleConnector : IModuleConnector
 	{

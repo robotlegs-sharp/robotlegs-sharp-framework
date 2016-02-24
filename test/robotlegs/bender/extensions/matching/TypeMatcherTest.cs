@@ -8,12 +8,12 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.viewManager.support;
-using robotlegs.bender.framework.impl;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Extensions.ViewManagement.Support;
+using Robotlegs.Bender.Framework.Impl;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	[TestFixture]
 	public class TypeMatcherTest

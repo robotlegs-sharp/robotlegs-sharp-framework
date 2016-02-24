@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-﻿namespace robotlegs.bender.extensions.modularity.dsl
+﻿namespace Robotlegs.Bender.Extensions.Modularity.DSL
 {
 	public enum ModuleChannels
 	{

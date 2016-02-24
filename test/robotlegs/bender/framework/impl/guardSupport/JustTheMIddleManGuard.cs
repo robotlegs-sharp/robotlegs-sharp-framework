@@ -7,7 +7,7 @@
 
 ﻿using System;
 
-namespace robotlegs.bender.framework.impl.guardSupport
+namespace Robotlegs.Bender.Framework.Impl.GuardSupport
 {
 	public class BossGuard
 	{

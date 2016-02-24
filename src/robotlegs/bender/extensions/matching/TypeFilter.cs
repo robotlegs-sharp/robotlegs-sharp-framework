@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	public class TypeFilter : ITypeFilter //TODO: Consider renaming this due to conflicts with System.Reflection.TypeFilter
 	{

@@ -7,7 +7,7 @@
 
 ﻿using System;
 
-namespace robotlegs.bender.framework.impl.loggingSupport
+namespace Robotlegs.Bender.Framework.Impl.LoggingSupport
 {
 	public struct LogParams
 	{

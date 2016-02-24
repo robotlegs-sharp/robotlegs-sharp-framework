@@ -7,10 +7,10 @@
 
 ﻿using System;
 using NUnit.Framework;
-using robotlegs.bender.framework.impl.contextSupport;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.Impl.ContextSupport;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	public class ExtensionInstallerTest
 	{

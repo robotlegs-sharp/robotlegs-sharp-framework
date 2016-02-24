@@ -8,12 +8,12 @@
 ﻿using System;
 using NUnit.Framework;
 using System.Runtime.Remoting.Contexts;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.matching;
-using robotlegs.bender.framework.impl.configSupport;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Extensions.Matching;
+using Robotlegs.Bender.Framework.Impl.ConfigSupport;
 using System.Collections.Generic;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	public class ConfigManagerTest
 	{

@@ -7,10 +7,10 @@
 
 using System.Collections.Generic;
 using NUnit.Framework;
-using robotlegs.bender.extensions.mediatorMap.api;
+using Robotlegs.Bender.Extensions.Mediation.API;
 
 
-namespace robotlegs.bender.extensions.viewProcessorMap.utils 
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Utils 
 {
 	[TestFixture]
 	public class PropertyValueInjectorTest 

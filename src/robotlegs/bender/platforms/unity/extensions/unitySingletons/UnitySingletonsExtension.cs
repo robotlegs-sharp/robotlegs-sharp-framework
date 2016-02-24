@@ -5,12 +5,12 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.contextview.api;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.platforms.unity.extensions.unitySingletons.impl;
+using Robotlegs.Bender.Extensions.ContextView.API;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons.Impl;
 using UnityEngine;
 
-namespace robotlegs.bender.platforms.unity.extensions.unitySingletons
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons
 {
 	public class UnitySingletonsExtension : IExtension
 	{
@@ -22,7 +22,7 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons
 		
 		private SingletonFactory _singletonFactory;
 
-		private UnitySingletons unitySingletons;
+		private UnitySingletonsDisplay unitySingletons;
 		
 		/*============================================================================*/
 		/* Public Functions                                                           */
@@ -47,7 +47,7 @@ namespace robotlegs.bender.platforms.unity.extensions.unitySingletons
 			if (_injector.HasDirectMapping(typeof(IContextView)))
 			{
 				IContextView contextView = _injector.GetInstance(typeof(IContextView)) as IContextView;
-				unitySingletons = (contextView.view as Transform).gameObject.AddComponent<UnitySingletons>();
+				unitySingletons = (contextView.view as Transform).gameObject.AddComponent<UnitySingletonsDisplay>();
 				unitySingletons.SetFactory(_singletonFactory);
 			}
 		}

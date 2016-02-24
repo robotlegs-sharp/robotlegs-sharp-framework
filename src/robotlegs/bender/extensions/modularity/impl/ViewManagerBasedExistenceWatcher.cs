@@ -6,12 +6,12 @@
 //------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.viewManager;
-using robotlegs.bender.extensions.viewManager.api;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Extensions.ViewManagement;
+using Robotlegs.Bender.Extensions.ViewManagement.API;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.modularity.impl
+namespace Robotlegs.Bender.Extensions.Modularity.Impl
 {
 	public class ViewManagerBasedExistenceWatcher : ContextViewBasedExistenceWatcher
 	{

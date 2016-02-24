@@ -6,12 +6,12 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl;
 using swiftsuspenders.errors;
 using swiftsuspenders.mapping;
 
-namespace robotlegs.bender.extensions.vigilance
+namespace Robotlegs.Bender.Extensions.Vigilance
 {
 	public class VigilanceExtension : IExtension, ILogTarget
 	{
@@ -25,7 +25,7 @@ namespace robotlegs.bender.extensions.vigilance
 			context.injector.MappingOverride += MappingOverrideHandler;
 		}
 
-		public void Log (object source, robotlegs.bender.framework.impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
+		public void Log (object source, Robotlegs.Bender.Framework.Impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
 		{
 			if (level <= LogLevel.WARN)
 			{

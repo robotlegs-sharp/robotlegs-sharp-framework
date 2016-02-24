@@ -8,10 +8,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using robotlegs.bender.extensions.matching;
-using robotlegs.bender.framework.impl.safelyCallBackSupport;
+using Robotlegs.Bender.Extensions.Matching;
+using Robotlegs.Bender.Framework.Impl.SafelyCallBackSupport;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	[TestFixture]
 	public class ObjectProcessorTest

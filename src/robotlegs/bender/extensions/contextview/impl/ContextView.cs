@@ -5,15 +5,15 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.contextview.api;
+using Robotlegs.Bender.Extensions.ContextView.API;
 
-namespace robotlegs.bender.extensions.contextview.impl
+namespace Robotlegs.Bender.Extensions.ContextView.Impl
 {
 
 	public class ContextView : IContextView
 	{
 		private object _view;
-
+				
 		public ContextView (object view)
 		{
 			_view = view;

@@ -5,9 +5,9 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.commandCenter.api;
+using Robotlegs.Bender.Extensions.CommandCenter.API;
 
-namespace robotlegs.bender.extensions.commandCenter.impl
+namespace Robotlegs.Bender.Extensions.CommandCenter.Impl
 {
 	public class NullCommandTrigger : ICommandTrigger
 	{

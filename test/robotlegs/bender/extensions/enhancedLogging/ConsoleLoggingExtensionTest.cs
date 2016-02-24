@@ -13,7 +13,7 @@
 //------------------------------------------------------------------------------
 using NUnit.Framework;
 
-namespace robotlegs.bender.extensions.enhancedLogging
+namespace Robotlegs.Bender.Extensions.EnhancedLogging
 {
 
 	public class ConsoleLoggingExtensionTest

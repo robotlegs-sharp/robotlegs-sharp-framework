@@ -7,12 +7,12 @@
 
 ﻿using System;
 using System.Reflection;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.localEventMap.api;
-using robotlegs.bender.extensions.mediatorMap.api;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Extensions.LocalEventMap.API;
+using Robotlegs.Bender.Extensions.Mediation.API;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.bundles.mvcs
+namespace Robotlegs.Bender.Bundles.MVCS
 {
 	/// <summary>
 	/// Classic Robotlegs mediator implementation

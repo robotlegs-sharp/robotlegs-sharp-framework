@@ -6,10 +6,10 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 using swiftsuspenders.mapping;
 
-namespace robotlegs.bender.extensions.enhancedLogging.impl
+namespace Robotlegs.Bender.Extensions.EnhancedLogging.Impl
 {
 	public class InjectorListener
 	{

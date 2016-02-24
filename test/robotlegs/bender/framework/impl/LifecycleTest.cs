@@ -7,13 +7,13 @@
 
 ﻿using System;
 using NUnit.Framework;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	[TestFixture]
 	public class LifecycleTest
@@ -325,7 +325,7 @@ namespace robotlegs.bender.framework.impl
 		// ----- Adding handlers that will never be called
 
 		[Test]
-		[ExpectedException("robotlegs.bender.framework.api.LifecycleException")]
+		[ExpectedException("Robotlegs.Bender.Framework.API.LifecycleException")]
 		public void adding_BeforeInitializing_handler_after_initialization_throws_error()
 		{
 			lifecycle.Initialize();
@@ -333,7 +333,7 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		[Test]
-		[ExpectedException("robotlegs.bender.framework.api.LifecycleException")]
+		[ExpectedException("Robotlegs.Bender.Framework.API.LifecycleException")]
 		public void adding_WhenInitializing_handler_after_initialization_throws_error()
 		{
 			lifecycle.Initialize();
@@ -358,7 +358,7 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		[Test]
-		[ExpectedException("robotlegs.bender.framework.api.LifecycleException")]
+		[ExpectedException("Robotlegs.Bender.Framework.API.LifecycleException")]
 		public void adding_AfterInitializing_handler_after_initialization_throws_error()
 		{
 			lifecycle.Initialize();

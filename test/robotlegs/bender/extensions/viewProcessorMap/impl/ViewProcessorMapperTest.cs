@@ -12,12 +12,12 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 using Moq;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 using NUnit.Framework;
-using robotlegs.bender.extensions.viewProcessorMap.support;
-using robotlegs.bender.extensions.viewProcessorMap.dsl;
+using Robotlegs.Bender.Extensions.ViewProcessor.Support;
+using Robotlegs.Bender.Extensions.ViewProcessor.DSL;
 
-namespace robotlegs.bender.extensions.viewProcessorMap.impl
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Impl
 {
 	public class ViewProcessorMapperTest
 	{

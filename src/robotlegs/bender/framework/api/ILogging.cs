@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-namespace robotlegs.bender.framework.api
+namespace Robotlegs.Bender.Framework.API
 {
 	/**
 	 * The Robotlegs logger contract

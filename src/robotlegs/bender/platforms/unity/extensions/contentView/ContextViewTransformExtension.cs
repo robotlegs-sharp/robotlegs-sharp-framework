@@ -5,11 +5,11 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.contextview.api;
-using robotlegs.bender.extensions.matching;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.ContextView.API;
+using Robotlegs.Bender.Extensions.Matching;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.platforms.unity.extensions.contextview
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.ContextView
 {
 	public class ContextViewTransformExtension : IExtension
 	{

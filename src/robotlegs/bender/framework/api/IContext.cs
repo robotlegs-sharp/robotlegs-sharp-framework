@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.Impl;
 
-namespace robotlegs.bender.framework.api
+namespace Robotlegs.Bender.Framework.API
 {
 	public interface IContext : IPinEvent, ILifecycleEvent
 	{

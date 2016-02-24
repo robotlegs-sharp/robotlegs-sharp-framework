@@ -7,10 +7,10 @@
 
 using System.Collections.Generic;
 using System;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 
 
-namespace robotlegs.bender.extensions.viewProcessorMap.support
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Support
 {
 	public class TrackingProcessor2 : ITrackingProcessor
 	{

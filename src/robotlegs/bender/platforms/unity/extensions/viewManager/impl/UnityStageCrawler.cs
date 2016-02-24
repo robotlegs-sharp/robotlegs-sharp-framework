@@ -5,11 +5,11 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.mediatorMap.api;
-using robotlegs.bender.extensions.viewManager.impl;
+using Robotlegs.Bender.Extensions.Mediation.API;
+using Robotlegs.Bender.Extensions.ViewManagement.Impl;
 using UnityEngine;
 
-namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.ViewManager.Impl
 {
 	public class UnityStageCrawler : StageCrawler
 	{

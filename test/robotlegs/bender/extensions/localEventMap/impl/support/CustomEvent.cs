@@ -11,9 +11,9 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file
 //  in accordance with the terms of the license agreement accompanying it.
 //------------------------------------------------------------------------------
-using robotlegs.bender.extensions.eventDispatcher.impl;
+using Robotlegs.Bender.Extensions.EventManagement.Impl;
 
-namespace robotlegs.bender.extensions.localEventMap.impl.support
+namespace Robotlegs.Bender.Extensions.LocalEventMap.Impl.Support
 {
 	public class CustomEvent : Event
 	{

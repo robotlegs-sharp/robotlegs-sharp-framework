@@ -11,12 +11,12 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file 
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.Impl;
 using NUnit.Framework;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 using System;
 
-namespace robotlegs.bender.extensions.enhancedLogging
+namespace Robotlegs.Bender.Extensions.EnhancedLogging
 {
 	[TestFixture]
 	public class InjectableLoggerExtensionTest

@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.platforms.unity.extensions.debugLogging.impl
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.DebugLogging.Impl
 {
 	public class DebugLogTarget : ILogTarget
 	{
@@ -36,7 +36,7 @@ namespace robotlegs.bender.platforms.unity.extensions.debugLogging.impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 		
-		public void Log (object source, robotlegs.bender.framework.impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
+		public void Log (object source, Robotlegs.Bender.Framework.Impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
 		{
 			UnityEngine.Debug.Log(string.Format(timestamp.ToLongTimeString()
 			                      + " " + level.ToString()

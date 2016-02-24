@@ -11,11 +11,12 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file 
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
-using robotlegs.bender.extensions.eventDispatcher.impl;
+using Robotlegs.Bender.Extensions.EventManagement.Impl;
 using System;
 using NUnit.Framework;
+using Robotlegs.Bender.Extensions.EventManagement.API;
 
-namespace robotlegs.bender.extensions.localEventMap.impl
+namespace Robotlegs.Bender.Extensions.LocalEventMap.Impl
 {
 	public class EventMapConfigTest
 	{
@@ -30,7 +31,7 @@ namespace robotlegs.bender.extensions.localEventMap.impl
 			EXAMPLE_FALSE
 		}
 
-		private EventDispatcher DISPATCHER = new EventDispatcher();
+		private IEventDispatcher DISPATCHER = new EventDispatcher();
 
 		private ConfigType EVENT_TYPE = ConfigType.EXAMPLE;
 

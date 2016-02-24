@@ -1,7 +1,7 @@
 ﻿using System;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender
+namespace Robotlegs.Bender.Extensions.Modularity.Impl
 {
 	public class LogLevelTarget : ILogTarget
 	{
@@ -13,27 +13,27 @@ namespace robotlegs.bender
 
 		public delegate void LogEventDelegate(object source, object message, params object[] messageParameters);
 
-		public void Log (object source, robotlegs.bender.framework.impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
+		public void Log (object source, Robotlegs.Bender.Framework.Impl.LogLevel level, DateTime timestamp, object message, params object[] messageParameters)
 		{
 			switch (level)
 			{
-			case robotlegs.bender.framework.impl.LogLevel.DEBUG:
+			case Robotlegs.Bender.Framework.Impl.LogLevel.DEBUG:
 				if (DEBUG != null)
 					DEBUG (source, message, messageParameters);
 				break;
-			case robotlegs.bender.framework.impl.LogLevel.ERROR:
+			case Robotlegs.Bender.Framework.Impl.LogLevel.ERROR:
 				if (ERROR != null)
 					ERROR (source, message, messageParameters);
 				break;
-			case robotlegs.bender.framework.impl.LogLevel.FATAL:
+			case Robotlegs.Bender.Framework.Impl.LogLevel.FATAL:
 				if (FATAL != null)
 					FATAL (source, message, messageParameters);
 				break;
-			case robotlegs.bender.framework.impl.LogLevel.INFO:
+			case Robotlegs.Bender.Framework.Impl.LogLevel.INFO:
 				if (INFO != null)
 					INFO (source, message, messageParameters);
 				break;
-			case robotlegs.bender.framework.impl.LogLevel.WARN:
+			case Robotlegs.Bender.Framework.Impl.LogLevel.WARN:
 				if (WARN != null)
 					WARN (source, message, messageParameters);
 				break;

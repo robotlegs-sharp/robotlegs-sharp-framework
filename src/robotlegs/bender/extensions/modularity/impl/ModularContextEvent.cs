@@ -6,10 +6,10 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.modularity.impl
+namespace Robotlegs.Bender.Extensions.Modularity.Impl
 {
 	public class ModularContextEvent : IEvent
 	{

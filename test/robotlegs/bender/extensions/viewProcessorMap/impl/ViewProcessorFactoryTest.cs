@@ -7,16 +7,16 @@
 
 using System.Collections.Generic;
 using NUnit.Framework;
-using robotlegs.bender.extensions.matching;
-using robotlegs.bender.extensions.viewProcessorMap.support;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.viewProcessorMap.api;
-using robotlegs.bender.extensions.mediatorMap.api;
+using Robotlegs.Bender.Extensions.Matching;
+using Robotlegs.Bender.Extensions.ViewProcessor.Support;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Extensions.ViewProcessor.API;
+using Robotlegs.Bender.Extensions.Mediation.API;
 using System;
-using robotlegs.bender.extensions.viewManager.api;
-using robotlegs.bender.extensions.viewManager.support;
+using Robotlegs.Bender.Extensions.ViewManagement.API;
+using Robotlegs.Bender.Extensions.ViewManagement.Support;
 
-namespace robotlegs.bender.extensions.viewProcessorMap.impl
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Impl
 {
 	public class ViewProcessorFactoryTest
 	{
@@ -40,7 +40,7 @@ namespace robotlegs.bender.extensions.viewProcessorMap.impl
 		[SetUp]
 		public void Setup()
 		{
-			injector = new robotlegs.bender.framework.impl.RobotlegsInjector();
+			injector = new Robotlegs.Bender.Framework.Impl.RobotlegsInjector();
 			viewProcessorFactory = new ViewProcessorFactory(injector);
 			trackingProcessor = new TrackingProcessor();
 			view = new object();

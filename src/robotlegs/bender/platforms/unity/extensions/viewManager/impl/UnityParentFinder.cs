@@ -6,8 +6,8 @@
 //------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using robotlegs.bender.extensions.viewManager;
-using robotlegs.bender.extensions.viewManager.impl;
+using Robotlegs.Bender.Extensions.ViewManagement;
+using Robotlegs.Bender.Extensions.ViewManagement.Impl;
 using UnityEngine;
 
 namespace robotlegs.bender.framework.unity.extensions.viewManager.impl

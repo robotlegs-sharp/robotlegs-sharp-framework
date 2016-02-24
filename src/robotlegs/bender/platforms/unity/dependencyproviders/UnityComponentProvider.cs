@@ -1,11 +1,11 @@
-﻿using robotlegs.bender.extensions.contextview.api;
+﻿using Robotlegs.Bender.Extensions.ContextView.API;
 using swiftsuspenders;
 using swiftsuspenders.dependencyproviders;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace robotlegs.bender.dependencyproviders
+namespace Robotlegs.Bender.DependencyProviders
 {
     public class UnityComponentProvider : DependencyProvider
     {

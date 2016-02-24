@@ -7,14 +7,14 @@
 
 ﻿using System;
 using NUnit.Framework;
-using robotlegs.bender.extensions.eventDispatcher.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
 using System.Collections.Generic;
-using robotlegs.bender.framework.impl;
-using robotlegs.bender.extensions.viewManager;
-using robotlegs.bender.extensions.viewProcessorMap.api;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.Impl;
+using Robotlegs.Bender.Extensions.ViewManagement;
+using Robotlegs.Bender.Extensions.ViewProcessor.API;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.extensions.viewProcessorMap
+namespace Robotlegs.Bender.Extensions.ViewProcessor
 {
 	[TestFixture]
 	public class ViewProcessorMapExtensionTest

@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-namespace robotlegs.bender.extensions.contextview.api
+namespace Robotlegs.Bender.Extensions.ContextView.API
 {
 	public interface IContextView
 	{

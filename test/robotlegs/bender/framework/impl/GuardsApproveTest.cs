@@ -7,11 +7,11 @@
 
 ﻿using System;
 using NUnit.Framework;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl.guardSupport;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl.GuardSupport;
 using System.Collections.Generic;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	public class GuardsApproveTest
 	{

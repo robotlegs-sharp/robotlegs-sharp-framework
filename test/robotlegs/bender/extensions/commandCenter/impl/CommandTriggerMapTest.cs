@@ -7,11 +7,11 @@
 
 ﻿using System;
 using Moq;
-using robotlegs.bender.extensions.commandCenter.api;
+using Robotlegs.Bender.Extensions.CommandCenter.API;
 using NUnit.Framework;
-using robotlegs.bender.extensions.commandCenter.support;
+using Robotlegs.Bender.Extensions.CommandCenter.Support;
 
-namespace robotlegs.bender.extensions.commandCenter.impl
+namespace Robotlegs.Bender.Extensions.CommandCenter.Impl
 {
 	public class CommandTriggerMapTest
 	{

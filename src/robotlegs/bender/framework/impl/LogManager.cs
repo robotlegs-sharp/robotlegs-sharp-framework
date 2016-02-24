@@ -7,9 +7,9 @@
 
 using System;
 using System.Collections.Generic;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	/// <summary>
 	/// The log manager creates loggers and is itself a log target

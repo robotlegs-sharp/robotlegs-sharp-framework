@@ -11,14 +11,14 @@
 //  NOTICE: You are permitted to use, modify, and distribute this file 
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
-using robotlegs.bender.extensions.eventDispatcher.impl;
+using Robotlegs.Bender.Extensions.EventManagement.Impl;
 using NUnit.Framework;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.localEventMap.api;
-using robotlegs.bender.extensions.localEventMap.impl.support;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Extensions.LocalEventMap.API;
+using Robotlegs.Bender.Extensions.LocalEventMap.Impl.Support;
 using System;
 
-namespace robotlegs.bender.extensions.localEventMap.impl
+namespace Robotlegs.Bender.Extensions.LocalEventMap.Impl
 {
 	public class EventMapTest
 	{

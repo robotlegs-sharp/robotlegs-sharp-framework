@@ -14,10 +14,10 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using robotlegs.bender.framework.impl;
-using robotlegs.bender.extensions.eventDispatcher.api;
+using Robotlegs.Bender.Framework.Impl;
+using Robotlegs.Bender.Extensions.EventManagement.API;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	[TestFixture]
 	public class TypeFilterTest
@@ -76,7 +76,7 @@ namespace robotlegs.bender.extensions.matching
 		[Test]
 		public void get_descriptor_returns_alphabetised_readable_list()
 		{
-			string expected = "all of: System.Single, System.UInt32, any of: robotlegs.bender.extensions.eventDispatcher.api.IEventDispatcher, robotlegs.bender.framework.impl.Context, none of: System.Exception, System.String";
+			string expected = "all of: System.Single, System.UInt32, any of: Robotlegs.Bender.Extensions.EventManagement.API.IEventDispatcher, Robotlegs.Bender.Framework.Impl.Context, none of: System.Exception, System.String";
 			Console.WriteLine (instance.Descriptor);
 			Assert.That(instance.Descriptor, Is.EqualTo(expected));
 		}

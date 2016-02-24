@@ -43,16 +43,16 @@
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityFallbackStageCrawler.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityParentFinder.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\viewManager\impl\UnityViewStateWatcherExtension.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\View.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\mediatorMap\impl\EventView.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\DebugLoggingExtension.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\debugLogging\impl\DebugLogTarget.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\MediatorAttach.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\impl\UnityMediatorManager.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unityMediatorManager\UnityMediatorManagerExtension.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\SingletonFactory.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\UnitySingletons.cs" />
     <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\UnitySingletonsExtension.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\impl\UnitySingletonsDisplay.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\Mediation\impl\View.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\Mediation\impl\EventView.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\Mediation\impl\MediatorAttach.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\Mediation\impl\UnityMediatorManager.cs" />
+    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\Mediation\UnityMediatorManagerExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="swiftsuspenders-sharp">

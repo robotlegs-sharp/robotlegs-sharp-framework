@@ -7,10 +7,10 @@
 
 using System;
 using System.Collections.Generic;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	public class Context : IContext
 	{

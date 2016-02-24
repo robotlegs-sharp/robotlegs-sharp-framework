@@ -7,7 +7,7 @@
 
 ﻿using System.Collections.Generic;
 
-namespace robotlegs.bender.extensions.commandCenter.api
+namespace Robotlegs.Bender.Extensions.CommandCenter.API
 {
 	/// <summary>
 	/// Optional Command interface.

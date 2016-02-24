@@ -12,7 +12,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-namespace robotlegs.bender.extensions.matching.support.c
+namespace Robotlegs.Bender.Extensions.Matching.Support.C
 {
 
 	public class PackagedTypeC 

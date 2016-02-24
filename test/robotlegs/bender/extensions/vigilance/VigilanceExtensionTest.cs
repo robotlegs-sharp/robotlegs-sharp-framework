@@ -7,11 +7,11 @@
 
 ﻿using System;
 using NUnit.Framework;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl;
 using swiftsuspenders.errors;
 
-namespace robotlegs.bender.extensions.vigilance
+namespace Robotlegs.Bender.Extensions.Vigilance
 {
 	[TestFixture]
 	public class VigilanceExtensionTest

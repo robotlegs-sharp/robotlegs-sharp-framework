@@ -7,7 +7,7 @@
 
 using NUnit.Framework;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	[TestFixture]
 	public class InstanceOfMatcherTest

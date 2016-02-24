@@ -7,11 +7,11 @@
 
 ﻿using System;
 using NUnit.Framework;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl.hookSupport;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl.HookSupport;
 using System.Collections.Generic;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	public class ApplyHooksTest
 	{

@@ -7,7 +7,7 @@
 
 using System;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	public class TypeMatcherException : Exception
 	{

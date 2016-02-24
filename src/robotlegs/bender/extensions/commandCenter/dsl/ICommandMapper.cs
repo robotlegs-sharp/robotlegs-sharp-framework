@@ -7,7 +7,7 @@
 
 ﻿using System;
 
-namespace robotlegs.bender.extensions.commandCenter.dsl
+namespace Robotlegs.Bender.Extensions.CommandCenter.DSL
 {
 	public interface ICommandMapper
 	{

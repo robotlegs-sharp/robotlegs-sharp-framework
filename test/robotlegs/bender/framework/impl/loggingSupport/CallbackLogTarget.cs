@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.framework.impl.loggingSupport
+namespace Robotlegs.Bender.Framework.Impl.LoggingSupport
 {
 	public class CallbackLogTarget : ILogTarget
 	{

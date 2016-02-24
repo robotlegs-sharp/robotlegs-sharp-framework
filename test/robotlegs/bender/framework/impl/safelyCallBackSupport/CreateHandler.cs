@@ -8,9 +8,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Threading;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Framework.API;
 
-namespace robotlegs.bender.framework.impl.safelyCallBackSupport
+namespace Robotlegs.Bender.Framework.Impl.SafelyCallBackSupport
 {
 	public class CreateHandler
 	{

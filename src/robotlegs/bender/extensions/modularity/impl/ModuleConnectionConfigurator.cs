@@ -6,11 +6,11 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.eventDispatcher.impl;
-using robotlegs.bender.extensions.modularity.dsl;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Extensions.EventManagement.Impl;
+using Robotlegs.Bender.Extensions.Modularity.DSL;
 
-namespace robotlegs.bender.extensions.modularity.impl
+namespace Robotlegs.Bender.Extensions.Modularity.Impl
 {
 	public class ModuleConnectionConfigurator : IModuleConnectionAction
 	{

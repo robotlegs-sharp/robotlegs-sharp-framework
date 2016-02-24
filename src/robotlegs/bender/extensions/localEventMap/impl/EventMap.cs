@@ -7,11 +7,11 @@
 
 ﻿using System;
 using System.Collections.Generic;
-using robotlegs.bender.extensions.eventDispatcher.api;
-using robotlegs.bender.extensions.eventDispatcher.impl;
-using robotlegs.bender.extensions.localEventMap.api;
+using Robotlegs.Bender.Extensions.EventManagement.API;
+using Robotlegs.Bender.Extensions.EventManagement.Impl;
+using Robotlegs.Bender.Extensions.LocalEventMap.API;
 
-namespace robotlegs.bender.extensions.localEventMap.impl
+namespace Robotlegs.Bender.Extensions.LocalEventMap.Impl
 {
 	public class EventMap : IEventMap
 	{

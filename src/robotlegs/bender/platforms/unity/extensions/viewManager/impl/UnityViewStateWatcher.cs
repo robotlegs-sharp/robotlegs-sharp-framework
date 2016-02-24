@@ -6,10 +6,10 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.extensions.viewManager.api;
+using Robotlegs.Bender.Extensions.ViewManagement.API;
 using UnityEngine;
 
-namespace robotlegs.bender.platforms.unity.extensions.viewManager.impl
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.ViewManager.Impl
 {
 	public class UnityViewStateWatcher : MonoBehaviour, IViewStateWatcher
 	{

@@ -8,14 +8,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.extensions.commandCenter.api;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Extensions.CommandCenter.API;
+using Robotlegs.Bender.Framework.Impl;
 using Moq;
-using robotlegs.bender.extensions.commandCenter.support;
-using robotlegs.bender.framework.impl.guardSupport;
+using Robotlegs.Bender.Extensions.CommandCenter.Support;
+using Robotlegs.Bender.Framework.Impl.GuardSupport;
 
-namespace robotlegs.bender.extensions.commandCenter.impl
+namespace Robotlegs.Bender.Extensions.CommandCenter.Impl
 {
 	[TestFixture]
 	public class CommandExecutorTest

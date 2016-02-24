@@ -8,12 +8,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using robotlegs.bender.framework.impl;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl.contextSupport;
-using robotlegs.bender.framework.impl.loggingSupport;
+using Robotlegs.Bender.Framework.Impl;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl.ContextSupport;
+using Robotlegs.Bender.Framework.Impl.LoggingSupport;
 
-namespace robotlegs.bender.framework.impl
+namespace Robotlegs.Bender.Framework.Impl
 {
 	[TestFixture]
 	public class ContextTest
@@ -262,7 +262,7 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		[Test]
-		[ExpectedException("robotlegs.bender.framework.api.LifecycleException")]
+		[ExpectedException("Robotlegs.Bender.Framework.API.LifecycleException")]
 		public void adding_BeforeInitializing_handler_after_initialization_throws_error()
 		{
 			context.Initialize();
@@ -270,7 +270,7 @@ namespace robotlegs.bender.framework.impl
 		}
 
 		[Test]
-		[ExpectedException("robotlegs.bender.framework.api.LifecycleException")]
+		[ExpectedException("Robotlegs.Bender.Framework.API.LifecycleException")]
 		public void adding_WhenInitializing_handler_after_initialization_throws_error()
 		{
 			context.Initialize();

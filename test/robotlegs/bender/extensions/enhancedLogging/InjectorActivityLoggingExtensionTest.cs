@@ -12,14 +12,14 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 using NUnit.Framework;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.Impl;
 using System;
-using robotlegs.bender.extensions.enhancedLogging.support;
-using robotlegs.bender.extensions.viewManager.support;
+using Robotlegs.Bender.Extensions.EnhancedLogging.Support;
+using Robotlegs.Bender.Extensions.ViewManagement.Support;
 using System.Collections.Generic;
-using robotlegs.bender.framework.impl.loggingSupport;
+using Robotlegs.Bender.Framework.Impl.LoggingSupport;
 
-namespace robotlegs.bender.extensions.enhancedLogging
+namespace Robotlegs.Bender.Extensions.EnhancedLogging
 {
 	[TestFixture]
 	public class InjectorActivityLoggingExtensionTest

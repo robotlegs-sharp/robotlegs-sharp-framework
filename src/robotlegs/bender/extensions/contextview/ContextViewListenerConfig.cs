@@ -5,12 +5,12 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.extensions.contextview.api;
-using robotlegs.bender.extensions.viewManager.api;
-using robotlegs.bender.framework.api;
+using Robotlegs.Bender.Extensions.ContextView.API;
+using Robotlegs.Bender.Extensions.ViewManagement.API;
+using Robotlegs.Bender.Framework.API;
 
 
-namespace robotlegs.bender.extensions.contextview
+namespace Robotlegs.Bender.Extensions.ContextView
 {
 	public class ContextViewListenerConfig : IConfig
 	{

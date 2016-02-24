@@ -6,11 +6,11 @@
 //------------------------------------------------------------------------------
 
 using System;
-using robotlegs.bender.extensions.viewManager.api;
-using robotlegs.bender.framework.api;
-using robotlegs.bender.platforms.unity.extensions.viewManager.impl;
+using Robotlegs.Bender.Extensions.ViewManagement.API;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Platforms.Unity.Extensions.ViewManager.Impl;
 
-namespace robotlegs.bender.platforms.unity.extensions.contextview
+namespace Robotlegs.Bender.Platforms.Unity.Extensions.ContextView
 {
 	public class UnityFallbackStageCrawlerConfig : IConfig
 	{

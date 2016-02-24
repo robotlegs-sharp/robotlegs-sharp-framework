@@ -14,7 +14,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace robotlegs.bender.extensions.matching
+namespace Robotlegs.Bender.Extensions.Matching
 {
 	public class NamespaceFilter_DescriptorTest
 	{

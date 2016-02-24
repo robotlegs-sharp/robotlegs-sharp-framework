@@ -6,9 +6,9 @@
 //------------------------------------------------------------------------------
 
 ﻿using System;
-using robotlegs.bender.extensions.commandCenter.api;
+using Robotlegs.Bender.Extensions.CommandCenter.API;
 
-namespace robotlegs.bender.extensions.commandCenter.support
+namespace Robotlegs.Bender.Extensions.CommandCenter.Support
 {
 	public class AbstractInterfaceImplementingCommand : ICommand
 	{

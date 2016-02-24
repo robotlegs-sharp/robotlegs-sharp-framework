@@ -5,20 +5,20 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using robotlegs.bender.framework.api;
-using robotlegs.bender.framework.impl;
+using Robotlegs.Bender.Framework.API;
+using Robotlegs.Bender.Framework.Impl;
 using NUnit.Framework;
-using robotlegs.bender.extensions.viewProcessorMap.utils;
-using robotlegs.bender.extensions.mediatorMap.impl.support;
-using robotlegs.bender.extensions.matching;
+using Robotlegs.Bender.Extensions.ViewProcessor.Utils;
+using Robotlegs.Bender.Extensions.Mediation.Impl.Support;
+using Robotlegs.Bender.Extensions.Matching;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
-using robotlegs.bender.extensions.mediatorMap.api;
-using robotlegs.bender.extensions.viewManager.support;
+using Robotlegs.Bender.Extensions.Mediation.API;
+using Robotlegs.Bender.Extensions.ViewManagement.Support;
 
 
-namespace robotlegs.bender.extensions.viewProcessorMap.impl
+namespace Robotlegs.Bender.Extensions.ViewProcessor.Impl
 {
 	public class ViewProcessorMediatorsTest
 	{

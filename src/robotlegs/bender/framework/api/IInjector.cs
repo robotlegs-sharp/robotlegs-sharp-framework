@@ -11,7 +11,7 @@ using swiftsuspenders.dependencyproviders;
 using swiftsuspenders.mapping;
 using swiftsuspenders.typedescriptions;
 
-namespace robotlegs.bender.framework.api
+namespace Robotlegs.Bender.Framework.API
 {
 	public interface IInjector
 	{
