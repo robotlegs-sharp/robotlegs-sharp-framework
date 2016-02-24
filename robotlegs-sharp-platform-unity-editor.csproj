@@ -29,9 +29,9 @@
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\unitySingletons\editor\UnitySingletonsEditor.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\monoscriptCache\editor\MonoScriptCacher.cs" />
-    <Compile Include="src\robotlegs\bender\platforms\unity\extensions\Mediation\Editor\MediatorAttachEditor.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\UnitySingletons\Editor\UnitySingletonsEditor.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\MonoScriptCache\Editor\MonoScriptCacher.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\Mediation\Editor\MediatorAttachEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="swiftsuspenders-sharp">
