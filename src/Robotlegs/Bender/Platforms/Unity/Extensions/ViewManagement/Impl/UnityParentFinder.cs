@@ -10,7 +10,7 @@ using Robotlegs.Bender.Extensions.ViewManagement;
 using Robotlegs.Bender.Extensions.ViewManagement.Impl;
 using UnityEngine;
 
-namespace robotlegs.bender.framework.unity.extensions.viewManager.impl
+namespace Robotlegs.Bender.Framework.Unity.Extensions.ViewManagement.Impl
 {
 	public class UnityParentFinder : IParentFinder
 	{

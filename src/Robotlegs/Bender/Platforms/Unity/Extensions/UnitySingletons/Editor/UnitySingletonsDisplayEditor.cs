@@ -13,7 +13,7 @@ using UnityEditor;
 namespace Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons.Impl
 {
 	[CustomEditor(typeof(UnitySingletonsDisplay))]
-	public class UnitySingletonsEditor : Editor
+	public class UnitySingletonsDisplayEditor : Editor
 	{
 		/*============================================================================*/
 		/* Private Properties                                                         */

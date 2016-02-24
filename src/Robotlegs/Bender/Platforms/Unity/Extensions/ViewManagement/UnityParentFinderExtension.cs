@@ -8,7 +8,7 @@
 using Robotlegs.Bender.Extensions.ViewManagement;
 using Robotlegs.Bender.Extensions.ViewManagement.Impl;
 using Robotlegs.Bender.Framework.API;
-using robotlegs.bender.framework.unity.extensions.viewManager.impl;
+using Robotlegs.Bender.Framework.Unity.Extensions.ViewManagement.Impl;
 
 namespace Robotlegs.Bender.Platforms.Unity.Extensions.ViewManager
 {

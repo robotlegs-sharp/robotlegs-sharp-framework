@@ -8,7 +8,7 @@
 ﻿using Robotlegs.Bender.Extensions.ViewManagement;
 using Robotlegs.Bender.Extensions.ViewManagement.API;
 
-namespace robotlegs.bender
+namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 {
 	public class BlankViewStateWatcherExtension : ViewStateWatcherExtension
 	{
