@@ -78,7 +78,7 @@ public class ExampleView : IView
 	
 	public ExampleView()
 	{
-		ViewNotifier.RegisterView(this, this.GetType());
+		ViewNotifier.RegisterView(this);
 	}
 
 	public void Cleanup ()
@@ -102,7 +102,7 @@ public class ExampleView : IView
 	
 	public ExampleView()
 	{
-		ViewNotifier.RegisterView(this, this.GetType());
+		ViewNotifier.RegisterView(this);
 	}
 	
 	public void ShowPopup(string message)
