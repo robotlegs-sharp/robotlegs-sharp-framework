@@ -11,7 +11,6 @@ using Robotlegs.Bender.Extensions.EventCommand;
 using Robotlegs.Bender.Extensions.EventManagement;
 using Robotlegs.Bender.Extensions.LocalEventMap;
 using Robotlegs.Bender.Extensions.Mediation;
-using Robotlegs.Bender.Extensions.Modularity;
 using Robotlegs.Bender.Extensions.ViewManagement;
 using Robotlegs.Bender.Extensions.ViewProcessor;
 using Robotlegs.Bender.Extensions.Vigilance;
@@ -37,7 +36,6 @@ namespace Robotlegs.Bender.Bundles.MVCS
 			context.Install(typeof(VigilanceExtension));
 			context.Install(typeof(InjectableLoggerExtension));
 			context.Install(typeof(EventDispatcherExtension));
-			context.Install(typeof(ModularityExtension));
 			context.Install(typeof(DirectCommandMapExtension));
 			context.Install(typeof(EventCommandMapExtension));
 			context.Install(typeof(LocalEventMapExtension));

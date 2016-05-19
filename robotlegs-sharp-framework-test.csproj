@@ -80,6 +80,8 @@
     <Folder Include="test\Robotlegs\Bender\Extensions\ViewManagement\" />
     <Folder Include="test\Robotlegs\Bender\Extensions\ViewManagement\Impl\" />
     <Folder Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\" />
+    <Folder Include="test\Robotlegs\Bender\Bundles\" />
+    <Folder Include="test\Robotlegs\Bender\Bundles\MVCS\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="test\Robotlegs\Bender\Framework\Impl\LoggerTest.cs" />
@@ -248,6 +250,7 @@
     <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\ViewManagerExtensionTest.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportEventView.cs" />
     <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportEventViewImplemented.cs" />
+    <Compile Include="test\Robotlegs\Bender\Bundles\MVCS\MVCSBundleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
