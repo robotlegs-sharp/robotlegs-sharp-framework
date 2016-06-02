@@ -23,14 +23,17 @@ namespace Robotlegs.Bender.Extensions.ViewManagement
 		[Inject]
 		public IViewManager viewManager;
 
-		[Inject]
-		public ILogging logger;
+        [Inject]
+        public ILogging logger;
 
-		/*============================================================================*/
-		/* Public Functions                                                           */
-		/*============================================================================*/
+        [Inject]
+        public IContext context;
 
-		public void Configure ()
+        /*============================================================================*/
+        /* Public Functions                                                           */
+        /*============================================================================*/
+
+        public void Configure ()
 		{
 			if (registry.FallbackBinding != null) 
 			{
@@ -38,7 +41,14 @@ namespace Robotlegs.Bender.Extensions.ViewManagement
 			}
 
 			viewManager.SetFallbackContainer (new object ());
-		}
-	}
+            context.WhenDestroying(WhenDestroying);
+        }
+
+        private void WhenDestroying()
+        {
+            viewManager.SetFallbackContainer(null);
+        }
+
+    }
 }
 
