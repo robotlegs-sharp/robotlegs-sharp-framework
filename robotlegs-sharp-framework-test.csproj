@@ -1,261 +1,262 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{38803C71-F42B-4FBB-8088-566C1F3FE9E0}</ProjectGuid>
+    <ProjectGuid>{32471B73-0370-4035-AFD8-3C2DC13573F6}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>robotlegs.bender</RootNamespace>
-    <AssemblyName>Robotlegs-Sharp-Framework-Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>tests</RootNamespace>
+    <AssemblyName>robotlegs-sharp-framework-test</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="swiftsuspenders-sharp">
-      <HintPath>lib\swiftsuspenders-sharp.dll</HintPath>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.5.8.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>packages\Moq.4.5.8\lib\net45\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>lib\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Moq">
-      <HintPath>lib\Moq.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NUnit.VisualStudio.TestAdapter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.WithFramework.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="swiftsuspenders-sharp">
+      <HintPath>..\..\robotlegs-sharp-framework-master\lib\swiftsuspenders-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="test\" />
-    <Folder Include="test\Robotlegs\Bender\Framework\Impl\loggingSupport\" />
-    <Folder Include="test\Robotlegs\Bender\Framework\Impl\hookSupport\" />
-    <Folder Include="test\Robotlegs\Bender\Framework\Impl\guardSupport\" />
-    <Folder Include="test\Robotlegs\Bender\Framework\Impl\ConfigSupport\" />
-    <Folder Include="test\Robotlegs\Bender\Framework\Impl\safelyCallBackSupport\" />
-    <Folder Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\ViewProcessor\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Impl\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\Modularity\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\ContextViews\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\CommandCenter\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\CommandCenter\Impl\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\Vigilance\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\LocalEventMap\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\LocalEventMap\Impl\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\LocalEventMap\Impl\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\Matching\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\EnhancedLogging\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\DirectCommand\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\DirectCommand\Impl\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\DirectCommand\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\EventCommand\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\EventCommand\Impl\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\EventManagement\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\EventManagement\Impl\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\EventManagement\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\Mediation\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\Mediation\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\ViewManagement\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\ViewManagement\Impl\" />
-    <Folder Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\" />
-    <Folder Include="test\Robotlegs\Bender\Bundles\" />
-    <Folder Include="test\Robotlegs\Bender\Bundles\MVCS\" />
+    <Compile Include="tests\Robotlegs\Bender\Bundles\MVCS\MVCSBundleTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandExecutorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandMapperTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandMappingListTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandMappingTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandPayloadTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandTriggerMapTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\AbstractInterfaceImplementingCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\CallbackCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\CallbackCommand2.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackCommand2.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackGuard.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackGuard2.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackHook.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\CommandMapStub.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\ExecutelessCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\IncorrectExecuteCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\MessageReturningCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\MethodParametersCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\NullCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\NullCommand2.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\NullCommand3.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\OptionalInjectionPointsCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\OptionalInjectionPointsCommandInstantiatingCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\PayloadInjectionPointsCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\PayloadInjectionPointsGuard.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\PayloadInjectionPointsHook.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\PriorityMapping.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\PriorityMappingComparer.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\ReportMethodCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\SelfReportingCallbackCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\SelfReportingCallbackHook.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\UnmapperStub.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ContextViews\ContextViewExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ContextViews\StageSyncExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectCommand\DirectCommandMapExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectCommand\Impl\DirectCommandMapperTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectCommand\Impl\DirectCommandMapTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectCommand\Support\DirectCommandMapReportingCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EnhancedLogging\ConsoleLoggingExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EnhancedLogging\Impl\ConsoleLogTargetTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EnhancedLogging\InjectableLoggerExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EnhancedLogging\InjectorActivityLoggingExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EnhancedLogging\Support\SupportLogTarget.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\EventCommandMapExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Impl\EventCommandMapTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Impl\EventCommandTriggerTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Support\CascadingCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Support\CommandMappingCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Support\CommandUnmappingCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Support\EventInjectedCallbackCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Support\EventInjectedCallbackGuard.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Support\EventParametersCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Support\SupportEvent.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventCommand\Support\SupportEventTriggeredSelfReportingCallbackCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventManagement\EventDispatcherTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventManagement\Impl\EventRelayTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventManagement\Impl\LifecycleEventRelayTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventManagement\Support\BlankEvent.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\EventManagement\Support\CustomEvent.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\LocalEventMap\Impl\EventMapConfigTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\LocalEventMap\Impl\EventMapTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\LocalEventMap\Impl\Support\CustomEvent.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\LocalEventMap\LocalEventMapExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\InstanceOfMatcherTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\NamespaceFilter_descriptorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\NamespaceMatchingTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\A\PackagedTypeA.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\B\PackagedTypeB.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\C\PackagedTypeC.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\IType1.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\IType2.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\ITypeX.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\ITypeY.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\TypeA.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\TypeA1.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\TypeA12.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\TypeB.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\Support\TypeB12.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\TypeFilterTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\TypeFilterUsageTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Matching\TypeMatcherTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorFactoryTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorManagerTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorMapMemoryLeakTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorMapperTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorMapTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorMapTestPreloaded.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorSugarTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorViewHandlerTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\Support\LifecycleReportingMediator.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\Support\MediatorViewHandlerStub.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\Support\MediatorWatcher.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\Support\MediatorWeakMapTracker.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\Support\SugaryMediator.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Impl\Support\SupportMediator.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\MediatorMapExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Support\CallbackMediator.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Support\NullMediator.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Mediation\Support\NullMediator2.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Modularity\Impl\LogLevelTarget.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Modularity\Impl\ModuleConnectionConfiguratorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Modularity\Impl\ModuleConnectorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Modularity\ModularityExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Impl\ContainerBindingTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Impl\ContainerRegistryTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Impl\ParentFinderTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Impl\ViewManagerTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Impl\ViewNotifierTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Impl\ViewStateWatcherTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\CallbackViewHandler.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\CustomParentFinder.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportContainer.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportEventView.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportEventViewImplemented.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportParentFinder.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportParentFinderExtension.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportView.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\TestSupportViewStateWatcherExtension.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\Support\TreeContainerSupport.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewManagement\ViewManagerExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewInjectionProcessorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorFactoryTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorMapperTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorMappingTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorMapTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorMediatorsTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Support\ITrackingProcessor.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Support\NullProcessor2.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Support\Processor.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Support\TrackingProcessor.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Support\TrackingProcessor2.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Utils\FastPropertyInjectorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\Utils\PropertyValueInjectorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\ViewProcessor\ViewProcessorMapExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\Vigilance\VigilanceExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ApplyHooksTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ConfigManagerTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ConfigSupport\PlainConfig.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ConfigSupport\TypedConfig.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ConfigSupport\UntypedConfig.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackBundle.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackConfig.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackExtension.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackExtensionWithInjectTag.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackUntypedExtension.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ContextSupport\ExtensionWithMultipleConstructors.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ContextTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ExtensionInstallerTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\GuardsApproveTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\GuardSupport\BossGuard.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\GuardSupport\GrumpyGuard.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\GuardSupport\HappyGuard.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\GuardSupport\JustTheMIddleManGuard.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\HookSupport\CallbackHook.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\LifecycleTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\LifecycleTransitionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\LoggerTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\LoggingSupport\CallbackLogTarget.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\LoggingSupport\LogParams.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\LogManagerTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\MessageDispatcherTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\ObjectProcessorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\PinTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\RobotlegsInjectorTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Framework\Impl\SafelyCallBackSupport\CreateHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\LoggerTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\LoggingSupport\CallbackLogTarget.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\LoggingSupport\LogParams.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ApplyHooksTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\HookSupport\CallbackHook.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ConfigManagerTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\GuardsApproveTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\GuardSupport\GrumpyGuard.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\GuardSupport\HappyGuard.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\GuardSupport\BossGuard.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\GuardSupport\JustTheMIddleManGuard.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ConfigSupport\PlainConfig.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\LogManagerTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\PinTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\LifecycleTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\MessageDispatcherTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\SafelyCallBackSupport\CreateHandler.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackConfig.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackExtension.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\LifecycleTransitionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ConfigSupport\TypedConfig.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ConfigSupport\UntypedConfig.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Utils\PropertyValueInjectorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Utils\FastPropertyInjectorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Support\ITrackingProcessor.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Support\NullProcessor2.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Support\Processor.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Support\TrackingProcessor.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Support\TrackingProcessor2.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewInjectionProcessorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorFactoryTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorMapTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorMapperTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorMappingTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\Impl\ViewProcessorMediatorsTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewProcessor\ViewProcessorMapExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Modularity\ModularityExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Modularity\Impl\ModuleConnectionConfiguratorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Modularity\Impl\ModuleConnectorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ContextViews\StageSyncExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\NullCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\CallbackCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\CallbackCommand2.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackHook.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\NullCommand2.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandExecutorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\UnmapperStub.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\ExecutelessCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\SelfReportingCallbackCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\SelfReportingCallbackHook.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackGuard.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackGuard2.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\ClassReportingCallbackCommand2.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\ReportMethodCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\IncorrectExecuteCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\PayloadInjectionPointsCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\PayloadInjectionPointsHook.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\PayloadInjectionPointsGuard.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\MethodParametersCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\OptionalInjectionPointsCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\OptionalInjectionPointsCommandInstantiatingCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\MessageReturningCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\AbstractInterfaceImplementingCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandMapperTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandTriggerMapTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\CommandMapStub.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandPayloadTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandMappingTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Impl\CommandMappingListTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\PriorityMapping.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\NullCommand3.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\CommandCenter\Support\PriorityMappingComparer.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Vigilance\VigilanceExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ObjectProcessorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\RobotlegsInjectorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ExtensionInstallerTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackExtensionWithInjectTag.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackBundle.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\CallbackUntypedExtension.cs" />
-    <Compile Include="test\Robotlegs\Bender\Framework\Impl\ContextSupport\ExtensionWithMultipleConstructors.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ContextViews\ContextViewExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\LocalEventMap\Impl\Support\CustomEvent.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\IType1.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\IType2.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\ITypeX.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\ITypeY.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\TypeA.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\TypeA1.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\TypeA12.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\TypeB.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\TypeB12.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\A\PackagedTypeA.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\B\PackagedTypeB.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\Support\C\PackagedTypeC.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\TypeFilterTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\TypeFilterUsageTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\TypeMatcherTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\InstanceOfMatcherTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EnhancedLogging\Support\SupportLogTarget.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EnhancedLogging\InjectableLoggerExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EnhancedLogging\InjectorActivityLoggingExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EnhancedLogging\ConsoleLoggingExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EnhancedLogging\Impl\ConsoleLogTargetTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\LocalEventMap\Impl\EventMapConfigTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\LocalEventMap\LocalEventMapExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\LocalEventMap\Impl\EventMapTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\NamespaceFilter_descriptorTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Matching\NamespaceMatchingTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Modularity\Impl\LogLevelTarget.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\DirectCommand\Impl\DirectCommandMapTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\DirectCommand\Support\DirectCommandMapReportingCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\DirectCommand\Impl\DirectCommandMapperTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\DirectCommand\DirectCommandMapExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\SupportEvent.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\EventCommandMapExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Impl\EventCommandMapTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Impl\EventCommandTriggerTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\EventInjectedCallbackCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\EventParametersCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\SupportEventTriggeredSelfReportingCallbackCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\CommandMappingCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\CommandUnmappingCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\EventInjectedCallbackGuard.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventCommand\Support\CascadingCommand.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventManagement\EventDispatcherTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventManagement\Impl\EventRelayTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventManagement\Impl\LifecycleEventRelayTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventManagement\Support\BlankEvent.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\EventManagement\Support\CustomEvent.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\Support\MediatorWatcher.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\Support\SupportMediator.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\MediatorMapExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Support\CallbackMediator.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Support\NullMediator2.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Support\NullMediator.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorMapTestPreloaded.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorFactoryTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorManagerTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorMapMemoryLeakTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorMapperTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorSugarTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorViewHandlerTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\MediatorMapTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\Support\LifecycleReportingMediator.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\Support\MediatorWeakMapTracker.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\Support\SugaryMediator.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\Mediation\Impl\Support\MediatorViewHandlerStub.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Impl\ContainerRegistryTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportParentFinder.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportContainer.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\TreeContainerSupport.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\CallbackViewHandler.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportParentFinderExtension.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Impl\ParentFinderTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Impl\ViewManagerTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportView.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\CustomParentFinder.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Impl\ContainerBindingTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Impl\ViewNotifierTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\TestSupportViewStateWatcherExtension.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Impl\ViewStateWatcherTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\ViewManagerExtensionTest.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportEventView.cs" />
-    <Compile Include="test\Robotlegs\Bender\Extensions\ViewManagement\Support\SupportEventViewImplemented.cs" />
-    <Compile Include="test\Robotlegs\Bender\Bundles\MVCS\MVCSBundleTest.cs" />
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="robotlegs-sharp-framework.csproj">
-      <Project>{BA0B7671-3283-4AFE-B5B2-8CF9BD9C74BE}</Project>
+      <Project>{ba0b7671-3283-4afe-b5b2-8cf9bd9c74be}</Project>
       <Name>robotlegs-sharp-framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>
