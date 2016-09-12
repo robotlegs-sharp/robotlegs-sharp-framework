@@ -292,24 +292,28 @@ namespace Robotlegs.Bender.Framework.Impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void Initialize(Action callback = null)
+		public IContext Initialize(Action callback = null)
 		{
-			_lifecycle.Initialize (null);
+			_lifecycle.Initialize (callback);
+			return this;
 		}
 
-		public void Suspend(Action callback = null)
+		public IContext Suspend(Action callback = null)
 		{
-			_lifecycle.Suspend (null);
+			_lifecycle.Suspend (callback);
+			return this;
 		}
 
-		public void Resume(Action callback = null)
+		public IContext Resume(Action callback = null)
 		{
-			_lifecycle.Resume (null);
+			_lifecycle.Resume (callback);
+			return this;
 		}
 
-		public void Destroy(Action callback = null)
+		public IContext Destroy(Action callback = null)
 		{
-			_lifecycle.Destroy (null);
+			_lifecycle.Destroy (callback);
+			return this;
 		}
 
 		public IContext BeforeInitializing(Action handler)

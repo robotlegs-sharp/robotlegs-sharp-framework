@@ -320,6 +320,46 @@ namespace Robotlegs.Bender.Framework.Impl
 			Assert.That(hasDoneCallback, Is.True);
 		}
 
+		[Test]
+		public void initialization_callback_is_fired()
+		{
+			context.Initialize (delegate {
+				Assert.Pass();
+			});
+			Assert.Fail();
+		}
+
+		[Test]
+		public void suspend_callback_is_fired()
+		{
+			context.Initialize ();
+			context.Suspend (delegate {
+				Assert.Pass();
+			});
+			Assert.Fail();
+		}
+
+		[Test]
+		public void resume_callback_is_fired()
+		{
+			context.Initialize ();
+			context.Suspend ();
+			context.Resume (delegate {
+				Assert.Pass();
+			});
+			Assert.Fail();
+		}
+
+		[Test]
+		public void destroy_callback_is_fired()
+		{
+			context.Initialize ();
+			context.Destroy (delegate {
+				Assert.Pass();
+			});
+			Assert.Fail();
+		}
+
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/
