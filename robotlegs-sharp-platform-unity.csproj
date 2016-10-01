@@ -53,6 +53,8 @@
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\Mediation\Impl\MediatorAttach.cs" />
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\Mediation\Impl\UnityMediatorManager.cs" />
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\Mediation\UnityMediatorManagerExtension.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\DependencyProviders\AbstractUnityComponentProvider.cs" />
+    <Compile Include="src\Robotlegs\Bender\Platforms\Unity\DependencyProviders\UnitySingletonComponentProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="swiftsuspenders-sharp">
