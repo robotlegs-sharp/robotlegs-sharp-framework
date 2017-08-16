@@ -92,7 +92,10 @@ namespace Robotlegs.Bender.DependencyProviders
 			}
 			else
 			{
-				Component.Destroy(component);
+                if(!Application.isPlaying)
+                    Component.DestroyImmediate(component);
+                else
+                    Component.Destroy(component);
 			}
 			parentObject = null;
 			component = null;

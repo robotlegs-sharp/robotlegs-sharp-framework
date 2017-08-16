@@ -56,7 +56,10 @@ namespace Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons
 		{
 			if (unitySingletons != null) 
 			{
-				GameObject.Destroy(unitySingletons);
+                if (!Application.isPlaying)
+                    GameObject.DestroyImmediate(unitySingletons);
+                else
+				    GameObject.Destroy(unitySingletons);
 			}
 			_singletonFactory.Destroy();
 		}
