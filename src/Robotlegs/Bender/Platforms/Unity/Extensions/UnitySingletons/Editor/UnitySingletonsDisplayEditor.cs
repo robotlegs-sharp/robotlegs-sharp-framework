@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 using Robotlegs.Bender.Platforms.Unity.Extensions.MonoScriptCache;
-using swiftsuspenders.mapping;
+using SwiftSuspenders.Mapping;
 using UnityEditor;
 
 namespace Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons.Impl

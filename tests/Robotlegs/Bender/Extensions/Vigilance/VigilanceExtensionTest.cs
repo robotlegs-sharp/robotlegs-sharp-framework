@@ -9,7 +9,7 @@
 using NUnit.Framework;
 using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Framework.Impl;
-using swiftsuspenders.errors;
+using SwiftSuspenders.Errors;
 
 namespace Robotlegs.Bender.Extensions.Vigilance
 {

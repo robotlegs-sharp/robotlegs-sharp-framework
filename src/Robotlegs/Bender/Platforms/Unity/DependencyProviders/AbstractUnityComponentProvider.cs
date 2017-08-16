@@ -1,6 +1,6 @@
 ﻿using Robotlegs.Bender.Extensions.ContextViews.API;
-using swiftsuspenders;
-using swiftsuspenders.dependencyproviders;
+using SwiftSuspenders;
+using SwiftSuspenders.DependencyProviders;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

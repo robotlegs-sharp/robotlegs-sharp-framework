@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-using swiftsuspenders;
+using SwiftSuspenders;
 using NUnit.Framework;
 using Robotlegs.Bender.Extensions.ViewManagement.Support;
 using Robotlegs.Bender.Extensions.Mediation.Impl.Support;

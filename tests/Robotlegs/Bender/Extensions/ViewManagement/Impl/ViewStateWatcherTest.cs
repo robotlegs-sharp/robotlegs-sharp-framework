@@ -11,7 +11,7 @@ using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Extensions.ViewManagement.Support;
 using Robotlegs.Bender.Framework.Impl;
 using Robotlegs.Bender.Extensions.ContextViews.Impl;
-using swiftsuspenders.errors;
+using SwiftSuspenders.Errors;
 
 namespace Robotlegs.Bender.Extensions.ViewManagement.Impl
 {

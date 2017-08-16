@@ -6,7 +6,7 @@
 //------------------------------------------------------------------------------
 
 using System;
-using swiftsuspenders.mapping;
+using SwiftSuspenders.Mapping;
 using UnityEngine;
 
 namespace Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons.Impl

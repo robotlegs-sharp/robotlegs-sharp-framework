@@ -7,7 +7,7 @@
 
 ﻿using System;
 using Robotlegs.Bender.Framework.API;
-using swiftsuspenders.mapping;
+using SwiftSuspenders.Mapping;
 
 namespace Robotlegs.Bender.Extensions.EnhancedLogging.Impl
 {

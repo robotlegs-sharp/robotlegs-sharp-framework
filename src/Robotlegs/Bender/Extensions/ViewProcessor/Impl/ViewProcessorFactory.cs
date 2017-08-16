@@ -14,7 +14,7 @@ using Robotlegs.Bender.Extensions.ViewProcessor.API;
 using Robotlegs.Bender.Extensions.ViewProcessor.DSL;
 using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Framework.Impl;
-using swiftsuspenders.errors;
+using SwiftSuspenders.Errors;
 
 
 namespace Robotlegs.Bender.Extensions.ViewProcessor.Impl
