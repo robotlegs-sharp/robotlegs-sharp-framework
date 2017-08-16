@@ -6,7 +6,7 @@
 //------------------------------------------------------------------------------
 
 using Robotlegs.Bender.Framework.API;
-using swiftsuspenders;
+using SwiftSuspenders;
 
 namespace Robotlegs.Bender.Framework.Impl
 {

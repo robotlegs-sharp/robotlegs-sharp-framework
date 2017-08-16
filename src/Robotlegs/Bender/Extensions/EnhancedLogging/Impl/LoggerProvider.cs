@@ -7,7 +7,7 @@
 
 ﻿using System;
 using Robotlegs.Bender.Framework.API;
-using swiftsuspenders.dependencyproviders;
+using SwiftSuspenders.DependencyProviders;
 
 namespace Robotlegs.Bender.Extensions.EnhancedLogging.Impl
 {
@@ -64,7 +64,7 @@ namespace Robotlegs.Bender.Extensions.EnhancedLogging.Impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public object Apply (Type targetType, swiftsuspenders.Injector activeInjector, System.Collections.Generic.Dictionary<string, object> injectParameters)
+		public object Apply (Type targetType, SwiftSuspenders.Injector activeInjector, System.Collections.Generic.Dictionary<string, object> injectParameters)
 		{
 			object logger = _context.GetLogger(targetType);;
 			if (_postApply != null)

@@ -8,8 +8,8 @@
 using System;
 using System.Collections.Generic;
 using Robotlegs.Bender.Framework.API;
-using swiftsuspenders.dependencyproviders;
-using swiftsuspenders.mapping;
+using SwiftSuspenders.DependencyProviders;
+using SwiftSuspenders.Mapping;
 
 namespace Robotlegs.Bender.Platforms.Unity.Extensions.UnitySingletons.Impl
 {

@@ -8,8 +8,8 @@
 ﻿using System;
 using Robotlegs.Bender.Framework.API;
 using Robotlegs.Bender.Framework.Impl;
-using swiftsuspenders.errors;
-using swiftsuspenders.mapping;
+using SwiftSuspenders.Errors;
+using SwiftSuspenders.Mapping;
 
 namespace Robotlegs.Bender.Extensions.Vigilance
 {
