@@ -102,7 +102,10 @@ namespace Robotlegs.Bender.Platforms.Unity.Extensions.Mediation.Impl
 
 			if (mediatorAttach.Mediators.Length == 0) 
 			{
-				GameObject.Destroy (mediatorAttach);
+				if(!Application.isPlaying)
+				    GameObject.DestroyImmediate (mediatorAttach);
+                else
+                    GameObject.Destroy (mediatorAttach);
 				_viewMediatorAttachDictionary.Remove (view);
 			}
 		}
