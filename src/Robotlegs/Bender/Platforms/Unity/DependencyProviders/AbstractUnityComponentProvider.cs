@@ -84,21 +84,21 @@ namespace Robotlegs.Bender.DependencyProviders
 			return component;
 		}
 
-        public void RemoveComponent()
+		public void RemoveComponent()
 		{
 			if (destroyGameObjectWhenComplete && parentObject != null)
 			{
-                if (!Application.isPlaying)
-                    GameObject.DestroyImmediate(parentObject.gameObject);
-                else
-                    GameObject.Destroy(parentObject.gameObject);
+				if (!Application.isPlaying)
+					GameObject.DestroyImmediate(parentObject.gameObject);
+				else
+					GameObject.Destroy(parentObject.gameObject);
 			}
 			else
 			{
-                if(!Application.isPlaying)
-                    Component.DestroyImmediate(component);
-                else
-                    Component.Destroy(component);
+				if(!Application.isPlaying)
+					Component.DestroyImmediate(component);
+				else
+					Component.Destroy(component);
 			}
 			parentObject = null;
 			component = null;
