@@ -88,14 +88,17 @@ namespace Robotlegs.Bender.DependencyProviders
 		{
 			if (destroyGameObjectWhenComplete && parentObject != null)
 			{
-				GameObject.Destroy(parentObject.gameObject);
+				if (!Application.isPlaying)
+					GameObject.DestroyImmediate(parentObject.gameObject);
+				else
+					GameObject.Destroy(parentObject.gameObject);
 			}
 			else
 			{
-                if(!Application.isPlaying)
-                    Component.DestroyImmediate(component);
-                else
-                    Component.Destroy(component);
+				if(!Application.isPlaying)
+					Component.DestroyImmediate(component);
+				else
+					Component.Destroy(component);
 			}
 			parentObject = null;
 			component = null;
