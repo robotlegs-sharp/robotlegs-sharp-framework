@@ -56,7 +56,7 @@ namespace Robotlegs.Bender.Framework.Impl
 
 		public void Install(Type type)
 		{
-			if (_types.ContainsKey (type))
+			if (IsInstalled(type))
 				return;
 
 			object extension = CreateInstance (type);
@@ -67,7 +67,7 @@ namespace Robotlegs.Bender.Framework.Impl
 		{
 			Type type = extension.GetType();
 
-			if (_types.ContainsKey(type))
+			if (IsInstalled(type))
 				return;
 
 			_logger.Debug("Installing extension {0}", extension);
