@@ -1,8 +1,8 @@
 //------------------------------------------------------------------------------
-//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved. 
-// 
-//  NOTICE: You are permitted to use, modify, and distribute this file 
-//  in accordance with the terms of the license agreement accompanying it. 
+//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved.
+//
+//  NOTICE: You are permitted to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //------------------------------------------------------------------------------
 
 using Robotlegs.Bender.Framework.API;
@@ -20,154 +20,174 @@ using Robotlegs.Bender.Extensions.ViewManagement.Support;
 
 namespace Robotlegs.Bender.Extensions.ViewProcessor.Impl
 {
-	public class ViewProcessorMediatorsTest
-	{
+    public class ViewProcessorMediatorsTest
+    {
+        /*============================================================================*/
+        /* Private Properties                                                         */
+        /*============================================================================*/
 
-		/*============================================================================*/
-		/* Private Properties                                                         */
-		/*============================================================================*/
+        #region Fields
 
-		private IInjector injector;
+        private IInjector injector;
 
-		private ViewProcessorMap instance;
+        private ViewProcessorMap instance;
 
-		private MediatorWatcher mediatorWatcher;
+        private SupportView matchingView;
+        private MediatorWatcher mediatorWatcher;
 
-		private SupportView matchingView;
+        #endregion Fields
 
-		/*============================================================================*/
-		/* Test Setup and Teardown                                                    */
-		/*============================================================================*/
+        /*============================================================================*/
+        /* Test Setup and Teardown                                                    */
+        /*============================================================================*/
 
-		[SetUp]
-		public void Setup()
-		{
-			injector = new RobotlegsInjector();
-			instance = new ViewProcessorMap(new ViewProcessorFactory(injector));
+        #region Methods
 
-			mediatorWatcher = new MediatorWatcher();
-			injector.Map(typeof(MediatorWatcher)).ToValue(mediatorWatcher);
-			matchingView = new SupportView();
-		}
+        [Test]
+        public async Task Automatically_Unprocesses_When_View_Leaves_Stage()
+        {
+            instance.Map(typeof(SupportView)).ToProcess(new MediatorCreator(typeof(SupportMediator)));
+            matchingView.AddThisView();
+            instance.Process(matchingView);
+            Action<IView> removeViewCallback = null;
+            removeViewCallback = delegate (IView view)
+            {
+                matchingView.RemoveView -= removeViewCallback;
+                CheckMediatorsDestroyed(view);
+            };
+            matchingView.RemoveView += removeViewCallback;
+            matchingView.RemoveThisView();
+            await Task.Delay(500);
+        }
 
-		[TearDown]
-		public void TearDown()
-		{
-			instance = null;
-			injector = null;
-			mediatorWatcher = null;
-		}
+        [Test]
+        public void Create_Mediator_Instantiates_Mediator_For_View_When_Mapped()
+        {
+            instance.Map(typeof(SupportView)).ToProcess(new MediatorCreator(typeof(SupportMediator)));
 
-		/*============================================================================*/
-		/* Tests                                                                      */
-		/*============================================================================*/
+            SupportView objA = new SupportView();
+            instance.HandleView(objA, objA.GetType());
+            objA.AddThisView();
 
-		[Test]
-		public void Test_Failure_Seen()
-		{
-			Assert.That (true, Is.True);
-		}
+            string[] expectedNotifications = new string[1] { "SupportMediator" };
+            Assert.That(expectedNotifications, Is.EquivalentTo(mediatorWatcher.Notifications));
+        }
 
-		[Test]
-		public void Create_Mediator_Instantiates_Mediator_For_View_When_Mapped()
-		{
-			instance.Map(typeof(SupportView)).ToProcess(new MediatorCreator(typeof(SupportMediator)));
+        [Test]
+        public void Doesnt_Leave_View_And_Mediator_Mappings_Lying_Around()
+        {
+            instance.MapMatcher(new TypeMatcher().AnyOf(typeof(ObjectWhichExtendsSupportView), typeof(SupportView))).ToProcess(new MediatorCreator(typeof(SupportMediator)));
+            instance.HandleView(new SupportView(), typeof(SupportView));
 
-			SupportView objA = new SupportView();
-			instance.HandleView(objA, objA.GetType());
-			objA.AddThisView();
+            Assert.That(injector.HasDirectMapping(typeof(ObjectWhichExtendsSupportView)), Is.False);
+            Assert.That(injector.HasDirectMapping(typeof(SupportView)), Is.False);
+            Assert.That(injector.HasDirectMapping(typeof(SupportMediator)), Is.False);
+        }
 
-			string[] expectedNotifications = new string[1] { "SupportMediator" };
-			Assert.That (expectedNotifications, Is.EquivalentTo (mediatorWatcher.Notifications));
-		}
+        [Test]
+        public void Process_Instantiates_Mediator_For_View_When_Matched_To_Mapping()
+        {
+            instance.Map(typeof(SupportView)).ToProcess(new MediatorCreator(typeof(SupportMediator)));
 
-		[Test]
-		public void Doesnt_Leave_View_And_Mediator_Mappings_Lying_Around()
-		{
-			instance.MapMatcher(new TypeMatcher().AnyOf(typeof(ObjectWhichExtendsSupportView), typeof(SupportView))).ToProcess(new MediatorCreator(typeof(SupportMediator)));
-			instance.HandleView(new SupportView(), typeof(SupportView));
+            instance.Process(new SupportView());
 
-			Assert.That(injector.HasDirectMapping(typeof(ObjectWhichExtendsSupportView)), Is.False);
-			Assert.That(injector.HasDirectMapping(typeof(SupportView)), Is.False);
-			Assert.That(injector.HasDirectMapping(typeof(SupportMediator)), Is.False);
-		}
+            List<string> expectedNotifications = new List<string> { "SupportMediator" };
+            Assert.That(expectedNotifications, Is.EquivalentTo(mediatorWatcher.Notifications));
+        }
 
-		[Test]
-		public void Process_Instantiates_Mediator_For_View_When_Matched_To_Mapping()
-		{
-			instance.Map(typeof(SupportView)).ToProcess(new MediatorCreator(typeof(SupportMediator)));
+        [Test]
+        public void Runs_Destroy_On_Created_Mediator_When_Unprocess_Runs()
+        {
+            instance.Map(typeof(SupportView)).ToProcess(new MediatorCreator(typeof(SupportMediator)));
 
-			instance.Process(new SupportView());
+            SupportView view = new SupportView();
+            instance.Process(view);
+            instance.Unprocess(view);
 
-			List<string> expectedNotifications = new List<string>{"SupportMediator"};
-			Assert.That(expectedNotifications, Is.EquivalentTo(mediatorWatcher.Notifications));
-		}
+            List<string> expectedNotifications = new List<string> { "SupportMediator", "SupportMediator destroy" };
+            Assert.That(expectedNotifications, Is.EquivalentTo(mediatorWatcher.Notifications));
+        }
 
-		[Test]
-		public void Runs_Destroy_On_Created_Mediator_When_Unprocess_Runs()
-		{
-			instance.Map(typeof(SupportView)).ToProcess(new MediatorCreator(typeof(SupportMediator)));
+        [SetUp]
+        public void Setup()
+        {
+            injector = new RobotlegsInjector();
+            instance = new ViewProcessorMap(new ViewProcessorFactory(injector));
 
-			SupportView view = new SupportView();
-			instance.Process(view);
-			instance.Unprocess(view);
+            mediatorWatcher = new MediatorWatcher();
+            injector.Map(typeof(MediatorWatcher)).ToValue(mediatorWatcher);
+            matchingView = new SupportView();
+        }
 
-			List<string> expectedNotifications = new List<string>{"SupportMediator", "SupportMediator destroy"};
-			Assert.That(expectedNotifications, Is.EquivalentTo(mediatorWatcher.Notifications));
-		}
+        [TearDown]
+        public void TearDown()
+        {
+            instance = null;
+            injector = null;
+            mediatorWatcher = null;
+        }
 
-		[Test]
-		public async void Automatically_Unprocesses_When_View_Leaves_Stage()
-		{
-			instance.Map(typeof(SupportView)).ToProcess(new MediatorCreator(typeof(SupportMediator)));
-			matchingView.AddThisView();
-			instance.Process(matchingView);
-			Action<IView> removeViewCallback = null;
-			removeViewCallback = delegate(IView view) {
-				matchingView.RemoveView -= removeViewCallback;
-				CheckMediatorsDestroyed(view);
-			};
-			matchingView.RemoveView += removeViewCallback;
-			matchingView.RemoveThisView();
-			await Task.Delay (500);
-		}
+        /*============================================================================*/
+        /* Tests                                                                      */
+        /*============================================================================*/
 
-		/*============================================================================*/
-		/* Private Functions                                                          */
-		/*============================================================================*/
+        [Test]
+        public void Test_Failure_Seen()
+        {
+            Assert.That(true, Is.True);
+        }
 
-		private void CheckMediatorsDestroyed(object view)
-		{
-			List<string> expectedNotifications = new List<string> {"SupportMediator", "SupportMediator destroy"};
-			Assert.That(expectedNotifications, Is.EqualTo(expectedNotifications).AsCollection);
-		}
-	}
+        /*============================================================================*/
+        /* Private Functions                                                          */
+        /*============================================================================*/
+
+        private void CheckMediatorsDestroyed(object view)
+        {
+            List<string> expectedNotifications = new List<string> { "SupportMediator", "SupportMediator destroy" };
+            Assert.That(expectedNotifications, Is.EqualTo(expectedNotifications).AsCollection);
+        }
+
+        #endregion Methods
+    }
 }
 
-class SupportMediator2
+internal class SupportMediator2
 {
+    /*============================================================================*/
+    /* Public Properties                                                          */
+    /*============================================================================*/
 
-	/*============================================================================*/
-	/* Public Properties                                                          */
-	/*============================================================================*/
+    #region Properties
 
-	[Inject]
-	public MediatorWatcher mediatorWatcher {get;set;}
+    [Inject]
+    public MediatorWatcher mediatorWatcher
+    {
+        get; set;
+    }
 
-	[Inject]
-	public SupportView view {get;set;}
+    [Inject]
+    public SupportView view
+    {
+        get; set;
+    }
 
-	/*============================================================================*/
-	/* Public Functions                                                           */
-	/*============================================================================*/
+    #endregion Properties
 
-	public void Initialize()
-	{
-		mediatorWatcher.Notify("SupportMediator2");
-	}
+    /*============================================================================*/
+    /* Public Functions                                                           */
+    /*============================================================================*/
 
-	public void Destroy()
-	{
-		mediatorWatcher.Notify("SupportMediator2 destroy");
-	}
+    #region Methods
+
+    public void Destroy()
+    {
+        mediatorWatcher.Notify("SupportMediator2 destroy");
+    }
+
+    public void Initialize()
+    {
+        mediatorWatcher.Notify("SupportMediator2");
+    }
+
+    #endregion Methods
 }
