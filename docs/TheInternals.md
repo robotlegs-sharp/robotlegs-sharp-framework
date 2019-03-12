@@ -92,31 +92,31 @@ It uses the **ModuleConnector** to make different channels and relays events wit
 
 A fairly detailed overview
 
-* [Command Center](../src/robotlegs/bender/extensions/commandCenter/readme.md)
-* [Context View](../src/robotlegs/bender/extensions/contextViews/readme.md)
+* [Command Center](..src/Robotlegs/Bender/Extensions/CommandCenter/readme.md)
+* [Context View](../src/Robotlegs/Bender/Extensions/ContextViews/readme.md)
 	* Stage Sync
 	* Context View Listener Config
-* [Direct Command Map](../src/robotlegs/bender/extensions/directCommand/readme.md)
-* [Enhanced Logging](../src/robotlegs/bender/extensions/enhancedLogging/readme.md)
-	* [Console Logging](../src/robotlegs/bender/extensions/enhancedLogging/readme.md#TraceLoggerExtension)
-	* [Injectable Logger](../src/robotlegs/bender/extensions/enhancedLogging/readme.md#InjectableLoggerExtension)
-	* [Injector Activity Logging](../src/robotlegs/bender/extensions/enhancedLogging/readme.md#InjectorActivityLoggingExtension)
-* [Event Command Map](../src/robotlegs/bender/extensions/eventCommand/readme.md)
-* [Event Dispatcher](../src/robotlegs/bender/extensions/eventManagement/readme.md)
-* [Local Event Map](../src/robotlegs/bender/extensions/localEventMap/readme.md)
-* [Matching](../src/robotlegs/bender/extensions/matching/readme.md)
+* [Direct Command Map](../src/Robotlegs/Bender/Extensions/DirectCommand/readme.md)
+* [Enhanced Logging](../src/Robotlegs/Bender/Extensions/EnhancedLogging/readme.md)
+	* [Console Logging](../src/Robotlegs/Bender/Extensions/EnhancedLogging/readme.md#TraceLoggerExtension)
+	* [Injectable Logger](../src/Robotlegs/Bender/Extensions/EnhancedLogging/readme.md#InjectableLoggerExtension)
+	* [Injector Activity Logging](../src/Robotlegs/Bender/Extensions/EnhancedLogging/readme.md#InjectorActivityLoggingExtension)
+* [Event Command Map](../src/Robotlegs/Bender/Extensions/EventCommand/readme.md)
+* [Event Dispatcher](../src/Robotlegs/Bender/Extensions/EventManagement/readme.md)
+* [Local Event Map](../src/Robotlegs/Bender/Extensions/LocalEventMap/readme.md)
+* [Matching](../src/Robotlegs/Bender/Extensions/Matching/readme.md)
 	* InstanceOf Matcher
-	* [Type Matcher](../src/robotlegs/bender/extensions/matching/readme.md#TypeMatcher Usage)
-	* [Namespace Matcher](../src/robotlegs/bender/extensions/matching/readme.md#NamespaceMatcher Usage)
-* [Mediation](../src/robotlegs/bender/extensions/mediation/readme.md)
-* [Modularity Extension](../src/robotlegs/bender/extensions/modularity/readme.md)
+	* [Type Matcher](../src/Robotlegs/Bender/Extensions/Matching/readme.md#TypeMatcher Usage)
+	* [Namespace Matcher](../src/Robotlegs/Bender/Extensions/Matching/readme.md#NamespaceMatcher Usage)
+* [Mediation](../src/robotlegs/Bender/Extensions/Mediation/readme.md)
+* [Modularity Extension](../src/Robotlegs/Bender/Extensions/Modularity/readme.md)
 	* Module Connector
-* [View Management](../src/robotlegs/bender/extensions/viewManagement/readme.md)
+* [View Management](../src/Robotlegs/Bender/Extensions/ViewManagement/readme.md)
 	* Container Registry
 	* Parent Finder
 	* View Notifier
-* [View Processor](../src/robotlegs/bender/extensions/ViewProcessor/readme.md)
-* [Vigilance](../src/robotlegs/bender/extensions/vigilance/readme.md)
+* [View Processor](../src/Robotlegs/Bender/Extensions/ViewProcessor/readme.md)
+* [Vigilance](../src/Robotlegs/Bender/Extensions/Vigilance/readme.md)
 
 
 From here
