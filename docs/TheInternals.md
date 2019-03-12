@@ -92,7 +92,7 @@ It uses the **ModuleConnector** to make different channels and relays events wit
 
 A fairly detailed overview
 
-* [Command Center](..src/Robotlegs/Bender/Extensions/CommandCenter/readme.md)
+* [Command Center](../src/Robotlegs/Bender/Extensions/CommandCenter/readme.md)
 * [Context View](../src/Robotlegs/Bender/Extensions/ContextViews/readme.md)
 	* Stage Sync
 	* Context View Listener Config
@@ -108,7 +108,7 @@ A fairly detailed overview
 	* InstanceOf Matcher
 	* [Type Matcher](../src/Robotlegs/Bender/Extensions/Matching/readme.md#TypeMatcher Usage)
 	* [Namespace Matcher](../src/Robotlegs/Bender/Extensions/Matching/readme.md#NamespaceMatcher Usage)
-* [Mediation](../src/robotlegs/Bender/Extensions/Mediation/readme.md)
+* [Mediation](../src/Robotlegs/Bender/Extensions/Mediation/readme.md)
 * [Modularity Extension](../src/Robotlegs/Bender/Extensions/Modularity/readme.md)
 	* Module Connector
 * [View Management](../src/Robotlegs/Bender/Extensions/ViewManagement/readme.md)
