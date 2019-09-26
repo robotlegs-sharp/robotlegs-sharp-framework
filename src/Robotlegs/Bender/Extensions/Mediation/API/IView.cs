@@ -12,6 +12,8 @@ namespace Robotlegs.Bender.Extensions.Mediation.API
 	public interface IView
 	{
 		event Action<IView> RemoveView;
+
+        void Ready();
 	}
 }
 

@@ -59,10 +59,18 @@ namespace Robotlegs.Bender.Extensions.Mediation.Impl
 		public void HandleView(object view, Type type)
 		{
 			List<IMediatorMapping> interestedMappings = GetInterestedMappingsFor(view, type);
-			if (interestedMappings != null)
+            List<object> mediators = new List<object>();
+
+            if (interestedMappings != null)
 			{
-				_factory.CreateMediators (view, type, interestedMappings);
+				mediators = _factory.CreateMediators (view, type, interestedMappings);
 			}
+
+            if(mediators != null && mediators.Count > 0)
+            {
+                if(view is IView)
+                    (view as IView).Ready();    
+            }
 		}
 
 		/*============================================================================*/
