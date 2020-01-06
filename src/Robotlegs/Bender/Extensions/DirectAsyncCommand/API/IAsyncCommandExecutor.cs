@@ -6,6 +6,7 @@
 //------------------------------------------------------------------------------
 
 using Robotlegs.Bender.Extensions.CommandCenter.API;
+using System;
 using System.Collections.Generic;
 
 namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
@@ -36,5 +37,11 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
 		/// <param name="mapping">The Command Mappings</param>
 		/// <param name="payload">The Command Payload</param>
         void ExecuteAsyncCommands(IEnumerable<ICommandMapping> mapping, CommandPayload payload);
+
+        /// <summary>
+        /// Sets the callback function that all commands executed.
+        /// </summary>
+        /// <param name="callback">The callback function that all commands executed to invoke.</param>
+        void SetCommandsExecutedCallback(Action callback);
     }
 }

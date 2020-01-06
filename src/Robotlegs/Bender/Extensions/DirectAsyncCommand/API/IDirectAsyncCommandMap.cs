@@ -5,6 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
+using System;
 using Robotlegs.Bender.Extensions.CommandCenter.Impl;
 
 namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API

@@ -14,16 +14,23 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
     public interface IDirectAsyncCommandMapper
     {
         /// <summary>
-		/// Creates a mapping for a command class
-		/// </summary>
-		/// <returns>The command configurator</returns>
-		/// <param name="commandClass">The concrete command class</param>
-        IDirectAsyncCommandConfigurator Map<T>() where T : IAsyncCommand;
-
-        /// <summary>
         /// Executes the configured command(s)
         /// </summary>
         /// <param name="payload">The command payload</param>
         void Execute(CommandPayload payload = null);
+
+        /// <summary>
+        /// Creates a mapping for a command class.
+        /// </summary>
+        /// <typeparam name="T">The concrete asynchronous command class.</typeparam>
+        /// <returns>The command configurator.</returns>
+        IDirectAsyncCommandConfigurator Map<T>() where T : IAsyncCommand;
+
+        /// <summary>
+        /// Sets the callback function that all commands executed.
+        /// </summary>
+        /// <param name="callback">The callback function that all commands executed to invoke.</param>
+        /// <returns>The command mapper.</returns>
+        IDirectAsyncCommandMapper SetCommandsExecutedCallback(Action callback);
     }
 }

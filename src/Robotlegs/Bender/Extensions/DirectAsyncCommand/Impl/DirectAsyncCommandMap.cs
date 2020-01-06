@@ -37,7 +37,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         {
             get
             {
-                if(_executor != null)
+                if (_executor != null)
                 {
                     return _executor.IsAborted;
                 }
@@ -84,6 +84,16 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         public IDirectAsyncCommandConfigurator Map<T>() where T : IAsyncCommand
         {
             return new DirectAsyncCommandMapper(_executor, _mappings, typeof(T));
+        }
+
+        public IDirectAsyncCommandMapper SetCommandsExecutedCallback(Action callback)
+        {
+            if (_executor != null)
+            {
+                _executor.SetCommandsExecutedCallback(callback);
+            }
+
+            return this;
         }
     }
 }

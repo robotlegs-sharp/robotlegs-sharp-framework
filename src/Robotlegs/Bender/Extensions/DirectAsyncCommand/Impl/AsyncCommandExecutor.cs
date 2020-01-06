@@ -34,6 +34,8 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
         private IAsyncCommand _currentAsyncCommand;
 
+        private Action _commandsExecutedCallback;
+
         /*============================================================================*/
         /* Public Properties                                                         */
         /*============================================================================*/
@@ -48,7 +50,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         /* Constructors                                                           */
         /*============================================================================*/
 
-        public AsyncCommandExecutor(IContext context, IInjector injector, 
+        public AsyncCommandExecutor(IContext context, IInjector injector,
             CommandExecutor.RemoveMappingDelegate removeMapping = null, CommandExecutor.HandleResultDelegate handleResult = null)
         {
             IsAborted = false;
@@ -70,7 +72,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         {
             IsAborted = true;
 
-            if(abortCurrentCommand && _currentAsyncCommand != null)
+            if (abortCurrentCommand && _currentAsyncCommand != null)
             {
                 _currentAsyncCommand.Abort();
             }
@@ -81,6 +83,11 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             _commandMappingQueue = new Queue<ICommandMapping>(mappings);
             _payload = payload;
             ExecuteNextCommand();
+        }
+
+        public void SetCommandsExecutedCallback(Action callback)
+        {
+            _commandsExecutedCallback = callback;
         }
 
         /*============================================================================*/
@@ -98,12 +105,20 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
                     _commandExecutor.ExecuteCommand(mapping, _payload);
                 }
 
-                return;
+                break;
             }
 
             if (_context.injector.HasMapping(typeof(Action), AsyncCommandExecutedCallbackName))
             {
                 _context.injector.Unmap(typeof(Action), AsyncCommandExecutedCallbackName);
+            }
+
+            if (!IsAborted && _commandMappingQueue.Count == 0)
+            {
+                if (_commandsExecutedCallback != null)
+                {
+                    _commandsExecutedCallback.Invoke();
+                }
             }
         }
 
@@ -121,7 +136,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         {
             _context.Release(command);
 
-            if(stop)
+            if (stop)
             {
                 Abort(false);
             }
