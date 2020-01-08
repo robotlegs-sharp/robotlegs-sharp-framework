@@ -57,7 +57,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             _context = context;
             _handleResult = handleResult;
             _commandExecutor = new CommandExecutor(injector, removeMapping, HandleCommandExecuteResult);
-            _context.injector.Map(typeof(Action<IAsyncCommand>), AsyncCommandExecutedCallbackName).ToValue((Action<IAsyncCommand, bool>)CommandExecutedCallback);
+            _context.injector.Map(typeof(Action<IAsyncCommand, bool>), AsyncCommandExecutedCallbackName).ToValue((Action<IAsyncCommand, bool>)CommandExecutedCallback);
         }
 
         /*============================================================================*/
@@ -96,6 +96,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
         private void ExecuteNextCommand()
         {
+            System.Console.WriteLine(_commandMappingQueue.Count);
             while (!IsAborted && _commandMappingQueue.Count > 0)
             {
                 ICommandMapping mapping = _commandMappingQueue.Dequeue();
@@ -103,9 +104,8 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
                 if (mapping != null)
                 {
                     _commandExecutor.ExecuteCommand(mapping, _payload);
+                    return;
                 }
-
-                break;
             }
 
             if (_context.injector.HasMapping(typeof(Action), AsyncCommandExecutedCallbackName))
