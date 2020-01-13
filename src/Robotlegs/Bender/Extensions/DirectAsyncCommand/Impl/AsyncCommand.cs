@@ -29,6 +29,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
         public virtual void Abort()
         {
+            Executed(true);
         }
 
         public abstract void Execute();
