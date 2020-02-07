@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="Robotlegs-Sharp-Framework" preserve="all" />
+  <assembly fullname="Robotlegs-Sharp-Platform-Unity" preserve="all" />
+  <assembly fullname="swiftsuspenders-sharp" preserve="all" />
+</linker>

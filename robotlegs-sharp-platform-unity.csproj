@@ -28,7 +28,11 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="link.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\DependencyProviders\UnityComponentProvider.cs" />
     <Compile Include="src\Robotlegs\Bender\Platforms\Unity\Extensions\ContextViews\UnityStageCrawlerConfig.cs" />
