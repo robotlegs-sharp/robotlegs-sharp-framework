@@ -102,7 +102,6 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
         private void ExecuteNextCommand()
         {
-            System.Console.WriteLine(_commandMappingQueue.Count);
             while (!IsAborted && _commandMappingQueue.Count > 0)
             {
                 ICommandMapping mapping = _commandMappingQueue.Dequeue();
