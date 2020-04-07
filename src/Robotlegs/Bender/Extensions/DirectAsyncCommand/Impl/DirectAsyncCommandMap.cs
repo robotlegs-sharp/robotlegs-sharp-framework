@@ -95,5 +95,15 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
             return this;
         }
+
+        public IDirectAsyncCommandMapper SetCommandsAbortedCallback(Action callback)
+        {
+            if (_executor != null)
+            {
+                _executor.SetCommandsAbortedCallback(callback);
+            }
+
+            return this;
+        }
     }
 }

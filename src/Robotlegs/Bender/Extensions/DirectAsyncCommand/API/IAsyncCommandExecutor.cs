@@ -43,5 +43,11 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
         /// </summary>
         /// <param name="callback">The callback function that all commands executed to invoke.</param>
         void SetCommandsExecutedCallback(Action callback);
+
+        /// <summary>
+        /// Sets the callback function that remaining commands was aborted.
+        /// </summary>
+        /// <param name="callback">The callback function that remaining commands was aborted.</param>
+        void SetCommandsAbortedCallback(Action callback);
     }
 }

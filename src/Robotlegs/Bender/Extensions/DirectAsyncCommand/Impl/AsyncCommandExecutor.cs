@@ -36,6 +36,8 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
         private Action _commandsExecutedCallback;
 
+        private Action _commandsAbortedCallback;
+
         /*============================================================================*/
         /* Public Properties                                                         */
         /*============================================================================*/
@@ -89,6 +91,11 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             _commandsExecutedCallback = callback;
         }
 
+        public void SetCommandsAbortedCallback(Action callback)
+        {
+            _commandsAbortedCallback = callback;
+        }
+
         /*============================================================================*/
         /* Private Functions                                                           */
         /*============================================================================*/
@@ -108,12 +115,13 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
                 }
             }
 
-            if (!IsAborted && _commandMappingQueue.Count == 0)
+            if (IsAborted)
             {
-                if (_commandsExecutedCallback != null)
-                {
-                    _commandsExecutedCallback.Invoke();
-                }
+                _commandsAbortedCallback?.Invoke();
+            }
+            else if (_commandMappingQueue.Count == 0)
+            {
+                _commandsExecutedCallback?.Invoke();
             }
         }
 

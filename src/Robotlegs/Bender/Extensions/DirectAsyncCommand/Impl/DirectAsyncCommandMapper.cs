@@ -58,6 +58,12 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             return this;
         }
 
+        public IDirectAsyncCommandMapper SetCommandsAbortedCallback(Action callback)
+        {
+            _executor.SetCommandsAbortedCallback(callback);
+            return this;
+        }
+
         public IDirectAsyncCommandConfigurator WithExecuteMethod(string name)
         {
             _mapping.SetExecuteMethod(name);
