@@ -116,6 +116,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
             if (IsAborted)
             {
+                _commandMappingQueue.Clear();
                 _commandsAbortedCallback?.Invoke();
             }
             else if (_commandMappingQueue.Count == 0)
