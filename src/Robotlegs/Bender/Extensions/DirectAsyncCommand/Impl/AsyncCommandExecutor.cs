@@ -24,6 +24,8 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
         private IContext _context;
 
+        private IInjector _injector;
+
         private Queue<ICommandMapping> _commandMappingQueue;
 
         private CommandPayload _payload;
@@ -57,6 +59,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         {
             IsAborted = false;
             _context = context;
+            _injector = injector;
             _handleResult = handleResult;
             _commandExecutor = new CommandExecutor(injector, removeMapping, HandleCommandExecuteResult);
         }
@@ -108,8 +111,13 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
                 if (mapping != null)
                 {
-                    _context.injector.Map<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName).ToValue((Action<IAsyncCommand, bool>)CommandExecutedCallback);
+                    _injector.Map<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName).ToValue((Action<IAsyncCommand, bool>)CommandExecutedCallback);
                     _commandExecutor.ExecuteCommand(mapping, _payload);
+
+                    if (_injector.HasDirectMapping<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName))
+                    {
+                        _injector.Unmap<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName);
+                    }
                     return;
                 }
             }
@@ -138,7 +146,6 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         private void CommandExecutedCallback(IAsyncCommand command, bool stop = false)
         {
             _context.Release(command);
-            _context.injector.Unmap<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName);
 
             if (stop)
             {

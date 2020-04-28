@@ -40,8 +40,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
         protected virtual void Executed(bool stop = false)
         {
-            if (ExecutedCallback != null)
-                ExecutedCallback.Invoke(this, stop);
+            ExecutedCallback?.Invoke(this, stop);
         }
     }
 }
