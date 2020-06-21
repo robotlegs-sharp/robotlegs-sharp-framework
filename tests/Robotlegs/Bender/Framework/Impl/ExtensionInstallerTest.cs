@@ -176,6 +176,23 @@ namespace Robotlegs.Bender.Framework.Impl
 			Assert.That (instance.value1, Is.EqualTo (1));
 			Assert.That (instance.value2, Is.EqualTo ("arg"));
 		}
+
+		[Test]
+		public void check_is_installed_from_object()
+		{
+			IExtension extension = new EmptyExtension();
+			Assert.That(installer.IsInstalled<EmptyExtension>(), Is.False);
+			installer.Install(extension);
+			Assert.That(installer.IsInstalled<EmptyExtension>(), Is.True);
+		}
+
+		[Test]
+		public void check_is_installed_from_class()
+		{
+			Assert.That(installer.IsInstalled<EmptyExtension>(), Is.False);
+			installer.Install<EmptyExtension>();
+			Assert.That(installer.IsInstalled<EmptyExtension>(), Is.True);
+		}
 	}
 }
 

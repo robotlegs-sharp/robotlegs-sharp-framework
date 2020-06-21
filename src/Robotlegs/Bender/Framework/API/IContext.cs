@@ -69,11 +69,29 @@ namespace Robotlegs.Bender.Framework.API
 		/// <param name="callback">Destruction callback.</param>
 		IContext Destroy (Action callback = null);
 
-		/// <summary>
-		/// Installs custom extensions or bundles into the context
-		/// </summary>
-		/// <typeparam name="T">IExtension class</typeparam>
-		IContext Install<T>() where T : IExtension;
+        /// <summary>
+        /// Determines whether the custom extensions or bundles is installed.
+        /// </summary>
+        /// <typeparam name="T">IExtension class.</typeparam>
+        /// <returns>
+        ///   <c>true</c> if the custom extensions or bundles is installed; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsInstalled<T>() where T : IExtension;
+
+        /// <summary>
+        /// Determines whether the custom extensions or bundles is installed.
+        /// </summary>
+        /// <param name="type">Type with an 'Extend(IContext context)' method signature.</param>
+        /// <returns>
+        ///   <c>true</c> if the custom extensions or bundles is installed; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsInstalled (Type type);
+
+        /// <summary>
+        /// Installs custom extensions or bundles into the context
+        /// </summary>
+        /// <typeparam name="T">IExtension class</typeparam>
+        IContext Install<T>() where T : IExtension;
 		/// <summary>
 		/// Installs custom extensions or bundles into the context
 		/// </summary>
