@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------------------------
-//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved. 
-// 
-//  NOTICE: You are permitted to use, modify, and distribute this file 
-//  in accordance with the terms of the license agreement accompanying it. 
+//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved.
+//
+//  NOTICE: You are permitted to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //------------------------------------------------------------------------------
 
 using System;
@@ -21,17 +21,34 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         /* Private Fields                                                         */
         /*============================================================================*/
 
-        private List<CommandMappingList.Processor> _mappingProcessors = new List<CommandMappingList.Processor>();
+        #region Fields
 
         private IContext _context;
-
         private IAsyncCommandExecutor _executor;
-
+        private List<CommandMappingList.Processor> _mappingProcessors = new List<CommandMappingList.Processor>();
         private CommandMappingList _mappings;
+
+        #endregion Fields
 
         /*============================================================================*/
         /* Pulbic Properties                                                         */
         /*============================================================================*/
+
+        #region Constructors
+
+        public DirectAsyncCommandMap(IContext context)
+        {
+            _context = context;
+            IInjector sandboxedInjector = context.injector.CreateChild();
+            sandboxedInjector.Map(typeof(IDirectAsyncCommandMap)).ToValue(this);
+            _mappings = new CommandMappingList(
+                new NullCommandTrigger(), _mappingProcessors, context.GetLogger(this));
+            _executor = new AsyncCommandExecutor(_context, sandboxedInjector, _mappings.RemoveMapping);
+        }
+
+        #endregion Constructors
+
+        #region Properties
 
         public bool IsAborted
         {
@@ -46,23 +63,16 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             }
         }
 
+        #endregion Properties
+
         /*============================================================================*/
         /* Constructor                                                                */
         /*============================================================================*/
-
-        public DirectAsyncCommandMap(IContext context)
-        {
-            _context = context;
-            IInjector sandboxedInjector = context.injector.CreateChild();
-            sandboxedInjector.Map(typeof(IDirectAsyncCommandMap)).ToValue(this);
-            _mappings = new CommandMappingList(
-                new NullCommandTrigger(), _mappingProcessors, context.GetLogger(this));
-            _executor = new AsyncCommandExecutor(_context, sandboxedInjector, _mappings.RemoveMapping);
-        }
-
         /*============================================================================*/
         /* Public Functions                                                           */
         /*============================================================================*/
+
+        #region Methods
 
         public void Abort(bool abortCurrentCommand = true)
         {
@@ -86,24 +96,18 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             return new DirectAsyncCommandMapper(_executor, _mappings, typeof(T));
         }
 
-        public IDirectAsyncCommandMapper SetCommandsExecutedCallback(Action callback)
-        {
-            if (_executor != null)
-            {
-                _executor.SetCommandsExecutedCallback(callback);
-            }
-
-            return this;
-        }
-
         public IDirectAsyncCommandMapper SetCommandsAbortedCallback(Action callback)
         {
-            if (_executor != null)
-            {
-                _executor.SetCommandsAbortedCallback(callback);
-            }
-
+            _executor.SetCommandsAbortedCallback(callback);
             return this;
         }
+
+        public IDirectAsyncCommandMapper SetCommandsExecutedCallback(Action callback)
+        {
+            _executor.SetCommandsExecutedCallback(callback);
+            return this;
+        }
+
+        #endregion Methods
     }
 }

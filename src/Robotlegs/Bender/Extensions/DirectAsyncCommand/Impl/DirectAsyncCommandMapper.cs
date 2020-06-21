@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------------------------
-//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved. 
-// 
-//  NOTICE: You are permitted to use, modify, and distribute this file 
-//  in accordance with the terms of the license agreement accompanying it. 
+//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved.
+//
+//  NOTICE: You are permitted to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //------------------------------------------------------------------------------
 
 using Robotlegs.Bender.Extensions.CommandCenter.API;
@@ -19,15 +19,19 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
         /* Private Properties                                                         */
         /*============================================================================*/
 
-        private ICommandMappingList _mappings;
-
-        private ICommandMapping _mapping;
+        #region Fields
 
         private IAsyncCommandExecutor _executor;
+        private ICommandMapping _mapping;
+        private ICommandMappingList _mappings;
+
+        #endregion Fields
 
         /*============================================================================*/
         /* Constructor                                                                */
         /*============================================================================*/
+
+        #region Constructors
 
         public DirectAsyncCommandMapper(IAsyncCommandExecutor executor, ICommandMappingList mappings, Type commandClass)
         {
@@ -38,9 +42,13 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             _mappings.AddMapping(_mapping);
         }
 
+        #endregion Constructors
+
         /*============================================================================*/
         /* Public Functions                                                           */
         /*============================================================================*/
+
+        #region Methods
 
         public void Execute(CommandPayload payload = null)
         {
@@ -52,15 +60,15 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             return new DirectAsyncCommandMapper(_executor, _mappings, typeof(T));
         }
 
-        public IDirectAsyncCommandMapper SetCommandsExecutedCallback(Action callback)
-        {
-            _executor.SetCommandsExecutedCallback(callback);
-            return this;
-        }
-
         public IDirectAsyncCommandMapper SetCommandsAbortedCallback(Action callback)
         {
             _executor.SetCommandsAbortedCallback(callback);
+            return this;
+        }
+
+        public IDirectAsyncCommandMapper SetCommandsExecutedCallback(Action callback)
+        {
+            _executor.SetCommandsExecutedCallback(callback);
             return this;
         }
 
@@ -87,5 +95,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             _mapping.SetPayloadInjectionEnabled(value);
             return this;
         }
+
+        #endregion Methods
     }
 }

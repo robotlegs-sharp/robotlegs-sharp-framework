@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------------------------
-//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved. 
-// 
-//  NOTICE: You are permitted to use, modify, and distribute this file 
-//  in accordance with the terms of the license agreement accompanying it. 
+//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved.
+//
+//  NOTICE: You are permitted to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //------------------------------------------------------------------------------
 
 using Robotlegs.Bender.Extensions.CommandCenter.API;
@@ -16,31 +16,46 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 {
     internal class AsyncCommandExecutor : IAsyncCommandExecutor
     {
+        #region Fields
+
         private const string AsyncCommandExecutedCallbackName = "AsyncCommandExecutedCallback";
 
         /*============================================================================*/
         /* Private Fields                                                         */
         /*============================================================================*/
 
+        private ICommandExecutor _commandExecutor;
+        private Queue<ICommandMapping> _commandMappingQueue;
+        private Action _commandsAbortedCallback;
+        private Action _commandsExecutedCallback;
         private IContext _context;
 
-        private Queue<ICommandMapping> _commandMappingQueue;
-
+        private IAsyncCommand _currentAsyncCommand;
+        private CommandExecutor.HandleResultDelegate _handleResult;
+        private IInjector _injector;
         private CommandPayload _payload;
 
-        private ICommandExecutor _commandExecutor;
-
-        private CommandExecutor.HandleResultDelegate _handleResult;
-
-        private IAsyncCommand _currentAsyncCommand;
-
-        private Action _commandsExecutedCallback;
-
-        private Action _commandsAbortedCallback;
+        #endregion Fields
 
         /*============================================================================*/
         /* Public Properties                                                         */
         /*============================================================================*/
+
+        #region Constructors
+
+        public AsyncCommandExecutor(IContext context, IInjector injector,
+            CommandExecutor.RemoveMappingDelegate removeMapping = null, CommandExecutor.HandleResultDelegate handleResult = null)
+        {
+            IsAborted = false;
+            _context = context;
+            _injector = injector;
+            _handleResult = handleResult;
+            _commandExecutor = new CommandExecutor(injector, removeMapping, HandleCommandExecuteResult);
+        }
+
+        #endregion Constructors
+
+        #region Properties
 
         public bool IsAborted
         {
@@ -48,22 +63,16 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             private set;
         }
 
+        #endregion Properties
+
         /*============================================================================*/
         /* Constructors                                                           */
         /*============================================================================*/
-
-        public AsyncCommandExecutor(IContext context, IInjector injector,
-            CommandExecutor.RemoveMappingDelegate removeMapping = null, CommandExecutor.HandleResultDelegate handleResult = null)
-        {
-            IsAborted = false;
-            _context = context;
-            _handleResult = handleResult;
-            _commandExecutor = new CommandExecutor(injector, removeMapping, HandleCommandExecuteResult);
-        }
-
         /*============================================================================*/
         /* Public Functions                                                           */
         /*============================================================================*/
+
+        #region Methods
 
         /// <summary>
         /// Aborts asynchronous Command execution.
@@ -86,19 +95,31 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             ExecuteNextCommand();
         }
 
-        public void SetCommandsExecutedCallback(Action callback)
-        {
-            _commandsExecutedCallback = callback;
-        }
-
         public void SetCommandsAbortedCallback(Action callback)
         {
             _commandsAbortedCallback = callback;
         }
 
+        public void SetCommandsExecutedCallback(Action callback)
+        {
+            _commandsExecutedCallback = callback;
+        }
+
         /*============================================================================*/
         /* Private Functions                                                           */
         /*============================================================================*/
+
+        private void CommandExecutedCallback(IAsyncCommand command, bool stop = false)
+        {
+            _context.Release(command);
+
+            if (stop)
+            {
+                Abort(false);
+            }
+
+            ExecuteNextCommand();
+        }
 
         private void ExecuteNextCommand()
         {
@@ -108,14 +129,20 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
 
                 if (mapping != null)
                 {
-                    _context.injector.Map<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName).ToValue((Action<IAsyncCommand, bool>)CommandExecutedCallback);
+                    _injector.Map<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName).ToValue((Action<IAsyncCommand, bool>)CommandExecutedCallback);
                     _commandExecutor.ExecuteCommand(mapping, _payload);
+
+                    if (_injector.HasDirectMapping<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName))
+                    {
+                        _injector.Unmap<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName);
+                    }
                     return;
                 }
             }
 
             if (IsAborted)
             {
+                _commandMappingQueue.Clear();
                 _commandsAbortedCallback?.Invoke();
             }
             else if (_commandMappingQueue.Count == 0)
@@ -134,17 +161,6 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.Impl
             _context.Detain(command);
         }
 
-        private void CommandExecutedCallback(IAsyncCommand command, bool stop = false)
-        {
-            _context.Release(command);
-            _context.injector.Unmap<Action<IAsyncCommand, bool>>(AsyncCommandExecutedCallbackName);
-
-            if (stop)
-            {
-                Abort(false);
-            }
-
-            ExecuteNextCommand();
-        }
+        #endregion Methods
     }
 }
