@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------------------------
-//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved. 
-// 
-//  NOTICE: You are permitted to use, modify, and distribute this file 
-//  in accordance with the terms of the license agreement accompanying it. 
+//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved.
+//
+//  NOTICE: You are permitted to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //------------------------------------------------------------------------------
 
 using Robotlegs.Bender.Extensions.CommandCenter.API;
@@ -16,6 +16,8 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
 	/// </summary>
     public interface IAsyncCommandExecutor
     {
+        #region Properties
+
         /// <summary>
         /// Gets a value indicating whether the asynchronous commands execution is aborted.
         /// </summary>
@@ -24,6 +26,10 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
         {
             get;
         }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Aborts asynchronous Command execution.
@@ -39,15 +45,17 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
         void ExecuteAsyncCommands(IEnumerable<ICommandMapping> mapping, CommandPayload payload);
 
         /// <summary>
+        /// Sets the callback function that remaining commands was aborted.
+        /// </summary>
+        /// <param name="callback">The callback function that remaining commands was aborted.</param>
+        void SetCommandsAbortedCallback(Action callback);
+
+        /// <summary>
         /// Sets the callback function that all commands executed.
         /// </summary>
         /// <param name="callback">The callback function that all commands executed to invoke.</param>
         void SetCommandsExecutedCallback(Action callback);
 
-        /// <summary>
-        /// Sets the callback function that remaining commands was aborted.
-        /// </summary>
-        /// <param name="callback">The callback function that remaining commands was aborted.</param>
-        void SetCommandsAbortedCallback(Action callback);
+        #endregion Methods
     }
 }

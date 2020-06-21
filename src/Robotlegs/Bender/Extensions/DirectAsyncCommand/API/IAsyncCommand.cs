@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------------------------
-//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved. 
-// 
-//  NOTICE: You are permitted to use, modify, and distribute this file 
-//  in accordance with the terms of the license agreement accompanying it. 
+//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved.
+//
+//  NOTICE: You are permitted to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //------------------------------------------------------------------------------
 
 using Robotlegs.Bender.Extensions.CommandCenter.API;
@@ -16,6 +16,8 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
     /// <seealso cref="Robotlegs.Bender.Extensions.CommandCenter.API.ICommand" />
     public interface IAsyncCommand : ICommand
     {
+        #region Properties
+
         /// <summary>
         /// Gets the executed callback.
         /// </summary>
@@ -25,9 +27,15 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
             get;
         }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// Aborts asynchronous operation.
         /// </summary>
         void Abort();
+
+        #endregion Methods
     }
 }

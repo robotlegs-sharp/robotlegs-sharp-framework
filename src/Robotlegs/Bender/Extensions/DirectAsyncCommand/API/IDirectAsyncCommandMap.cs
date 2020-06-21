@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------------------------
-//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved. 
-// 
-//  NOTICE: You are permitted to use, modify, and distribute this file 
-//  in accordance with the terms of the license agreement accompanying it. 
+//  Copyright (c) 2014-2016 the original author or authors. All Rights Reserved.
+//
+//  NOTICE: You are permitted to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //------------------------------------------------------------------------------
 
 using System;
@@ -12,6 +12,8 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
 {
     public interface IDirectAsyncCommandMap : IDirectAsyncCommandMapper
     {
+        #region Properties
+
         /// <summary>
         /// Gets a value indicating whether the asynchronous commands execution is aborted.
         /// </summary>
@@ -20,6 +22,10 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
         {
             get;
         }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Aborts the asynchronous commands execution.
@@ -33,5 +39,7 @@ namespace Robotlegs.Bender.Extensions.DirectAsyncCommand.API
 		/// <returns>Self</returns>
 		/// <param name="handler">Delegate that accepts a mapping</param>
 		IDirectAsyncCommandMap AddMappingProcessor(CommandMappingList.Processor handler);
+
+        #endregion Methods
     }
 }
