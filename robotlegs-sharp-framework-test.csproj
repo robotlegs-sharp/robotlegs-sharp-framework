@@ -99,6 +99,13 @@
     <Compile Include="tests\Robotlegs\Bender\Extensions\CommandCenter\Support\UnmapperStub.cs" />
     <Compile Include="tests\Robotlegs\Bender\Extensions\ContextViews\ContextViewExtensionTest.cs" />
     <Compile Include="tests\Robotlegs\Bender\Extensions\ContextViews\StageSyncExtensionTest.cs" />
+	<Compile Include="tests\Robotlegs\Bender\Extensions\DirectAsyncCommand\DirectAsyncCommandMapExtensionTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectAsyncCommand\Impl\DirectAsyncCommandMapperTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectAsyncCommand\Impl\DirectAsyncCommandMapTest.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectAsyncCommand\Support\AbortAsyncCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectAsyncCommand\Support\DirectAsyncCommandMapReportingAsyncCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectAsyncCommand\Support\NullAsyncCommand.cs" />
+    <Compile Include="tests\Robotlegs\Bender\Extensions\DirectAsyncCommand\Support\NullAsyncCommand2.cs" />
     <Compile Include="tests\Robotlegs\Bender\Extensions\DirectCommand\DirectCommandMapExtensionTest.cs" />
     <Compile Include="tests\Robotlegs\Bender\Extensions\DirectCommand\Impl\DirectCommandMapperTest.cs" />
     <Compile Include="tests\Robotlegs\Bender\Extensions\DirectCommand\Impl\DirectCommandMapTest.cs" />
