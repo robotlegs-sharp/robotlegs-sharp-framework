@@ -39,6 +39,10 @@ namespace Robotlegs.Bender.Framework.Impl
 				MethodInfo approveMethod = guardInstance.GetType().GetMethod("Approve");
 				if (approveMethod != null)
 				{
+					//Before we invoke Approve, inject any needed values
+					if (injector != null && guardInstance.GetType().IsClass)
+						injector.InjectInto(guardInstance);
+
 					if ((bool)approveMethod.Invoke (guardInstance, null) == false)
 						return false;
 				}

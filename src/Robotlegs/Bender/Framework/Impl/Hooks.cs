@@ -42,7 +42,13 @@ namespace Robotlegs.Bender.Framework.Impl
 
 				MethodInfo hookMethod = hookInstance.GetType().GetMethod("Hook");
 				if (hookMethod != null)
+                {
+					//Before we invoke Hook, inject any needed values
+					if (injector != null && hookInstance.GetType().IsClass)
+						injector.InjectInto(hookInstance);
+
 					hookMethod.Invoke (hookInstance, null);
+                }
 				else
 					throw new Exception ("Invalid hook to apply");
 			}
