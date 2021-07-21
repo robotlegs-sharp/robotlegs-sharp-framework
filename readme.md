@@ -2,7 +2,7 @@
 Robotlegs
 =========
 
-Robotlegs-Sharp is a application framework for C# ported from [Robotlegs for AS3](http://www.robotlegs.org/).
+Robotlegs-Sharp is a application framework for C# ported from [Robotlegs for AS3](https://github.com/robotlegs/robotlegs-framework).
 It offers:
 
 * Dependency injection
@@ -18,7 +18,7 @@ Download & Install
 
 We have provided the files as .dll binarys for ease of including into your projects. Please note you also need the dependency of swiftsuspenders.
 
-* [Robotlegs Binaries Download](http://www.robotlegs-sharp.org)
+* [Robotlegs Binaries Download](https://robotlegs-sharp.github.io/)
 
 If you are wanting to browse though the interals, or want the source to recompile. Please download the sources here:
 
