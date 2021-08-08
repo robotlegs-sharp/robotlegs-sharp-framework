@@ -39,6 +39,16 @@ namespace Robotlegs.Bender.Framework.Impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
+        public bool IsInstalled<T>() where T : IExtension
+        {
+            return IsInstalled(typeof(T));
+        }
+
+        public bool IsInstalled(Type type)
+        {
+            return _types.ContainsKey(type);
+        }
+
 		public void Install<T>() where T : IExtension
 		{
 			Install (typeof(T));
@@ -46,7 +56,7 @@ namespace Robotlegs.Bender.Framework.Impl
 
 		public void Install(Type type)
 		{
-			if (_types.ContainsKey (type))
+			if (IsInstalled(type))
 				return;
 
 			object extension = CreateInstance (type);
@@ -57,7 +67,7 @@ namespace Robotlegs.Bender.Framework.Impl
 		{
 			Type type = extension.GetType();
 
-			if (_types.ContainsKey(type))
+			if (IsInstalled(type))
 				return;
 
 			_logger.Debug("Installing extension {0}", extension);

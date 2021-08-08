@@ -436,7 +436,17 @@ namespace Robotlegs.Bender.Framework.Impl
 			return this;
 		}
 
-		public IContext Install<T>() where T : IExtension
+        public bool IsInstalled<T>() where T : IExtension
+        {
+            return IsInstalled(typeof(T));
+        }
+
+        public bool IsInstalled(Type type)
+        {
+            return _extensionInstaller.IsInstalled(type);
+        }
+
+        public IContext Install<T>() where T : IExtension
 		{
 			_extensionInstaller.Install<T>();
 			return this;

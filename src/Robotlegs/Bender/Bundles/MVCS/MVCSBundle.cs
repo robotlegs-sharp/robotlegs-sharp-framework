@@ -5,6 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
+using Robotlegs.Bender.Extensions.DirectAsyncCommand;
 using Robotlegs.Bender.Extensions.DirectCommand;
 using Robotlegs.Bender.Extensions.EnhancedLogging;
 using Robotlegs.Bender.Extensions.EventCommand;
@@ -36,7 +37,8 @@ namespace Robotlegs.Bender.Bundles.MVCS
 			context.Install(typeof(VigilanceExtension));
 			context.Install(typeof(InjectableLoggerExtension));
 			context.Install(typeof(EventDispatcherExtension));
-			context.Install(typeof(DirectCommandMapExtension));
+            context.Install(typeof(DirectAsyncCommandMapExtension));
+            context.Install(typeof(DirectCommandMapExtension));
 			context.Install(typeof(EventCommandMapExtension));
 			context.Install(typeof(LocalEventMapExtension));
 			context.Install(typeof(ViewManagerExtension));

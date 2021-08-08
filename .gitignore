@@ -4,3 +4,5 @@ obj
 bin
 *.zip
 .vs
+/packages
+/robotlegs-sharp-framework-test.sln.GhostDoc.xml

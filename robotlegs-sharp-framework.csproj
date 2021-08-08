@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -28,30 +28,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="src\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\Vigilance\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\LocalEventMap\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\LocalEventMap\API\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\LocalEventMap\Impl\" />
-    <Folder Include="src\Robotlegs\Bender\Bundles\MVCS\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\Modularity\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\EventManagement\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\EventManagement\API\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\EventManagement\Impl\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\EventCommand\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\EventCommand\API\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\EventCommand\Impl\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\DirectCommand\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\DirectCommand\API\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\DirectCommand\Impl\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\DirectCommand\DSL\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\ViewProcessor\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\ViewProcessor\API\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\ViewProcessor\Impl\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\ViewProcessor\DSL\" />
-    <Folder Include="src\Robotlegs\Bender\Extensions\ViewProcessor\Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="src\Robotlegs\Bender\Extensions\CommandCenter\API\CommandPayload.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\CommandCenter\API\ICommand.cs" />
@@ -68,6 +45,16 @@
     <Compile Include="src\Robotlegs\Bender\Extensions\ContextViews\ContextViewListenerConfig.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\ContextViews\API\IContextView.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\ContextViews\Impl\ContextView.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\API\IAsyncCommand.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\API\IAsyncCommandExecutor.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\API\IDirectAsyncCommandMap.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\API\IDirectAsyncCommandMapper.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\DirectAsyncCommandMapExtension.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\DSL\IDirectAsyncCommandConfigurator.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\Impl\AsyncCommand.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\Impl\AsyncCommandExecutor.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\Impl\DirectAsyncCommandMap.cs" />
+    <Compile Include="src\Robotlegs\Bender\Extensions\DirectAsyncCommand\Impl\DirectAsyncCommandMapper.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\EnhancedLogging\ConsoleLoggingExtension.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\EnhancedLogging\Impl\ConsoleLogTarget.cs" />
     <Compile Include="src\Robotlegs\Bender\Extensions\Matching\InstanceOfMatcher.cs" />
@@ -216,9 +203,10 @@
     <None Include="src\Robotlegs\Bender\Extensions\Modularity\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="swiftsuspenders-sharp">
+    <Reference Include="swiftsuspenders-sharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\swiftsuspenders-sharp.dll</HintPath>
-      <Private>False</Private>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
 </Project>
