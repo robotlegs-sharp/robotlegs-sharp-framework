@@ -12,26 +12,31 @@ using UnityEngine;
 
 namespace Robotlegs.Bender.Platforms.Unity.Extensions.Mediation.Impl
 {
-	public class View : MonoBehaviour, IView
-	{
-		public event Action<IView> RemoveView
-		{
-			add
-			{
-				_removeView += value;
-			}
-			remove
-			{
-				_removeView -= value;
-			}
-		}
-		
-		private Action<IView> _removeView;
-		
-		protected virtual void Start ()
-		{
-			ViewNotifier.RegisterView(this);
-		}
+    public class View : MonoBehaviour, IView
+    {
+        public event Action<IView> RemoveView
+        {
+            add
+            {
+                _removeView += value;
+            }
+            remove
+            {
+                _removeView -= value;
+            }
+        }
+
+        private Action<IView> _removeView;
+
+        protected virtual void Start()
+        {
+            ViewNotifier.RegisterView(this);
+        }
+
+        public virtual void Ready()
+        {
+
+        }
 
 		protected virtual void OnDestroy ()
 		{
