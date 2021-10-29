@@ -24,44 +24,44 @@ namespace Robotlegs.Bender.Extensions.EventManagement.Impl
 		/* Public Functions                                                           */
 		/*============================================================================*/
 
-		public void AddEventListener<T>(Enum type, Action<T> listener)
+		public virtual void AddEventListener<T>(Enum type, Action<T> listener)
 		{
 			AddEventListener(type, listener as Delegate);
 		}
 
-		public void AddEventListener(Enum type, Action<IEvent> listener)
+		public virtual void AddEventListener(Enum type, Action<IEvent> listener)
 		{
 			AddEventListener(type, listener as Delegate);
 		}
 
-		public void AddEventListener(Enum type, Action listener)
+		public virtual void AddEventListener(Enum type, Action listener)
 		{
 			AddEventListener(type, listener as Delegate);
 		}
 
-		public void AddEventListener(Enum type, Delegate listener)
+		public virtual void AddEventListener(Enum type, Delegate listener)
 		{
 			if (!_listeners.ContainsKey (type))
 				_listeners.Add (type, new List<Delegate> ());
 			_listeners[type].Add (listener);
 		}
 
-		public void RemoveEventListener<T>(Enum type, Action<T> listener)
+		public virtual void RemoveEventListener<T>(Enum type, Action<T> listener)
 		{
 			RemoveEventListener(type, listener as Delegate);
 		}
 
-		public void RemoveEventListener(Enum type, Action<IEvent> listener)
+		public virtual void RemoveEventListener(Enum type, Action<IEvent> listener)
 		{
 			RemoveEventListener(type, listener as Delegate);
 		}
 
-		public void RemoveEventListener(Enum type, Action listener)
+		public virtual void RemoveEventListener(Enum type, Action listener)
 		{
 			RemoveEventListener(type, listener as Delegate);
 		}
 
-		public void RemoveEventListener(Enum type, Delegate listener)
+		public virtual void RemoveEventListener(Enum type, Delegate listener)
 		{
 			if (_listeners.ContainsKey (type)) 
 			{
@@ -72,17 +72,17 @@ namespace Robotlegs.Bender.Extensions.EventManagement.Impl
 			}
 		}
 
-		public bool HasEventListener(Enum type)
+		public virtual bool HasEventListener(Enum type)
 		{
 			return _listeners.ContainsKey (type);
 		}
 
-		public void RemoveAllEventListeners()
+		public virtual void RemoveAllEventListeners()
 		{
 			_listeners.Clear ();
 		}
 
-		public void Dispatch (IEvent evt) 
+		public virtual void Dispatch (IEvent evt) 
 		{
 			if (_listeners.ContainsKey (evt.type)) 
 			{
